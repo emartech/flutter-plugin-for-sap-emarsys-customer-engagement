@@ -34,4 +34,24 @@ void main() {
 
     await Emarsys.setContact('testContactFieldValue');
   });
+
+  test('clearContact should throw error', () async {
+    channel.setMockMethodCallHandler((MethodCall methodCall) async {
+      throw PlatformException(code: '42', message: 'Test error message', details: 'Test detail', stacktrace: 'Test stacktrace');
+    });
+
+    expect(Emarsys.clearContact(), throwsA(
+      isA<PlatformException>().having(
+        (error) => error.message, 
+        'message', 
+        'Test error message')));
+  });
+
+  test('clearContact should not throw error', () async {
+    channel.setMockMethodCallHandler((MethodCall methodCall) async {
+      return null;
+    });
+
+    await Emarsys.clearContact();
+  });
 }

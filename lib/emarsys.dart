@@ -7,5 +7,9 @@ class Emarsys {
   static Future<void> setContact(String contactFieldValue) {
       return _channel.invokeMethod('setContact');
   }
+  
+  static Future<void> clearContact() {
+      return _channel.invokeMethod('clearContact');
+  }
 
 }
