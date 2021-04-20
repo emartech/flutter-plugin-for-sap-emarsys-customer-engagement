@@ -1,3 +1,4 @@
+import 'package:emarsys_sdk/config.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:emarsys_sdk/emarsys.dart';
@@ -8,11 +9,24 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   setUp(() {
-    
+    channel.setMockMethodCallHandler((MethodCall methodCall) async {
+          return null;
+    });
   });
 
   tearDown(() {
     channel.setMockMethodCallHandler(null);
+  });
+
+  test('setup should work', () async {
+    Config config = Config(applicationCode: '',contactFieldId: 0);
+
+    channel.setMockMethodCallHandler((MethodCall methodCall) async {
+          expect(methodCall.method, 'setup');
+          expect(methodCall.arguments, config.toMap());
+    });
+
+    await Emarsys.setup(config);
   });
 
   test('setContact should throw error', () async {
@@ -28,10 +42,6 @@ void main() {
   });
 
   test('setContact should not throw error', () async {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return null;
-    });
-
     await Emarsys.setContact('testContactFieldValue');
   });
 
@@ -48,10 +58,6 @@ void main() {
   });
 
   test('clearContact should not throw error', () async {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return null;
-    });
-
     await Emarsys.clearContact();
   });
 }
