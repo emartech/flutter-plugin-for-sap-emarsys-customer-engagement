@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:emarsys_sdk/emarsys_sdk.dart';
+import 'package:emarsys_sdk/emarsys.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,7 +27,7 @@ class _MyAppState extends State<MyApp> {
     String platformVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      platformVersion = await EmarsysSdk.platformVersion;
+
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
