@@ -1,7 +1,6 @@
 package com.emarsys.emarsys_sdk.commands
 
 import com.emarsys.emarsys_sdk.EmarsysCommand
-import com.emarsys.emarsys_sdk.callbacks.ResultCallback
 
 class SetContactCommand: EmarsysCommand {
 
