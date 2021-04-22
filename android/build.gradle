@@ -29,6 +29,8 @@ android {
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
+
+        test.java.srcDirs += "src/test/kotlin"
     }
     defaultConfig {
         minSdkVersion 16
@@ -37,4 +39,7 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation "io.kotlintest:kotlintest-runner-junit4:3.1.11"
 }
