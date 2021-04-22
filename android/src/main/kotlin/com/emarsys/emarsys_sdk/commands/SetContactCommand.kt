@@ -4,7 +4,7 @@ import com.emarsys.emarsys_sdk.EmarsysCommand
 
 class SetContactCommand: EmarsysCommand {
 
-    override fun execute(parameters: Map<String, Any>, resultCallback: ResultCallback) {
+    override fun execute(parameters: Map<String, Any>?, resultCallback: ResultCallback) {
 
     }
 

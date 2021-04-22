@@ -5,7 +5,7 @@ import com.emarsys.emarsys_sdk.EmarsysCommand
 
 class SetupCommand: EmarsysCommand {
 
-    override fun execute(parameters: Map<String, Any>, resultCallback: ResultCallback) {
+    override fun execute(parameters: Map<String, Any>?, resultCallback: ResultCallback) {
     }
 
     override fun equals(other: Any?): Boolean {

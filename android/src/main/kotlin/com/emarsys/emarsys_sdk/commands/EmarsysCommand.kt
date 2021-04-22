@@ -4,5 +4,5 @@ import com.emarsys.emarsys_sdk.commands.ResultCallback
 
 
 interface EmarsysCommand{
-    fun execute(parameters: Map<String, Any>, resultCallback: ResultCallback)
+    fun execute(parameters: Map<String, Any>?, resultCallback: ResultCallback)
 }
