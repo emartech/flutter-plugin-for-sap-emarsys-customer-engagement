@@ -35,6 +35,17 @@ android {
     defaultConfig {
         minSdkVersion 16
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 dependencies {
@@ -42,4 +53,5 @@ dependencies {
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation "io.kotlintest:kotlintest-runner-junit4:3.1.11"
+    testImplementation "io.mockk:mockk:1.11.0"
 }
