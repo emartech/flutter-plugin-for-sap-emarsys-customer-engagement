@@ -23,7 +23,7 @@ class EmarsysSdkPluginTest {
     fun setUp() {
         emarsysPlugin = EmarsysSdkPlugin()
         mockCommandFactory = mockk(relaxed = true)
-        setupDependencyContainer(FakeDependencyContainer(mockCommandFactory))
+        setupDependencyContainer(FakeDependencyContainer(emarsysCommandFactory = mockCommandFactory))
     }
 
     @After

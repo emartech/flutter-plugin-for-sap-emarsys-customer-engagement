@@ -1,5 +1,6 @@
 package com.emarsys.emarsys_sdk
 
+import android.app.Application
 import androidx.annotation.NonNull
 import com.emarsys.emarsys_sdk.di.DefaultDependencyContainer
 import com.emarsys.emarsys_sdk.di.dependencyContainer
@@ -19,7 +20,8 @@ class EmarsysSdkPlugin : FlutterPlugin, MethodCallHandler {
     private lateinit var channel: MethodChannel
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        setupDependencyContainer(DefaultDependencyContainer())
+        setupDependencyContainer(DefaultDependencyContainer(flutterPluginBinding.applicationContext as Application))
+
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, "com.emarsys.methods")
         channel.setMethodCallHandler(this)
     }
