@@ -35,6 +35,8 @@ class EmarsysSdkPlugin : FlutterPlugin, MethodCallHandler {
                     result.success(success)
                 }
             } ?: result.notImplemented()
+        } else {
+            throw IllegalArgumentException("Call arguments is not a map!")
         }
     }
 

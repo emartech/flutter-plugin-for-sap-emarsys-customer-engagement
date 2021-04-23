@@ -66,7 +66,7 @@ class EmarsysSdkPluginTest {
         verify { mockCommand.execute(expectedArguments, any()) }
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException::class)
     fun testOnMethodCall_shouldNotExecuteCommandCreatedByFactoryWithCorrectArguments_whenArgumentsAreNotAMap() {
         val mockCommand: SetupCommand = mockk(relaxed = true)
         val expectedArguments = JSONObject(
