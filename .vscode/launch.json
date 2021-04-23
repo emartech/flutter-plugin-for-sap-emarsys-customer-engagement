@@ -6,7 +6,7 @@
     "configurations": [
         {
             "name": "Current Device",
-            "program": "example/lib/emarsys.dart",
+            "program": "example/lib/main.dart",
             "request": "launch",
             "type": "dart",
         },
