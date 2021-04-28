@@ -1,36 +1,97 @@
-# This is a basic workflow to help you get started with Actions
+name: On Commit
 
-name: CI
-
-# Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
-  # Allows you to run this workflow manually from the Actions tab
+  # push:
+  #   branches: [ master ]
   workflow_dispatch:
+env:
+  SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL }}
+  SLACK_ICON: https://icons.iconarchive.com/icons/martz90/circle/256/android-icon.png
+  SLACK_TITLE: Commit status
+  SLACK_USERNAME: Emarsys SDK - Flutter
+  SLACK_WEBHOOK: ${{ secrets.SLACK_MOBILE_TEAM_CI_CHANNEL_WEBHOOK }}
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  android:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - name: Checkout repo
+        uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Setup flutter env
+        uses: subosito/flutter-action@v1
+        with:
+          flutter-version: "2.0.5"
+          channel: "stable"
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      - name: Update dependencies
+        run: flutter pub get
+
+      - name: Run Flutter Tests
+        run: flutter test
+
+      - name: Run Android unit tests with gradle
+        run: ./gradlew clean emarsys_sdk:build emarsys_sdk:test
+
+#      - name: Run integration tests on Android
+#        run: echo todo
+
+  ios:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Setup flutter env
+        uses: subosito/flutter-action@v1
+        with:
+          flutter-version: "2.0.5"
+          channel: "stable"
+
+      - name: Update dependencies
+        run: flutter pub get
+
+      - name: Run Flutter Tests
+        run: flutter test
+
+#      - name: Run iOS unit tests with gradle
+#        run: ./gradlew clean emarsys_sdk:build emarsys_sdk:test
+
+#      - name: Run integration tests on iOS
+#        run: echo todo
+
+  slack:
+    needs: [android, ios]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download file 'FAILURE.TXT' from artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: failure_file
+
+      - name: Read file 'FAILURE.TXT' and set output parameter
+        id: set_output
+        run: echo "::set-output name=FAILURE::$(<failure_file/FAILURE.TXT)"
+
+      - name: Slack Success
+        if: steps.set_output.outputs.FAILURE == 'false'
+        uses: megamegax/slack_action@0.2.3
+        with:
+          channel: "${{env.SLACK_CHANNEL}}"
+          message: "Last push build successful! :man-gesturing-ok: :bananadance:"
+          user_name: "${{env.SLACK_USERNAME}}"
+          job_status: "success"
+          user_icon: "${{env.SLACK_ICON}}"
+          actions: '[{ "type": "button", "text": "View actions", "url": "https://github.com/emartech/flutter-emarsys-sdk/actions" },{ "type": "button", "text": "View Firebase", "url": "https://console.firebase.google.com/project/ems-mobile-sdk/testlab/histories/" },{ "type": "button", "text": "Install page", "url": "http://ems-mobileteam-artifacts.s3-website-eu-west-1.amazonaws.com/index-ems.html" }]'
+
+      - name: Slack Notification
+        if: steps.set_output.outputs.FAILURE == 'true'
+        uses: megamegax/slack_action@0.2.3
+        with:
+          channel: "${{env.SLACK_CHANNEL}}"
+          message: "Last push build failed! :man-gesturing-no: :blobcatfearful:"
+          user_name: "${{env.SLACK_USERNAME}}"
+          job_status: "failure"
+          user_icon: "${{env.SLACK_ICON}}"
+          actions: '[{ "type": "button", "text": "View actions", "url": "https://github.com/emartech/flutter-emarsys-sdk/actions" },{ "type": "button", "text": "View Firebase", "url": "https://console.firebase.google.com/project/ems-mobile-sdk/testlab/histories/" }]'
