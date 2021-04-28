@@ -18,7 +18,6 @@ class SetupCommandTest {
         const val MERCHANT_ID = "testMerchantId"
         val SHARED_PACKAGE_NAMES = listOf("shared1", "shared2")
         const val SECRET = "testSecret"
-
     }
 
     private lateinit var setupCommand: SetupCommand
@@ -28,7 +27,9 @@ class SetupCommandTest {
     fun setUp() {
         setupCommand = SetupCommand()
         mockApplication = mockk(relaxed = true)
+
         mockkStatic(Emarsys::class)
+        every { Emarsys.setup(any()) } just Runs
 
         setupDependencyContainer(FakeDependencyContainer(application = mockApplication))
     }
