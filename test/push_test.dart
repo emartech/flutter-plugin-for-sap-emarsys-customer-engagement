@@ -1,4 +1,3 @@
-import 'package:emarsys_sdk/config.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:emarsys_sdk/emarsys.dart';
@@ -7,33 +6,28 @@ void main() {
   const MethodChannel channel = MethodChannel('com.emarsys.methods');
 
   TestWidgetsFlutterBinding.ensureInitialized();
-
   setUp(() {
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
       return null;
     });
   });
 
-  tearDown(() {
-    channel.setMockMethodCallHandler(null);
-  });
-
-  test('push is not null', () async {
-    expect(Emarsys.push != null, true);
-  });
-
-  test('setup should work', () async {
-    Config config = Config(applicationCode: '', contactFieldId: 0);
-
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      expect(methodCall.method, 'setup');
-      expect(methodCall.arguments, config.toMap());
+  test('setPushToken should delegate to the Platform', () async {
+    final expectedPushToken = "testPushToken";
+    MethodCall? actualMethodCall;
+    channel.setMockMethodCallHandler((MethodCall methodCall) {
+      actualMethodCall = methodCall;
     });
+    await Emarsys.push.setPushToken(expectedPushToken);
 
-    await Emarsys.setup(config);
+    expect(actualMethodCall != null, true);
+    if (actualMethodCall != null) {
+      expect(actualMethodCall!.method, 'push.setPushToken');
+      expect(actualMethodCall!.arguments, {"pushToken": expectedPushToken});
+    }
   });
 
-  test('setContact should throw error', () async {
+  test('setPushToken should throw error', () async {
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
       throw PlatformException(
           code: '42',
@@ -43,16 +37,26 @@ void main() {
     });
 
     expect(
-        Emarsys.setContact('testContactFieldValue'),
+        Emarsys.push.setPushToken("testPushToken"),
         throwsA(isA<PlatformException>().having(
             (error) => error.message, 'message', 'Test error message')));
   });
 
-  test('setContact should not throw error', () async {
-    await Emarsys.setContact('testContactFieldValue');
+  test('clearPushToken should delegate to the Platform', () async {
+    MethodCall? actualMethodCall;
+    channel.setMockMethodCallHandler((MethodCall methodCall) {
+      actualMethodCall = methodCall;
+    });
+    await Emarsys.push.clearPushToken();
+
+    expect(actualMethodCall != null, true);
+    if (actualMethodCall != null) {
+      expect(actualMethodCall!.method, 'push.clearPushToken');
+      expect(actualMethodCall!.arguments, null);
+    }
   });
 
-  test('clearContact should throw error', () async {
+  test('clearPushToken should throw error', () async {
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
       throw PlatformException(
           code: '42',
@@ -62,12 +66,8 @@ void main() {
     });
 
     expect(
-        Emarsys.clearContact(),
+        Emarsys.push.clearPushToken(),
         throwsA(isA<PlatformException>().having(
             (error) => error.message, 'message', 'Test error message')));
-  });
-
-  test('clearContact should not throw error', () async {
-    await Emarsys.clearContact();
   });
 }
