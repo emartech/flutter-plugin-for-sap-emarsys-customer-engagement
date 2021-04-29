@@ -27,7 +27,7 @@ class ClearPushTokenCommandTest {
         mockkStatic(Emarsys::class)
         every { Emarsys.push.clearPushToken(any()) } just Runs
 
-        command.execute(null) { success, error ->
+        command.execute(null) { _, _ ->
         }
 
         verify { Emarsys.push.clearPushToken(any()) }
@@ -39,14 +39,14 @@ class ClearPushTokenCommandTest {
 
         mockkStatic(Emarsys::class)
         every {
-            Emarsys.push.clearPushToken(any<CompletionListener>())
-        } answers { call ->
+            Emarsys.push.clearPushToken(any())
+        } answers {
             firstArg<CompletionListener>().onCompleted(null)
         }
 
         command.execute(null, mockResultCallback)
 
-        verify { Emarsys.push.clearPushToken(any<CompletionListener>()) }
+        verify { Emarsys.push.clearPushToken(any()) }
         verify { mockResultCallback.invoke(null, null) }
     }
 
@@ -57,14 +57,14 @@ class ClearPushTokenCommandTest {
 
         mockkStatic(Emarsys::class)
         every {
-            Emarsys.push.clearPushToken(any<CompletionListener>())
-        } answers { call ->
+            Emarsys.push.clearPushToken(any())
+        } answers {
             firstArg<CompletionListener>().onCompleted(testError)
         }
 
         command.execute(null, mockResultCallback)
 
-        verify { Emarsys.push.clearPushToken(any<CompletionListener>()) }
+        verify { Emarsys.push.clearPushToken(any()) }
         verify { mockResultCallback.invoke(null, testError) }
     }
 }

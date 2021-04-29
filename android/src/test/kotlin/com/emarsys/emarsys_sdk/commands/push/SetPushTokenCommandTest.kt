@@ -65,7 +65,7 @@ class SetPushTokenCommandTest {
 
     @Test
     fun testExecute_shouldInvokeResultCallback() {
-        every { mockPushApi.setPushToken(any(), any()) } answers { _ ->
+        every { mockPushApi.setPushToken(any(), any()) } answers {
             secondArg<CompletionListener>().onCompleted(null)
         }
 
@@ -78,7 +78,7 @@ class SetPushTokenCommandTest {
     fun testExecute_shouldInvokeResultCallbackWithError() {
         val testError = Throwable()
 
-        every { mockPushApi.setPushToken(any(), any()) } answers { _ ->
+        every { mockPushApi.setPushToken(any(), any()) } answers {
             secondArg<CompletionListener>().onCompleted(testError)
         }
 
