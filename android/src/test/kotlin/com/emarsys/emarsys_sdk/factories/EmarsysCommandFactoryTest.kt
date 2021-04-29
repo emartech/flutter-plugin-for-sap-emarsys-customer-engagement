@@ -5,6 +5,7 @@ import com.emarsys.emarsys_sdk.commands.EmarsysCommandFactory
 import com.emarsys.emarsys_sdk.commands.SetContactCommand
 import com.emarsys.emarsys_sdk.commands.SetupCommand
 import com.emarsys.emarsys_sdk.commands.push.ClearPushTokenCommand
+import com.emarsys.emarsys_sdk.commands.push.SetPushTokenCommand
 import io.kotlintest.shouldBe
 import org.junit.Before
 import org.junit.Test
@@ -43,6 +44,13 @@ class EmarsysCommandFactoryTest {
         val result = factory.create("push.clearPushToken")
 
         result shouldBe ClearPushTokenCommand()
+    }
+
+    @Test
+    fun testCreate_shouldCreateASetPushTokenCommandFromMethodCall() {
+        val result = factory.create("push.setPushToken")
+
+        result shouldBe SetPushTokenCommand()
     }
 
     @Test
