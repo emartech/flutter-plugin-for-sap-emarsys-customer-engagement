@@ -56,7 +56,7 @@ jobs:
         shell: bash
 
       - name: Install Dependencies
-        run: (cd flutter-emarsys-sdk/example/ios && pod install --verbose)
+        run: (pwd && cd ./example/ios && pod install --no-repo-update --verbose)
         shell: bash
 
       - name: Run Flutter Tests
