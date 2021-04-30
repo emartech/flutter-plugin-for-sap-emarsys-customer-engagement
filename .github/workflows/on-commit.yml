@@ -56,14 +56,14 @@ jobs:
         shell: bash
 
       - name: Install Dependencies
-        run: (cd flutter-emarsys-sdk/example/ios && pod install --no-repo-update --verbose)
+        run: (cd flutter-emarsys-sdk/example/ios && pod install --verbose)
         shell: bash
 
       - name: Run Flutter Tests
         run: flutter test
 
       - name: Run iOS unit tests with gradle
-        run: xcodebuild -workspace ~/work/flutter-emarsys-sdk/example/ios/EmarsysSDK.xcworkspace -scheme flutter-plugin-ios-tests -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 12 Pro Max' -derivedDataPath ~/tmp test
+        run: xcodebuild -workspace ~/work/flutter-emarsys-sdk/example/ios/Runner.xcworkspace -scheme flutter-plugin-ios-tests -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 12 Pro Max' -derivedDataPath ~/tmp test
 
 #      - name: Run integration tests on iOS
 #        run: echo todo
