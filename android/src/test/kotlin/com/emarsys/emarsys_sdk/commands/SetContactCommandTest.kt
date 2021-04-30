@@ -33,7 +33,7 @@ class SetContactCommandTest {
         mockkStatic(Emarsys::class)
         every { Emarsys.setContact(any(), any<CompletionListener>()) } just Runs
 
-        command.execute(parameters) { success, error ->
+        command.execute(parameters) { _, _ ->
         }
 
         verify { Emarsys.setContact(CONTACT_FIELD_VALUE, any<CompletionListener>()) }
@@ -44,7 +44,7 @@ class SetContactCommandTest {
         mockkStatic(Emarsys::class)
         every { Emarsys.setContact(any(), any<CompletionListener>()) } just Runs
 
-        command.execute(mapOf()) { success, error -> }
+        command.execute(mapOf()) { _, _ -> }
 
         verify(exactly = 0) { Emarsys.setContact(any(), any<CompletionListener>()) }
     }
@@ -54,7 +54,7 @@ class SetContactCommandTest {
         val mockResultCallback: ResultCallback = mockk(relaxed = true)
 
         mockkStatic(Emarsys::class)
-        every { Emarsys.setContact(any(), any<CompletionListener>()) } answers { call ->
+        every { Emarsys.setContact(any(), any<CompletionListener>()) } answers {
             secondArg<CompletionListener>().onCompleted(null)
         }
 
@@ -69,7 +69,7 @@ class SetContactCommandTest {
         val mockResultCallback: ResultCallback = mockk(relaxed = true)
 
         mockkStatic(Emarsys::class)
-        every { Emarsys.setContact(any(), any<CompletionListener>()) } answers { call ->
+        every { Emarsys.setContact(any(), any<CompletionListener>()) } answers {
             secondArg<CompletionListener>().onCompleted(testError)
         }
 

@@ -31,10 +31,10 @@ jobs:
         run: flutter test
 
       - name: Run Android unit tests with gradle
-        run: ./gradlew clean emarsys_sdk:build emarsys_sdk:test
+        run: (cd flutter-emarsys-sdk/example/android && ./gradlew clean build test)
 
-#      - name: Run integration tests on Android
-#        run: echo todo
+      - name: Run integration tests on Android
+        run: pwd
 
   ios:
     runs-on: macos-latest
@@ -51,11 +51,19 @@ jobs:
       - name: Update dependencies
         run: flutter pub get
 
+      - name: Remove old directories
+        run: rm -rf ~/tmp | rm -rf ~/Library/MobileDevice
+        shell: bash
+
+      - name: Install Dependencies
+        run: (cd flutter-emarsys-sdk/example/ios && pod install --verbose)
+        shell: bash
+
       - name: Run Flutter Tests
         run: flutter test
 
-#      - name: Run iOS unit tests with gradle
-#        run: ./gradlew clean emarsys_sdk:build emarsys_sdk:test
+      - name: Run iOS unit tests with gradle
+        run: xcodebuild -workspace ~/work/flutter-emarsys-sdk/example/ios/Runner.xcworkspace -scheme flutter-plugin-ios-tests -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 12 Pro Max' -derivedDataPath ~/tmp test
 
 #      - name: Run integration tests on iOS
 #        run: echo todo

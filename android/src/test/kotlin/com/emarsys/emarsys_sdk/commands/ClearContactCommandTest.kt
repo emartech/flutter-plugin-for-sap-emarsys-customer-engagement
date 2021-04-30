@@ -28,7 +28,7 @@ class ClearContactCommandTest {
             Emarsys.clearContact(any<CompletionListener>())
         } just Runs
 
-        command.execute(null) { success, error ->
+        command.execute(null) { _, _ ->
         }
 
         verify { Emarsys.clearContact(any<CompletionListener>()) }
@@ -42,7 +42,7 @@ class ClearContactCommandTest {
         mockkStatic(Emarsys::class)
         every {
             Emarsys.clearContact(any<CompletionListener>())
-        } answers { call ->
+        } answers {
             firstArg<CompletionListener>().onCompleted(testError)
         }
 

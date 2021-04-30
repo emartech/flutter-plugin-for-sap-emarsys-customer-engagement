@@ -47,7 +47,7 @@ class SetupCommandTest {
     fun testExecute_contactFieldValueMustNotBeNull() {
         val parameters = mapOf<String, Any>()
 
-        setupCommand.execute(parameters) { success, error ->
+        setupCommand.execute(parameters) { _, _ ->
 
         }
 
@@ -55,7 +55,7 @@ class SetupCommandTest {
 
     @Test(expected = IllegalArgumentException::class)
     fun testExecute_parametersMustNotBeNull() {
-        setupCommand.execute(null) { success, error ->
+        setupCommand.execute(null) { _, _ ->
 
         }
     }
@@ -82,7 +82,7 @@ class SetupCommandTest {
                 .enableVerboseConsoleLogging()
                 .build()
 
-        setupCommand.execute(parameters) { success, error ->
+        setupCommand.execute(parameters) { _, _ ->
 
         }
 
