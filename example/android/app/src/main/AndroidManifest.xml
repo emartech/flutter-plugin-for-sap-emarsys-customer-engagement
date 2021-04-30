@@ -2,7 +2,8 @@
     package="com.emarsys.emarsys_sdk_example">
    <application
         android:label="emarsys_sdk_example"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:name=".ExampleApplication">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -37,5 +38,11 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+          <service android:name="com.emarsys.service.EmarsysMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+          </service>
     </application>
 </manifest>
