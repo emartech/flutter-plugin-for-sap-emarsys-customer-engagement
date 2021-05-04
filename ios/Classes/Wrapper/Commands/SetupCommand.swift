@@ -51,6 +51,7 @@ public class SetupCommand: EmarsysCommandProtocol {
             resultCallback(e)
         } else {
             Emarsys.setup(with: config)
+            UNUserNotificationCenter.current().delegate = Emarsys.notificationCenterDelegate
             resultCallback(["success": true])
         }
     }

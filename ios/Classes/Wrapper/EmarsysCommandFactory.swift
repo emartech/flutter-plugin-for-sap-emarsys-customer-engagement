@@ -13,6 +13,8 @@ class EmarsysCommandFactory {
             result = SetContactCommand()
         case "clearContact":
             result = ClearContactCommand()
+        case "enablePushSending":
+            result = EnablePushSendingCommand()
         default:
             result = nil
         }
