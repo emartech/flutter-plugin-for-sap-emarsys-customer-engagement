@@ -1,9 +1,13 @@
+import 'package:emarsys_sdk/config.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:emarsys_sdk/emarsys.dart';
 
 import 'package:flutter/services.dart';
 
 void main() {
+  Emarsys.setup(Config(contactFieldId: 2575, applicationCode: 'EMS11-C3FD3'));
+  Emarsys.push.enablePushSending(true);
   runApp(MyApp());
 }
 

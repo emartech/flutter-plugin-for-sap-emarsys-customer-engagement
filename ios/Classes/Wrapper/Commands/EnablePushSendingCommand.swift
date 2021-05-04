@@ -10,6 +10,7 @@ public class EnablePushSendingCommand: EmarsysCommandProtocol {
             resultCallback(["error": "Invalid enablePushSending argument"])
             return
         }
+        EmarsysPushTokenHolder.enabled = enable
         if enable {
             if let token = EmarsysPushTokenHolder.pushToken {
                 Emarsys.push.setPushToken(token) { error in
