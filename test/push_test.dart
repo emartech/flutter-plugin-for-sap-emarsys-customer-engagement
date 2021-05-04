@@ -70,4 +70,34 @@ void main() {
         throwsA(isA<PlatformException>().having(
             (error) => error.message, 'message', 'Test error message')));
   });
+
+  test('enablePushSending should delegate to the Platform', () async {
+    final enable = true;
+    MethodCall? actualMethodCall;
+    channel.setMockMethodCallHandler((MethodCall methodCall) {
+      actualMethodCall = methodCall;
+    });
+    await Emarsys.push.enablePushSending(enable);
+
+    expect(actualMethodCall != null, true);
+    if (actualMethodCall != null) {
+      expect(actualMethodCall!.method, 'push.enablePushSending');
+      expect(actualMethodCall!.arguments, {"enablePushSending": enable});
+    }
+  });
+
+  test('enablePushSending should throw error', () async {
+    channel.setMockMethodCallHandler((MethodCall methodCall) async {
+      throw PlatformException(
+          code: '42',
+          message: 'Test error message',
+          details: 'Test detail',
+          stacktrace: 'Test stacktrace');
+    });
+
+    expect(
+        Emarsys.push.enablePushSending(true),
+        throwsA(isA<PlatformException>().having(
+            (error) => error.message, 'message', 'Test error message')));
+  });
 }
