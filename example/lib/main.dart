@@ -6,7 +6,9 @@ import 'package:emarsys_sdk/emarsys.dart';
 import 'package:flutter/services.dart';
 
 void main() {
-  Emarsys.setup(Config(contactFieldId: 2575, applicationCode: 'EMS11-C3FD3'));
+  WidgetsFlutterBinding.ensureInitialized();
+  Emarsys.setup(Config(contactFieldId: 3, applicationCode: 'EMS74-EFB68'));
+  Emarsys.setContact("test@test.com");
   Emarsys.push.enablePushSending(true);
   runApp(MyApp());
 }

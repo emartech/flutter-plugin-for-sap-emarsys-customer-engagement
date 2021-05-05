@@ -6,7 +6,7 @@ import EmarsysSDK
 public class EnablePushSendingCommand: EmarsysCommandProtocol {
 
     func execute(arguments: [String : Any]?, resultCallback: @escaping ResultCallback) {
-        guard let enable = arguments?["enable"] as? Bool else {
+        guard let enable = arguments?["enablePushSending"] as? Bool else {
             resultCallback(["error": "Invalid enablePushSending argument"])
             return
         }

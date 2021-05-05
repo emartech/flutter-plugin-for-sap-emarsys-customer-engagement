@@ -38,7 +38,7 @@ class EmarsysCommandFactoryTests: XCTestCase {
     }
     
     func testCreate_enablePushSending() throws {
-        let command = factory?.create(name: "enablePushSending")
+        let command = factory?.create(name: "push.enablePushSending")
 
         XCTAssertTrue(command is EnablePushSendingCommand)
     }

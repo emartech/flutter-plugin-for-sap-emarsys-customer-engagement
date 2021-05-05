@@ -28,7 +28,7 @@ class EnablePushSendingCommandTests: XCTestCase {
     func testExecute_returnError_missingPushToken() throws {
         EmarsysPushTokenHolder.pushToken = nil
         
-        let arguments = ["enable": true]
+        let arguments = ["enablePushSending": true]
         let expectedResponse = ["error": "Push token is not available"]
         var result = [String: Any]()
 

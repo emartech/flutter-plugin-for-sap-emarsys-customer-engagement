@@ -2,7 +2,7 @@ import EmarsysSDK
 
 public class EmarsysPushTokenHolder {
 
-    public static var enabled = true
+    public static var enabled = false
     
     public static var pushToken: Data? {
         didSet {
