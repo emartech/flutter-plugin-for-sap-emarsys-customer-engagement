@@ -25,6 +25,7 @@ pubspec.lock
 **/android/local.properties
 **/android/**/GeneratedPluginRegistrant.java
 **/android/**/GeneratedPluginRegistrant.kt
+example/android/app/google-services.json
 
 # iOS/XCode related
 **/Flutter/ephemeral/
