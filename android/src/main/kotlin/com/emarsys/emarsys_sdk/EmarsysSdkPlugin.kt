@@ -10,6 +10,11 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import com.emarsys.Emarsys
+import com.emarsys.config.EmarsysConfig
+import com.emarsys.core.di.DependencyContainer
+import com.emarsys.core.di.DependencyInjection
+import com.emarsys.di.DefaultEmarsysDependencyContainer
 
 /** EmarsysSdkPlugin */
 class EmarsysSdkPlugin : FlutterPlugin, MethodCallHandler {
@@ -24,6 +29,8 @@ class EmarsysSdkPlugin : FlutterPlugin, MethodCallHandler {
 
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, "com.emarsys.methods")
         channel.setMethodCallHandler(this)
+
+        DependencyInjection.setup(DefaultEmarsysDependencyContainer(EmarsysConfig.Builder().build()))
     }
 
     @Suppress("UNCHECKED_CAST")

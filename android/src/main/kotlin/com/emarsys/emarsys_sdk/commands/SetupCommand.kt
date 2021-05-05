@@ -3,6 +3,7 @@ package com.emarsys.emarsys_sdk.commands
 import com.emarsys.Emarsys
 import com.emarsys.config.EmarsysConfig
 import com.emarsys.emarsys_sdk.EmarsysCommand
+import com.emarsys.emarsys_sdk.PushTokenHolder
 import com.emarsys.emarsys_sdk.di.dependencyContainer
 
 
@@ -21,7 +22,8 @@ class SetupCommand : EmarsysCommand {
             if (parameters.containsKey("predictMerchantId")) {
                 configBuild.predictMerchantId(parameters["predictMerchantId"] as String?)
             }
-            if (parameters.containsKey("androidAutomaticPushTokenSending") && !(parameters["androidAutomaticPushTokenSending"] as Boolean)) {
+            val androidDisableAutomaticPushTokenSending = parameters["androidDisableAutomaticPushTokenSending"] as Boolean?
+            if (androidDisableAutomaticPushTokenSending != null && androidDisableAutomaticPushTokenSending) {
                 configBuild.disableAutomaticPushTokenSending()
             }
             if (parameters.containsKey("androidSharedPackageNames")) {
@@ -34,6 +36,15 @@ class SetupCommand : EmarsysCommand {
                 configBuild.enableVerboseConsoleLogging()
             }
             Emarsys.setup(configBuild.build())
+            if (androidDisableAutomaticPushTokenSending == null || !androidDisableAutomaticPushTokenSending) {
+                if (PushTokenHolder.pushToken != null) {
+                    Emarsys.push.pushToken = PushTokenHolder.pushToken
+                } else {
+                    PushTokenHolder.pushTokenObserver = { pushToken ->
+                        pushToken?.let { Emarsys.push.pushToken = it }
+                    }
+                }
+            }
         } else {
             throw IllegalArgumentException("ContactFieldId must not be null!")
         }
