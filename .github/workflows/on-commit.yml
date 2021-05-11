@@ -27,16 +27,16 @@ jobs:
       - name: Update dependencies
         run: flutter pub get
         
+      - name: Run Android unit tests with gradle
+        run: (cd example/android && ./gradlew clean build test -x lint)        
+        
       - name: Run tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
           target: google_apis
           script: cd example/android && (flutter drive --driver=test_driver/integration_test.dart --target=integration_test/emarsys_test.dart)
-        
-      - name: Run Android unit tests with gradle
-        run: (cd example/android && ./gradlew clean build test -x lint)
-        
+                
   ios:
     runs-on: macos-latest
     steps:
@@ -66,7 +66,7 @@ jobs:
       - name: Run Flutter Tests
         run: flutter test
 
-      - name: Run iOS unit tests with gradle
+      - name: Run iOS unit tests
         run: xcodebuild -workspace ~/work/flutter-emarsys-sdk/flutter-emarsys-sdk/example/ios/Runner.xcworkspace -scheme flutter-plugin-ios-tests -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 12 Pro Max' test
         
       - name: Run integration tests on iOS
