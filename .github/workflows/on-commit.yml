@@ -27,6 +27,13 @@ jobs:
       - name: Update dependencies
         run: flutter pub get
         
+      - name: Install Google Services JSON
+        uses: davidSchuppa/base64Secret-toFile-action@v1
+        with:
+          secret: ${{ secrets.GOOGLE_SERVICE_JSON_BASE64 }}
+          filename: google-services.json
+          destination-path: ./example/android/app/
+        
       - name: Run Android unit tests with gradle
         run: (cd example/android && ./gradlew clean build test -x lint)        
         
