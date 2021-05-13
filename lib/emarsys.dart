@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:emarsys_sdk/push.dart';
 import 'package:flutter/services.dart';
 
+import 'emarsys_config.dart';
 import 'config.dart';
 
 class Emarsys {
@@ -10,7 +11,9 @@ class Emarsys {
       
   static Push push = Push(_channel);
 
-  static Future<void> setup(Config config) {
+  static Config config = Config(_channel);
+
+  static Future<void> setup(EmarsysConfig config) {
     return _channel.invokeMethod('setup', config.toMap());
   }
 

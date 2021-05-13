@@ -1,4 +1,4 @@
-import 'package:emarsys_sdk/config.dart';
+import 'package:emarsys_sdk/emarsys_config.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -8,7 +8,7 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   setUpAll(() async {
-    final config = Config(contactFieldId: 2575, applicationCode: "EMS11-C3FD3");
+    final config = EmarsysConfig(contactFieldId: 2575, applicationCode: "EMS11-C3FD3");
     await Emarsys.setup(config);
   });
 

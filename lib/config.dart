@@ -1,13 +1,64 @@
+import 'package:flutter/services.dart';
+
 class Config {
-  final String? applicationCode;
-  final int contactFieldId;
+  final MethodChannel _channel;
+  
+  Config(this._channel);
 
-  Config({this.applicationCode, required this.contactFieldId});
+  Future<String?> applicationCode() {
+    return _channel.invokeMethod('config.applicationCode');
+  } 
 
-  Map<String, dynamic> toMap() {
-    return {
-      'mobileEngageApplicationCode': applicationCode,
-      'contactFieldId': contactFieldId,
-    };
+  Future<String?> merchantId() {
+    return _channel.invokeMethod('config.merchantId');
+  }  
+
+  Future<int> contactFieldId() async {
+    int? contactFieldId = await _channel.invokeMethod('config.contactFieldId');
+    if (contactFieldId == null) {
+      throw NullThrownError();
+    }
+    return contactFieldId;
+  }  
+
+  Future<String> hardwareId() async {
+    String? hardwareId = await _channel.invokeMethod('config.hardwareId');
+    if (hardwareId == null) {
+      throw NullThrownError();
+    }
+    return hardwareId;
+  }  
+  
+  Future<String> languageCode() async {
+    String? language = await _channel.invokeMethod('config.language');
+    if (language == null) {
+      throw NullThrownError();
+    }
+    return language;
   }
-}
+
+  Future<Map<String, dynamic>> pushSettings() async {
+    Map<dynamic, dynamic>? pushSettings = await _channel.invokeMethod('config.pushSettings');
+    if (pushSettings == null) {
+      throw NullThrownError();
+    }
+    return Map.from(pushSettings);
+  }
+
+  Future<bool> isAndroidAutomaticPushSendingEnabled() async {
+    bool? isAndroidAutomaticPushSendingEnabled = await _channel.invokeMethod('config.android.isAutomaticPushSendingEnabled');
+    if (isAndroidAutomaticPushSendingEnabled == null) {
+      throw NullThrownError();
+    }
+    return isAndroidAutomaticPushSendingEnabled;
+  }
+
+  Future<String> sdkVersion() async {
+    String? sdkVersion = await _channel.invokeMethod('config.sdkVersion');
+    if (sdkVersion == null) {
+      throw NullThrownError();
+    }
+    return sdkVersion;
+  }
+
+} 

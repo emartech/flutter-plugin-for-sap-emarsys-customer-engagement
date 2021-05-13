@@ -1,4 +1,4 @@
-import 'package:emarsys_sdk/config.dart';
+import 'package:emarsys_sdk/emarsys_config.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:emarsys_sdk/emarsys.dart';
@@ -23,7 +23,7 @@ void main() {
   });
 
   test('setup should work', () async {
-    Config config = Config(applicationCode: '', contactFieldId: 0);
+    EmarsysConfig config = EmarsysConfig(applicationCode: '', contactFieldId: 0);
 
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
       expect(methodCall.method, 'setup');
