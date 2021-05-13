@@ -1,9 +1,6 @@
 package com.emarsys.emarsys_sdk.factories
 
-import com.emarsys.emarsys_sdk.commands.ClearContactCommand
-import com.emarsys.emarsys_sdk.commands.EmarsysCommandFactory
-import com.emarsys.emarsys_sdk.commands.SetContactCommand
-import com.emarsys.emarsys_sdk.commands.SetupCommand
+import com.emarsys.emarsys_sdk.commands.*
 import com.emarsys.emarsys_sdk.commands.push.ClearPushTokenCommand
 import com.emarsys.emarsys_sdk.commands.push.SetPushTokenCommand
 import io.kotlintest.shouldBe
@@ -37,6 +34,13 @@ class EmarsysCommandFactoryTest {
         val result = factory.create("clearContact")
 
         result shouldBe ClearContactCommand()
+    }
+
+    @Test
+    fun testCreate_shouldCreateAnInitializeCommandFromMethodCall() {
+        val result = factory.create("android.initialize")
+
+        result shouldBe InitializeCommand()
     }
 
     @Test

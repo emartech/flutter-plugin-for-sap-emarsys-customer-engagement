@@ -4,39 +4,78 @@ import com.emarsys.Emarsys
 import com.emarsys.config.EmarsysConfig
 import com.emarsys.emarsys_sdk.EmarsysCommand
 import com.emarsys.emarsys_sdk.PushTokenHolder
+import com.emarsys.emarsys_sdk.config.ConfigStorageKeys
 import com.emarsys.emarsys_sdk.di.dependencyContainer
 
 
 class SetupCommand : EmarsysCommand {
 
     override fun execute(parameters: Map<String, Any?>?, resultCallback: ResultCallback) {
+        val sharedPreferences = dependencyContainer().sharedPreferences
+        val sharedPreferencesEdit = sharedPreferences.edit()
         val contactFieldId: Int? = parameters?.get("contactFieldId") as Int?
         if (parameters != null && contactFieldId != null) {
+            sharedPreferencesEdit.putInt(ConfigStorageKeys.CONTACT_FIELD_ID.name, contactFieldId)
             val configBuild = EmarsysConfig.Builder()
-                    .application(dependencyContainer().application)
-                    .contactFieldId(contactFieldId)
+                .application(dependencyContainer().application)
+                .contactFieldId(contactFieldId)
 
-            if (parameters.containsKey("mobileEngageApplicationCode")) {
-                configBuild.mobileEngageApplicationCode(parameters["mobileEngageApplicationCode"] as String?)
+            (parameters["mobileEngageApplicationCode"] as String?).let {
+                configBuild.mobileEngageApplicationCode(it)
+                sharedPreferencesEdit.putString(
+                    ConfigStorageKeys.MOBILE_ENGAGE_APPLICATION_CODE.name,
+                    it
+                )
             }
-            if (parameters.containsKey("predictMerchantId")) {
-                configBuild.predictMerchantId(parameters["predictMerchantId"] as String?)
+
+            (parameters["predictMerchantId"] as String?).let {
+                configBuild.predictMerchantId(it)
+                sharedPreferencesEdit.putString(
+                    ConfigStorageKeys.PREDICT_MERCHANT_ID.name,
+                    it
+                )
             }
-            val androidDisableAutomaticPushTokenSending = parameters["androidDisableAutomaticPushTokenSending"] as Boolean?
-            if (androidDisableAutomaticPushTokenSending != null && androidDisableAutomaticPushTokenSending) {
-                configBuild.disableAutomaticPushTokenSending()
-            }
-            if (parameters.containsKey("androidSharedPackageNames")) {
+
+            val androidDisableAutomaticPushTokenSending =
+                ((parameters["androidDisableAutomaticPushTokenSending"] as Boolean?) ?: false).also {
+                    if (it) {
+                        configBuild.disableAutomaticPushTokenSending()
+                    }
+                    sharedPreferencesEdit.putBoolean(
+                        ConfigStorageKeys.ANDROID_DISABLE_AUTOMATIC_PUSH_TOKEN_SENDING.name,
+                        it
+                    )
+                }
+
+            (parameters["androidSharedPackageNames"] as List<String>?)?.let {
                 configBuild.sharedPackageNames(parameters["androidSharedPackageNames"] as List<String>)
+                sharedPreferencesEdit.putStringSet(
+                    ConfigStorageKeys.ANDROID_SHARED_PACKAGE_NAMES.name,
+                    it?.let { packageNames -> mutableSetOf(*packageNames.toTypedArray()) }
+                )
             }
-            if (parameters.containsKey("androidSharedSecret")) {
+
+            (parameters["androidSharedSecret"] as String?)?.let {
                 configBuild.sharedSecret(parameters["androidSharedSecret"] as String)
+                sharedPreferencesEdit.putString(
+                    ConfigStorageKeys.ANDROID_SHARED_SECRET.name,
+                    it
+                )
             }
-            if (parameters.containsKey("androidVerboseConsoleLoggingEnabled") && parameters["androidVerboseConsoleLoggingEnabled"] as Boolean) {
-                configBuild.enableVerboseConsoleLogging()
+
+            ((parameters["androidVerboseConsoleLoggingEnabled"] as Boolean?) ?: false).let {
+                if (it) {
+                    configBuild.enableVerboseConsoleLogging()
+                }
+                sharedPreferencesEdit.putBoolean(
+                    ConfigStorageKeys.ANDROID_VERBOSE_CONSOLE_LOGGING_ENABLED.name,
+                    it
+                )
             }
+
             Emarsys.setup(configBuild.build())
-            if (androidDisableAutomaticPushTokenSending == null || !androidDisableAutomaticPushTokenSending) {
+            sharedPreferencesEdit.apply()
+            if (!androidDisableAutomaticPushTokenSending) {
                 if (PushTokenHolder.pushToken != null) {
                     Emarsys.push.pushToken = PushTokenHolder.pushToken
                 } else {

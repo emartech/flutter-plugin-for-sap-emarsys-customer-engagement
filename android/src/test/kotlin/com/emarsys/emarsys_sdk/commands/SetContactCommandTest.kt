@@ -17,6 +17,7 @@ class SetContactCommandTest {
 
     @Before
     fun setUp() {
+        mockkStatic(Emarsys::class)
         command = SetContactCommand()
         parameters = mapOf(
                 "contactFieldValue" to CONTACT_FIELD_VALUE
@@ -30,7 +31,6 @@ class SetContactCommandTest {
 
     @Test
     fun testExecute_shouldCallMethodOnEmarsys() {
-        mockkStatic(Emarsys::class)
         every { Emarsys.setContact(any(), any<CompletionListener>()) } just Runs
 
         command.execute(parameters) { _, _ ->
@@ -41,7 +41,6 @@ class SetContactCommandTest {
 
     @Test(expected = IllegalArgumentException::class)
     fun testExecute_shouldThrowException_whenContactIdIsNotPresentInParametersMap() {
-        mockkStatic(Emarsys::class)
         every { Emarsys.setContact(any(), any<CompletionListener>()) } just Runs
 
         command.execute(mapOf()) { _, _ -> }
@@ -53,7 +52,6 @@ class SetContactCommandTest {
     fun testExecute_shouldInvokeResultCallback() {
         val mockResultCallback: ResultCallback = mockk(relaxed = true)
 
-        mockkStatic(Emarsys::class)
         every { Emarsys.setContact(any(), any<CompletionListener>()) } answers {
             secondArg<CompletionListener>().onCompleted(null)
         }
@@ -68,7 +66,6 @@ class SetContactCommandTest {
         val testError = Throwable()
         val mockResultCallback: ResultCallback = mockk(relaxed = true)
 
-        mockkStatic(Emarsys::class)
         every { Emarsys.setContact(any(), any<CompletionListener>()) } answers {
             secondArg<CompletionListener>().onCompleted(testError)
         }
