@@ -42,5 +42,47 @@ class EmarsysCommandFactoryTests: XCTestCase {
 
         XCTAssertTrue(command is EnablePushSendingCommand)
     }
+    
+    func testCreate_applicationCodeCommand() throws {
+        let command = factory?.create(name: "config.applicationCode")
 
+        XCTAssertTrue(command is ApplicationCodeCommand)
+    }
+    
+    func testCreate_merchantIdCommand() throws {
+        let command = factory?.create(name: "config.merchantId")
+
+        XCTAssertTrue(command is MerchantIdCommand)
+    }
+    
+    func testCreate_contactFieldIdCommand() throws {
+        let command = factory?.create(name: "config.contactFieldId")
+
+        XCTAssertTrue(command is ContactFieldIdCommand)
+    }
+    
+    func testCreate_hardwareIdCommand() throws {
+        let command = factory?.create(name: "config.hardwareId")
+
+        XCTAssertTrue(command is HardwareIdCommand)
+    }
+    
+    func testCreate_languageCodeCommand() throws {
+        let command = factory?.create(name: "config.languageCode")
+
+        XCTAssertTrue(command is LanguageCodeCommand)
+    }
+    
+    func testCreate_pushSettingsCommand() throws {
+        let command = factory?.create(name: "config.pushSettings")
+
+        XCTAssertTrue(command is PushSettingsCommand)
+    }
+    
+    func testCreate_sdkVersionCommand() throws {
+        let command = factory?.create(name: "config.sdkVersion")
+
+        XCTAssertTrue(command is SdkVersionCommand)
+    }
 }
+

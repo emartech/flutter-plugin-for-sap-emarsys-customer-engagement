@@ -15,6 +15,20 @@ class EmarsysCommandFactory {
             result = ClearContactCommand()
         case "push.enablePushSending":
             result = EnablePushSendingCommand()
+        case "config.applicationCode":
+            result = ApplicationCodeCommand()
+        case "config.merchantId":
+            result = MerchantIdCommand()
+        case "config.contactFieldId":
+            result = ContactFieldIdCommand()
+        case "config.hardwareId":
+            result = HardwareIdCommand()
+        case "config.languageCode":
+            result = LanguageCodeCommand()
+        case "config.pushSettings":
+            result = PushSettingsCommand()
+        case "config.sdkVersion":
+            result = SdkVersionCommand()
         default:
             result = nil
         }
