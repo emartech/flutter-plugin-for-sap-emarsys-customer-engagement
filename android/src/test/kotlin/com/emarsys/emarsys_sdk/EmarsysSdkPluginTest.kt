@@ -144,7 +144,7 @@ class EmarsysSdkPluginTest {
         every {
             mockCommand.execute(any(), any())
         } answers { call ->
-            (call.invocation.args[1] as ResultCallback).invoke(mapOf(), null)
+            (call.invocation.args[1] as ResultCallback).invoke(Any(), null)
         }
 
         emarsysPlugin.onMethodCall(MethodCall(
@@ -152,7 +152,7 @@ class EmarsysSdkPluginTest {
                 expectedArguments),
                 mockResult)
 
-        verify { mockResult.success(mapOf<String, Any>()) }
+        verify { mockResult.success(any()) }
     }
 
     @Test

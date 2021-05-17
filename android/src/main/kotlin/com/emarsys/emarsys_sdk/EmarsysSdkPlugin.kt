@@ -43,7 +43,7 @@ class EmarsysSdkPlugin : FlutterPlugin, MethodCallHandler {
     override fun onMethodCall(call: MethodCall, result: Result) {
         if (call.arguments is Map<*, *>?) {
             val command = dependencyContainer().emarsysCommandFactory.create(call.method)
-            command?.execute(call.arguments as Map<String, Any>?) { success: Map<String, Any>?, error: Throwable? ->
+            command?.execute(call.arguments as Map<String, Any>?) { success: Any?, error: Throwable? ->
                 if (error != null) {
                     result.error("EMARSYS_SDK_ERROR", error.message, error)
                 } else {
@@ -53,7 +53,6 @@ class EmarsysSdkPlugin : FlutterPlugin, MethodCallHandler {
         } else {
             throw IllegalArgumentException("Call arguments is not a map!")
         }
-
     }
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
