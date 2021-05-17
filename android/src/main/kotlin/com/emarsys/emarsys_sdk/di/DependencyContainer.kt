@@ -3,6 +3,7 @@ package com.emarsys.emarsys_sdk.di
 import android.app.Application
 import android.content.SharedPreferences
 import com.emarsys.emarsys_sdk.FlutterBackgroundExecutor
+import com.emarsys.emarsys_sdk.PushTokenStorage
 import com.emarsys.emarsys_sdk.commands.EmarsysCommandFactory
 import com.emarsys.emarsys_sdk.provider.MainHandlerProvider
 
@@ -33,4 +34,6 @@ interface DependencyContainer {
     val sharedPreferences: SharedPreferences
 
     val mainHandlerProvider: MainHandlerProvider
+
+    val pushTokenStorage: PushTokenStorage
 }

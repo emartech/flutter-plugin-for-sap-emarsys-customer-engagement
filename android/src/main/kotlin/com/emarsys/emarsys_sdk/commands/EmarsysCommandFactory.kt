@@ -1,21 +1,20 @@
 package com.emarsys.emarsys_sdk.commands
 
 import com.emarsys.emarsys_sdk.EmarsysCommand
+import com.emarsys.emarsys_sdk.PushTokenStorage
 import com.emarsys.emarsys_sdk.commands.config.*
-import com.emarsys.emarsys_sdk.commands.push.ClearPushTokenCommand
-import com.emarsys.emarsys_sdk.commands.push.SetPushTokenCommand
+import com.emarsys.emarsys_sdk.commands.push.PushSendingEnabledCommand
 
 
-class EmarsysCommandFactory {
+class EmarsysCommandFactory(private val pushTokenStorage: PushTokenStorage) {
 
     fun create(methodName: String): EmarsysCommand? {
         return when (methodName) {
-            "setup" -> SetupCommand()
+            "setup" -> SetupCommand(pushTokenStorage)
             "setContact" -> SetContactCommand()
             "clearContact" -> ClearContactCommand()
             "android.initialize" -> InitializeCommand()
-            "push.clearPushToken" -> ClearPushTokenCommand()
-            "push.setPushToken" -> SetPushTokenCommand()
+            "push.pushSendingEnabled" -> PushSendingEnabledCommand()
             "config.applicationCode" -> ApplicationCodeCommand()
             "config.merchantId" -> MerchantIdCommand()
             "config.contactFieldId" -> ContactFieldIdCommand()
@@ -23,7 +22,6 @@ class EmarsysCommandFactory {
             "config.languageCode" -> LanguageCodeCommand()
             "config.pushSettings" -> PushSettingsCommand()
             "config.sdkVersion" -> SdkVersionCommand()
-            "config.android.isAutomaticPushSendingEnabled" -> IsAutomaticPushSendingEnabledCommand()
             else -> null
         }
     }

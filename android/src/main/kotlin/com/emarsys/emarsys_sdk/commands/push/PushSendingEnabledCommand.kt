@@ -4,13 +4,10 @@ import com.emarsys.Emarsys
 import com.emarsys.emarsys_sdk.EmarsysCommand
 import com.emarsys.emarsys_sdk.commands.ResultCallback
 
-
-class ClearPushTokenCommand : EmarsysCommand {
+class PushSendingEnabledCommand : EmarsysCommand {
 
     override fun execute(parameters: Map<String, Any?>?, resultCallback: ResultCallback) {
-        Emarsys.push.clearPushToken {
-            resultCallback.invoke(null, it)
-        }
+
     }
 
     override fun equals(other: Any?): Boolean {

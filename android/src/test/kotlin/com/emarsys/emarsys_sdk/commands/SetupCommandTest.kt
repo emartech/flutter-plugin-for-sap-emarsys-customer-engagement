@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.SharedPreferences
 import com.emarsys.Emarsys
 import com.emarsys.config.EmarsysConfig
-import com.emarsys.emarsys_sdk.PushTokenHolder
+import com.emarsys.emarsys_sdk.PushTokenStorage
 import com.emarsys.emarsys_sdk.config.ConfigStorageKeys
 import com.emarsys.emarsys_sdk.di.FakeDependencyContainer
 import com.emarsys.emarsys_sdk.di.setupDependencyContainer
@@ -26,20 +26,19 @@ class SetupCommandTest {
 
     private lateinit var setupCommand: SetupCommand
     private lateinit var mockApplication: Application
-    private lateinit var mockPushTokenHolder: PushTokenHolder
+    private lateinit var mockPushTokenStorage: PushTokenStorage
     private lateinit var mockSharedPreferences: SharedPreferences
     private lateinit var mockEdit: SharedPreferences.Editor
 
     @Before
     fun setUp() {
-        setupCommand = SetupCommand()
-        mockPushTokenHolder = PushTokenHolder
+        mockPushTokenStorage = mockk()
+        setupCommand = SetupCommand(mockPushTokenStorage)
         mockApplication = mockk(relaxed = true)
         mockSharedPreferences = mockk(relaxed = true)
         mockEdit = mockk(relaxed = true)
 
-        mockkObject(mockPushTokenHolder)
-        every { mockPushTokenHolder.pushToken } returns PUSH_TOKEN
+        every { mockPushTokenStorage.pushToken } returns PUSH_TOKEN
 
         mockkStatic(Emarsys::class)
         every { mockSharedPreferences.edit() } returns mockEdit
@@ -60,7 +59,6 @@ class SetupCommandTest {
         tearDownDependencyContainer()
 
         clearAllMocks()
-        unmockkObject(mockPushTokenHolder)
         unmockkStatic(Emarsys::class)
     }
 
@@ -141,9 +139,9 @@ class SetupCommandTest {
 
     @Test
     fun testExecute_shouldSetPushTokenFromObserver_whenPushTokenHolderContainsNull() {
-        every { mockPushTokenHolder.pushToken } returns null
-        every { mockPushTokenHolder.pushToken = any() } answers {
-            mockPushTokenHolder.pushTokenObserver?.invoke(firstArg())
+        every { mockPushTokenStorage.pushToken } returns null
+        every { mockPushTokenStorage.pushToken = any() } answers {
+            mockPushTokenStorage.pushTokenObserver?.invoke(firstArg())
         }
 
         val expectedConfig = EmarsysConfig.Builder()
@@ -155,7 +153,7 @@ class SetupCommandTest {
 
         }
 
-        mockPushTokenHolder.pushToken = "localTestPushToken"
+        mockPushTokenStorage.pushToken = "localTestPushToken"
 
         verify { Emarsys.setup(expectedConfig) }
         verify { Emarsys.push.pushToken = "localTestPushToken" }

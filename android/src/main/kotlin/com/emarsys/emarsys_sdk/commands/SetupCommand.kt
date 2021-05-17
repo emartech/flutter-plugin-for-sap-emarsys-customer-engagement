@@ -3,12 +3,12 @@ package com.emarsys.emarsys_sdk.commands
 import com.emarsys.Emarsys
 import com.emarsys.config.EmarsysConfig
 import com.emarsys.emarsys_sdk.EmarsysCommand
-import com.emarsys.emarsys_sdk.PushTokenHolder
+import com.emarsys.emarsys_sdk.PushTokenStorage
 import com.emarsys.emarsys_sdk.config.ConfigStorageKeys
 import com.emarsys.emarsys_sdk.di.dependencyContainer
 
 
-class SetupCommand : EmarsysCommand {
+class SetupCommand(private val pushTokenStorage: PushTokenStorage) : EmarsysCommand {
 
     override fun execute(parameters: Map<String, Any?>?, resultCallback: ResultCallback) {
         val sharedPreferences = dependencyContainer().sharedPreferences
@@ -76,10 +76,10 @@ class SetupCommand : EmarsysCommand {
             Emarsys.setup(configBuild.build())
             sharedPreferencesEdit.apply()
             if (!androidDisableAutomaticPushTokenSending) {
-                if (PushTokenHolder.pushToken != null) {
-                    Emarsys.push.pushToken = PushTokenHolder.pushToken
+                if (pushTokenStorage.pushToken != null) {
+                    Emarsys.push.pushToken = pushTokenStorage.pushToken
                 } else {
-                    PushTokenHolder.pushTokenObserver = { pushToken ->
+                    pushTokenStorage.pushTokenObserver = { pushToken ->
                         pushToken?.let { Emarsys.push.pushToken = it }
                     }
                 }

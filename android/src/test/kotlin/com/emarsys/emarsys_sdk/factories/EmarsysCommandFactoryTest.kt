@@ -2,9 +2,9 @@ package com.emarsys.emarsys_sdk.factories
 
 import com.emarsys.emarsys_sdk.commands.*
 import com.emarsys.emarsys_sdk.commands.config.*
-import com.emarsys.emarsys_sdk.commands.push.ClearPushTokenCommand
-import com.emarsys.emarsys_sdk.commands.push.SetPushTokenCommand
+import com.emarsys.emarsys_sdk.commands.push.PushSendingEnabledCommand
 import io.kotlintest.shouldBe
+import io.mockk.mockk
 import org.junit.Before
 import org.junit.Test
 
@@ -13,14 +13,14 @@ class EmarsysCommandFactoryTest {
 
     @Before
     fun setUp() {
-        factory = EmarsysCommandFactory()
+        factory = EmarsysCommandFactory(mockk())
     }
 
     @Test
     fun testCreate_shouldCreateASetupCommandFromMethodCall() {
         val result = factory.create("setup")
 
-        result shouldBe SetupCommand()
+        result shouldBe SetupCommand(mockk())
     }
 
     @Test
@@ -46,16 +46,9 @@ class EmarsysCommandFactoryTest {
 
     @Test
     fun testCreate_shouldCreateAClearPushTokenCommandFromMethodCall() {
-        val result = factory.create("push.clearPushToken")
+        val result = factory.create("push.pushSendingEnabled")
 
-        result shouldBe ClearPushTokenCommand()
-    }
-
-    @Test
-    fun testCreate_shouldCreateASetPushTokenCommandFromMethodCall() {
-        val result = factory.create("push.setPushToken")
-
-        result shouldBe SetPushTokenCommand()
+        result shouldBe PushSendingEnabledCommand()
     }
 
     @Test
@@ -105,13 +98,6 @@ class EmarsysCommandFactoryTest {
         val result = factory.create("config.sdkVersion")
 
         result shouldBe SdkVersionCommand()
-    }
-
-    @Test
-    fun testCreate_shouldCreateAIsAutomaticPushSendingEnabledCommandFromMethodCall() {
-        val result = factory.create("config.android.isAutomaticPushSendingEnabled")
-
-        result shouldBe IsAutomaticPushSendingEnabledCommand()
     }
 
     @Test

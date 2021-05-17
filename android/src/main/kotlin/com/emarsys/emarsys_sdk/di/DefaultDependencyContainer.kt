@@ -3,13 +3,14 @@ package com.emarsys.emarsys_sdk.di
 import android.app.Application
 import android.content.SharedPreferences
 import com.emarsys.emarsys_sdk.FlutterBackgroundExecutor
+import com.emarsys.emarsys_sdk.PushTokenStorage
 import com.emarsys.emarsys_sdk.commands.EmarsysCommandFactory
 import com.emarsys.emarsys_sdk.provider.MainHandlerProvider
 
 class DefaultDependencyContainer(override val application: Application) : DependencyContainer {
 
     override val emarsysCommandFactory: EmarsysCommandFactory by lazy {
-        EmarsysCommandFactory()
+        EmarsysCommandFactory(pushTokenStorage)
     }
     override val flutterBackgroundExecutor: FlutterBackgroundExecutor by lazy {
         FlutterBackgroundExecutor(application)
@@ -20,5 +21,7 @@ class DefaultDependencyContainer(override val application: Application) : Depend
     override val mainHandlerProvider: MainHandlerProvider by lazy {
         MainHandlerProvider()
     }
-
+    override val pushTokenStorage: PushTokenStorage by lazy {
+        PushTokenStorage(sharedPreferences)
+    }
 }

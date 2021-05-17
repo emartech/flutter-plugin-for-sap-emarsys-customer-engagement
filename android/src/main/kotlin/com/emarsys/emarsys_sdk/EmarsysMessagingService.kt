@@ -46,6 +46,7 @@ class EmarsysMessagingService : FirebaseMessagingService() {
 
     override fun onNewToken(pushToken: String) {
         super.onNewToken(pushToken)
-        PushTokenHolder.pushToken = pushToken
+        setupDependencyContainer(DefaultDependencyContainer(application))
+        dependencyContainer().pushTokenStorage.pushToken = pushToken
     }
 }
