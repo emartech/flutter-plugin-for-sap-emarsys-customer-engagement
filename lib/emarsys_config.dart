@@ -2,14 +2,16 @@ class EmarsysConfig {
   final String? applicationCode;
   final String? merchantId;
   final int contactFieldId;
-  final bool? androidDisableAutomaticPushTokenSending;
   final bool? androidVerboseConsoleLoggingEnabled;
+  final String? androidSharedSecret;
+  final List<String>? androidSharedPackageNames;
   EmarsysConfig(
-      {this.applicationCode,
+      {required this.contactFieldId,
+      this.applicationCode,
       this.merchantId,
-      required this.contactFieldId,
-      this.androidDisableAutomaticPushTokenSending,
-      this.androidVerboseConsoleLoggingEnabled});
+      this.androidVerboseConsoleLoggingEnabled,
+      this.androidSharedSecret,
+      this.androidSharedPackageNames});
 
   Map<String, dynamic> toMap() {
     return {
@@ -18,8 +20,8 @@ class EmarsysConfig {
       'contactFieldId': contactFieldId,
       'androidVerboseConsoleLoggingEnabled':
           androidVerboseConsoleLoggingEnabled,
-      'androidDisableAutomaticPushTokenSending':
-          androidDisableAutomaticPushTokenSending
+      'androidSharedSecret': androidSharedSecret,
+      'androidSharedPackageNames': androidSharedPackageNames
     };
   }
 }
