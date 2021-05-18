@@ -8,7 +8,8 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   setUpAll(() async {
-    final config = EmarsysConfig(contactFieldId: 2575, applicationCode: "EMS11-C3FD3");
+    final config =
+        EmarsysConfig(contactFieldId: 2575, applicationCode: "EMS11-C3FD3");
     await Emarsys.setup(config);
   });
 

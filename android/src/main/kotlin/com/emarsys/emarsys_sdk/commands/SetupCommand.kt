@@ -73,6 +73,7 @@ class SetupCommand(private val pushTokenStorage: PushTokenStorage) : EmarsysComm
                     }
                 }
             }
+            resultCallback(null, null)
         } else {
             throw IllegalArgumentException("ContactFieldId must not be null!")
         }
