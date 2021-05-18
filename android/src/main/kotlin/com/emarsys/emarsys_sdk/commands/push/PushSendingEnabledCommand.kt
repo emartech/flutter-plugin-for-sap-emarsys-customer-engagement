@@ -1,7 +1,6 @@
 package com.emarsys.emarsys_sdk.commands.push
 
 import com.emarsys.Emarsys
-import com.emarsys.core.api.result.CompletionListener
 import com.emarsys.emarsys_sdk.EmarsysCommand
 import com.emarsys.emarsys_sdk.PushTokenStorage
 import com.emarsys.emarsys_sdk.commands.ResultCallback
@@ -14,14 +13,16 @@ class PushSendingEnabledCommand(private val pushTokenStorage: PushTokenStorage) 
         if (enable) {
             val pushToken = pushTokenStorage.pushToken
             if (pushToken != null) {
-                Emarsys.push.setPushToken(pushTokenStorage.pushToken!!, CompletionListener {
+                Emarsys.push.setPushToken(pushTokenStorage.pushToken!!) {
                     resultCallback.invoke(null, it)
-                })
+                }
             } else {
                 throw IllegalArgumentException("PushToken must not be null")
             }
         } else {
-            Emarsys.push.clearPushToken()
+            Emarsys.push.clearPushToken {
+                resultCallback.invoke(null, it)
+            }
         }
     }
 
