@@ -48,7 +48,7 @@ class EmarsysCommandFactoryTest {
     fun testCreate_shouldCreateAClearPushTokenCommandFromMethodCall() {
         val result = factory.create("push.pushSendingEnabled")
 
-        result shouldBe PushSendingEnabledCommand()
+        result shouldBe PushSendingEnabledCommand(mockk())
     }
 
     @Test

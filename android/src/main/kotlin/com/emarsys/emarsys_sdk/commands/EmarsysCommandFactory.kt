@@ -14,7 +14,7 @@ class EmarsysCommandFactory(private val pushTokenStorage: PushTokenStorage) {
             "setContact" -> SetContactCommand()
             "clearContact" -> ClearContactCommand()
             "android.initialize" -> InitializeCommand()
-            "push.pushSendingEnabled" -> PushSendingEnabledCommand()
+            "push.pushSendingEnabled" -> PushSendingEnabledCommand(pushTokenStorage)
             "config.applicationCode" -> ApplicationCodeCommand()
             "config.merchantId" -> MerchantIdCommand()
             "config.contactFieldId" -> ContactFieldIdCommand()

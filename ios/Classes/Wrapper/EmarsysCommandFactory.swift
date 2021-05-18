@@ -14,7 +14,7 @@ class EmarsysCommandFactory {
         case "clearContact":
             result = ClearContactCommand()
         case "push.enablePushSending":
-            result = EnablePushSendingCommand()
+            result = PushSendingEnabledCommand()
         case "config.applicationCode":
             result = ApplicationCodeCommand()
         case "config.merchantId":

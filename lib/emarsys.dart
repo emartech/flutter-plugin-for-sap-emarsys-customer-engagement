@@ -3,11 +3,14 @@ import 'dart:ui';
 import 'package:emarsys_sdk/push.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'dart:io' show Platform;
 
 import 'emarsys_config.dart';
 import 'config.dart';
+
 typedef _GetCallbackHandle = CallbackHandle? Function(Function callback);
 const MethodChannel _channel = const MethodChannel('com.emarsys.methods');
+
 class Emarsys {
   static Push push = Push(_channel);
 
@@ -16,25 +19,32 @@ class Emarsys {
   static Future<void> setup(EmarsysConfig config) {
     return _channel.invokeMethod('setup', config.toMap());
   }
+
   static Future<void> setContact(String contactFieldValue) {
     return _channel
         .invokeMethod('setContact', {"contactFieldValue": contactFieldValue});
   }
+
   static Future<void> clearContact() {
     return _channel.invokeMethod('clearContact');
   }
+
   static _GetCallbackHandle _getCallbackHandle =
       (Function callback) => PluginUtilities.getCallbackHandle(callback);
   static initialize() async {
-    final handle = _getCallbackHandle(_callbackDispatcher);
-    if (handle == null) {
-      return false;
+    bool? result = false;
+    if (Platform.isAndroid) {
+      final handle = _getCallbackHandle(_callbackDispatcher);
+      if (handle == null) {
+        return false;
+      }
+      result = await _channel.invokeMethod<bool>(
+          'android.initialize', {'callback': handle.toRawHandle()});
     }
-    final r = await _channel
-        .invokeMethod<bool>('android.initialize', {'callback': handle.toRawHandle()});
-    return r ?? false;
+    return result ?? false;
   }
 }
+
 Future<void> _callbackDispatcher() async {
   WidgetsFlutterBinding.ensureInitialized();
   const MethodChannel _backgroundChannel =

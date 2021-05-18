@@ -4,16 +4,8 @@ class Push {
   final MethodChannel _channel;
   Push(this._channel);
 
-  Future<void> setPushToken(String pushToken) {
-    return _channel.invokeMethod('push.setPushToken', {'pushToken': pushToken});
-  }
-
-  Future<void> clearPushToken() {
-    return _channel.invokeMethod('push.clearPushToken');
-  }
-
-  Future<void> enablePushSending(bool enable) {
-    return _channel.invokeMethod('push.enablePushSending', {'enablePushSending': enable});
+  Future<void> pushSendingEnabled(bool enable) {
+    return _channel.invokeMethod('push.pushSendingEnabled', {'pushSendingEnabled': enable});
   }
 
 }

@@ -14,10 +14,10 @@ public class SetupCommand: EmarsysCommandProtocol {
         }
         let config = EMSConfig.make(builder: { builder in
             builder.setContactFieldId(contactFieldId)
-            if let applicationCode = arguments?["mobileEngageApplicationCode"] as? String {
+            if let applicationCode = arguments?["applicationCode"] as? String {
                 builder.setMobileEngageApplicationCode(applicationCode)
             }
-            if let merchantId = arguments?["predictMerchantId"] as? String {
+            if let merchantId = arguments?["merchantId"] as? String {
                 builder.setMerchantId(merchantId)
             }
             if let enabledConsoleLogLevels = arguments?["iOSEnabledConsoleLogLevels"] as? Array<String> {
@@ -55,5 +55,4 @@ public class SetupCommand: EmarsysCommandProtocol {
             resultCallback(["success": true])
         }
     }
-    
 }

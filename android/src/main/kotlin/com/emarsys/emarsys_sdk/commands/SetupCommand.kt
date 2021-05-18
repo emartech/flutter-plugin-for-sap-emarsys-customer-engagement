@@ -20,7 +20,7 @@ class SetupCommand(private val pushTokenStorage: PushTokenStorage) : EmarsysComm
                 .application(dependencyContainer().application)
                 .contactFieldId(contactFieldId)
 
-            (parameters["mobileEngageApplicationCode"] as String?).let {
+            (parameters["applicationCode"] as String?).let {
                 configBuild.mobileEngageApplicationCode(it)
                 sharedPreferencesEdit.putString(
                     ConfigStorageKeys.MOBILE_ENGAGE_APPLICATION_CODE.name,
@@ -28,24 +28,13 @@ class SetupCommand(private val pushTokenStorage: PushTokenStorage) : EmarsysComm
                 )
             }
 
-            (parameters["predictMerchantId"] as String?).let {
+            (parameters["merchantId"] as String?).let {
                 configBuild.predictMerchantId(it)
                 sharedPreferencesEdit.putString(
                     ConfigStorageKeys.PREDICT_MERCHANT_ID.name,
                     it
                 )
             }
-
-            val androidDisableAutomaticPushTokenSending =
-                ((parameters["androidDisableAutomaticPushTokenSending"] as Boolean?) ?: false).also {
-                    if (it) {
-                        configBuild.disableAutomaticPushTokenSending()
-                    }
-                    sharedPreferencesEdit.putBoolean(
-                        ConfigStorageKeys.ANDROID_DISABLE_AUTOMATIC_PUSH_TOKEN_SENDING.name,
-                        it
-                    )
-                }
 
             (parameters["androidSharedPackageNames"] as List<String>?)?.let {
                 configBuild.sharedPackageNames(parameters["androidSharedPackageNames"] as List<String>)
@@ -75,7 +64,7 @@ class SetupCommand(private val pushTokenStorage: PushTokenStorage) : EmarsysComm
 
             Emarsys.setup(configBuild.build())
             sharedPreferencesEdit.apply()
-            if (!androidDisableAutomaticPushTokenSending) {
+            if (pushTokenStorage.enabled) {
                 if (pushTokenStorage.pushToken != null) {
                     Emarsys.push.pushToken = pushTokenStorage.pushToken
                 } else {

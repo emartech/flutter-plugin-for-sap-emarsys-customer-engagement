@@ -5,17 +5,17 @@
 import XCTest
 @testable import emarsys_sdk
 
-class EnablePushSendingCommandTests: XCTestCase {
+class PushSendingEnabledCommandTests: XCTestCase {
 
-    var command: EnablePushSendingCommand?
+    var command: PushSendingEnabledCommand?
     
     override func setUpWithError() throws {
-        command = EnablePushSendingCommand()
+        command = PushSendingEnabledCommand()
     }
     
     func testExecute_returnError_missingArgument() throws {
         let arguments = [String: Any]()
-        let expectedResponse = ["error": "Invalid enablePushSending argument"]
+        let expectedResponse = ["error": "Invalid pushSendingEnabled argument"]
         var result = [String: Any]()
 
         command?.execute(arguments: arguments) { response in
@@ -28,7 +28,7 @@ class EnablePushSendingCommandTests: XCTestCase {
     func testExecute_returnError_missingPushToken() throws {
         EmarsysPushTokenHolder.pushToken = nil
         
-        let arguments = ["enablePushSending": true]
+        let arguments = ["pushSendingEnabled": true]
         let expectedResponse = ["error": "Push token is not available"]
         var result = [String: Any]()
 
