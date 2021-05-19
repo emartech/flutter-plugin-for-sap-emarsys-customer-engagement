@@ -1,6 +1,9 @@
+import 'package:emarsys_sdk/api/android_notification_settings.dart';
+import 'package:emarsys_sdk/api/channel_settings.dart';
+import 'package:emarsys_sdk/api/ios_notification_settings.dart';
+import 'package:emarsys_sdk/api/notification_settings.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:emarsys_sdk/config.dart';
 import 'package:emarsys_sdk/emarsys.dart';
 
 void main() {
@@ -66,7 +69,6 @@ void main() {
     expect(result, null);
   });
 
-
   test('contactFieldId should delegate to the Platform', () async {
     MethodCall? actualMethodCall;
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
@@ -88,9 +90,7 @@ void main() {
       return null;
     });
 
-    expect(
-        Emarsys.config.contactFieldId(),
-        throwsA(isA<NullThrownError>()));
+    expect(Emarsys.config.contactFieldId(), throwsA(isA<NullThrownError>()));
   });
 
   test('hardwareId should delegate to the Platform', () async {
@@ -114,9 +114,7 @@ void main() {
       return null;
     });
 
-    expect(
-        Emarsys.config.hardwareId(),
-        throwsA(isA<NullThrownError>()));
+    expect(Emarsys.config.hardwareId(), throwsA(isA<NullThrownError>()));
   });
 
   test('languageCode should delegate to the Platform', () async {
@@ -130,7 +128,7 @@ void main() {
 
     expect(actualMethodCall != null, true);
     if (actualMethodCall != null) {
-      expect(actualMethodCall!.method, 'config.language');
+      expect(actualMethodCall!.method, 'config.languageCode');
       expect(result, "testLanguage");
     }
   });
@@ -140,67 +138,85 @@ void main() {
       return null;
     });
 
-    expect(
-        Emarsys.config.languageCode(),
-        throwsA(isA<NullThrownError>()));
+    expect(Emarsys.config.languageCode(), throwsA(isA<NullThrownError>()));
   });
 
-  test('pushSettings should delegate to the Platform', () async {
+  test('notificationSettings should retrieve the correct NotificationSettings',
+      () async {
     MethodCall? actualMethodCall;
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
       actualMethodCall = methodCall;
       return {
-        'testKey1': 'testValue1',
-        'testKey2': {}    
-        };
+        "android": {
+          'areNotificationsEnabled': true,
+          'importance': 1,
+          "channelSettings": [
+            {
+              "channelId": "testChannelId",
+              "importance": 1000,
+              "isCanBypassDns": false,
+              "isCanShowBadge": false,
+              "isShouldVibrate": false,
+              "isShouldShowLights": false
+            }
+          ]
+        },
+        "iOS": {
+          'authorizationStatus': 'testAuthorizationStatus',
+          'soundSetting': 'testSoundSetting',
+          'badgeSetting': 'testBadgeSetting',
+          'notificationCenterSetting': 'testNotificationCenterSetting',
+          'lockScreenSetting': 'testLockScreenSetting',
+          'carPlaySetting': 'testCarPlaySetting',
+          'alertStyle': 'testAlertStyle',
+          'showPreviewSetting': 'testShowPreviewSetting',
+          'criticalAlertSetting': 'testCriticalAlertSetting',
+          'providesAppNotificationSettings': false
+        }
+      };
     });
 
-    Map<String, dynamic> result = await Emarsys.config.pushSettings();
+    NotificationSettings result = await Emarsys.config.notificationSettings();
 
     expect(actualMethodCall != null, true);
     if (actualMethodCall != null) {
-      expect(actualMethodCall!.method, 'config.pushSettings');
-      expect(result, {
-        'testKey1': 'testValue1',
-        'testKey2': {}    
-        });
+      expect(actualMethodCall!.method, 'config.notificationSettings');
+      expect(
+          result,
+          NotificationSettings(
+              android: AndroidNotificationSettings(
+                  areNotificationsEnabled: true,
+                  importance: 1,
+                  channelSettings: [
+                    ChannelSettings(
+                        channelId: "testChannelId",
+                        importance: 1000,
+                        isCanBypassDns: false,
+                        isCanShowBadge: false,
+                        isShouldVibrate: false,
+                        isShouldShowLights: false)
+                  ]),
+              iOS: IOSNotificationSettings(
+                  authorizationStatus: 'testAuthorizationStatus',
+                  alertStyle: 'testAlertStyle',
+                  badgeSetting: 'testBadgeSetting',
+                  carPlaySetting: 'testCarPlaySetting',
+                  lockScreenSetting: 'testLockScreenSetting',
+                  notificationCenterSetting: 'testNotificationCenterSetting',
+                  showPreviewSetting: 'testShowPreviewSetting',
+                  soundSetting: 'testSoundSetting',
+                  criticalAlertSetting: 'testCriticalAlertSetting',
+                  providesAppNotificationSettings: false)));
     }
   });
 
-  test('pushSettings should throw error', () async {
+  test('notificationSettings should throw error', () async {
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
       return null;
     });
 
     expect(
-        Emarsys.config.pushSettings(),
-        throwsA(isA<NullThrownError>()));
-  });
-
-  test('isAndroidAutomaticPushSendingEnabled should delegate to the Platform', () async {
-    MethodCall? actualMethodCall;
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      actualMethodCall = methodCall;
-      return true;
-    });
-
-    bool result = await Emarsys.config.isAndroidAutomaticPushSendingEnabled();
-
-    expect(actualMethodCall != null, true);
-    if (actualMethodCall != null) {
-      expect(actualMethodCall!.method, 'config.android.isAutomaticPushSendingEnabled');
-      expect(result, true);
-    }
-  });
-
-  test('isAndroidAutomaticPushSendingEnabled should throw error', () async {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return null;
-    });
-
-    expect(
-        Emarsys.config.isAndroidAutomaticPushSendingEnabled(),
-        throwsA(isA<NullThrownError>()));
+        Emarsys.config.notificationSettings(), throwsA(isA<NullThrownError>()));
   });
 
   test('sdkVersion should delegate to the Platform', () async {
@@ -224,9 +240,6 @@ void main() {
       return null;
     });
 
-    expect(
-        Emarsys.config.sdkVersion(),
-        throwsA(isA<NullThrownError>()));
+    expect(Emarsys.config.sdkVersion(), throwsA(isA<NullThrownError>()));
   });
-
 }

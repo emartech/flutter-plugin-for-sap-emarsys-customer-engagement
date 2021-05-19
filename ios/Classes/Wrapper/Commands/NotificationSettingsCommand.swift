@@ -3,8 +3,8 @@
 //
 import EmarsysSDK
 
-class PushSettingsCommand: EmarsysCommandProtocol {
+class NotificationSettingsCommand: EmarsysCommandProtocol {
     func execute(arguments: [String : Any]?, resultCallback: @escaping ResultCallback) {
-        resultCallback(["success": Emarsys.config.pushSettings()])
+        resultCallback(["success": ["iOS" : Emarsys.config.pushSettings()]])
     }
 }

@@ -20,7 +20,7 @@ class EmarsysCommandFactory(private val pushTokenStorage: PushTokenStorage) {
             "config.contactFieldId" -> ContactFieldIdCommand()
             "config.hardwareId" -> HardwareIdCommand()
             "config.languageCode" -> LanguageCodeCommand()
-            "config.pushSettings" -> PushSettingsCommand()
+            "config.notificationSettings" -> NotificationSettingsCommand()
             "config.sdkVersion" -> SdkVersionCommand()
             else -> null
         }

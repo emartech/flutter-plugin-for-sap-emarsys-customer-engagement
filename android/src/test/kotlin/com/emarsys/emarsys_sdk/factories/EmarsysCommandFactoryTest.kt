@@ -87,10 +87,10 @@ class EmarsysCommandFactoryTest {
     }
 
     @Test
-    fun testCreate_shouldCreateAPushSettingsCommandFromMethodCall() {
-        val result = factory.create("config.pushSettings")
+    fun testCreate_shouldCreateANotificationSettingsCommandFromMethodCall() {
+        val result = factory.create("config.notificationSettings")
 
-        result shouldBe PushSettingsCommand()
+        result shouldBe NotificationSettingsCommand()
     }
 
     @Test

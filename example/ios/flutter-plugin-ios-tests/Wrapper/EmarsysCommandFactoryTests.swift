@@ -74,7 +74,7 @@ class EmarsysCommandFactoryTests: XCTestCase {
     }
     
     func testCreate_pushSettingsCommand() throws {
-        let command = factory?.create(name: "config.pushSettings")
+        let command = factory?.create(name: "config.notificationSettings")
 
         XCTAssertTrue(command is PushSettingsCommand)
     }

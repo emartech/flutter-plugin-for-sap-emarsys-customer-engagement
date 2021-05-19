@@ -5,12 +5,12 @@ import com.emarsys.core.api.notification.NotificationSettings
 import com.emarsys.emarsys_sdk.EmarsysCommand
 import com.emarsys.emarsys_sdk.commands.ResultCallback
 
-class PushSettingsCommand : EmarsysCommand {
+class NotificationSettingsCommand : EmarsysCommand {
     override fun execute(parameters: Map<String, Any?>?, resultCallback: ResultCallback) {
-        resultCallback.invoke(Emarsys.config.notificationSettings.toPushSettingsMap(), null)
+        resultCallback.invoke(Emarsys.config.notificationSettings.toNotificationSettingsMap(), null)
     }
 
-    private fun NotificationSettings.toPushSettingsMap(): Map<String, Any> {
+    private fun NotificationSettings.toNotificationSettingsMap(): Map<String, Any> {
         val result = mutableMapOf<String, Any>()
         result["areNotificationsEnabled"] = this.areNotificationsEnabled()
         result["importance"] = this.importance
@@ -25,7 +25,7 @@ class PushSettingsCommand : EmarsysCommand {
             )
         }
 
-        return result.toMap()
+        return mapOf<String, Any>("android" to result.toMap())
     }
 
     override fun equals(other: Any?): Boolean {

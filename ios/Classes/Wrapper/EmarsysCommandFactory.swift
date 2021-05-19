@@ -32,8 +32,8 @@ class EmarsysCommandFactory {
             result = HardwareIdCommand()
         case "config.languageCode":
             result = LanguageCodeCommand()
-        case "config.pushSettings":
-            result = PushSettingsCommand()
+        case "config.notificationSettings":
+            result = NotificationSettingsCommand()
         case "config.sdkVersion":
             result = SdkVersionCommand()
         default:

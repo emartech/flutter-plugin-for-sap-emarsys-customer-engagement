@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:emarsys_sdk/api/notification_settings.dart';
 import 'package:emarsys_sdk/emarsys_config.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -50,5 +53,15 @@ void main() {
       (WidgetTester tester) async {
     final result = await Emarsys.config.sdkVersion();
     expect(result, isNot(equals(null)));
+  });
+  testWidgets("notificationSettings should return  a non-null value",
+      (WidgetTester tester) async {
+    NotificationSettings result = await Emarsys.config.notificationSettings();
+    if (Platform.isAndroid) {
+      expect(result.android, isNot(equals(null)));
+    }
+    if (Platform.isIOS) {
+      expect(result.iOS, isNot(equals(null)));
+    }
   });
 }

@@ -1,3 +1,4 @@
+import 'package:emarsys_sdk/api/notification_settings.dart';
 import 'package:flutter/services.dart';
 
 class Config {
@@ -37,13 +38,13 @@ class Config {
     return language;
   }
 
-  Future<Map<String, dynamic>> pushSettings() async {
-    Map<dynamic, dynamic>? pushSettings =
-        await _channel.invokeMethod('config.pushSettings');
-    if (pushSettings == null) {
+  Future<NotificationSettings> notificationSettings() async {
+    Map<dynamic, dynamic>? notificationSettings =
+        await _channel.invokeMethod('config.notificationSettings');
+    if (notificationSettings == null) {
       throw NullThrownError();
     }
-    return Map.from(pushSettings);
+    return NotificationSettings.fromMap(notificationSettings);
   }
 
   Future<String> sdkVersion() async {
