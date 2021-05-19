@@ -10,25 +10,23 @@ import 'config.dart';
 
 typedef _GetCallbackHandle = CallbackHandle? Function(Function callback);
 const MethodChannel _channel = const MethodChannel('com.emarsys.methods');
-
+const EventChannel _pushEventChannel = const EventChannel('com.emarsys.events.push');
+const EventChannel _silentPushEventChannel = const EventChannel('com.emarsys.events.silentPush');
 class Emarsys {
-  static Push push = Push(_channel);
+  static Push push = Push(_channel, _pushEventChannel, _silentPushEventChannel);
 
   static Config config = Config(_channel);
 
   static Future<void> setup(EmarsysConfig config) {
     return _channel.invokeMethod('setup', config.toMap());
   }
-
   static Future<void> setContact(String contactFieldValue) {
     return _channel
         .invokeMethod('setContact', {"contactFieldValue": contactFieldValue});
   }
-
   static Future<void> clearContact() {
     return _channel.invokeMethod('clearContact');
   }
-
   static _GetCallbackHandle _getCallbackHandle =
       (Function callback) => PluginUtilities.getCallbackHandle(callback);
   static initialize() async {
@@ -44,7 +42,6 @@ class Emarsys {
     return result ?? false;
   }
 }
-
 Future<void> _callbackDispatcher() async {
   WidgetsFlutterBinding.ensureInitialized();
   const MethodChannel _backgroundChannel =

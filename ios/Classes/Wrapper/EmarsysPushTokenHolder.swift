@@ -1,3 +1,7 @@
+//
+//  Created by Emarsys on 2021.
+//
+
 import EmarsysSDK
 
 public class EmarsysPushTokenHolder {
@@ -11,5 +15,4 @@ public class EmarsysPushTokenHolder {
             }
         }
     }
-
 }

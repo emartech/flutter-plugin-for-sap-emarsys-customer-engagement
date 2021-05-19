@@ -4,6 +4,13 @@
 import EmarsysSDK
 
 public class SetupCommand: EmarsysCommandProtocol {
+    private var pushEventCallback: EventCallback
+    private var silentPushEventCallback: EventCallback
+    
+    init(pushEventCallback: @escaping EventCallback, silentPushEventCallback: @escaping EventCallback) {
+        self.pushEventCallback = pushEventCallback
+        self.silentPushEventCallback = silentPushEventCallback
+    }
     
     func execute(arguments: [String : Any]?, resultCallback: @escaping ResultCallback) {
         var error: [String : String]? = nil
@@ -52,6 +59,10 @@ public class SetupCommand: EmarsysCommandProtocol {
         } else {
             Emarsys.setup(with: config)
             UNUserNotificationCenter.current().delegate = Emarsys.notificationCenterDelegate
+            
+            Emarsys.push.silentMessageEventHandler = EventHandlerCallbackAdapter(callback: silentPushEventCallback)
+            Emarsys.notificationCenterDelegate.eventHandler = EventHandlerCallbackAdapter(callback: pushEventCallback)
+            
             resultCallback(["success": true])
         }
     }

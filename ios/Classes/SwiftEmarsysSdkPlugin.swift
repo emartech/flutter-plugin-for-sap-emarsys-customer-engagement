@@ -3,16 +3,35 @@ import UIKit
 
 public class SwiftEmarsysSdkPlugin: NSObject, FlutterPlugin {
     
-    var factory = EmarsysCommandFactory()
+    static var factory: EmarsysCommandFactory?
 
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "com.emarsys.methods", binaryMessenger: registrar.messenger())
+    let pushEventChannel = FlutterEventChannel(name: "com.emarsys.events.push", binaryMessenger: registrar.messenger())
+    let silentPushEventChannel = FlutterEventChannel(name: "com.emarsys.events.silentPush", binaryMessenger: registrar.messenger())
+    
+    let pushEventCallback: EventCallback = createEventCallback(eventChannel: pushEventChannel)
+    let silentPushEventCallback: EventCallback = createEventCallback(eventChannel: silentPushEventChannel)
+    
+    factory = EmarsysCommandFactory(pushEventCallback: pushEventCallback, silentPushEventCallback: silentPushEventCallback)
+    
     let instance = SwiftEmarsysSdkPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
+    
+    private static func createEventCallback(eventChannel: FlutterEventChannel) -> EventCallback {
+        return { name, payload in
+            eventChannel.setStreamHandler(EmarsysStreamHandler() { eventSink in
+                var event = [String: Any]()
+                event["name"] = name
+                event["payload"] = payload
+                eventSink(event)
+            })
+        }
+    }
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-    guard let command = factory.create(name: call.method) else {
+    guard let command = SwiftEmarsysSdkPlugin.factory?.create(name: call.method) else {
         let flutterError = FlutterError(code: "1501", message: "Command creation failed", details: nil)
         result(flutterError)
         return

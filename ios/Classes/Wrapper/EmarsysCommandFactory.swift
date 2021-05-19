@@ -3,12 +3,19 @@
 //
 
 class EmarsysCommandFactory {
+    private var pushEventCallback: EventCallback
+    private var silentPushEventCallback: EventCallback
+    
+    init(pushEventCallback: @escaping EventCallback, silentPushEventCallback: @escaping EventCallback) {
+        self.pushEventCallback = pushEventCallback
+        self.silentPushEventCallback = silentPushEventCallback
+    }
 
     func create(name: String) -> EmarsysCommandProtocol? {
         var result: EmarsysCommandProtocol?
         switch name {
         case "setup":
-            result = SetupCommand()
+            result = SetupCommand(pushEventCallback: pushEventCallback, silentPushEventCallback: silentPushEventCallback)
         case "setContact":
             result = SetContactCommand()
         case "clearContact":
