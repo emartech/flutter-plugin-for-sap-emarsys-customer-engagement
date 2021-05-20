@@ -63,6 +63,7 @@ public class SetupCommand: EmarsysCommandProtocol {
             Emarsys.push.silentMessageEventHandler = EventHandlerCallbackAdapter(callback: silentPushEventCallback)
             Emarsys.notificationCenterDelegate.eventHandler = EventHandlerCallbackAdapter(callback: pushEventCallback)
             
+            Emarsys.trackCustomEvent(withName: "wrapper:init", eventAttributes: ["type" : "flutter"])
             resultCallback(["success": true])
         }
     }

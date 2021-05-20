@@ -10,9 +10,14 @@ class EmarsysCommandFactoryTests: XCTestCase {
     var factory: EmarsysCommandFactory?
 
     override func setUpWithError() throws {
-        factory = EmarsysCommandFactory()
+        factory = EmarsysCommandFactory(pushEventCallback: createEventCallback(), silentPushEventCallback: createEventCallback())
     }
-
+    
+    private func createEventCallback() -> EventCallback {
+        return { name, payload in
+            
+        }
+    }
     func testCreate_setup() throws {
         let command = factory?.create(name: "setup")
         
@@ -76,7 +81,7 @@ class EmarsysCommandFactoryTests: XCTestCase {
     func testCreate_pushSettingsCommand() throws {
         let command = factory?.create(name: "config.notificationSettings")
 
-        XCTAssertTrue(command is PushSettingsCommand)
+        XCTAssertTrue(command is NotificationSettingsCommand)
     }
     
     func testCreate_sdkVersionCommand() throws {

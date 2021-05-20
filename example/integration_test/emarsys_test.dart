@@ -1,5 +1,4 @@
 import 'package:emarsys_sdk/emarsys_config.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:emarsys_sdk/emarsys.dart';
@@ -23,9 +22,5 @@ void main() {
     await Emarsys.clearContact()
         .then((value) => print("CLEAR CONTACT"))
         .catchError((error) => expect(error, null));
-  });
-
-  testWidgets("call setContact with wrong value", (WidgetTester tester) async {
-    expect(Emarsys.setContact(null), throwsA(isA<PlatformException>()));
   });
 }

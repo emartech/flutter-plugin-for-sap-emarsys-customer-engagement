@@ -5,8 +5,10 @@ import 'package:emarsys_sdk/emarsys.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Emarsys.initialize();
-  Emarsys.setup(
-      EmarsysConfig(contactFieldId: 2575, applicationCode: 'EMS74-EFB68'));
+  Emarsys.setup(EmarsysConfig(
+      contactFieldId: 2575,
+      applicationCode: 'EMS74-EFB68',
+      androidVerboseConsoleLoggingEnabled: true));
   Emarsys.setContact("test@test.com");
 
   runApp(MyApp());

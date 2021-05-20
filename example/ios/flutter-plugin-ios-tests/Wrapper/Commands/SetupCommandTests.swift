@@ -10,9 +10,16 @@ class SetupCommandTests: XCTestCase {
     var command: SetupCommand?
     
     override func setUpWithError() throws {
-        command = SetupCommand()
+       
+        command = SetupCommand(pushEventCallback: createEventCallback(), silentPushEventCallback: createEventCallback())
     }
-
+    
+    private func createEventCallback() -> EventCallback {
+        return { name, payload in
+            
+        }
+    }
+    
     func testExecute_returnTrue() throws {
         let arguments = ["contactFieldId": 3]
         let expectedResponse = ["success": true]
