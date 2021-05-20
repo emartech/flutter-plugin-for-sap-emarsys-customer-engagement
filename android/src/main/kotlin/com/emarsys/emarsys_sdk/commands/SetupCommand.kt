@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.SharedPreferences
 import com.emarsys.Emarsys
 import com.emarsys.config.EmarsysConfig
+import com.emarsys.core.di.DependencyInjection
 import com.emarsys.emarsys_sdk.EmarsysCommand
 import com.emarsys.emarsys_sdk.EventHandlerFactory
 import com.emarsys.emarsys_sdk.PushTokenStorage
@@ -25,7 +26,11 @@ class SetupCommand(
             configFromParameters(parameters)
         }
 
+        var setupHasBeenCalledPreviously = DependencyInjection.isSetup()
         Emarsys.setup(configBuilder.build())
+        if (!setupHasBeenCalledPreviously) {
+            Emarsys.trackCustomEvent("wrapper:init", mapOf("type" to "flutter"))
+        }
         if (pushTokenStorage.enabled) {
             if (pushTokenStorage.pushToken != null) {
                 Emarsys.push.pushToken = pushTokenStorage.pushToken

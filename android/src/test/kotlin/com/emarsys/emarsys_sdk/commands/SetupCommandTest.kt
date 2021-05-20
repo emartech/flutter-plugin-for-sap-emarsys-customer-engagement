@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.SharedPreferences
 import com.emarsys.Emarsys
 import com.emarsys.config.EmarsysConfig
+import com.emarsys.core.di.DependencyInjection
 import com.emarsys.emarsys_sdk.EventHandlerFactory
 import com.emarsys.emarsys_sdk.PushTokenStorage
 import com.emarsys.emarsys_sdk.config.ConfigStorageKeys
@@ -55,8 +56,12 @@ class SetupCommandTest {
 
         every { mockPushTokenStorage.pushToken } returns PUSH_TOKEN
         every { mockPushTokenStorage.enabled } returns true
+        mockkStatic(DependencyInjection::class)
+        every { DependencyInjection.isSetup() } returns true
 
         mockkStatic(Emarsys::class)
+        every { Emarsys.trackCustomEvent(any(), any()) } just Runs
+
         every { mockSharedPreferences.edit() } returns mockEdit
         every { Emarsys.setup(any()) } just Runs
         every { Emarsys.push.pushToken = any() } just Runs
@@ -268,4 +273,23 @@ class SetupCommandTest {
         verify { Emarsys.setup(expectedConfig) }
     }
 
+    @Test
+    fun testExecute_shouldCallTrackCustomEvent_withCorrectInitData_whenSetupHasNotBeenCalledPreviously() {
+        every { DependencyInjection.isSetup() } returns false
+
+        setupCommand.execute(mapOf("contactFieldId" to CONTACT_FIELD_ID)) { _, _ ->
+        }
+
+        verify { Emarsys.trackCustomEvent("wrapper:init", mapOf("type" to "flutter")) }
+    }
+
+    @Test
+    fun testExecute_shouldNotCallTrackCustomEvent_whenSetupHasBeenCalledPreviously() {
+        every { Emarsys.trackCustomEvent(any(), any()) } just Runs
+
+        setupCommand.execute(mapOf("contactFieldId" to CONTACT_FIELD_ID)) { _, _ ->
+        }
+
+        verify(exactly = 0) { Emarsys.trackCustomEvent("sdk:init", mapOf("wrapper" to "flutter")) }
+    }
 }
