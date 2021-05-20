@@ -5,14 +5,13 @@ import com.emarsys.core.di.DependencyInjection
 import com.emarsys.emarsys_sdk.di.DefaultDependencyContainer
 import com.emarsys.emarsys_sdk.di.dependencyContainer
 import com.emarsys.emarsys_sdk.di.setupDependencyContainer
+import com.emarsys.emarsys_sdk.provider.MainHandlerProvider
 import com.emarsys.service.EmarsysMessagingServiceUtils
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import java.util.*
 
 class EmarsysMessagingService : FirebaseMessagingService() {
-
-
     companion object {
         private val messageQueue: MutableList<RemoteMessage> =
             Collections.synchronizedList(LinkedList())
@@ -31,13 +30,13 @@ class EmarsysMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
-        setupDependencyContainer(DefaultDependencyContainer(application))
-        dependencyContainer().mainHandlerProvider.provide().post {
-            if (!DependencyInjection.isSetup()) {
-                dependencyContainer().flutterBackgroundExecutor.startBackgroundIsolate()
+        if (!DependencyInjection.isSetup()) {
+            initFlutterEngine().apply {
+                MainHandlerProvider.provide().post {
+                    awakeFlutterCallback(dependencyContainer().sharedPreferences)
+                }
             }
         }
-
         synchronized(messageQueue) {
             messageQueue.add(message)
         }
@@ -46,7 +45,15 @@ class EmarsysMessagingService : FirebaseMessagingService() {
 
     override fun onNewToken(pushToken: String) {
         super.onNewToken(pushToken)
-        setupDependencyContainer(DefaultDependencyContainer(application))
+        initFlutterEngine()
         dependencyContainer().pushTokenStorage.pushToken = pushToken
+    }
+
+    private fun initFlutterEngine(): FlutterBackgroundExecutor {
+        return FlutterBackgroundExecutor(application).apply {
+            startBackgroundIsolate { dartExecutor ->
+                setupDependencyContainer(DefaultDependencyContainer(application, dartExecutor))
+            }
+        }
     }
 }

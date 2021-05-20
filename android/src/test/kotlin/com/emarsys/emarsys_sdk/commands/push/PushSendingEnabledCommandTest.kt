@@ -111,7 +111,7 @@ class PushSendingEnabledCommandTest {
     }
 
     @Test
-    fun testExecute_shouldCallSetPushTokenIfDisabled() {
+    fun testExecute_shouldCallClearPushTokenIfDisabled() {
         parameters = mapOf(
             "pushSendingEnabled" to false
         )
@@ -119,6 +119,6 @@ class PushSendingEnabledCommandTest {
         command.execute(parameters) { _, _ ->
         }
 
-        verify { mockPushApi.clearPushToken() }
+        verify { mockPushApi.clearPushToken(any()) }
     }
 }

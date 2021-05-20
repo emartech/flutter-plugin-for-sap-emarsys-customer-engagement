@@ -2,26 +2,24 @@ package com.emarsys.emarsys_sdk.di
 
 import android.app.Application
 import android.content.SharedPreferences
-import com.emarsys.emarsys_sdk.FlutterBackgroundExecutor
+import com.emarsys.emarsys_sdk.EventHandlerFactory
 import com.emarsys.emarsys_sdk.PushTokenStorage
 import com.emarsys.emarsys_sdk.commands.EmarsysCommandFactory
-import com.emarsys.emarsys_sdk.provider.MainHandlerProvider
+import io.flutter.plugin.common.BinaryMessenger
 
-class DefaultDependencyContainer(override val application: Application) : DependencyContainer {
+class DefaultDependencyContainer(override val application: Application,
+                                 private val binaryMessenger: BinaryMessenger) : DependencyContainer {
 
     override val emarsysCommandFactory: EmarsysCommandFactory by lazy {
-        EmarsysCommandFactory(pushTokenStorage)
-    }
-    override val flutterBackgroundExecutor: FlutterBackgroundExecutor by lazy {
-        FlutterBackgroundExecutor(application)
+        EmarsysCommandFactory(application, pushTokenStorage, eventHandlerFactory, sharedPreferences)
     }
     override val sharedPreferences: SharedPreferences by lazy {
         application.getSharedPreferences("flutter_wrapper", 0)
     }
-    override val mainHandlerProvider: MainHandlerProvider by lazy {
-        MainHandlerProvider()
-    }
     override val pushTokenStorage: PushTokenStorage by lazy {
         PushTokenStorage(sharedPreferences)
+    }
+    override val eventHandlerFactory: EventHandlerFactory by lazy {
+        EventHandlerFactory(binaryMessenger)
     }
 }

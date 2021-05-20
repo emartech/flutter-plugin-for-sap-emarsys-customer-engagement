@@ -13,15 +13,18 @@ import io.mockk.*
 import org.json.JSONObject
 import org.junit.After
 import org.junit.Before
+
 import org.junit.Test
 
-class EmarsysSdkPluginTest {
-    private lateinit var emarsysPlugin: EmarsysSdkPlugin
+class EmarsysMethodCallHandlerTest {
+
+    private lateinit var emarsysMethodCallHandler: EmarsysMethodCallHandler
     private lateinit var mockCommandFactory: EmarsysCommandFactory
 
     @Before
     fun setUp() {
-        emarsysPlugin = EmarsysSdkPlugin()
+        emarsysMethodCallHandler = EmarsysMethodCallHandler(mockk())
+
         mockCommandFactory = mockk(relaxed = true)
         setupDependencyContainer(FakeDependencyContainer(emarsysCommandFactory = mockCommandFactory))
     }
@@ -32,16 +35,20 @@ class EmarsysSdkPluginTest {
         clearAllMocks()
     }
 
+
     @Test
     fun testOnMethodCall_shouldCallFactory() {
-        emarsysPlugin.onMethodCall(MethodCall("testMethodName", mapOf<String, Any>()), mockk())
+        emarsysMethodCallHandler.onMethodCall(
+            MethodCall("testMethodName", mapOf<String, Any>()),
+            mockk()
+        )
 
         verify { mockCommandFactory.create(any()) }
     }
 
     @Test
     fun testOnMethodCall_shouldCallFactoryWithTheMethodCallsMethodName() {
-        emarsysPlugin.onMethodCall(MethodCall("setup", mapOf<String, Any>()), mockk())
+        emarsysMethodCallHandler.onMethodCall(MethodCall("setup", mapOf<String, Any>()), mockk())
 
         verify { mockCommandFactory.create(eq("setup")) }
     }
@@ -50,17 +57,21 @@ class EmarsysSdkPluginTest {
     fun testOnMethodCall_shouldExecuteCommandCreatedByFactoryWithCorrectArguments() {
         val mockCommand: SetupCommand = mockk(relaxed = true)
         val expectedArguments = mapOf(
-                "arg1" to "value1",
-                "arg2" to "value2")
+            "arg1" to "value1",
+            "arg2" to "value2"
+        )
 
         every {
             mockCommandFactory.create("setup")
         } returns mockCommand
 
-        emarsysPlugin.onMethodCall(MethodCall(
+        emarsysMethodCallHandler.onMethodCall(
+            MethodCall(
                 "setup",
-                expectedArguments),
-                mockk())
+                expectedArguments
+            ),
+            mockk()
+        )
 
         verify { mockCommandFactory.create(eq("setup")) }
         verify { mockCommand.execute(expectedArguments, any()) }
@@ -70,18 +81,23 @@ class EmarsysSdkPluginTest {
     fun testOnMethodCall_shouldNotExecuteCommandCreatedByFactoryWithCorrectArguments_whenArgumentsAreNotAMap() {
         val mockCommand: SetupCommand = mockk(relaxed = true)
         val expectedArguments = JSONObject(
-                mapOf("arg1" to "value1",
-                        "arg2" to "value2")
+            mapOf(
+                "arg1" to "value1",
+                "arg2" to "value2"
+            )
         )
 
         every {
             mockCommandFactory.create("setup")
         } returns mockCommand
 
-        emarsysPlugin.onMethodCall(MethodCall(
+        emarsysMethodCallHandler.onMethodCall(
+            MethodCall(
                 "setup",
-                expectedArguments),
-                mockk())
+                expectedArguments
+            ),
+            mockk()
+        )
 
         verify { mockCommand wasNot Called }
         verify { mockCommandFactory wasNot Called }
@@ -95,13 +111,16 @@ class EmarsysSdkPluginTest {
             mockCommandFactory.create("clearContact")
         } returns mockCommand
 
-        emarsysPlugin.onMethodCall(MethodCall(
+        emarsysMethodCallHandler.onMethodCall(
+            MethodCall(
                 "clearContact",
-                null),
-                mockk())
+                null
+            ),
+            mockk()
+        )
 
         verify { mockCommandFactory.create("clearContact") }
-        verify { mockCommand.execute(null, any())  }
+        verify { mockCommand.execute(null, any()) }
     }
 
     @Test
@@ -122,10 +141,13 @@ class EmarsysSdkPluginTest {
             (call.invocation.args[1] as ResultCallback).invoke(null, testError)
         }
 
-        emarsysPlugin.onMethodCall(MethodCall(
+        emarsysMethodCallHandler.onMethodCall(
+            MethodCall(
                 "setup",
-                expectedArguments),
-                mockResult)
+                expectedArguments
+            ),
+            mockResult
+        )
 
         verify { mockResult.error("EMARSYS_SDK_ERROR", "testErrorMessage", testError) }
     }
@@ -147,10 +169,13 @@ class EmarsysSdkPluginTest {
             (call.invocation.args[1] as ResultCallback).invoke(Any(), null)
         }
 
-        emarsysPlugin.onMethodCall(MethodCall(
+        emarsysMethodCallHandler.onMethodCall(
+            MethodCall(
                 "setup",
-                expectedArguments),
-                mockResult)
+                expectedArguments
+            ),
+            mockResult
+        )
 
         verify { mockResult.success(any()) }
     }
@@ -163,10 +188,13 @@ class EmarsysSdkPluginTest {
             mockCommandFactory.create(any())
         } returns null
 
-        emarsysPlugin.onMethodCall(MethodCall(
+        emarsysMethodCallHandler.onMethodCall(
+            MethodCall(
                 "notImplementedMethod",
-                mapOf<String, Any>()),
-                mockResult)
+                mapOf<String, Any>()
+            ),
+            mockResult
+        )
 
         verify { mockResult.notImplemented() }
     }

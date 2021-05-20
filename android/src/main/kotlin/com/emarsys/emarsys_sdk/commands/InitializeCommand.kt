@@ -1,14 +1,16 @@
 package com.emarsys.emarsys_sdk.commands
 
+import android.content.SharedPreferences
 import com.emarsys.emarsys_sdk.EmarsysCommand
 import com.emarsys.emarsys_sdk.FlutterBackgroundExecutor
 
-class InitializeCommand : EmarsysCommand {
+class InitializeCommand(private val sharedPreferences: SharedPreferences) : EmarsysCommand {
     override fun execute(parameters: Map<String, Any?>?, resultCallback: ResultCallback) {
         val callbackHandle: Long? = parameters?.get("callbackHandle") as Long?
 
         if (callbackHandle != null) {
-            FlutterBackgroundExecutor.setCallbackDispatcher(callbackHandle)
+            sharedPreferences.edit()
+                .putLong(FlutterBackgroundExecutor.CALLBACK_HANDLE_KEY, callbackHandle).apply()
         }
         resultCallback.invoke(null, null)
     }

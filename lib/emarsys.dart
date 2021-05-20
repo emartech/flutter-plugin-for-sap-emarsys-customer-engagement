@@ -37,7 +37,7 @@ class Emarsys {
         return false;
       }
       result = await _channel.invokeMethod<bool>(
-          'android.initialize', {'callback': handle.toRawHandle()});
+          'android.initialize', {'callbackHandle': handle.toRawHandle()});
     }
     return result ?? false;
   }

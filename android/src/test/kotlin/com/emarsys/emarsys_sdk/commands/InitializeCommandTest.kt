@@ -1,7 +1,10 @@
 package com.emarsys.emarsys_sdk.commands
 
-import com.emarsys.emarsys_sdk.FlutterBackgroundExecutor
-import io.mockk.*
+import android.content.SharedPreferences
+import io.mockk.clearAllMocks
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.verify
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -9,18 +12,20 @@ import org.junit.Test
 class InitializeCommandTest {
 
     private lateinit var command: InitializeCommand
+    private lateinit var mockSharedPreferences: SharedPreferences
+    private lateinit var mockEdit: SharedPreferences.Editor
 
     @Before
     fun setUp() {
-        command = InitializeCommand()
-
-        mockkObject(FlutterBackgroundExecutor)
-        every { FlutterBackgroundExecutor.setCallbackDispatcher(any()) } just Runs
+        mockSharedPreferences = mockk()
+        command = InitializeCommand(mockSharedPreferences)
+        mockEdit = mockk(relaxed = true)
+        every { mockSharedPreferences.edit() } returns mockEdit
     }
 
     @After
     fun tearDown() {
-        unmockkObject(FlutterBackgroundExecutor)
+        clearAllMocks()
     }
 
     @Test
@@ -29,7 +34,12 @@ class InitializeCommandTest {
 
         command.execute(mapOf("callbackHandle" to 123L), mockResultCallback)
 
-        verify { FlutterBackgroundExecutor.setCallbackDispatcher(123L) }
+        verify {
+            mockEdit.putLong(
+                "callback_handle",
+                123
+            )
+        }
         verify { mockResultCallback.invoke(null, null) }
     }
 
@@ -39,7 +49,7 @@ class InitializeCommandTest {
 
         command.execute(mapOf(), mockResultCallback)
 
-        verify(exactly = 0) { FlutterBackgroundExecutor.setCallbackDispatcher(any()) }
+        verify(exactly = 0) { mockEdit.putLong(any(), any()) }
         verify { mockResultCallback.invoke(null, null) }
     }
 }

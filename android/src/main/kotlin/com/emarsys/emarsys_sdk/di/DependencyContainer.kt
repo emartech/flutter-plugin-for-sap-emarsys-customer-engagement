@@ -2,10 +2,9 @@ package com.emarsys.emarsys_sdk.di
 
 import android.app.Application
 import android.content.SharedPreferences
-import com.emarsys.emarsys_sdk.FlutterBackgroundExecutor
+import com.emarsys.emarsys_sdk.EventHandlerFactory
 import com.emarsys.emarsys_sdk.PushTokenStorage
 import com.emarsys.emarsys_sdk.commands.EmarsysCommandFactory
-import com.emarsys.emarsys_sdk.provider.MainHandlerProvider
 
 fun dependencyContainer() = DependencyContainer.instance
         ?: throw IllegalStateException("DependencyContainer has to be setup first!")
@@ -20,6 +19,10 @@ fun setupDependencyContainer(container: DependencyContainer) {
     }
 }
 
+fun dependencyContainerIsSetup() : Boolean {
+    return DependencyContainer.instance != null
+}
+
 interface DependencyContainer {
     companion object {
         var instance: DependencyContainer? = null
@@ -29,11 +32,9 @@ interface DependencyContainer {
 
     val application: Application
 
-    val flutterBackgroundExecutor: FlutterBackgroundExecutor
-
     val sharedPreferences: SharedPreferences
 
-    val mainHandlerProvider: MainHandlerProvider
-
     val pushTokenStorage: PushTokenStorage
+
+    val eventHandlerFactory: EventHandlerFactory
 }
