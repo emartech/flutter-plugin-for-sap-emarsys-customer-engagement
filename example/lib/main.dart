@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Emarsys.initialize();
   Emarsys.setup(EmarsysConfig(
       contactFieldId: 2575,
       applicationCode: 'EMS74-EFB68',

@@ -54,4 +54,8 @@ class Config {
     }
     return sdkVersion;
   }
+
+  Future<String> flutterPluginVersion() async {
+    return "0.1.0";
+  }
 }
