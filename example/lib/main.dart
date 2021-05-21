@@ -35,8 +35,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   late TextEditingController _contactFieldValueController;
   final _messangerKey = GlobalKey<ScaffoldMessengerState>();
-  late String hardwareId;
-  late int contactFieldId;
+  String hardwareId ="-";
+  int contactFieldId = 0;
   String? applicationCode;
   String? languageCode;
   String? merchantId;
