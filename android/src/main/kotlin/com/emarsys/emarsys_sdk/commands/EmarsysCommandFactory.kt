@@ -6,14 +6,17 @@ import com.emarsys.emarsys_sdk.EmarsysCommand
 import com.emarsys.emarsys_sdk.EventHandlerFactory
 import com.emarsys.emarsys_sdk.PushTokenStorage
 import com.emarsys.emarsys_sdk.commands.config.*
+import com.emarsys.emarsys_sdk.commands.push.NotificationChannelFactory
 import com.emarsys.emarsys_sdk.commands.push.PushSendingEnabledCommand
+import com.emarsys.emarsys_sdk.commands.push.RegisterNotificationChannelsCommand
 
 
 class EmarsysCommandFactory(
     private val application: Application,
     private val pushTokenStorage: PushTokenStorage,
     private val eventHandlerFactory: EventHandlerFactory,
-    private val sharedPreferences: SharedPreferences
+    private val sharedPreferences: SharedPreferences,
+    private val notificationChannelFactory: NotificationChannelFactory
 ) {
 
     fun create(methodName: String): EmarsysCommand? {
@@ -30,6 +33,10 @@ class EmarsysCommandFactory(
             "clearContact" -> ClearContactCommand()
             "android.initialize" -> InitializeCommand(sharedPreferences)
             "push.pushSendingEnabled" -> PushSendingEnabledCommand(pushTokenStorage)
+            "push.android.registerNotificationChannels" -> RegisterNotificationChannelsCommand(
+                application,
+                notificationChannelFactory
+            )
             "config.applicationCode" -> ApplicationCodeCommand()
             "config.merchantId" -> MerchantIdCommand()
             "config.contactFieldId" -> ContactFieldIdCommand()

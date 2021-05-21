@@ -14,7 +14,13 @@ class DefaultDependencyContainer(
 ) : DependencyContainer {
 
     override val emarsysCommandFactory: EmarsysCommandFactory by lazy {
-        EmarsysCommandFactory(application, pushTokenStorage, eventHandlerFactory, sharedPreferences)
+        EmarsysCommandFactory(
+            application,
+            pushTokenStorage,
+            eventHandlerFactory,
+            sharedPreferences,
+            notificationChannelFactory
+        )
     }
     override val sharedPreferences: SharedPreferences by lazy {
         application.getSharedPreferences("flutter_wrapper", 0)

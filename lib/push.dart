@@ -28,7 +28,7 @@ class Push {
       List<NotificationChannel> notificationChannels) {
     return _channel.invokeMethod('push.android.registerNotificationChannels', {
       'notificationChannels':
-          notificationChannels.map((channel) => channel.toMap())
+          notificationChannels.map((channel) => channel.toMap()).toList()
     });
   }
 }
