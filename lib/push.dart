@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'api/notification_channel.dart';
 import 'event.dart';
 
 class Push {
@@ -8,9 +9,8 @@ class Push {
 
   Push(this._channel, EventChannel _pushEventChannel,
       EventChannel _silentPushEventChannel)
-      : pushEventStream = _pushEventChannel
-            .receiveBroadcastStream()
-            .map((event) => Event(
+      : pushEventStream = _pushEventChannel.receiveBroadcastStream().map(
+            (event) => Event(
                 name: event["name"],
                 payload: Map<String, dynamic>.from(event["payload"]))),
         silentPushEventStream = _silentPushEventChannel
@@ -20,6 +20,15 @@ class Push {
                 payload: Map<String, dynamic>.from(event["payload"])));
 
   Future<void> pushSendingEnabled(bool enable) {
-    return _channel.invokeMethod('push.pushSendingEnabled', {'pushSendingEnabled': enable});
+    return _channel.invokeMethod(
+        'push.pushSendingEnabled', {'pushSendingEnabled': enable});
+  }
+
+  Future<void> registerAndroidNotificationChannels(
+      List<NotificationChannel> notificationChannels) {
+    return _channel.invokeMethod('push.android.registerNotificationChannels', {
+      'notificationChannels':
+          notificationChannels.map((channel) => channel.toMap())
+    });
   }
 }

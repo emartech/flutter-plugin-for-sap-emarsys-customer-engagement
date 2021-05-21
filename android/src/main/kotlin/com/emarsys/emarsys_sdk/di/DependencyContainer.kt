@@ -5,9 +5,10 @@ import android.content.SharedPreferences
 import com.emarsys.emarsys_sdk.EventHandlerFactory
 import com.emarsys.emarsys_sdk.PushTokenStorage
 import com.emarsys.emarsys_sdk.commands.EmarsysCommandFactory
+import com.emarsys.emarsys_sdk.commands.push.NotificationChannelFactory
 
 fun dependencyContainer() = DependencyContainer.instance
-        ?: throw IllegalStateException("DependencyContainer has to be setup first!")
+    ?: throw IllegalStateException("DependencyContainer has to be setup first!")
 
 fun tearDownDependencyContainer() {
     DependencyContainer.instance = null
@@ -19,7 +20,7 @@ fun setupDependencyContainer(container: DependencyContainer) {
     }
 }
 
-fun dependencyContainerIsSetup() : Boolean {
+fun dependencyContainerIsSetup(): Boolean {
     return DependencyContainer.instance != null
 }
 
@@ -37,4 +38,6 @@ interface DependencyContainer {
     val pushTokenStorage: PushTokenStorage
 
     val eventHandlerFactory: EventHandlerFactory
+
+    val notificationChannelFactory: NotificationChannelFactory
 }

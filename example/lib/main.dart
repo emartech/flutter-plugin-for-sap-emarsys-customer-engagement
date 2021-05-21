@@ -3,6 +3,7 @@ import 'package:emarsys_sdk/emarsys_config.dart';
 import 'package:flutter/material.dart';
 import 'package:emarsys_sdk/emarsys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:emarsys_sdk/api/notification_channel.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,6 +12,19 @@ void main() async {
       applicationCode: 'EMS74-EFB68',
       androidVerboseConsoleLoggingEnabled: true));
   runApp(MyApp());
+
+  Emarsys.push.registerAndroidNotificationChannels([
+    NotificationChannel(
+        id: "ems_sample_news",
+        name: "News",
+        description: "News and updates go into this channel",
+        importance: NotificationChannel.IMPORTANCE_HIGH),
+    NotificationChannel(
+        id: "ems_sample_messages",
+        name: "Messages",
+        description: "Important messages go into this channel",
+        importance: NotificationChannel.IMPORTANCE_HIGH),
+  ]);
 }
 
 class MyApp extends StatefulWidget {

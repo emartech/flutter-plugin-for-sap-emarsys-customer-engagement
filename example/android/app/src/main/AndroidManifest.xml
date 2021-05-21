@@ -2,8 +2,7 @@
     package="com.emarsys.emarsys_sdk_example">
    <application
         android:label="emarsys_sdk_example"
-        android:icon="@mipmap/ic_launcher"
-        android:name=".ExampleApplication">
+        android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
