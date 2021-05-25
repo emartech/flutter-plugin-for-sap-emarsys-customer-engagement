@@ -1,15 +1,14 @@
-# emarsys_sdk
+## The EmarsysSDK Flutter Plugin
+> __`Note`__
+>
+> The currently supported platforms are iOS and Android.
+> 
+> For further informations about how to use the flutter-emarsys-sdk please visit our [Documentation](https://github.com/emartech/flutter-emarsys-sdk/wiki)
 
-A new flutter plugin project.
+The EmarsysSDK Flutter Plugin is the official plugin to help integrate Emarsys in to your Flutter application. 
+On this page we won't go into details about how the SDK works, and what the supported features can be used for.
 
-## Getting Started
+For more detailed information about the different features please visit the [iOS](https://github.com/emartech/ios-emarsys-sdk/wiki) or the [Android](https://github.com/emartech/android-emarsys-sdk/wiki)
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
+## What is the EmarsysSDK
+The Emarsys SDK enables you to use Mobile Engage and Predict in a very straightforward way. By incorporating the SDK in your app, we, among others, support you in handling credentials, API calls, tracking of opens and events as well as logins and logouts in the app.
