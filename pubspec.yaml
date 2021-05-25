@@ -1,5 +1,5 @@
 name: emarsys_sdk
-description: A new flutter plugin project.
+description: The EmarsysSDK Flutter Plugin is the official plugin to help integrate Emarsys in to your Flutter application.
 version: 0.0.1
 author:
 homepage: https://github.com/emartech/flutter-emarsys-sdk
