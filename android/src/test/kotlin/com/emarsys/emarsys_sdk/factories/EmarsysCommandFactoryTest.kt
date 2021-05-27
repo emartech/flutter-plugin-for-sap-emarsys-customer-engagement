@@ -13,7 +13,7 @@ class EmarsysCommandFactoryTest {
 
     @Before
     fun setUp() {
-        factory = EmarsysCommandFactory(mockk(), mockk(), mockk(), mockk())
+        factory = EmarsysCommandFactory(mockk(), mockk(), mockk(), mockk(), mockk())
     }
 
     @Test
