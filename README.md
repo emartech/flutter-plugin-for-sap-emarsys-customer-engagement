@@ -5,7 +5,7 @@
 > 
 > For further informations about how to use the flutter-emarsys-sdk please visit our [Documentation](https://github.com/emartech/flutter-emarsys-sdk/wiki)
 
-The EmarsysSDK Flutter Plugin is the official plugin to help integrate Emarsys in to your Flutter application. 
+The EmarsysSDK Flutter Plugin is the official plugin to help integrate Emarsys into your Flutter application. 
 On this page we won't go into details about how the SDK works, and what the supported features can be used for.
 
 For more detailed information about the different features please visit the [iOS](https://github.com/emartech/ios-emarsys-sdk/wiki) or the [Android](https://github.com/emartech/android-emarsys-sdk/wiki)
