@@ -10,25 +10,16 @@ public class SwiftEmarsysSdkPlugin: NSObject, FlutterPlugin {
     let pushEventChannel = FlutterEventChannel(name: "com.emarsys.events.push", binaryMessenger: registrar.messenger())
     let silentPushEventChannel = FlutterEventChannel(name: "com.emarsys.events.silentPush", binaryMessenger: registrar.messenger())
     
-    let pushEventCallback: EventCallback = createEventCallback(eventChannel: pushEventChannel)
-    let silentPushEventCallback: EventCallback = createEventCallback(eventChannel: silentPushEventChannel)
+    let silentPushHandler = EmarsysStreamHandler()
+    let pushHandler = EmarsysStreamHandler()
     
-    factory = EmarsysCommandFactory(pushEventCallback: pushEventCallback, silentPushEventCallback: silentPushEventCallback)
+    factory = EmarsysCommandFactory(pushEventHandler: pushHandler, silentPushEventHandler: silentPushHandler)
+    pushEventChannel.setStreamHandler(pushHandler)
+    silentPushEventChannel.setStreamHandler(silentPushHandler)
     
     let instance = SwiftEmarsysSdkPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
-    
-    private static func createEventCallback(eventChannel: FlutterEventChannel) -> EventCallback {
-        return { name, payload in
-            eventChannel.setStreamHandler(EmarsysStreamHandler() { eventSink in
-                var event = [String: Any]()
-                event["name"] = name
-                event["payload"] = payload
-                eventSink(event)
-            })
-        }
-    }
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     guard let command = SwiftEmarsysSdkPlugin.factory?.create(name: call.method) else {

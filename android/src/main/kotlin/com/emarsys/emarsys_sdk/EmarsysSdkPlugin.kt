@@ -8,9 +8,11 @@ import com.emarsys.emarsys_sdk.di.setupDependencyContainer
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodChannel
+import io.flutter.plugin.common.EventChannel
+import io.flutter.plugin.common.EventChannel.StreamHandler
+import android.os.Handler
+import android.os.Looper
 
-
-/** EmarsysSdkPlugin */
 class EmarsysSdkPlugin : FlutterPlugin {
     companion object {
         private const val METHOD_CHANNEL_NAME = "com.emarsys.methods"
@@ -18,6 +20,7 @@ class EmarsysSdkPlugin : FlutterPlugin {
 
     private var channel: MethodChannel? = null
     private val initializationLock = Any()
+    val mainHandler = Handler(Looper.getMainLooper())
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         onAttachedToEngine(

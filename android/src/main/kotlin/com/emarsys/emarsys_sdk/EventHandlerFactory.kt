@@ -1,13 +1,14 @@
 package com.emarsys.emarsys_sdk
 
 import android.content.Context
+import com.emarsys.core.util.JsonUtils
 import com.emarsys.mobileengage.api.event.EventHandler
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.EventChannel
+import io.flutter.plugin.common.JSONUtil
 import org.json.JSONObject
 
 class EventHandlerFactory(private val binaryMessenger: BinaryMessenger) {
-
 
     private var eventChannels: Map<EventChannelName, EventChannel>
 
@@ -22,27 +23,26 @@ class EventHandlerFactory(private val binaryMessenger: BinaryMessenger) {
     }
 
     fun create(eventChannelName: EventChannelName): EventHandler {
-        return object : EventHandler {
-            val eventChannel: EventChannel = eventChannels[eventChannelName]!!
-            override fun handleEvent(context: Context, eventName: String, payload: JSONObject?) {
-                eventChannel.setStreamHandler(
-                    object : EventChannel.StreamHandler {
+        val handler = object : EventChannel.StreamHandler, EventHandler {
 
-                        override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
-                            events?.success(
-                                mapOf(
-                                    "name" to eventName,
-                                    "payload" to payload
-                                )
-                            )
-                        }
-                        override fun onCancel(arguments: Any?) {
+            var events: EventChannel.EventSink? = null
 
-                        }
-                    })
+            override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
+                this.events = events
             }
 
-        }
-    }
+            override fun onCancel(arguments: Any?) {
+            }
 
+            override fun handleEvent(context: Context, eventName: String, payload: JSONObject?) {
+                events?.success(mapOf(
+                                    "name" to eventName,
+                                    "payload" to JsonUtils.toMap(payload ?: JSONObject())
+                                ))
+            }
+        }
+        val eventChannel: EventChannel = eventChannels[eventChannelName]!!
+        eventChannel.setStreamHandler(handler)
+        return handler
+    }
 }

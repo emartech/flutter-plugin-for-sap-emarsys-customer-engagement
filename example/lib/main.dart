@@ -25,6 +25,12 @@ void main() async {
         description: "Important messages go into this channel",
         importance: NotificationChannel.IMPORTANCE_HIGH),
   ]);
+  Emarsys.push.pushEventStream.listen((event) {
+    print(event.name);
+  });
+  Emarsys.push.silentPushEventStream.listen((event) {
+    print(event.name);
+  });  
 }
 
 class MyApp extends StatefulWidget {

@@ -3,21 +3,25 @@
 //
 
 import Foundation
+import EmarsysSDK
 
-class EmarsysStreamHandler: NSObject, FlutterStreamHandler {
+class EmarsysStreamHandler: NSObject, FlutterStreamHandler, EMSEventHandler {
     
-    var onListenCallback: (_ eventSink: @escaping FlutterEventSink) -> ()
-    
-    init(onListenCallback: @escaping (_ eventSink: @escaping FlutterEventSink) -> ()) {
-        self.onListenCallback = onListenCallback
-    }
+    var sink: FlutterEventSink?
         
     func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
-        onListenCallback(events)
+        sink = events
         return nil
     }
     
     func onCancel(withArguments arguments: Any?) -> FlutterError? {
         return nil
+    }
+    
+    func handleEvent(_ eventName: String, payload: [String : NSObject]?) {
+        var event = [String: Any]()
+        event["name"] = eventName
+        event["payload"] = payload
+        self.sink?(event)
     }
 }

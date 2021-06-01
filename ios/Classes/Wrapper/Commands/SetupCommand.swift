@@ -4,12 +4,12 @@
 import EmarsysSDK
 
 public class SetupCommand: EmarsysCommandProtocol {
-    private var pushEventCallback: EventCallback
-    private var silentPushEventCallback: EventCallback
+    private var pushEventHandler: EMSEventHandler
+    private var silentPushEventHandler: EMSEventHandler
     
-    init(pushEventCallback: @escaping EventCallback, silentPushEventCallback: @escaping EventCallback) {
-        self.pushEventCallback = pushEventCallback
-        self.silentPushEventCallback = silentPushEventCallback
+    init(pushEventHandler: EMSEventHandler, silentPushEventHandler: EMSEventHandler) {
+        self.pushEventHandler = pushEventHandler
+        self.silentPushEventHandler = silentPushEventHandler
     }
     
     func execute(arguments: [String : Any]?, resultCallback: @escaping ResultCallback) {
@@ -60,8 +60,8 @@ public class SetupCommand: EmarsysCommandProtocol {
             Emarsys.setup(with: config)
             UNUserNotificationCenter.current().delegate = Emarsys.notificationCenterDelegate
             
-            Emarsys.push.silentMessageEventHandler = EventHandlerCallbackAdapter(callback: silentPushEventCallback)
-            Emarsys.notificationCenterDelegate.eventHandler = EventHandlerCallbackAdapter(callback: pushEventCallback)
+            Emarsys.push.silentMessageEventHandler = self.silentPushEventHandler
+            Emarsys.notificationCenterDelegate.eventHandler = self.pushEventHandler
             
             Emarsys.trackCustomEvent(withName: "wrapper:init", eventAttributes: ["type" : "flutter"])
             resultCallback(["success": true])
