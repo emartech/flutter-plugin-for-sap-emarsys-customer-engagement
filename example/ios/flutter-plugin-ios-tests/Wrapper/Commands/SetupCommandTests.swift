@@ -4,20 +4,14 @@
 
 import XCTest
 @testable import emarsys_sdk
+import EmarsysSDK
 
 class SetupCommandTests: XCTestCase {
 
     var command: SetupCommand?
     
     override func setUpWithError() throws {
-       
-        command = SetupCommand(pushEventCallback: createEventCallback(), silentPushEventCallback: createEventCallback())
-    }
-    
-    private func createEventCallback() -> EventCallback {
-        return { name, payload in
-            
-        }
+        command = SetupCommand(pushEventHandler: FakeEventHandler(), silentPushEventHandler: FakeEventHandler())
     }
     
     func testExecute_returnTrue() throws {
@@ -59,6 +53,32 @@ class SetupCommandTests: XCTestCase {
         }
 
         XCTAssertEqual(result as? [String: String], expectedResponse)
+    }
+    
+    func testExecute_sendNotification() throws {
+        let arguments = ["contactFieldId": 3]
+        let expectedResponse = ["success": true]
+        var result = [String: Any]()
+        var wrapper = "none"
+
+        let expectation = XCTestExpectation.init(description: "waitForResult")
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "EmarsysSDKWrapperExist"), object: nil, queue: nil) { (notification) in
+            wrapper = notification.object as! String
+            expectation.fulfill()
+        }
+        
+        command?.execute(arguments: arguments) { response in
+            result = response
+        }
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "EmarsysSDKWrapperCheckerNotification"), object: nil)
+        
+        let waiterResult = XCTWaiter.wait(for: [expectation], timeout: 2)
+        
+        XCTAssertEqual(result as? [String: Bool], expectedResponse)
+        XCTAssertEqual(wrapper, "flutter")
+        XCTAssertEqual(waiterResult, XCTWaiter.Result.completed)
     }
 
 }

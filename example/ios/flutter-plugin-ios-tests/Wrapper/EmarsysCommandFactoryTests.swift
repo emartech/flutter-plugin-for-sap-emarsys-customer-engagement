@@ -4,20 +4,16 @@
 
 import XCTest
 @testable import emarsys_sdk
+import EmarsysSDK
 
 class EmarsysCommandFactoryTests: XCTestCase {
 
     var factory: EmarsysCommandFactory?
 
     override func setUpWithError() throws {
-        factory = EmarsysCommandFactory(pushEventCallback: createEventCallback(), silentPushEventCallback: createEventCallback())
+        factory = EmarsysCommandFactory(pushEventHandler: FakeEventHandler(), silentPushEventHandler: FakeEventHandler())
     }
     
-    private func createEventCallback() -> EventCallback {
-        return { name, payload in
-            
-        }
-    }
     func testCreate_setup() throws {
         let command = factory?.create(name: "setup")
         
