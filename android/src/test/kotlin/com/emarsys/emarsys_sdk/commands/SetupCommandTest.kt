@@ -5,12 +5,14 @@ import android.content.SharedPreferences
 import com.emarsys.Emarsys
 import com.emarsys.config.EmarsysConfig
 import com.emarsys.core.di.DependencyInjection
+import com.emarsys.core.provider.wrapper.WrapperInfoContainer
 import com.emarsys.emarsys_sdk.EventHandlerFactory
 import com.emarsys.emarsys_sdk.PushTokenStorage
 import com.emarsys.emarsys_sdk.config.ConfigStorageKeys
 import com.emarsys.emarsys_sdk.di.tearDownDependencyContainer
 import com.emarsys.mobileengage.api.event.EventHandler
 import com.emarsys.push.PushApi
+import io.kotlintest.shouldBe
 import io.mockk.*
 import org.junit.After
 import org.junit.Before
@@ -45,11 +47,11 @@ class SetupCommandTest {
         mockSilentPushEventHandler = mockk(relaxed = true)
         mockEventHandlerFactory = mockk(relaxed = true)
         setupCommand = SetupCommand(
-            mockApplication,
-            mockPushTokenStorage,
-            mockEventHandlerFactory,
-            mockSharedPreferences,
-            false
+                mockApplication,
+                mockPushTokenStorage,
+                mockEventHandlerFactory,
+                mockSharedPreferences,
+                false
         )
         every { mockEventHandlerFactory.create(EventHandlerFactory.EventChannelName.PUSH) } returns mockPushEventHandler
         every { mockEventHandlerFactory.create(EventHandlerFactory.EventChannelName.SILENT_PUSH) } returns mockSilentPushEventHandler
@@ -76,6 +78,8 @@ class SetupCommandTest {
         tearDownDependencyContainer()
 
         clearAllMocks()
+
+        WrapperInfoContainer.wrapperInfo = null
     }
 
     @Test(expected = IllegalArgumentException::class)
@@ -97,23 +101,23 @@ class SetupCommandTest {
     @Test
     fun testExecute_shouldCallEmarsysSetupWithAllConfigValuesFromParametersMap() {
         val parameters = mapOf(
-            "contactFieldId" to CONTACT_FIELD_ID,
-            "applicationCode" to APP_CODE,
-            "merchantId" to MERCHANT_ID,
-            "androidSharedPackageNames" to SHARED_PACKAGE_NAMES,
-            "androidSharedSecret" to SECRET,
-            "androidVerboseConsoleLoggingEnabled" to true
+                "contactFieldId" to CONTACT_FIELD_ID,
+                "applicationCode" to APP_CODE,
+                "merchantId" to MERCHANT_ID,
+                "androidSharedPackageNames" to SHARED_PACKAGE_NAMES,
+                "androidSharedSecret" to SECRET,
+                "androidVerboseConsoleLoggingEnabled" to true
         )
 
         val expectedConfig = EmarsysConfig.Builder()
-            .application(mockApplication)
-            .contactFieldId(CONTACT_FIELD_ID)
-            .mobileEngageApplicationCode(APP_CODE)
-            .predictMerchantId(MERCHANT_ID)
-            .sharedPackageNames(SHARED_PACKAGE_NAMES)
-            .sharedSecret(SECRET)
-            .enableVerboseConsoleLogging()
-            .build()
+                .application(mockApplication)
+                .contactFieldId(CONTACT_FIELD_ID)
+                .mobileEngageApplicationCode(APP_CODE)
+                .predictMerchantId(MERCHANT_ID)
+                .sharedPackageNames(SHARED_PACKAGE_NAMES)
+                .sharedSecret(SECRET)
+                .enableVerboseConsoleLogging()
+                .build()
 
         setupCommand.execute(parameters) { _, _ ->
 
@@ -123,22 +127,22 @@ class SetupCommandTest {
         verify { mockEdit.putInt(ConfigStorageKeys.CONTACT_FIELD_ID.name, CONTACT_FIELD_ID) }
         verify {
             mockEdit.putString(
-                ConfigStorageKeys.MOBILE_ENGAGE_APPLICATION_CODE.name,
-                APP_CODE
+                    ConfigStorageKeys.MOBILE_ENGAGE_APPLICATION_CODE.name,
+                    APP_CODE
             )
         }
         verify { mockEdit.putString(ConfigStorageKeys.PREDICT_MERCHANT_ID.name, MERCHANT_ID) }
         verify {
             mockEdit.putStringSet(
-                ConfigStorageKeys.ANDROID_SHARED_PACKAGE_NAMES.name,
-                mutableSetOf(*SHARED_PACKAGE_NAMES.toTypedArray())
+                    ConfigStorageKeys.ANDROID_SHARED_PACKAGE_NAMES.name,
+                    mutableSetOf(*SHARED_PACKAGE_NAMES.toTypedArray())
             )
         }
         verify { mockEdit.putString(ConfigStorageKeys.ANDROID_SHARED_SECRET.name, SECRET) }
         verify {
             mockEdit.putBoolean(
-                ConfigStorageKeys.ANDROID_VERBOSE_CONSOLE_LOGGING_ENABLED.name,
-                true
+                    ConfigStorageKeys.ANDROID_VERBOSE_CONSOLE_LOGGING_ENABLED.name,
+                    true
             )
         }
         verify { mockEdit.apply() }
@@ -154,17 +158,17 @@ class SetupCommandTest {
         every { mockSharedPreferences.getBoolean("push_sending_enabled", any()) } returns true
         val pushTokenStorage = spyk(PushTokenStorage(mockSharedPreferences))
         val setupCommand = SetupCommand(
-            mockApplication,
-            pushTokenStorage,
-            mockEventHandlerFactory,
-            mockSharedPreferences,
-            false
+                mockApplication,
+                pushTokenStorage,
+                mockEventHandlerFactory,
+                mockSharedPreferences,
+                false
         )
 
         val expectedConfig = EmarsysConfig.Builder()
-            .application(mockApplication)
-            .contactFieldId(CONTACT_FIELD_ID)
-            .build()
+                .application(mockApplication)
+                .contactFieldId(CONTACT_FIELD_ID)
+                .build()
 
         setupCommand.execute(mapOf("contactFieldId" to CONTACT_FIELD_ID)) { _, _ ->
 
@@ -182,19 +186,19 @@ class SetupCommandTest {
         every { Emarsys.push } returns mockPushApi
 
         val setupCommand = SetupCommand(
-            mockApplication,
-            PushTokenStorage(mockSharedPreferences),
-            mockEventHandlerFactory,
-            mockSharedPreferences,
-            false
+                mockApplication,
+                PushTokenStorage(mockSharedPreferences),
+                mockEventHandlerFactory,
+                mockSharedPreferences,
+                false
         )
         every { mockPushTokenStorage.pushToken } returns null
         every { mockPushTokenStorage.enabled } returns false
 
         val expectedConfig = EmarsysConfig.Builder()
-            .application(mockApplication)
-            .contactFieldId(CONTACT_FIELD_ID)
-            .build()
+                .application(mockApplication)
+                .contactFieldId(CONTACT_FIELD_ID)
+                .build()
 
         setupCommand.execute(mapOf("contactFieldId" to CONTACT_FIELD_ID)) { _, _ ->
 
@@ -207,64 +211,64 @@ class SetupCommandTest {
     @Test
     fun testOnMethodCall_callSetupWithStoredConfig() {
         setupCommand = SetupCommand(
-            mockApplication,
-            mockPushTokenStorage,
-            mockEventHandlerFactory,
-            mockSharedPreferences,
-            true
+                mockApplication,
+                mockPushTokenStorage,
+                mockEventHandlerFactory,
+                mockSharedPreferences,
+                true
         )
 
         every {
             mockSharedPreferences.getString(
-                ConfigStorageKeys.MOBILE_ENGAGE_APPLICATION_CODE.name,
-                any()
+                    ConfigStorageKeys.MOBILE_ENGAGE_APPLICATION_CODE.name,
+                    any()
             )
         } returns APP_CODE
         every {
             mockSharedPreferences.getInt(
-                ConfigStorageKeys.CONTACT_FIELD_ID.name,
-                any()
+                    ConfigStorageKeys.CONTACT_FIELD_ID.name,
+                    any()
             )
         } returns CONTACT_FIELD_ID
         every {
             mockSharedPreferences.getString(
-                ConfigStorageKeys.PREDICT_MERCHANT_ID.name,
-                any()
+                    ConfigStorageKeys.PREDICT_MERCHANT_ID.name,
+                    any()
             )
         } returns MERCHANT_ID
         every {
             mockSharedPreferences.getString(
-                ConfigStorageKeys.ANDROID_SHARED_SECRET.name,
-                any()
+                    ConfigStorageKeys.ANDROID_SHARED_SECRET.name,
+                    any()
             )
         } returns SECRET
         every {
             mockSharedPreferences.getStringSet(
-                ConfigStorageKeys.ANDROID_SHARED_PACKAGE_NAMES.name,
-                any()
+                    ConfigStorageKeys.ANDROID_SHARED_PACKAGE_NAMES.name,
+                    any()
             )
         } returns mutableSetOf(*SHARED_PACKAGE_NAMES.toTypedArray())
         every {
             mockSharedPreferences.getBoolean(
-                ConfigStorageKeys.ANDROID_VERBOSE_CONSOLE_LOGGING_ENABLED.name,
-                any()
+                    ConfigStorageKeys.ANDROID_VERBOSE_CONSOLE_LOGGING_ENABLED.name,
+                    any()
             )
         } returns false
         every {
             mockSharedPreferences.getBoolean(
-                ConfigStorageKeys.ANDROID_DISABLE_AUTOMATIC_PUSH_TOKEN_SENDING.name,
-                any()
+                    ConfigStorageKeys.ANDROID_DISABLE_AUTOMATIC_PUSH_TOKEN_SENDING.name,
+                    any()
             )
         } returns false
 
         val expectedConfig = EmarsysConfig.Builder()
-            .application(mockApplication)
-            .contactFieldId(CONTACT_FIELD_ID)
-            .mobileEngageApplicationCode(APP_CODE)
-            .predictMerchantId(MERCHANT_ID)
-            .sharedPackageNames(SHARED_PACKAGE_NAMES)
-            .sharedSecret(SECRET)
-            .build()
+                .application(mockApplication)
+                .contactFieldId(CONTACT_FIELD_ID)
+                .mobileEngageApplicationCode(APP_CODE)
+                .predictMerchantId(MERCHANT_ID)
+                .sharedPackageNames(SHARED_PACKAGE_NAMES)
+                .sharedSecret(SECRET)
+                .build()
 
         setupCommand.execute(mapOf()) { _, _ ->
 
@@ -291,5 +295,17 @@ class SetupCommandTest {
         }
 
         verify(exactly = 0) { Emarsys.trackCustomEvent("sdk:init", mapOf("wrapper" to "flutter")) }
+    }
+
+    @Test
+    fun testExecute_shouldSetFlutterToWrapperInfoContainer() {
+        WrapperInfoContainer.wrapperInfo shouldBe null
+
+        setupCommand.execute(mapOf("contactFieldId" to CONTACT_FIELD_ID)) { _, _ ->
+        }
+
+        val result = WrapperInfoContainer.wrapperInfo
+
+        result shouldBe "flutter"
     }
 }

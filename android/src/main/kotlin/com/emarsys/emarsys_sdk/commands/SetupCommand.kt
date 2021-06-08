@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import com.emarsys.Emarsys
 import com.emarsys.config.EmarsysConfig
 import com.emarsys.core.di.DependencyInjection
+import com.emarsys.core.provider.wrapper.WrapperInfoContainer
 import com.emarsys.emarsys_sdk.EmarsysCommand
 import com.emarsys.emarsys_sdk.EventHandlerFactory
 import com.emarsys.emarsys_sdk.PushTokenStorage
@@ -20,6 +21,7 @@ class SetupCommand(
 ) : EmarsysCommand {
 
     override fun execute(parameters: Map<String, Any?>?, resultCallback: ResultCallback) {
+        WrapperInfoContainer.wrapperInfo = "flutter"
         val configBuilder = if (fromCache) {
             configFromSharedPref()
         } else {
