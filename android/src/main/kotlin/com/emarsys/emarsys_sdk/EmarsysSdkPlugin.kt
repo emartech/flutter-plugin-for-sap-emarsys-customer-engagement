@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.annotation.NonNull
 import com.emarsys.emarsys_sdk.di.DefaultDependencyContainer
 import com.emarsys.emarsys_sdk.di.setupDependencyContainer
+import com.emarsys.emarsys_sdk.flutter.EmarsysMethodCallHandler
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodChannel

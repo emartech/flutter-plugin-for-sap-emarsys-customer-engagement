@@ -2,10 +2,10 @@ package com.emarsys.emarsys_sdk.di
 
 import android.app.Application
 import android.content.SharedPreferences
-import com.emarsys.emarsys_sdk.EventHandlerFactory
-import com.emarsys.emarsys_sdk.PushTokenStorage
-import com.emarsys.emarsys_sdk.commands.EmarsysCommandFactory
-import com.emarsys.emarsys_sdk.commands.push.NotificationChannelFactory
+import com.emarsys.emarsys_sdk.command.EmarsysCommandFactory
+import com.emarsys.emarsys_sdk.event.EventHandlerFactory
+import com.emarsys.emarsys_sdk.notification.NotificationChannelFactory
+import com.emarsys.emarsys_sdk.storage.PushTokenStorage
 
 fun dependencyContainer() = DependencyContainer.instance
     ?: throw IllegalStateException("DependencyContainer has to be setup first!")

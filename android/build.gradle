@@ -2,7 +2,7 @@ group 'com.emarsys.emarsys_sdk'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.4.31'
+    ext.kotlin_version = '1.5.10'
     repositories {
         google()
         jcenter()
@@ -52,7 +52,7 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    api "com.emarsys:emarsys-sdk:2.14.1"
+    api "com.emarsys:emarsys-sdk:2.15.0"
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation "io.kotlintest:kotlintest-runner-junit4:3.1.11"

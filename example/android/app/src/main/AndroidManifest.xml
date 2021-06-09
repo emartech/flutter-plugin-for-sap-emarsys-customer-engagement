@@ -38,7 +38,7 @@
             android:name="flutterEmbedding"
             android:value="2" />
 
-          <service android:name="com.emarsys.emarsys_sdk.EmarsysMessagingService">
+          <service android:name="com.emarsys.emarsys_sdk.api.EmarsysMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
