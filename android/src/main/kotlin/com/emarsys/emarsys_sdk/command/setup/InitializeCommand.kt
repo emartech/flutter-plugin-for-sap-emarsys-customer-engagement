@@ -1,7 +1,7 @@
 package com.emarsys.emarsys_sdk.command.setup
 
 import android.content.SharedPreferences
-import com.emarsys.emarsys_sdk.EmarsysCommand
+import com.emarsys.emarsys_sdk.command.EmarsysCommand
 import com.emarsys.emarsys_sdk.command.ResultCallback
 import com.emarsys.emarsys_sdk.flutter.FlutterBackgroundExecutor
 

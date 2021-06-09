@@ -1,7 +1,7 @@
 package com.emarsys.emarsys_sdk.command.config
 
 import com.emarsys.Emarsys
-import com.emarsys.emarsys_sdk.EmarsysCommand
+import com.emarsys.emarsys_sdk.command.EmarsysCommand
 import com.emarsys.emarsys_sdk.command.ResultCallback
 
 class HardwareIdCommand : EmarsysCommand {

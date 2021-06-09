@@ -1,7 +1,7 @@
-package com.emarsys.emarsys_sdk
+package com.emarsys.emarsys_sdk.command
 
-import com.emarsys.emarsys_sdk.command.ResultCallback
 
+typealias ResultCallback = (success: Any?, error: Throwable?) -> Unit
 
 interface EmarsysCommand{
     fun execute(parameters: Map<String, Any?>?, resultCallback: ResultCallback)

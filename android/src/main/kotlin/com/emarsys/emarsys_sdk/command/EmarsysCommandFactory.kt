@@ -2,7 +2,6 @@ package com.emarsys.emarsys_sdk.command
 
 import android.app.Application
 import android.content.SharedPreferences
-import com.emarsys.emarsys_sdk.EmarsysCommand
 import com.emarsys.emarsys_sdk.command.config.*
 import com.emarsys.emarsys_sdk.command.contact.ClearContactCommand
 import com.emarsys.emarsys_sdk.command.contact.SetContactCommand

@@ -6,7 +6,7 @@ import com.emarsys.Emarsys
 import com.emarsys.config.EmarsysConfig
 import com.emarsys.core.di.DependencyInjection
 import com.emarsys.core.provider.wrapper.WrapperInfoContainer
-import com.emarsys.emarsys_sdk.EmarsysCommand
+import com.emarsys.emarsys_sdk.command.EmarsysCommand
 import com.emarsys.emarsys_sdk.command.ResultCallback
 import com.emarsys.emarsys_sdk.config.ConfigStorageKeys
 import com.emarsys.emarsys_sdk.event.EventHandlerFactory

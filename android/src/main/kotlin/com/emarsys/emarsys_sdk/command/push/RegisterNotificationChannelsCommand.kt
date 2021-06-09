@@ -4,7 +4,7 @@ import android.app.Application
 import android.app.NotificationManager
 import android.content.Context
 import com.emarsys.core.util.AndroidVersionUtils
-import com.emarsys.emarsys_sdk.EmarsysCommand
+import com.emarsys.emarsys_sdk.command.EmarsysCommand
 import com.emarsys.emarsys_sdk.command.ResultCallback
 import com.emarsys.emarsys_sdk.notification.NotificationChannelFactory
 

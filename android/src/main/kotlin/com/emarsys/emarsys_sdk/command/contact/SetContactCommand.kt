@@ -2,7 +2,7 @@ package com.emarsys.emarsys_sdk.command.contact
 
 import com.emarsys.Emarsys
 import com.emarsys.core.api.result.CompletionListener
-import com.emarsys.emarsys_sdk.EmarsysCommand
+import com.emarsys.emarsys_sdk.command.EmarsysCommand
 import com.emarsys.emarsys_sdk.command.ResultCallback
 
 class SetContactCommand : EmarsysCommand {
