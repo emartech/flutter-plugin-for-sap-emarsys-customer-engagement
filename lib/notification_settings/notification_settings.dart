@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:emarsys_sdk/api/android_notification_settings.dart';
-import 'package:emarsys_sdk/api/ios_notification_settings.dart';
+import 'package:emarsys_sdk/notification_settings/android_notification_settings.dart';
+import 'package:emarsys_sdk/notification_settings/ios_notification_settings.dart';
 
 class NotificationSettings {
   AndroidNotificationSettings? android;

@@ -1,9 +1,7 @@
-import 'package:emarsys_sdk/api/notification_settings.dart';
-import 'package:emarsys_sdk/emarsys_config.dart';
+import 'package:emarsys_sdk/emarsys_sdk.dart';
+
 import 'package:flutter/material.dart';
-import 'package:emarsys_sdk/emarsys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:emarsys_sdk/api/notification_channel.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +28,7 @@ void main() async {
   });
   Emarsys.push.silentPushEventStream.listen((event) {
     print(event.name);
-  });  
+  });
 }
 
 class MyApp extends StatefulWidget {
@@ -41,7 +39,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   late TextEditingController _contactFieldValueController;
   final _messangerKey = GlobalKey<ScaffoldMessengerState>();
-  String hardwareId ="-";
+  String hardwareId = "-";
   int contactFieldId = 0;
   String? applicationCode;
   String? languageCode;

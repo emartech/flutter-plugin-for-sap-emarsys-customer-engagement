@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:ui';
-import 'package:emarsys_sdk/push.dart';
+import 'package:emarsys_sdk/api/push.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:io' show Platform;
 
-import 'emarsys_config.dart';
+import 'package:emarsys_sdk/api/emarsys_config.dart';
 import 'config.dart';
 
 typedef _GetCallbackHandle = CallbackHandle? Function(Function callback);
@@ -13,7 +13,7 @@ const MethodChannel _channel = const MethodChannel('com.emarsys.methods');
 const EventChannel _silentPushEventChannel =
     const EventChannel('com.emarsys.events.silentPush');
 const EventChannel _pushEventChannel =
-    const EventChannel('com.emarsys.events.push');    
+    const EventChannel('com.emarsys.events.push');
 
 class Emarsys {
   static Push push = Push(_channel, _pushEventChannel, _silentPushEventChannel);

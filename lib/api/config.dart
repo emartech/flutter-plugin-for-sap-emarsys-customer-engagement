@@ -1,4 +1,4 @@
-import 'package:emarsys_sdk/api/notification_settings.dart';
+import 'package:emarsys_sdk/notification_settings/notification_settings.dart';
 import 'package:flutter/services.dart';
 
 class Config {

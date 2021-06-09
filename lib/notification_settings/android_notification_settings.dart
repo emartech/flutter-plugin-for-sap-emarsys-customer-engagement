@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-import 'package:emarsys_sdk/api/channel_settings.dart';
+import 'package:emarsys_sdk/notification_settings/channel_settings.dart';
 
 class AndroidNotificationSettings {
   bool areNotificationsEnabled;

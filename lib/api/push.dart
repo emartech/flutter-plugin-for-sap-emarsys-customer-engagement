@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
-import 'api/notification_channel.dart';
-import 'event.dart';
+import 'package:emarsys_sdk/api/notification_channel.dart';
+import 'package:emarsys_sdk/api/event.dart';
 
 class Push {
   final MethodChannel _channel;

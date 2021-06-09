@@ -1,10 +1,10 @@
-import 'package:emarsys_sdk/api/android_notification_settings.dart';
-import 'package:emarsys_sdk/api/channel_settings.dart';
-import 'package:emarsys_sdk/api/ios_notification_settings.dart';
-import 'package:emarsys_sdk/api/notification_settings.dart';
+import 'package:emarsys_sdk/notification_settings/android_notification_settings.dart';
+import 'package:emarsys_sdk/notification_settings/channel_settings.dart';
+import 'package:emarsys_sdk/notification_settings/ios_notification_settings.dart';
+import 'package:emarsys_sdk/notification_settings/notification_settings.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:emarsys_sdk/emarsys.dart';
+import 'package:emarsys_sdk/api/emarsys.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('com.emarsys.methods');
