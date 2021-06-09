@@ -63,10 +63,6 @@ public class SetupCommand: EmarsysCommandProtocol {
             Emarsys.push.silentMessageEventHandler = self.silentPushEventHandler
             Emarsys.notificationCenterDelegate.eventHandler = self.pushEventHandler
             
-            NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "EmarsysSDKWrapperCheckerNotification"), object: nil, queue: nil) { (notification) in
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "EmarsysSDKWrapperExist"), object: "flutter")
-            }
-            
             Emarsys.trackCustomEvent(withName: "wrapper:init", eventAttributes: ["type" : "flutter"])
             resultCallback(["success": true])
         }
