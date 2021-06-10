@@ -4,7 +4,7 @@ An example app demonstrating the use of the Flutter plug-in for SAP Emarsys Cust
 
 ## Getting Started
 
-This project is a starting point for a Flutter application which integrated the Emarsys SDK.
+This project is a starting point for a Flutter application which integrates the Emarsys SDK.
 
 A few resources to get you started if this is your first Flutter project:
 
