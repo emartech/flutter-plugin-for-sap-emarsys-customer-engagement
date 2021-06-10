@@ -5,13 +5,13 @@
 Pod::Spec.new do |s|
   s.name             = 'emarsys_sdk'
   s.version          = '0.0.1'
-  s.summary          = 'A new flutter plugin project.'
+  s.summary          = 'Flutter plug-in for SAP Emarsys Customer Engagement'
   s.description      = <<-DESC
-A new flutter plugin project.
+This is the iOS native part of the Flutter plug-in for SAP Emarsys Customer Engagement which is the official plug-in to help integrate Emarsys into your Flutter application. 
                        DESC
-  s.homepage         = 'http://example.com'
+  s.homepage         = 'https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
+  s.author           = { 'Emarsys' => 'sdk-team@emarsys.com' }
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
