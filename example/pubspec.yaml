@@ -1,5 +1,5 @@
 name: emarsys_sdk_example
-description: Demonstrates how to use the emarsys_sdk plugin.
+description: Demonstrates how to use the emarsys_sdk plug-in.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
