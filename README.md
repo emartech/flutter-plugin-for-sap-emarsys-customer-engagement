@@ -3,7 +3,7 @@
 >
 > The currently supported platforms are iOS and Android.
 > 
-> For further informations about how to use the Flutter plug-in please visit our [Documentation](https://github.com/emartech/flutter-emarsys-sdk/wiki)
+> For further informations about how to use the Flutter plug-in please visit our [Documentation](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki)
 
 The Flutter plug-in for SAP Emarsys Customer Engagement is the official plug-in to help integrate Emarsys into your Flutter application. 
 On this page we won't go into details about how the underlying Emarsys SDK works and how the supported features can be used.
