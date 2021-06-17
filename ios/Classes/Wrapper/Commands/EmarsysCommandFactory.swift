@@ -22,7 +22,7 @@ class EmarsysCommandFactory {
             result = SetContactCommand()
         case "clearContact":
             result = ClearContactCommand()
-        case "push.enablePushSending":
+        case "push.pushSendingEnabled":
             result = PushSendingEnabledCommand()
         case "push.android.registerNotificationChannels":
             result = EmptyCommand()
