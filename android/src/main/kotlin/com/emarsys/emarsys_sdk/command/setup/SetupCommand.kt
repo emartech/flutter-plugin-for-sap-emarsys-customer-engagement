@@ -29,7 +29,7 @@ class SetupCommand(
             configFromParameters(parameters)
         }
 
-        var setupHasBeenCalledPreviously = isEmarsysComponentSetup()
+        val setupHasBeenCalledPreviously = isEmarsysComponentSetup()
         Emarsys.setup(configBuilder.build())
         if (!setupHasBeenCalledPreviously) {
             Emarsys.trackCustomEvent("wrapper:init", mapOf("type" to "flutter"))

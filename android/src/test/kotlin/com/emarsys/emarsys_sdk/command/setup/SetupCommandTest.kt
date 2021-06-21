@@ -4,8 +4,8 @@ import android.app.Application
 import android.content.SharedPreferences
 import com.emarsys.Emarsys
 import com.emarsys.config.EmarsysConfig
-import com.emarsys.core.di.DependencyInjection
 import com.emarsys.core.provider.wrapper.WrapperInfoContainer
+import com.emarsys.di.isEmarsysComponentSetup
 import com.emarsys.emarsys_sdk.config.ConfigStorageKeys
 import com.emarsys.emarsys_sdk.di.tearDownDependencyContainer
 import com.emarsys.emarsys_sdk.event.EventHandlerFactory
@@ -58,8 +58,9 @@ class SetupCommandTest {
 
         every { mockPushTokenStorage.pushToken } returns PUSH_TOKEN
         every { mockPushTokenStorage.enabled } returns true
-        mockkStatic(DependencyInjection::class)
-        every { DependencyInjection.isSetup() } returns true
+
+        mockkStatic("com.emarsys.di.EmarsysComponentKt")
+        every { isEmarsysComponentSetup() } returns true
 
         mockkStatic(Emarsys::class)
         every { Emarsys.trackCustomEvent(any(), any()) } just Runs
@@ -279,7 +280,7 @@ class SetupCommandTest {
 
     @Test
     fun testExecute_shouldCallTrackCustomEvent_withCorrectInitData_whenSetupHasNotBeenCalledPreviously() {
-        every { DependencyInjection.isSetup() } returns false
+        every { isEmarsysComponentSetup() } returns false
 
         setupCommand.execute(mapOf("contactFieldId" to CONTACT_FIELD_ID)) { _, _ ->
         }
