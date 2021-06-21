@@ -52,7 +52,7 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    api "com.emarsys:emarsys-sdk:2.15.0"
+    api "com.emarsys:emarsys-sdk:2.16.0"
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation "io.kotlintest:kotlintest-runner-junit4:3.1.11"

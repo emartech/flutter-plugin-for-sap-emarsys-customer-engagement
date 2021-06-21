@@ -1,7 +1,7 @@
 package com.emarsys.emarsys_sdk.api
 
 import android.content.Context
-import com.emarsys.core.di.DependencyInjection
+import com.emarsys.di.isEmarsysComponentSetup
 import com.emarsys.emarsys_sdk.di.DefaultDependencyContainer
 import com.emarsys.emarsys_sdk.di.dependencyContainer
 import com.emarsys.emarsys_sdk.di.setupDependencyContainer
@@ -18,7 +18,7 @@ class EmarsysMessagingService : FirebaseMessagingService() {
             Collections.synchronizedList(LinkedList())
 
         fun showInitialMessages(context: Context) {
-            if (DependencyInjection.isSetup()) {
+            if (isEmarsysComponentSetup()) {
                 synchronized(messageQueue) {
                     messageQueue.forEach {
                         EmarsysMessagingServiceUtils.handleMessage(context, it)
@@ -31,7 +31,7 @@ class EmarsysMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
-        if (!DependencyInjection.isSetup()) {
+        if (!isEmarsysComponentSetup()) {
             initFlutterEngine().apply {
                 MainHandlerProvider.provide().post {
                     awakeFlutterCallback(dependencyContainer().sharedPreferences)

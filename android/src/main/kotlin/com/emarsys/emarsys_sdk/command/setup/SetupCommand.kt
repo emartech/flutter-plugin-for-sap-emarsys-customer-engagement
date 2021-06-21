@@ -4,8 +4,8 @@ import android.app.Application
 import android.content.SharedPreferences
 import com.emarsys.Emarsys
 import com.emarsys.config.EmarsysConfig
-import com.emarsys.core.di.DependencyInjection
 import com.emarsys.core.provider.wrapper.WrapperInfoContainer
+import com.emarsys.di.isEmarsysComponentSetup
 import com.emarsys.emarsys_sdk.command.EmarsysCommand
 import com.emarsys.emarsys_sdk.command.ResultCallback
 import com.emarsys.emarsys_sdk.config.ConfigStorageKeys
@@ -29,7 +29,7 @@ class SetupCommand(
             configFromParameters(parameters)
         }
 
-        var setupHasBeenCalledPreviously = DependencyInjection.isSetup()
+        var setupHasBeenCalledPreviously = isEmarsysComponentSetup()
         Emarsys.setup(configBuilder.build())
         if (!setupHasBeenCalledPreviously) {
             Emarsys.trackCustomEvent("wrapper:init", mapOf("type" to "flutter"))
