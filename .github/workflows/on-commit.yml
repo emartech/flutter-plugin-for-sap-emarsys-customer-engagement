@@ -74,7 +74,7 @@ jobs:
         run: flutter test
 
       - name: Run iOS unit tests
-        run: xcodebuild -workspace ~/work/flutter-emarsys-sdk/flutter-emarsys-sdk/example/ios/Runner.xcworkspace -scheme flutter-plugin-ios-tests -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 12 Pro Max' test
+        run: xcodebuild -workspace ~/work/flutter-plugin-for-sap-emarsys-customer-engagement/flutter-plugin-for-sap-emarsys-customer-engagement/example/ios/Runner.xcworkspace -scheme flutter-plugin-ios-tests -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 12 Pro Max' test
         
       # - name: Run integration tests on iOS
       #   if: always()
