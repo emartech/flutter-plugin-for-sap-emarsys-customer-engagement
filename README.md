@@ -1,3 +1,5 @@
+[![REUSE status](https://api.reuse.software/badge/github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement)](https://api.reuse.software/info/github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement)
+
 ## Flutter plug-in for SAP Emarsys Customer Engagement
 > __`Note`__
 >
