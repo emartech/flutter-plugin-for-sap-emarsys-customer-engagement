@@ -1,0 +1,8 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Flutter plug-in for SAP Emarsys Customer Engagement
+Upstream-Contact: sdk-team@emarsys.com
+Source: https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement
+
+Files: *
+Copyright: Copyright 2021 Emarsys
+License: MPL-2.0
