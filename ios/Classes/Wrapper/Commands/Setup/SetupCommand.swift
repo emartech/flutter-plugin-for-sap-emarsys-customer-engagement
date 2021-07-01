@@ -28,8 +28,8 @@ public class SetupCommand: EmarsysCommandProtocol {
                 builder.setMerchantId(merchantId)
             }
             if let enabledConsoleLogLevels = arguments?["iOSEnabledConsoleLogLevels"] as? Array<String> {
-                                var logLevels = [EMSLogLevelProtocol?]()
-                 logLevels = enabledConsoleLogLevels.map {
+                var logLevels = [EMSLogLevelProtocol?]()
+                logLevels = enabledConsoleLogLevels.map {
                     switch $0 {
                     case EMSLogLevel.basic.level():
                         return   EMSLogLevel.basic
@@ -47,7 +47,7 @@ public class SetupCommand: EmarsysCommandProtocol {
                         error = ["error": "Invalid logLevel: \($0)"]
                         return nil
                     }
-                 }.filter {$0 != nil}
+                }.filter {$0 != nil}
                 builder.enableConsoleLogLevels(logLevels as! [EMSLogLevelProtocol])
             }
             if let sharedKeychainAccessGroup = arguments?["iOSSharedKeychainAccessGroup"] as? String {
@@ -58,6 +58,17 @@ public class SetupCommand: EmarsysCommandProtocol {
             resultCallback(e)
         } else {
             Emarsys.setup(with: config)
+            if (EmarsysPushTokenHolder.enabled) {
+                if (EmarsysPushTokenHolder.pushToken != nil) {
+                    Emarsys.push.setPushToken(EmarsysPushTokenHolder.pushToken!)
+                } else {
+                    EmarsysPushTokenHolder.pushTokenObserver = { pushToken in
+                        if pushToken != nil {
+                            Emarsys.push.setPushToken(pushToken!)
+                        }
+                    }
+                }
+            }
             UNUserNotificationCenter.current().delegate = Emarsys.notificationCenterDelegate
             
             Emarsys.push.silentMessageEventHandler = self.silentPushEventHandler
