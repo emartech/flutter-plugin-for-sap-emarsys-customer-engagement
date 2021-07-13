@@ -8,7 +8,9 @@ void main() async {
   Emarsys.setup(EmarsysConfig(
       contactFieldId: 2575,
       applicationCode: 'EMS74-EFB68',
-      androidVerboseConsoleLoggingEnabled: true));
+      androidVerboseConsoleLoggingEnabled: true,
+      iOSEnabledConsoleLogLevels: [ConsoleLogLevels.BASIC, ConsoleLogLevels.DEBUG, 
+        ConsoleLogLevels.TRACE, ConsoleLogLevels.INFO, ConsoleLogLevels.WARN, ConsoleLogLevels.ERROR]));
   runApp(MyApp());
 
   Emarsys.push.registerAndroidNotificationChannels([
