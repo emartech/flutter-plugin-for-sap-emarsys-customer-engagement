@@ -23,7 +23,7 @@ void main() {
   });
 
   test('setup should work', () async {
-    EmarsysConfig config = EmarsysConfig(applicationCode: '', contactFieldId: 0);
+    EmarsysConfig config = EmarsysConfig(applicationCode: '');
 
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
       expect(methodCall.method, 'setup');
@@ -43,13 +43,13 @@ void main() {
     });
 
     expect(
-        Emarsys.setContact('testContactFieldValue'),
+        Emarsys.setContact(123, 'testContactFieldValue'),
         throwsA(isA<PlatformException>().having(
             (error) => error.message, 'message', 'Test error message')));
   });
 
   test('setContact should not throw error', () async {
-    await Emarsys.setContact('testContactFieldValue');
+    await Emarsys.setContact(123, 'testContactFieldValue');
   });
 
   test('clearContact should throw error', () async {

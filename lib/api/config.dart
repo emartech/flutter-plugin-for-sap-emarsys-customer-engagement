@@ -14,12 +14,8 @@ class Config {
     return _channel.invokeMethod('config.merchantId');
   }
 
-  Future<int> contactFieldId() async {
-    int? contactFieldId = await _channel.invokeMethod('config.contactFieldId');
-    if (contactFieldId == null) {
-      throw NullThrownError();
-    }
-    return contactFieldId;
+  Future<int?> contactFieldId() {
+    return _channel.invokeMethod('config.contactFieldId');
   }
 
   Future<String> hardwareId() async {

@@ -25,9 +25,11 @@ class Emarsys {
     return _channel.invokeMethod('setup', config.toMap());
   }
 
-  static Future<void> setContact(String contactFieldValue) {
-    return _channel
-        .invokeMethod('setContact', {"contactFieldValue": contactFieldValue});
+  static Future<void> setContact(int contactFieldId, String contactFieldValue) {
+    return _channel.invokeMethod('setContact', {
+      "contactFieldId": contactFieldId,
+      "contactFieldValue": contactFieldValue
+    });
   }
 
   static Future<void> clearContact() {

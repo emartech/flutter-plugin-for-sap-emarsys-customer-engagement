@@ -2,15 +2,21 @@ import 'package:emarsys_sdk/emarsys_sdk.dart';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Emarsys.setup(EmarsysConfig(
-      contactFieldId: 2575,
       applicationCode: 'EMS74-EFB68',
       androidVerboseConsoleLoggingEnabled: true,
-      iOSEnabledConsoleLogLevels: [ConsoleLogLevels.BASIC, ConsoleLogLevels.DEBUG, 
-        ConsoleLogLevels.TRACE, ConsoleLogLevels.INFO, ConsoleLogLevels.WARN, ConsoleLogLevels.ERROR]));
+      iOSEnabledConsoleLogLevels: [
+        ConsoleLogLevels.BASIC,
+        ConsoleLogLevels.DEBUG,
+        ConsoleLogLevels.TRACE,
+        ConsoleLogLevels.INFO,
+        ConsoleLogLevels.WARN,
+        ConsoleLogLevels.ERROR
+      ]));
   runApp(MyApp());
 
   Emarsys.push.registerAndroidNotificationChannels([
@@ -39,10 +45,11 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  late TextEditingController _contactFieldIdController;
   late TextEditingController _contactFieldValueController;
   final _messangerKey = GlobalKey<ScaffoldMessengerState>();
   String hardwareId = "-";
-  int contactFieldId = 0;
+  int? contactFieldId;
   String? applicationCode;
   String? languageCode;
   String? merchantId;
@@ -55,6 +62,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     _contactFieldValueController = TextEditingController();
+    _contactFieldIdController = TextEditingController();
     WidgetsBinding.instance!
         .addPostFrameCallback((_) => afterFirstLayout(context));
   }
@@ -63,7 +71,7 @@ class _MyAppState extends State<MyApp> {
     prefs = await SharedPreferences.getInstance();
 
     String hardwareIdFromNative = await Emarsys.config.hardwareId();
-    int contactFieldIdFromNative = await Emarsys.config.contactFieldId();
+    int? contactFieldIdFromNative = prefs.getInt("contactFieldId");
     String? applicationCodeFromNative = await Emarsys.config.applicationCode();
     String? languageCodeFromNative = await Emarsys.config.languageCode();
     String? merchantIdFromNative = await Emarsys.config.merchantId();
@@ -72,6 +80,7 @@ class _MyAppState extends State<MyApp> {
     String sdkVersionFromNative = await Emarsys.config.sdkVersion();
     contactFieldValue = prefs.getString("loggedInUser");
     _contactFieldValueController.text = contactFieldValue ?? "";
+    _contactFieldIdController.text = contactFieldValue ?? "";
     setState(() {
       hardwareId = hardwareIdFromNative;
       contactFieldId = contactFieldIdFromNative;
@@ -96,6 +105,13 @@ class _MyAppState extends State<MyApp> {
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               TextField(
+                controller: _contactFieldIdController,
+                keyboardType: TextInputType.number,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(), labelText: "contactFieldId"),
+              ),
+              TextField(
                 controller: _contactFieldValueController,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -104,9 +120,16 @@ class _MyAppState extends State<MyApp> {
               if (contactFieldValue == null)
                 ElevatedButton(
                   onPressed: () {
-                    if (_contactFieldValueController.text.isNotEmpty) {
-                      Emarsys.setContact(_contactFieldValueController.text);
+                    if (_contactFieldIdController.text.isNotEmpty &&
+                        _contactFieldValueController.text.isNotEmpty) {
+                      Emarsys.setContact(
+                          int.parse(_contactFieldIdController.text),
+                          _contactFieldValueController.text);
                       setState(() {
+                        contactFieldId =
+                            int.parse(_contactFieldIdController.text);
+                        prefs.setString(
+                            "contactFieldId", _contactFieldIdController.text);
                         contactFieldValue = _contactFieldValueController.text;
                         prefs.setString(
                             "loggedInUser", _contactFieldValueController.text);
