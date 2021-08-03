@@ -80,7 +80,8 @@ class _MyAppState extends State<MyApp> {
     String sdkVersionFromNative = await Emarsys.config.sdkVersion();
     contactFieldValue = prefs.getString("loggedInUser");
     _contactFieldValueController.text = contactFieldValue ?? "";
-    _contactFieldIdController.text = contactFieldValue ?? "";
+    _contactFieldIdController.text =
+        contactFieldId == null ? contactFieldId.toString() : "";
     setState(() {
       hardwareId = hardwareIdFromNative;
       contactFieldId = contactFieldIdFromNative;
@@ -128,8 +129,9 @@ class _MyAppState extends State<MyApp> {
                       setState(() {
                         contactFieldId =
                             int.parse(_contactFieldIdController.text);
-                        prefs.setString(
-                            "contactFieldId", _contactFieldIdController.text);
+                        prefs.setInt(
+                            "contactFieldId",
+                            int.parse(_contactFieldIdController.text));
                         contactFieldValue = _contactFieldValueController.text;
                         prefs.setString(
                             "loggedInUser", _contactFieldValueController.text);
