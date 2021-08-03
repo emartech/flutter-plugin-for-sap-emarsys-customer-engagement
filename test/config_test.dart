@@ -76,21 +76,13 @@ void main() {
       return 123456;
     });
 
-    int result = await Emarsys.config.contactFieldId();
+    int? result = await Emarsys.config.contactFieldId();
 
     expect(actualMethodCall != null, true);
     if (actualMethodCall != null) {
       expect(actualMethodCall!.method, 'config.contactFieldId');
       expect(result, 123456);
     }
-  });
-
-  test('contactFieldId should throw error', () async {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return null;
-    });
-
-    expect(Emarsys.config.contactFieldId(), throwsA(isA<NullThrownError>()));
   });
 
   test('hardwareId should delegate to the Platform', () async {
