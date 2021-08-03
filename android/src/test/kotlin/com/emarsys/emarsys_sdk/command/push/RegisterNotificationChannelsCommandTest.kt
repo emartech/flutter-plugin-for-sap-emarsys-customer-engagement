@@ -80,7 +80,7 @@ class RegisterNotificationChannelsCommandTest {
         verify { mockNotificationManager.createNotificationChannel(mockNotificationChannel2) }
     }
 
-    @Test(expected = IllegalArgumentException::class)
+    @Test(expected = NullPointerException::class)
     fun testExecute_shouldThrowExceptionOnInvalidArguments() {
         val parametersMap = mapOf(
             "notificationChannels" to listOf(

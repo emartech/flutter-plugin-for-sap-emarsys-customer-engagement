@@ -7,7 +7,7 @@ import com.emarsys.emarsys_sdk.di.dependencyContainer
 import com.emarsys.emarsys_sdk.di.setupDependencyContainer
 import com.emarsys.emarsys_sdk.flutter.FlutterBackgroundExecutor
 import com.emarsys.emarsys_sdk.provider.MainHandlerProvider
-import com.emarsys.service.EmarsysMessagingServiceUtils
+import com.emarsys.service.EmarsysFirebaseMessagingServiceUtils
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import java.util.*
@@ -21,7 +21,7 @@ class EmarsysMessagingService : FirebaseMessagingService() {
             if (isEmarsysComponentSetup()) {
                 synchronized(messageQueue) {
                     messageQueue.forEach {
-                        EmarsysMessagingServiceUtils.handleMessage(context, it)
+                        EmarsysFirebaseMessagingServiceUtils.handleMessage(context, it)
                     }
                     messageQueue.clear()
                 }

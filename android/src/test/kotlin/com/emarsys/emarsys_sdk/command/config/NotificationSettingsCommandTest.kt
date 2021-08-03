@@ -18,7 +18,7 @@ class NotificationSettingsCommandTest {
         mockkStatic(Emarsys::class)
         command = NotificationSettingsCommand()
         mockNotificationSettings = mockk(relaxed = true)
-        every { mockNotificationSettings.areNotificationsEnabled() } returns true
+        every { mockNotificationSettings.areNotificationsEnabled } returns true
         every { mockNotificationSettings.importance } returns 1
         every { mockNotificationSettings.channelSettings } returns listOf(
             ChannelSettings(

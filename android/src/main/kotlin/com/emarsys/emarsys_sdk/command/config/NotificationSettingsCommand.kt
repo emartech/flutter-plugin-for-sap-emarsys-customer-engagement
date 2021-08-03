@@ -12,7 +12,7 @@ class NotificationSettingsCommand : EmarsysCommand {
 
     private fun NotificationSettings.toNotificationSettingsMap(): Map<String, Any> {
         val result = mutableMapOf<String, Any>()
-        result["areNotificationsEnabled"] = this.areNotificationsEnabled()
+        result["areNotificationsEnabled"] = this.areNotificationsEnabled
         result["importance"] = this.importance
         result["channelSettings"] = this.channelSettings.map {
             mapOf(

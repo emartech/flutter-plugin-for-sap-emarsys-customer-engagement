@@ -2,7 +2,7 @@ group 'com.emarsys.emarsys_sdk'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.4.32'
+    ext.kotlin_version = '1.5.21'
     repositories {
         google()
         jcenter()
@@ -52,9 +52,10 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    api "com.emarsys:emarsys-sdk:2.16.0"
+    api "com.emarsys:emarsys-sdk:3.0.0"
+    api "com.emarsys:emarsys-firebase:3.0.0"
 
     testImplementation 'junit:junit:4.13.2'
-    testImplementation "io.kotlintest:kotlintest-runner-junit4:3.1.11"
-    testImplementation "io.mockk:mockk:1.11.0"
+    testImplementation "io.kotlintest:kotlintest-runner-junit4:3.4.2"
+    testImplementation "io.mockk:mockk:1.12.0"
 }

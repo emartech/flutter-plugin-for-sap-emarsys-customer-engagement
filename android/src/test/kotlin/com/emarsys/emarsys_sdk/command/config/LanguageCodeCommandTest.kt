@@ -26,14 +26,14 @@ class LanguageCodeCommandTest {
 
     @Test
     fun testExecute_shouldReturnLanguageCodeFromEmarsysInSuccess() {
-        every { Emarsys.config.language } returns "testLanguageCode"
+        every { Emarsys.config.languageCode } returns "testLanguageCode"
 
         var result : Any? = null
         command.execute(null) { success, _ ->
             result = success
         }
 
-        verify { Emarsys.config.language }
+        verify { Emarsys.config.languageCode }
         result shouldBe "testLanguageCode"
     }
 }

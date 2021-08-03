@@ -54,7 +54,6 @@ class SetupCommand(
 
 
     private fun configFromSharedPref(): EmarsysConfig.Builder {
-        val contactFieldId = sharedPreferences.getInt(ConfigStorageKeys.CONTACT_FIELD_ID.name, 0)
         val appCode =
             sharedPreferences.getString(ConfigStorageKeys.MOBILE_ENGAGE_APPLICATION_CODE.name, null)
         val merchantId =
@@ -75,9 +74,8 @@ class SetupCommand(
 
         val builder = EmarsysConfig.Builder()
             .application(application)
-            .contactFieldId(contactFieldId)
-            .mobileEngageApplicationCode(appCode)
-            .predictMerchantId(merchantId)
+            .applicationCode(appCode)
+            .merchantId(merchantId)
         if (disableAutomaticPushSending) {
             builder.disableAutomaticPushTokenSending()
         }
@@ -97,18 +95,12 @@ class SetupCommand(
     private fun configFromParameters(parameters: Map<String, Any?>?): EmarsysConfig.Builder {
         val configBuilder = EmarsysConfig.Builder()
         val sharedPreferencesEdit = sharedPreferences.edit()
-        val contactFieldId: Int? = parameters?.get("contactFieldId") as Int?
-        if (parameters != null && contactFieldId != null) {
-            sharedPreferencesEdit.putInt(
-                ConfigStorageKeys.CONTACT_FIELD_ID.name,
-                contactFieldId
-            )
+        if (parameters != null) {
             val configBuild = configBuilder
                 .application(application)
-                .contactFieldId(contactFieldId)
 
             (parameters["applicationCode"] as String?).let {
-                configBuild.mobileEngageApplicationCode(it)
+                configBuild.applicationCode(it)
                 sharedPreferencesEdit.putString(
                     ConfigStorageKeys.MOBILE_ENGAGE_APPLICATION_CODE.name,
                     it
@@ -116,7 +108,7 @@ class SetupCommand(
             }
 
             (parameters["merchantId"] as String?).let {
-                configBuild.predictMerchantId(it)
+                configBuild.merchantId(it)
                 sharedPreferencesEdit.putString(
                     ConfigStorageKeys.PREDICT_MERCHANT_ID.name,
                     it
@@ -150,7 +142,7 @@ class SetupCommand(
             }
             sharedPreferencesEdit.apply()
         } else {
-            throw IllegalArgumentException("ContactFieldId must not be null!")
+            throw IllegalArgumentException("parameterMap must not be null!")
         }
         return configBuilder
     }

@@ -11,6 +11,7 @@ import org.junit.Test
 class SetContactCommandTest {
     companion object {
         private const val CONTACT_FIELD_VALUE = "testContactId"
+        private const val CONTACT_FIELD_ID = 58008
     }
 
     private lateinit var command: SetContactCommand
@@ -21,7 +22,8 @@ class SetContactCommandTest {
         mockkStatic(Emarsys::class)
         command = SetContactCommand()
         parameters = mapOf(
-                "contactFieldValue" to CONTACT_FIELD_VALUE
+                "contactFieldValue" to CONTACT_FIELD_VALUE,
+                "contactFieldId" to CONTACT_FIELD_ID
         )
     }
 
@@ -32,29 +34,47 @@ class SetContactCommandTest {
 
     @Test
     fun testExecute_shouldCallMethodOnEmarsys() {
-        every { Emarsys.setContact(any(), any<CompletionListener>()) } just Runs
+        every { Emarsys.setContact(any(), any(), any()) } just Runs
+
 
         command.execute(parameters) { _, _ ->
         }
 
-        verify { Emarsys.setContact(CONTACT_FIELD_VALUE, any<CompletionListener>()) }
+        verify { Emarsys.setContact(CONTACT_FIELD_ID, CONTACT_FIELD_VALUE, any()) }
     }
 
     @Test(expected = IllegalArgumentException::class)
-    fun testExecute_shouldThrowException_whenContactIdIsNotPresentInParametersMap() {
-        every { Emarsys.setContact(any(), any<CompletionListener>()) } just Runs
+    fun testExecute_shouldThrowException_whenContactFieldValueIsNotPresentInParametersMap() {
+        every { Emarsys.setContact(any(), any(), any()) } just Runs
 
-        command.execute(mapOf()) { _, _ -> }
+        parameters = mapOf(
+            "contactFieldId" to CONTACT_FIELD_ID
+        )
 
-        verify(exactly = 0) { Emarsys.setContact(any(), any<CompletionListener>()) }
+        command.execute(parameters) { _, _ -> }
+
+        verify(exactly = 0) { Emarsys.setContact(any(), any(), any()) }
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun testExecute_shouldThrowException_whenContactFieldIdIsNotPresentInParametersMap() {
+        every { Emarsys.setContact(any(), any(), any()) } just Runs
+
+        parameters = mapOf(
+            "contactFieldValue" to CONTACT_FIELD_VALUE,
+        )
+
+        command.execute(parameters) { _, _ -> }
+
+        verify(exactly = 0) { Emarsys.setContact(any(), any(), any()) }
     }
 
     @Test
     fun testExecute_shouldInvokeResultCallback() {
         val mockResultCallback: ResultCallback = mockk(relaxed = true)
 
-        every { Emarsys.setContact(any(), any<CompletionListener>()) } answers {
-            secondArg<CompletionListener>().onCompleted(null)
+        every { Emarsys.setContact(any(), any(), any()) } answers {
+            thirdArg<CompletionListener>().onCompleted(null)
         }
 
         command.execute(parameters, mockResultCallback)
@@ -67,8 +87,8 @@ class SetContactCommandTest {
         val testError = Throwable()
         val mockResultCallback: ResultCallback = mockk(relaxed = true)
 
-        every { Emarsys.setContact(any(), any<CompletionListener>()) } answers {
-            secondArg<CompletionListener>().onCompleted(testError)
+        every { Emarsys.setContact(any(), any(), any()) } answers {
+            thirdArg<CompletionListener>().onCompleted(testError)
         }
 
         command.execute(parameters, mockResultCallback)
