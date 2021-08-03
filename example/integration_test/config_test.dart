@@ -12,7 +12,6 @@ void main() {
 
   setUpAll(() async {
     final config = EmarsysConfig(
-        contactFieldId: 2575,
         applicationCode: APPLICATION_CODE,
         merchantId: MERCHANT_ID);
     await Emarsys.setup(config);

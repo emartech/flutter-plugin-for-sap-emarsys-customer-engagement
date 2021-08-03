@@ -7,12 +7,12 @@ void main() {
 
   setUpAll(() async {
     final config =
-        EmarsysConfig(contactFieldId: 2575, applicationCode: "EMS11-C3FD3");
+        EmarsysConfig(applicationCode: "EMS11-C3FD3");
     await Emarsys.setup(config);
   });
 
   testWidgets("call setContact", (WidgetTester tester) async {
-    await Emarsys.setContact("test@test.com")
+    await Emarsys.setContact(2575, "test@test.com")
         .then((value) => print("SET CONTACT"))
         .catchError((error) => expect(error, null));
   });
