@@ -4,10 +4,10 @@
 import EmarsysSDK
 
 public class SetupCommand: EmarsysCommandProtocol {
-    private var pushEventHandler: EMSEventHandler
-    private var silentPushEventHandler: EMSEventHandler
+    private var pushEventHandler: EMSEventHandlerBlock
+    private var silentPushEventHandler: EMSEventHandlerBlock
     
-    init(pushEventHandler: EMSEventHandler, silentPushEventHandler: EMSEventHandler) {
+    init(pushEventHandler: @escaping EMSEventHandlerBlock, silentPushEventHandler: @escaping EMSEventHandlerBlock) {
         self.pushEventHandler = pushEventHandler
         self.silentPushEventHandler = silentPushEventHandler
     }
@@ -15,12 +15,7 @@ public class SetupCommand: EmarsysCommandProtocol {
     func execute(arguments: [String : Any]?, resultCallback: @escaping ResultCallback) {
         var error: [String : String]? = nil
         
-        guard let contactFieldId = arguments?["contactFieldId"] as? NSNumber else {
-            resultCallback(["error": "Invalid parameter: contactFieldId"])
-            return
-        }
         let config = EMSConfig.make(builder: { builder in
-            builder.setContactFieldId(contactFieldId)
             if let applicationCode = arguments?["applicationCode"] as? String {
                 builder.setMobileEngageApplicationCode(applicationCode)
             }
@@ -57,7 +52,7 @@ public class SetupCommand: EmarsysCommandProtocol {
         if let e = error {
             resultCallback(e)
         } else {
-            Emarsys.setup(with: config)
+            Emarsys.setup(config: config)
             if (EmarsysPushTokenHolder.enabled) {
                 if (EmarsysPushTokenHolder.pushToken != nil) {
                     Emarsys.push.setPushToken(EmarsysPushTokenHolder.pushToken!)
@@ -69,12 +64,12 @@ public class SetupCommand: EmarsysCommandProtocol {
                     }
                 }
             }
-            UNUserNotificationCenter.current().delegate = Emarsys.notificationCenterDelegate
+            UNUserNotificationCenter.current().delegate = Emarsys.push.delegate
             
             Emarsys.push.silentMessageEventHandler = self.silentPushEventHandler
-            Emarsys.notificationCenterDelegate.eventHandler = self.pushEventHandler
+            Emarsys.push.notificationEventHandler = self.pushEventHandler
             
-            Emarsys.trackCustomEvent(withName: "wrapper:init", eventAttributes: ["type" : "flutter"])
+            Emarsys.trackCustomEvent(eventName: "wrapper:init", eventAttributes: ["type" : "flutter"])
             resultCallback(["success": true])
         }
     }

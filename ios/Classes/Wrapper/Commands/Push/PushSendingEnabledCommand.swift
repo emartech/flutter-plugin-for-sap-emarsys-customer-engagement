@@ -13,7 +13,7 @@ public class PushSendingEnabledCommand: EmarsysCommandProtocol {
         EmarsysPushTokenHolder.enabled = enable
         if enable {
             if let token = EmarsysPushTokenHolder.pushToken {
-                Emarsys.push.setPushToken(token) { error in
+                Emarsys.push.setPushToken(pushToken: token) { error in
                     if let e = error {
                         resultCallback(["error": e])
                     } else {

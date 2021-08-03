@@ -18,7 +18,6 @@
 		8A1084102631B48800A18E54 /* SetContactCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A10840F2631B48800A18E54 /* SetContactCommandTests.swift */; };
 		8AB379C226417F4200721ED3 /* PushSendingEnabledCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB379C126417F4200721ED3 /* PushSendingEnabledCommandTests.swift */; };
 		8AC3B27326316D070092C7B8 /* EmarsysCommandFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC3B27226316D070092C7B8 /* EmarsysCommandFactoryTests.swift */; };
-		8ACD4985266FA48B00CC3CB8 /* FakeEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACD4984266FA48B00CC3CB8 /* FakeEventHandler.swift */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
@@ -87,7 +86,6 @@
 		8AB379C126417F4200721ED3 /* PushSendingEnabledCommandTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushSendingEnabledCommandTests.swift; sourceTree = "<group>"; };
 		8AB379C526418AEC00721ED3 /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
 		8AC3B27226316D070092C7B8 /* EmarsysCommandFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmarsysCommandFactoryTests.swift; sourceTree = "<group>"; };
-		8ACD4984266FA48B00CC3CB8 /* FakeEventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeEventHandler.swift; sourceTree = "<group>"; };
 		8EF2DEDE47A8F6FF18D024B4 /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Flutter/Debug.xcconfig; sourceTree = "<group>"; };
 		9740EEB31CF90195004384FC /* Generated.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Generated.xcconfig; path = Flutter/Generated.xcconfig; sourceTree = "<group>"; };
@@ -172,7 +170,6 @@
 		8AABC25026301C1900FED106 /* flutter-plugin-ios-tests */ = {
 			isa = PBXGroup;
 			children = (
-				8ACD4983266FA47900CC3CB8 /* Fakes */,
 				8AC3B27126316CEE0092C7B8 /* Wrapper */,
 				8AABC25326301C1900FED106 /* Info.plist */,
 			);
@@ -186,14 +183,6 @@
 				8AC3B27226316D070092C7B8 /* EmarsysCommandFactoryTests.swift */,
 			);
 			path = Wrapper;
-			sourceTree = "<group>";
-		};
-		8ACD4983266FA47900CC3CB8 /* Fakes */ = {
-			isa = PBXGroup;
-			children = (
-				8ACD4984266FA48B00CC3CB8 /* FakeEventHandler.swift */,
-			);
-			path = Fakes;
 			sourceTree = "<group>";
 		};
 		9740EEB11CF90186004384FC /* Flutter */ = {
@@ -537,7 +526,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8ACD4985266FA48B00CC3CB8 /* FakeEventHandler.swift in Sources */,
 				8AC3B27326316D070092C7B8 /* EmarsysCommandFactoryTests.swift in Sources */,
 				8A1084102631B48800A18E54 /* SetContactCommandTests.swift in Sources */,
 				8A108405263195A300A18E54 /* SetupCommandTests.swift in Sources */,

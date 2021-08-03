@@ -5,10 +5,10 @@ import EmarsysSDK
 
 class EmarsysCommandFactory {
     
-    var pushEventHandler: EMSEventHandler
-    var silentPushEventHandler: EMSEventHandler
+    var pushEventHandler: EMSEventHandlerBlock
+    var silentPushEventHandler: EMSEventHandlerBlock
     
-    init(pushEventHandler: EMSEventHandler, silentPushEventHandler: EMSEventHandler) {
+    init(pushEventHandler: @escaping EMSEventHandlerBlock, silentPushEventHandler: @escaping EMSEventHandlerBlock) {
         self.pushEventHandler = pushEventHandler
         self.silentPushEventHandler = silentPushEventHandler
     }
