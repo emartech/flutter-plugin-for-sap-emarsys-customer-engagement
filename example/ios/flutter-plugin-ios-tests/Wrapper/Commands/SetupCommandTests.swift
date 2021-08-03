@@ -11,7 +11,7 @@ class SetupCommandTests: XCTestCase {
     var command: SetupCommand?
     
     override func setUpWithError() throws {
-        command = SetupCommand(pushEventHandler: FakeEventHandler(), silentPushEventHandler: FakeEventHandler())
+        command = SetupCommand(pushEventHandler: {name, payload in }, silentPushEventHandler: {name, payload in })
     }
     
     func testExecute_returnTrue() throws {
@@ -40,19 +40,4 @@ class SetupCommandTests: XCTestCase {
 
         XCTAssertEqual(result as? [String: String], expectedResponse)
     }
-    
-    func testExecute_returnError_contactFieldId() throws {
-        let arguments = [
-            "iOSEnabledConsoleLogLevels": ["Basic"]
-        ] as [String : Any]
-        let expectedResponse = ["error": "Invalid parameter: contactFieldId"]
-        var result = [String: Any]()
-
-        command?.execute(arguments: arguments) { response in
-            result = response
-        }
-
-        XCTAssertEqual(result as? [String: String], expectedResponse)
-    }
-
 }
