@@ -1,15 +1,12 @@
-# 0.1.0
+# 0.1.1
 
 ## What's new
-### [Flutter](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement)
-* [Currently supported features](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki):
-  * [Push](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#push):
-    * Rich push 
-    * Push Actions
-    * Push event handlers
-    * Silent Push
-  * [Config](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#3-config)
-  * In-App display when the user starts the App
+### Native SDK
+* Migrated plug-in to use Android and iOS SDK version from 2.16.0 to 3.0.0.
+## What's fixed
+### Setup
+* Fixed an issue on iOS, where push messages does not arrive in case of delayed setup.
 
 ## Important Notes
 > `Flutter plug-in for SAP Emarsys Customer Engagement` is still under development and some Emarsys features are not yet supported by the plug-in. If you would like to use the plug-in please contact your CSM @ Emarsys.
+> This version contains all the fixes from the native SDK's from 2.16.0 to 3.0.0.
