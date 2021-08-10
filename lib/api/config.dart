@@ -6,6 +6,11 @@ class Config {
 
   Config(this._channel);
 
+  Future<void> changeApplicationCode(String applicationCode) async {
+    return _channel
+        .invokeMethod('config.changeApplicationCode', {"applicationCode": applicationCode});
+  }
+
   Future<String?> applicationCode() {
     return _channel.invokeMethod('config.applicationCode');
   }

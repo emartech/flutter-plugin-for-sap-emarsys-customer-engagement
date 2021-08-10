@@ -17,6 +17,22 @@ void main() {
     });
   });
 
+  test('changeApplicationCode should delegate to the Platform', () async {
+    MethodCall? actualMethodCall;
+    channel.setMockMethodCallHandler((MethodCall methodCall) async {
+      actualMethodCall = methodCall;
+      return "testApplicationCode";
+    });
+
+    await Emarsys.config.changeApplicationCode("testApplicationCode");
+
+    expect(actualMethodCall != null, true);
+    if (actualMethodCall != null) {
+      expect(actualMethodCall!.method, 'config.changeApplicationCode');
+      expect(actualMethodCall!.arguments, {"applicationCode": "testApplicationCode"});
+    }
+  });
+
   test('applicationCode should delegate to the Platform', () async {
     MethodCall? actualMethodCall;
     channel.setMockMethodCallHandler((MethodCall methodCall) async {

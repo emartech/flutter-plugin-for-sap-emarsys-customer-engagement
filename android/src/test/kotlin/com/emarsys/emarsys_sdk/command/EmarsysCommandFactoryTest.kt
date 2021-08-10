@@ -62,6 +62,13 @@ class EmarsysCommandFactoryTest {
     }
 
     @Test
+    fun testCreate_shouldCreateAChangeApplicationCodeCommandFromMethodCall() {
+        val result = factory.create("config.changeApplicationCode")
+
+        result shouldBe ChangeApplicationCodeCommand(mockk())
+    }
+
+    @Test
     fun testCreate_shouldCreateAnApplicationCodeCommandFromMethodCall() {
         val result = factory.create("config.applicationCode")
 
