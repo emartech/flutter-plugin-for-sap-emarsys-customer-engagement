@@ -40,6 +40,7 @@ class EmarsysCommandFactory(
                 application,
                 notificationChannelFactory
             )
+            "config.changeApplicationCode" -> ChangeApplicationCodeCommand(sharedPreferences)
             "config.applicationCode" -> ApplicationCodeCommand()
             "config.merchantId" -> MerchantIdCommand()
             "config.contactFieldId" -> ContactFieldIdCommand()
