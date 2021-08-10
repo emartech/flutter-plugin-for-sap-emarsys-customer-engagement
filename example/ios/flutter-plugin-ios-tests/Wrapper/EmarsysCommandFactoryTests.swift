@@ -85,5 +85,11 @@ class EmarsysCommandFactoryTests: XCTestCase {
 
         XCTAssertTrue(command is SdkVersionCommand)
     }
+    
+    func testCreate_changeApplicationCodeCommand() throws {
+        let command = factory?.create(name: "config.changeApplicationCode")
+
+        XCTAssertTrue(command is ChangeApplicationCodeCommand)
+    }
 }
 

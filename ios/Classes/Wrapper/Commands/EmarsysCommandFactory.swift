@@ -40,6 +40,8 @@ class EmarsysCommandFactory {
             result = NotificationSettingsCommand()
         case "config.sdkVersion":
             result = SdkVersionCommand()
+        case "config.changeApplicationCode":
+            result = ChangeApplicationCodeCommand()
         default:
             result = nil
         }
