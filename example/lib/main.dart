@@ -3,6 +3,7 @@ import 'package:emarsys_sdk/emarsys_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart';
+import 'dart:convert';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,6 +49,8 @@ class _MyAppState extends State<MyApp> {
   late TextEditingController _contactFieldIdController;
   late TextEditingController _contactFieldValueController;
   late TextEditingController _appCodeFieldController;
+  late TextEditingController _customEventNameFieldController;
+  late TextEditingController _customEventPayloadFieldController;
   final _messangerKey = GlobalKey<ScaffoldMessengerState>();
   String hardwareId = "-";
   int? contactFieldId;
@@ -59,12 +62,16 @@ class _MyAppState extends State<MyApp> {
   bool pushEnabled = true;
   late SharedPreferences prefs;
   String? contactFieldValue;
+  String? customEventName;
+  String? customEventPayload;
   @override
   void initState() {
     super.initState();
     _contactFieldValueController = TextEditingController();
     _appCodeFieldController = TextEditingController();
     _contactFieldIdController = TextEditingController();
+    _customEventNameFieldController = TextEditingController();
+    _customEventPayloadFieldController = TextEditingController();
     WidgetsBinding.instance!
         .addPostFrameCallback((_) => afterFirstLayout(context));
   }
@@ -105,139 +112,184 @@ class _MyAppState extends State<MyApp> {
             title: const Text('Emarsys SDK Example'),
           ),
           body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-
-              TextField(
-                controller: _appCodeFieldController,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "applicationCode"),
-              ),
-                ElevatedButton(
-                  onPressed: () async {
-                    if (_appCodeFieldController.text.isNotEmpty) {
-                      await Emarsys.config.changeApplicationCode(_appCodeFieldController.text);
-                      setState(() {
-                        applicationCode = _appCodeFieldController.text;
-                      });
-                    } else {
-                      _messangerKey.currentState!.showSnackBar(
-                          SnackBar(content: Text('Fill the textField')));
-                    }
-                  },
-                  child: Text("changeAppCode"),
-                ),
-              TextField(
-                controller: _contactFieldIdController,
-                keyboardType: TextInputType.number,
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(), labelText: "contactFieldId"),
-              ),
-              TextField(
-                controller: _contactFieldValueController,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "contactFieldValue"),
-              ),
-              if (contactFieldValue == null)
-                ElevatedButton(
-                  onPressed: () {
-                    if (_contactFieldIdController.text.isNotEmpty &&
-                        _contactFieldValueController.text.isNotEmpty) {
-                      Emarsys.setContact(
-                          int.parse(_contactFieldIdController.text),
-                          _contactFieldValueController.text);
-                      setState(() {
-                        contactFieldId =
-                            int.parse(_contactFieldIdController.text);
-                        prefs.setInt(
-                            "contactFieldId",
-                            int.parse(_contactFieldIdController.text));
-                        contactFieldValue = _contactFieldValueController.text;
-                        prefs.setString(
-                            "loggedInUser", _contactFieldValueController.text);
-                      });
-                    } else {
-                      _messangerKey.currentState!.showSnackBar(
-                          SnackBar(content: Text('C... c... c...')));
-                    }
-                  },
-                  child: Text("Login"),
-                )
-              else
-                ElevatedButton(
-                  onPressed: () {
-                    _contactFieldValueController.text = "";
-                    Emarsys.clearContact();
-                    setState(() {
-                      prefs.remove("loggedInUser");
-                      contactFieldValue = null;
-                    });
-                  },
-                  child: Text("Logout"),
-                ),
-              Center(
-                child: Card(
-                  child: Padding(
-                    padding: EdgeInsets.all(8),
-                    child: Table(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextField(
+                      controller: _appCodeFieldController,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: "applicationCode"),
+                    ),
+                    ElevatedButton(
+                      onPressed: () async {
+                        if (_appCodeFieldController.text.isNotEmpty) {
+                          await Emarsys.config.changeApplicationCode(
+                              _appCodeFieldController.text);
+                          setState(() {
+                            applicationCode = _appCodeFieldController.text;
+                            contactFieldValue = null;
+                          });
+                        } else {
+                          _messangerKey.currentState!.showSnackBar(
+                              SnackBar(content: Text('Fill the textField')));
+                        }
+                      },
+                      child: Text("changeAppCode"),
+                    ),
+                    TextField(
+                      controller: _contactFieldIdController,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: "contactFieldId"),
+                    ),
+                    TextField(
+                      controller: _contactFieldValueController,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: "contactFieldValue"),
+                    ),
+                    if (contactFieldValue == null)
+                      ElevatedButton(
+                        onPressed: () {
+                          if (_contactFieldIdController.text.isNotEmpty &&
+                              _contactFieldValueController.text.isNotEmpty) {
+                            Emarsys.setContact(
+                                int.parse(_contactFieldIdController.text),
+                                _contactFieldValueController.text);
+                            setState(() {
+                              contactFieldId =
+                                  int.parse(_contactFieldIdController.text);
+                              prefs.setInt("contactFieldId",
+                                  int.parse(_contactFieldIdController.text));
+                              contactFieldValue =
+                                  _contactFieldValueController.text;
+                              prefs.setString("loggedInUser",
+                                  _contactFieldValueController.text);
+                            });
+                          } else {
+                            _messangerKey.currentState!.showSnackBar(
+                                SnackBar(content: Text('C... c... c...')));
+                          }
+                        },
+                        child: Text("Login"),
+                      )
+                    else
+                      ElevatedButton(
+                        onPressed: () {
+                          _contactFieldValueController.text = "";
+                          Emarsys.clearContact();
+                          setState(() {
+                            prefs.remove("loggedInUser");
+                            contactFieldValue = null;
+                          });
+                        },
+                        child: Text("Logout"),
+                      ),
+                    Center(
+                      child: Card(
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Table(
+                            children: [
+                              TableRow(
+                                children: [
+                                  Text("hardwareId"),
+                                  Text(hardwareId)
+                                ],
+                              ),
+                              TableRow(
+                                children: [
+                                  Text("ApplicationCode"),
+                                  Text(applicationCode ?? "-")
+                                ],
+                              ),
+                              TableRow(
+                                children: [
+                                  Text("MerchantId"),
+                                  Text(merchantId ?? "-")
+                                ],
+                              ),
+                              TableRow(
+                                children: [
+                                  Text("ContactFieldId"),
+                                  Text(contactFieldId.toString())
+                                ],
+                              ),
+                              TableRow(
+                                children: [
+                                  Text("languageCode"),
+                                  Text(languageCode ?? "-")
+                                ],
+                              ),
+                              TableRow(
+                                children: [
+                                  Text("sdkVersion"),
+                                  Text(sdkVersion ?? "-")
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Row(
                       children: [
-                        TableRow(
-                          children: [Text("hardwareId"), Text(hardwareId)],
-                        ),
-                        TableRow(
-                          children: [
-                            Text("ApplicationCode"),
-                            Text(applicationCode ?? "-")
-                          ],
-                        ),
-                        TableRow(
-                          children: [
-                            Text("MerchantId"),
-                            Text(merchantId ?? "-")
-                          ],
-                        ),
-                        TableRow(
-                          children: [
-                            Text("ContactFieldId"),
-                            Text(contactFieldId.toString())
-                          ],
-                        ),
-                        TableRow(
-                          children: [
-                            Text("languageCode"),
-                            Text(languageCode ?? "-")
-                          ],
-                        ),
-                        TableRow(
-                          children: [
-                            Text("sdkVersion"),
-                            Text(sdkVersion ?? "-")
-                          ],
-                        )
+                        Text("Push sending enabled"),
+                        Switch(
+                            value: pushEnabled,
+                            onChanged: (newValue) {
+                              setState(() {
+                                pushEnabled = newValue;
+                              });
+                              Emarsys.push.pushSendingEnabled(pushEnabled);
+                            })
                       ],
                     ),
-                  ),
-                ),
-              ),
-              Row(
-                children: [
-                  Text("Push sending enabled"),
-                  Switch(
-                      value: pushEnabled,
-                      onChanged: (newValue) {
-                        setState(() {
-                          pushEnabled = newValue;
-                        });
-                        Emarsys.push.pushSendingEnabled(pushEnabled);
-                      })
-                ],
-              )
-            ]),
-          )),
+                    TextField(
+                      controller: _customEventNameFieldController,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: "customEvent name"),
+                    ),
+                    TextField(
+                      maxLines: 3,
+                      controller: _customEventPayloadFieldController,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: "customEvent payload"),
+                    ),
+                    ElevatedButton(
+                      onPressed: () async {
+                        if (_customEventNameFieldController.text.isNotEmpty) {
+                          await Emarsys.trackCustomEvent(
+                              _customEventNameFieldController.text,
+                              convertTextToMap(
+                                  _customEventPayloadFieldController.text));
+                          setState(() {
+                            customEventName =
+                                _customEventNameFieldController.text;
+                            customEventPayload = _customEventPayloadFieldController.text;
+                          });
+                        } else {
+                          _messangerKey.currentState!.showSnackBar(
+                              SnackBar(content: Text('Fill customEventName')));
+                        }
+                      },
+                      child: Text("customEvent"),
+                    )
+                  ]))),
     );
   }
+}
+
+Map<String, String>? convertTextToMap(String? text) {
+  Map<String, String>? result;
+  if (text != null && text.isNotEmpty) {
+    result = json.decode(text);
+  }
+  return result;
 }
