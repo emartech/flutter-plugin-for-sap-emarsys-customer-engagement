@@ -47,6 +47,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   late TextEditingController _contactFieldIdController;
   late TextEditingController _contactFieldValueController;
+  late TextEditingController _appCodeFieldController;
   final _messangerKey = GlobalKey<ScaffoldMessengerState>();
   String hardwareId = "-";
   int? contactFieldId;
@@ -62,6 +63,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     _contactFieldValueController = TextEditingController();
+    _appCodeFieldController = TextEditingController();
     _contactFieldIdController = TextEditingController();
     WidgetsBinding.instance!
         .addPostFrameCallback((_) => afterFirstLayout(context));
@@ -80,6 +82,7 @@ class _MyAppState extends State<MyApp> {
     String sdkVersionFromNative = await Emarsys.config.sdkVersion();
     contactFieldValue = prefs.getString("loggedInUser");
     _contactFieldValueController.text = contactFieldValue ?? "";
+    _appCodeFieldController.text = applicationCodeFromNative ?? "";
     _contactFieldIdController.text =
         contactFieldId == null ? contactFieldId.toString() : "";
     setState(() {
@@ -105,6 +108,27 @@ class _MyAppState extends State<MyApp> {
             padding: const EdgeInsets.all(8.0),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+
+              TextField(
+                controller: _appCodeFieldController,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "applicationCode"),
+              ),
+                ElevatedButton(
+                  onPressed: () async {
+                    if (_appCodeFieldController.text.isNotEmpty) {
+                      await Emarsys.config.changeApplicationCode(_appCodeFieldController.text);
+                      setState(() {
+                        applicationCode = _appCodeFieldController.text;
+                      });
+                    } else {
+                      _messangerKey.currentState!.showSnackBar(
+                          SnackBar(content: Text('Fill the textField')));
+                    }
+                  },
+                  child: Text("changeAppCode"),
+                ),
               TextField(
                 controller: _contactFieldIdController,
                 keyboardType: TextInputType.number,
