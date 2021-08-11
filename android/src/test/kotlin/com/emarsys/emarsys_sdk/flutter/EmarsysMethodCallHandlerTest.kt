@@ -2,7 +2,7 @@ package com.emarsys.emarsys_sdk.flutter
 
 import com.emarsys.emarsys_sdk.command.EmarsysCommandFactory
 import com.emarsys.emarsys_sdk.command.ResultCallback
-import com.emarsys.emarsys_sdk.command.contact.ClearContactCommand
+import com.emarsys.emarsys_sdk.command.mobileengage.contact.ClearContactCommand
 import com.emarsys.emarsys_sdk.command.setup.SetupCommand
 import com.emarsys.emarsys_sdk.di.FakeDependencyContainer
 import com.emarsys.emarsys_sdk.di.setupDependencyContainer

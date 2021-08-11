@@ -1,4 +1,4 @@
-package com.emarsys.emarsys_sdk.command.contact
+package com.emarsys.emarsys_sdk.command.mobileengage.contact
 
 import com.emarsys.Emarsys
 import com.emarsys.core.api.result.CompletionListener

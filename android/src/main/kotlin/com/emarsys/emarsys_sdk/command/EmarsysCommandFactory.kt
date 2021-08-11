@@ -2,11 +2,11 @@ package com.emarsys.emarsys_sdk.command
 
 import android.app.Application
 import android.content.SharedPreferences
+import com.emarsys.emarsys_sdk.command.mobileengage.contact.ClearContactCommand
+import com.emarsys.emarsys_sdk.command.mobileengage.contact.SetContactCommand
 import com.emarsys.emarsys_sdk.command.config.*
-import com.emarsys.emarsys_sdk.command.contact.ClearContactCommand
-import com.emarsys.emarsys_sdk.command.contact.SetContactCommand
-import com.emarsys.emarsys_sdk.command.push.PushSendingEnabledCommand
-import com.emarsys.emarsys_sdk.command.push.RegisterNotificationChannelsCommand
+import com.emarsys.emarsys_sdk.command.mobileengage.push.PushSendingEnabledCommand
+import com.emarsys.emarsys_sdk.command.mobileengage.push.RegisterNotificationChannelsCommand
 import com.emarsys.emarsys_sdk.command.setup.InitializeCommand
 import com.emarsys.emarsys_sdk.command.setup.SetupCommand
 import com.emarsys.emarsys_sdk.event.EventHandlerFactory

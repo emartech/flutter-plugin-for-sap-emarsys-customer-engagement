@@ -5,7 +5,6 @@ import com.emarsys.Emarsys
 import com.emarsys.config.ConfigApi
 import com.emarsys.core.api.result.CompletionListener
 import com.emarsys.emarsys_sdk.command.ResultCallback
-import com.emarsys.emarsys_sdk.command.setup.SetupCommandTest
 import com.emarsys.emarsys_sdk.config.ConfigStorageKeys
 import io.mockk.*
 import org.junit.After

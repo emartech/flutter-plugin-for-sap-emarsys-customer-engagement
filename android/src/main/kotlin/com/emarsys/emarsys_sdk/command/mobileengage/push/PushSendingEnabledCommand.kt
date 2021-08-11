@@ -1,4 +1,4 @@
-package com.emarsys.emarsys_sdk.command.push
+package com.emarsys.emarsys_sdk.command.mobileengage.push
 
 import com.emarsys.Emarsys
 import com.emarsys.emarsys_sdk.command.EmarsysCommand

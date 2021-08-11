@@ -1,9 +1,9 @@
 package com.emarsys.emarsys_sdk.command
 
+import com.emarsys.emarsys_sdk.command.mobileengage.contact.ClearContactCommand
+import com.emarsys.emarsys_sdk.command.mobileengage.contact.SetContactCommand
 import com.emarsys.emarsys_sdk.command.config.*
-import com.emarsys.emarsys_sdk.command.contact.ClearContactCommand
-import com.emarsys.emarsys_sdk.command.contact.SetContactCommand
-import com.emarsys.emarsys_sdk.command.push.PushSendingEnabledCommand
+import com.emarsys.emarsys_sdk.command.mobileengage.push.PushSendingEnabledCommand
 import com.emarsys.emarsys_sdk.command.setup.InitializeCommand
 import com.emarsys.emarsys_sdk.command.setup.SetupCommand
 import io.kotlintest.shouldBe

@@ -7,7 +7,8 @@ import com.emarsys.emarsys_sdk.command.ResultCallback
 import com.emarsys.emarsys_sdk.config.ConfigStorageKeys
 import java.lang.IllegalArgumentException
 
-class ChangeApplicationCodeCommand(private val sharedPreferences: SharedPreferences) : EmarsysCommand {
+class ChangeApplicationCodeCommand(private val sharedPreferences: SharedPreferences) :
+    EmarsysCommand {
     override fun execute(parameters: Map<String, Any?>?, resultCallback: ResultCallback) {
         val applicationCode: String? = parameters?.get("applicationCode") as String?
         applicationCode ?: throw IllegalArgumentException("applicationCode must not be null")

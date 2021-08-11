@@ -1,4 +1,4 @@
-package com.emarsys.emarsys_sdk.command.push
+package com.emarsys.emarsys_sdk.command.mobileengage.push
 
 import android.app.Application
 import android.app.NotificationChannel
