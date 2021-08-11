@@ -42,6 +42,8 @@ class EmarsysCommandFactory {
             result = SdkVersionCommand()
         case "config.changeApplicationCode":
             result = ChangeApplicationCodeCommand()
+        case "trackCustomEvent":
+            result = TrackCustomEventCommand()
         default:
             result = nil
         }
