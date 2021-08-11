@@ -70,4 +70,45 @@ void main() {
   test('clearContact should not throw error', () async {
     await Emarsys.clearContact();
   });
+
+  test('trackCustomEvent should throw error', () async {
+    channel.setMockMethodCallHandler((MethodCall methodCall) async {
+      throw PlatformException(
+          code: '42',
+          message: 'Test error message',
+          details: 'Test detail',
+          stacktrace: 'Test stacktrace');
+    });
+
+    expect(
+        Emarsys.trackCustomEvent("testEventName", null),
+        throwsA(isA<PlatformException>().having(
+            (error) => error.message, 'message', 'Test error message')));
+  });
+
+  test('trackCustomEvent should not throw error', () async {
+    await Emarsys.trackCustomEvent("testEventName", null);
+  });
+
+    test('trackCustomEvent should delegate to the Platform', () async {
+    MethodCall? actualMethodCall;
+    channel.setMockMethodCallHandler((MethodCall methodCall) async {
+      actualMethodCall = methodCall;
+      return;
+    });
+
+    await Emarsys.trackCustomEvent("testEventName", {"key1": "value1", "key2": "value2"});
+
+    expect(actualMethodCall != null, true);
+    if (actualMethodCall != null) {
+      expect(actualMethodCall!.method, 'trackCustomEvent');
+      expect(actualMethodCall!.arguments, {
+        "eventName": "testEventName",
+        "eventAttributes": {
+          "key1": "value1", 
+          "key2": "value2"
+          }
+      });
+    }
+  });
 }

@@ -36,6 +36,15 @@ class Emarsys {
     return _channel.invokeMethod('clearContact');
   }
 
+  static Future<void> trackCustomEvent(String eventName, Map<String, String>? eventAttributes) {
+    Map<String, Object> attributes = Map<String, Object>();
+    attributes["eventName"] = eventName;
+    if (eventAttributes != null) {
+      attributes["eventAttributes"] = eventAttributes;
+    }
+    return _channel.invokeMethod('trackCustomEvent', attributes);
+  }
+
   static _GetCallbackHandle _getCallbackHandle =
       (Function callback) => PluginUtilities.getCallbackHandle(callback);
   static _initialize() async {
