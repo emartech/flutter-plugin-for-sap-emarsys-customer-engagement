@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import com.emarsys.emarsys_sdk.command.mobileengage.contact.ClearContactCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.contact.SetContactCommand
 import com.emarsys.emarsys_sdk.command.config.*
+import com.emarsys.emarsys_sdk.command.mobileengage.TrackCustomEventCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.push.PushSendingEnabledCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.push.RegisterNotificationChannelsCommand
 import com.emarsys.emarsys_sdk.command.setup.InitializeCommand
@@ -48,6 +49,7 @@ class EmarsysCommandFactory(
             "config.languageCode" -> LanguageCodeCommand()
             "config.notificationSettings" -> NotificationSettingsCommand()
             "config.sdkVersion" -> SdkVersionCommand()
+            "trackCustomEvent" -> TrackCustomEventCommand()
             else -> null
         }
     }
