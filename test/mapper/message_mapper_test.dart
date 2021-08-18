@@ -5,12 +5,29 @@ import 'package:emarsys_sdk/model/actions/custom_event_action_model.dart';
 import 'package:emarsys_sdk/model/actions/dismiss_action_model.dart';
 import 'package:emarsys_sdk/model/actions/open_external_url_action_model.dart';
 import 'package:emarsys_sdk/model/message.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   final MessageMapper mapper = MessageMapper();
-  final List<Map<String, String>> emptyList = [];
+
+  test('map should not crash when inputList is empty', () async {
+    final List<Map<String, String>> emptyList = [];
+    final List<Message> result = mapper.map(emptyList);
+
+    expect(result.length, 0);
+  });
+  test('map should not crash when inputList contains null', () async {
+    final List<dynamic> emptyList = [null];
+    final List<Message> result = mapper.map(emptyList);
+
+    expect(result.length, 0);
+  });
+  test('map should not crash when inputList contains emptyMap', () async {
+    final List<Map<String, String>> emptyList = [{}];
+    final List<Message> result = mapper.map(emptyList);
+
+    expect(result.length, 0);
+  });
 
   test('map should return with correct result', () async {
     Map<String, Object> fullMessageMap = {
