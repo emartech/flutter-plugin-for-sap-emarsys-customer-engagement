@@ -16,4 +16,14 @@ class MessageInbox {
     }
     return _mapper.map(messages);
   }
+
+  Future<void> addTag(String messageId, String tag) async {
+    return await _channel
+        .invokeMethod('inbox.addTag', {"messageId": messageId, "tag": tag});
+  }
+
+  Future<void> removeTag(String messageId, String tag) async {
+    return await _channel
+        .invokeMethod('inbox.removeTag', {"messageId": messageId, "tag": tag});
+  }
 }
