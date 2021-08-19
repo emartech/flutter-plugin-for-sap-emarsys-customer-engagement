@@ -1,7 +1,6 @@
 import 'package:emarsys_sdk/model/action_model.dart';
 import 'package:emarsys_sdk/model/actions/app_event_action_model.dart';
 import 'package:emarsys_sdk/model/actions/custom_event_action_model.dart';
-import 'package:emarsys_sdk/model/actions/dismiss_action_model.dart';
 import 'package:emarsys_sdk/model/actions/open_external_url_action_model.dart';
 import 'package:emarsys_sdk/model/message.dart';
 
@@ -50,11 +49,6 @@ class MessageMapper {
             type: actionMap["type"] as String,
             name: actionMap["name"] as String,
             payload: actionMap["payload"] as Map<String, Object>);
-      case "Dismiss":
-        return DismissActionModel(
-            id: actionMap["id"] as String,
-            title: actionMap["title"] as String,
-            type: actionMap["type"] as String);
       case "OpenExternalUrl":
         return OpenExternalUrlActionModel(
             id: actionMap["id"] as String,

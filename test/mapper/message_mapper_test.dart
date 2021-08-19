@@ -2,7 +2,6 @@ import 'package:emarsys_sdk/mappers/message_mapper.dart';
 import 'package:emarsys_sdk/model/action_model.dart';
 import 'package:emarsys_sdk/model/actions/app_event_action_model.dart';
 import 'package:emarsys_sdk/model/actions/custom_event_action_model.dart';
-import 'package:emarsys_sdk/model/actions/dismiss_action_model.dart';
 import 'package:emarsys_sdk/model/actions/open_external_url_action_model.dart';
 import 'package:emarsys_sdk/model/message.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -58,7 +57,6 @@ void main() {
         "name": "actionName2",
         "payload": {"key21": "value", "key22": 456}
       },
-      {"id": "actionId3", "title": "actionTitle3", "type": "Dismiss"},
       {
         "id": "actionId4",
         "title": "actionTitle4",
@@ -80,9 +78,6 @@ void main() {
         type: "MECustomEvent",
         name: "actionName2",
         payload: {"key21": "value", "key22": 456});
-
-    ActionModel dismissAction = DismissActionModel(
-        id: "actionId3", title: "actionTitle3", type: "Dismiss");
 
     ActionModel openExternalUrlAction = OpenExternalUrlActionModel(
         id: "actionId4",
@@ -112,7 +107,6 @@ void main() {
         actions: [
           appEventAction,
           customEventAction,
-          dismissAction,
           openExternalUrlAction
         ]);
 
