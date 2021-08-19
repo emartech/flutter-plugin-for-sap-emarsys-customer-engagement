@@ -17,7 +17,7 @@ public class SwiftEmarsysSdkPlugin: NSObject, FlutterPlugin {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "EmarsysSDKWrapperExist"), object: "flutter")
     }
     
-    factory = EmarsysCommandFactory(pushEventHandler: pushHandler.eventHandler!, silentPushEventHandler: silentPushHandler.eventHandler!)
+      factory = EmarsysCommandFactory(pushEventHandler: pushHandler.eventHandler!, silentPushEventHandler: silentPushHandler.eventHandler!, inboxMapper: InboxMapper())
     pushEventChannel.setStreamHandler(pushHandler)
     silentPushEventChannel.setStreamHandler(silentPushHandler)
     

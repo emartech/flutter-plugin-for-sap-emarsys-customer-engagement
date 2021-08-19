@@ -7,10 +7,12 @@ class EmarsysCommandFactory {
     
     var pushEventHandler: EMSEventHandlerBlock
     var silentPushEventHandler: EMSEventHandlerBlock
+    var inboxMapper: InboxMapper
     
-    init(pushEventHandler: @escaping EMSEventHandlerBlock, silentPushEventHandler: @escaping EMSEventHandlerBlock) {
+    init(pushEventHandler: @escaping EMSEventHandlerBlock, silentPushEventHandler: @escaping EMSEventHandlerBlock, inboxMapper: InboxMapper) {
         self.pushEventHandler = pushEventHandler
         self.silentPushEventHandler = silentPushEventHandler
+        self.inboxMapper = inboxMapper
     }
 
     func create(name: String) -> EmarsysCommandProtocol? {
@@ -44,6 +46,8 @@ class EmarsysCommandFactory {
             result = ChangeApplicationCodeCommand()
         case "trackCustomEvent":
             result = TrackCustomEventCommand()
+        case "inbox.fetchMessages":
+            result = FetchMessagesCommand(inboxMapper: inboxMapper)
         default:
             result = nil
         }

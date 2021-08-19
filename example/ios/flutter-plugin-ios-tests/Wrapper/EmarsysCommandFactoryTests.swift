@@ -11,7 +11,7 @@ class EmarsysCommandFactoryTests: XCTestCase {
     var factory: EmarsysCommandFactory?
 
     override func setUpWithError() throws {
-        factory = EmarsysCommandFactory(pushEventHandler: {name, payload in }, silentPushEventHandler: {name, payload in })
+        factory = EmarsysCommandFactory(pushEventHandler: {name, payload in }, silentPushEventHandler: {name, payload in }, inboxMapper: InboxMapper())
     }
     
     func testCreate_setup() throws {
@@ -96,6 +96,12 @@ class EmarsysCommandFactoryTests: XCTestCase {
         let command = factory?.create(name: "trackCustomEvent")
 
         XCTAssertTrue(command is TrackCustomEventCommand)
+    }
+    
+    func testCreate_fetchMessagesCommand() throws {
+        let command = factory?.create(name: "inbox.fetchMessages")
+        
+        XCTAssertTrue(command is FetchMessagesCommand)
     }
 }
 
