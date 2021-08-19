@@ -1,10 +1,12 @@
 package com.emarsys.emarsys_sdk.command
 
-import com.emarsys.emarsys_sdk.command.mobileengage.contact.ClearContactCommand
-import com.emarsys.emarsys_sdk.command.mobileengage.contact.SetContactCommand
 import com.emarsys.emarsys_sdk.command.config.*
 import com.emarsys.emarsys_sdk.command.mobileengage.TrackCustomEventCommand
+import com.emarsys.emarsys_sdk.command.mobileengage.contact.ClearContactCommand
+import com.emarsys.emarsys_sdk.command.mobileengage.contact.SetContactCommand
+import com.emarsys.emarsys_sdk.command.mobileengage.inbox.AddTagCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.inbox.FetchMessagesCommand
+import com.emarsys.emarsys_sdk.command.mobileengage.inbox.RemoveTagCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.push.PushSendingEnabledCommand
 import com.emarsys.emarsys_sdk.command.setup.InitializeCommand
 import com.emarsys.emarsys_sdk.command.setup.SetupCommand
@@ -127,10 +129,24 @@ class EmarsysCommandFactoryTest {
     }
 
     @Test
-    fun testCreate_shouldCreateFetchMessagesEventCommandFromMethodCall() {
+    fun testCreate_shouldCreateFetchMessagesCommandFromMethodCall() {
         val result = factory.create("inbox.fetchMessages")
 
         result shouldBe FetchMessagesCommand(mockk())
+    }
+
+    @Test
+    fun testCreate_shouldCreateAddTagCommandFromMethodCall() {
+        val result = factory.create("inbox.addTag")
+
+        result shouldBe AddTagCommand()
+    }
+
+    @Test
+    fun testCreate_shouldCreateRemoveTagCommandFromMethodCall() {
+        val result = factory.create("inbox.removeTag")
+
+        result shouldBe RemoveTagCommand()
     }
 
     @Test
