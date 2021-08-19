@@ -3,6 +3,8 @@ package com.emarsys.emarsys_sdk.command
 import com.emarsys.emarsys_sdk.command.mobileengage.contact.ClearContactCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.contact.SetContactCommand
 import com.emarsys.emarsys_sdk.command.config.*
+import com.emarsys.emarsys_sdk.command.mobileengage.TrackCustomEventCommand
+import com.emarsys.emarsys_sdk.command.mobileengage.inbox.FetchMessagesCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.push.PushSendingEnabledCommand
 import com.emarsys.emarsys_sdk.command.setup.InitializeCommand
 import com.emarsys.emarsys_sdk.command.setup.SetupCommand
@@ -16,7 +18,7 @@ class EmarsysCommandFactoryTest {
 
     @Before
     fun setUp() {
-        factory = EmarsysCommandFactory(mockk(), mockk(), mockk(), mockk(), mockk())
+        factory = EmarsysCommandFactory(mockk(), mockk(), mockk(), mockk(), mockk(), mockk())
     }
 
     @Test
@@ -115,6 +117,20 @@ class EmarsysCommandFactoryTest {
         val result = factory.create("config.sdkVersion")
 
         result shouldBe SdkVersionCommand()
+    }
+
+    @Test
+    fun testCreate_shouldCreatTrackCustomEventCommandFromMethodCall() {
+        val result = factory.create("trackCustomEvent")
+
+        result shouldBe TrackCustomEventCommand()
+    }
+
+    @Test
+    fun testCreate_shouldCreateFetchMessagesEventCommandFromMethodCall() {
+        val result = factory.create("inbox.fetchMessages")
+
+        result shouldBe FetchMessagesCommand(mockk())
     }
 
     @Test

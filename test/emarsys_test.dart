@@ -1,4 +1,4 @@
-import 'package:emarsys_sdk/api/emarsys_config.dart';
+import 'package:emarsys_sdk/model/emarsys_config.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:emarsys_sdk/api/emarsys.dart';
@@ -90,24 +90,22 @@ void main() {
     await Emarsys.trackCustomEvent("testEventName", null);
   });
 
-    test('trackCustomEvent should delegate to the Platform', () async {
+  test('trackCustomEvent should delegate to the Platform', () async {
     MethodCall? actualMethodCall;
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
       actualMethodCall = methodCall;
       return;
     });
 
-    await Emarsys.trackCustomEvent("testEventName", {"key1": "value1", "key2": "value2"});
+    await Emarsys.trackCustomEvent(
+        "testEventName", {"key1": "value1", "key2": "value2"});
 
     expect(actualMethodCall != null, true);
     if (actualMethodCall != null) {
       expect(actualMethodCall!.method, 'trackCustomEvent');
       expect(actualMethodCall!.arguments, {
         "eventName": "testEventName",
-        "eventAttributes": {
-          "key1": "value1", 
-          "key2": "value2"
-          }
+        "eventAttributes": {"key1": "value1", "key2": "value2"}
       });
     }
   });

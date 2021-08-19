@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:emarsys_sdk/api/push.dart';
+import 'package:emarsys_sdk/mappers/message_mapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:io' show Platform;
 
-import 'package:emarsys_sdk/api/emarsys_config.dart';
+import 'package:emarsys_sdk/model/emarsys_config.dart';
 import 'config.dart';
+import 'message_inbox.dart';
 
 typedef _GetCallbackHandle = CallbackHandle? Function(Function callback);
 const MethodChannel _channel = const MethodChannel('com.emarsys.methods');
@@ -19,6 +21,8 @@ class Emarsys {
   static Push push = Push(_channel, _pushEventChannel, _silentPushEventChannel);
 
   static Config config = Config(_channel);
+  
+  static MessageInbox messageInbox = MessageInbox(_channel, MessageMapper());
 
   static Future<void> setup(EmarsysConfig config) {
     Emarsys._initialize();
@@ -36,7 +40,8 @@ class Emarsys {
     return _channel.invokeMethod('clearContact');
   }
 
-  static Future<void> trackCustomEvent(String eventName, Map<String, String>? eventAttributes) {
+  static Future<void> trackCustomEvent(
+      String eventName, Map<String, String>? eventAttributes) {
     Map<String, Object> attributes = Map<String, Object>();
     attributes["eventName"] = eventName;
     if (eventAttributes != null) {

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class ChannelSettings {
   String channelId;
   int importance = -1000;
