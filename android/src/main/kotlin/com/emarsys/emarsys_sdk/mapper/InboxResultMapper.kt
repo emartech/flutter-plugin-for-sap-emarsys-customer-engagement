@@ -7,14 +7,16 @@ class InboxResultMapper {
 
     fun map(inboxResult: InboxResult): List<Map<String, Any>> {
         return inboxResult.messages.map { message ->
-            val resultMap = mutableMapOf(
+            val resultMap = mutableMapOf<String, Any>(
                 "id" to message.id,
                 "campaignId" to message.campaignId,
                 "title" to message.title,
                 "body" to message.body,
                 "receivedAt" to message.receivedAt,
-                "actions" to actionsToMap(message.actions)
             )
+            actionsToMap(message.actions ?: emptyList())?.let {
+                resultMap["actions"] = it
+            }
             message.collapseId?.let {
                 resultMap["collapseId"] = it
             }
@@ -37,9 +39,8 @@ class InboxResultMapper {
         }
     }
 
-    private fun actionsToMap(actions: List<ActionModel>?): List<Map<String, Any?>> {
-        if (actions == null) return emptyList()
-        return actions.map { action ->
+    private fun actionsToMap(actions: List<ActionModel>?): List<Map<String, Any?>>? {
+        val actionList = actions!!.map { action ->
             val actionMap = mutableMapOf<String, Any?>(
                 "id" to action.id,
                 "title" to action.title,
@@ -59,5 +60,6 @@ class InboxResultMapper {
             }
             actionMap.toMap()
         }
+        return if (actionList.isEmpty()) null else actionList
     }
 }

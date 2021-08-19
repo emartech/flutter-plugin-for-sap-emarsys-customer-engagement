@@ -20,12 +20,15 @@ class MessageMapper {
             expiresAt: messageMap["expiresAt"] as int?,
             properties: messageMap["properties"] as Map<String, String>?,
             tags: messageMap["tags"] as List<String>,
-            actions:
-                mapActions(messageMap["actions"] as List<Map<String, Object>>)))
+            actions: mapActions(
+                messageMap["actions"] as List<Map<String, Object>>?)))
         .toList();
   }
 
-  List<ActionModel> mapActions(List<Map<String, Object>> actionList) {
+  List<ActionModel>? mapActions(List<Map<String, Object>>? actionList) {
+    if (actionList == null) {
+      return null;
+    }
     return List.from(actionList
         .map((actionMap) => actionFromMap(actionMap))
         .where((element) => element != null)

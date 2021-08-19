@@ -2,11 +2,13 @@ package com.emarsys.emarsys_sdk.command
 
 import android.app.Application
 import android.content.SharedPreferences
-import com.emarsys.emarsys_sdk.command.mobileengage.contact.ClearContactCommand
-import com.emarsys.emarsys_sdk.command.mobileengage.contact.SetContactCommand
 import com.emarsys.emarsys_sdk.command.config.*
 import com.emarsys.emarsys_sdk.command.mobileengage.TrackCustomEventCommand
+import com.emarsys.emarsys_sdk.command.mobileengage.contact.ClearContactCommand
+import com.emarsys.emarsys_sdk.command.mobileengage.contact.SetContactCommand
+import com.emarsys.emarsys_sdk.command.mobileengage.inbox.AddTagCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.inbox.FetchMessagesCommand
+import com.emarsys.emarsys_sdk.command.mobileengage.inbox.RemoveTagCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.push.PushSendingEnabledCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.push.RegisterNotificationChannelsCommand
 import com.emarsys.emarsys_sdk.command.setup.InitializeCommand
@@ -54,6 +56,8 @@ class EmarsysCommandFactory(
             "config.sdkVersion" -> SdkVersionCommand()
             "trackCustomEvent" -> TrackCustomEventCommand()
             "inbox.fetchMessages" -> FetchMessagesCommand(inboxResultMapper)
+            "inbox.addTag" -> AddTagCommand()
+            "inbox.removeTag" -> RemoveTagCommand()
             else -> null
         }
     }

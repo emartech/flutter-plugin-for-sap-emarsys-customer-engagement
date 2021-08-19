@@ -13,7 +13,7 @@ class Message extends Equatable {
   final int? expiresAt;
   final List<String>? tags;
   final Map<String, String>? properties;
-  final List<ActionModel> actions;
+  final List<ActionModel>? actions;
 
   Message({
     required this.id,
@@ -27,7 +27,7 @@ class Message extends Equatable {
     this.expiresAt,
     this.tags,
     this.properties,
-    required this.actions,
+    this.actions,
   });
 
   @override
