@@ -103,5 +103,17 @@ class EmarsysCommandFactoryTests: XCTestCase {
         
         XCTAssertTrue(command is FetchMessagesCommand)
     }
+    
+    func testCreate_addTagCommand() throws {
+        let command = factory?.create(name: "inbox.addTag")
+        
+        XCTAssertTrue(command is AddTagCommand)
+    }
+    
+    func testCreate_removeTagCommand() throws {
+        let command = factory?.create(name: "inbox.removeTag")
+        
+        XCTAssertTrue(command is RemoveTagCommand)
+    }
 }
 

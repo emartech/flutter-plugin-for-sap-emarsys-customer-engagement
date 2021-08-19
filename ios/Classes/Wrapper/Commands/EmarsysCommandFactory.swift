@@ -48,6 +48,10 @@ class EmarsysCommandFactory {
             result = TrackCustomEventCommand()
         case "inbox.fetchMessages":
             result = FetchMessagesCommand(inboxMapper: inboxMapper)
+        case "inbox.addTag":
+            result = AddTagCommand()
+        case "inbox.removeTag":
+            result = RemoveTagCommand()
         default:
             result = nil
         }

@@ -18,6 +18,8 @@
 		8A108405263195A300A18E54 /* SetupCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A108404263195A300A18E54 /* SetupCommandTests.swift */; };
 		8A1084102631B48800A18E54 /* SetContactCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A10840F2631B48800A18E54 /* SetContactCommandTests.swift */; };
 		8A5CA5E326CE39DD00AC8CAB /* InboxMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5CA5E226CE39DD00AC8CAB /* InboxMapperTests.swift */; };
+		8A5CA5E726CE527900AC8CAB /* AddTagCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5CA5E626CE527900AC8CAB /* AddTagCommandTests.swift */; };
+		8A5CA5E926CE53ED00AC8CAB /* RemoveTagCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5CA5E826CE53ED00AC8CAB /* RemoveTagCommandTests.swift */; };
 		8A762EBD26C2AC2F00EFF694 /* ChangeApplicationCodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A762EBC26C2AC2F00EFF694 /* ChangeApplicationCodeTests.swift */; };
 		8AB379C226417F4200721ED3 /* PushSendingEnabledCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB379C126417F4200721ED3 /* PushSendingEnabledCommandTests.swift */; };
 		8AB898D726C3C8B300904126 /* TrackCustomEventCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB898D626C3C8B300904126 /* TrackCustomEventCommandTests.swift */; };
@@ -87,6 +89,8 @@
 		8A10840F2631B48800A18E54 /* SetContactCommandTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetContactCommandTests.swift; sourceTree = "<group>"; };
 		8A12304A2630533800A18A5F /* emarsys_sdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = emarsys_sdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A5CA5E226CE39DD00AC8CAB /* InboxMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMapperTests.swift; sourceTree = "<group>"; };
+		8A5CA5E626CE527900AC8CAB /* AddTagCommandTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagCommandTests.swift; sourceTree = "<group>"; };
+		8A5CA5E826CE53ED00AC8CAB /* RemoveTagCommandTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveTagCommandTests.swift; sourceTree = "<group>"; };
 		8A762EBC26C2AC2F00EFF694 /* ChangeApplicationCodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeApplicationCodeTests.swift; sourceTree = "<group>"; };
 		8AABC24F26301C1900FED106 /* flutter-plugin-ios-tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "flutter-plugin-ios-tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AABC25326301C1900FED106 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -171,6 +175,8 @@
 				8AB379C126417F4200721ED3 /* PushSendingEnabledCommandTests.swift */,
 				8A762EBC26C2AC2F00EFF694 /* ChangeApplicationCodeTests.swift */,
 				8AB898D626C3C8B300904126 /* TrackCustomEventCommandTests.swift */,
+				8A5CA5E626CE527900AC8CAB /* AddTagCommandTests.swift */,
+				8A5CA5E826CE53ED00AC8CAB /* RemoveTagCommandTests.swift */,
 			);
 			path = Commands;
 			sourceTree = "<group>";
@@ -545,9 +551,11 @@
 			files = (
 				8A762EBD26C2AC2F00EFF694 /* ChangeApplicationCodeTests.swift in Sources */,
 				8AB898D726C3C8B300904126 /* TrackCustomEventCommandTests.swift in Sources */,
+				8A5CA5E726CE527900AC8CAB /* AddTagCommandTests.swift in Sources */,
 				8AC3B27326316D070092C7B8 /* EmarsysCommandFactoryTests.swift in Sources */,
 				8A1084102631B48800A18E54 /* SetContactCommandTests.swift in Sources */,
 				8A108405263195A300A18E54 /* SetupCommandTests.swift in Sources */,
+				8A5CA5E926CE53ED00AC8CAB /* RemoveTagCommandTests.swift in Sources */,
 				8AB379C226417F4200721ED3 /* PushSendingEnabledCommandTests.swift in Sources */,
 				8A5CA5E326CE39DD00AC8CAB /* InboxMapperTests.swift in Sources */,
 			);
