@@ -28,7 +28,8 @@ class InboxResultMapperTest {
     @Test
     fun test_mapShouldMapMessages() {
         val message1 = Message(
-            "testId", "testCampaignId",
+            "testId",
+            "testCampaignId",
             "testCollapseId",
             "testTitle",
             "testBody",
@@ -62,7 +63,8 @@ class InboxResultMapperTest {
             )
         )
         val message2 = Message(
-            "testId", "testCampaignId2",
+            "testId2",
+            "testCampaignId2",
             "testCollapseId2",
             "testTitle2",
             "testBody2",
@@ -72,7 +74,7 @@ class InboxResultMapperTest {
             5678,
             listOf("TAG1", "TAG2", "TAG3"),
             mapOf("key1" to "value1", "key2" to "value2"),
-            listOf()
+            null
         )
 
         val expectedResult: List<Map<String, Any>> = listOf(
@@ -122,8 +124,7 @@ class InboxResultMapperTest {
                 "updatedAt" to 4321,
                 "expiresAt" to 5678,
                 "tags" to listOf("TAG1", "TAG2", "TAG3"),
-                "properties" to mapOf("key1" to "value1", "key2" to "value2"),
-                "actions" to listOf<ActionModel>()
+                "properties" to mapOf("key1" to "value1", "key2" to "value2")
             )
         )
         val result = mapper.map(InboxResult(listOf(message1, message2)))
