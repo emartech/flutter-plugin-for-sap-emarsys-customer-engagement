@@ -3,7 +3,6 @@ package com.emarsys.emarsys_sdk.command.mobileengage
 import com.emarsys.Emarsys
 import com.emarsys.emarsys_sdk.command.EmarsysCommand
 import com.emarsys.emarsys_sdk.command.ResultCallback
-import java.lang.IllegalArgumentException
 
 class TrackCustomEventCommand : EmarsysCommand {
     override fun execute(parameters: Map<String, Any?>?, resultCallback: ResultCallback) {
@@ -16,5 +15,15 @@ class TrackCustomEventCommand : EmarsysCommand {
         Emarsys.trackCustomEvent(eventName, eventAttributes) {
             resultCallback.invoke(null, it)
         }
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return javaClass.hashCode()
     }
 }
