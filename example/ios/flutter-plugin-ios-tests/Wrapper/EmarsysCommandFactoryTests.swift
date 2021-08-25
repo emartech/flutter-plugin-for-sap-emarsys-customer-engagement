@@ -11,7 +11,7 @@ class EmarsysCommandFactoryTests: XCTestCase {
     var factory: EmarsysCommandFactory?
 
     override func setUpWithError() throws {
-        factory = EmarsysCommandFactory(pushEventHandler: {name, payload in }, silentPushEventHandler: {name, payload in }, inboxMapper: InboxMapper())
+        factory = EmarsysCommandFactory(pushEventHandler: {name, payload in }, silentPushEventHandler: {name, payload in }, inboxMapper: InboxMapper(), geofenceEventHandler: {name, payload in })
     }
     
     func testCreate_setup() throws {
