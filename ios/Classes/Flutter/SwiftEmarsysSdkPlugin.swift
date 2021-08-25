@@ -9,17 +9,24 @@ public class SwiftEmarsysSdkPlugin: NSObject, FlutterPlugin {
     let channel = FlutterMethodChannel(name: "com.emarsys.methods", binaryMessenger: registrar.messenger())
     let pushEventChannel = FlutterEventChannel(name: "com.emarsys.events.push", binaryMessenger: registrar.messenger())
     let silentPushEventChannel = FlutterEventChannel(name: "com.emarsys.events.silentPush", binaryMessenger: registrar.messenger())
+    let geofenceEventChannel = FlutterEventChannel(name: "com.emarsys.events.geofence", binaryMessenger: registrar.messenger())
     
     let silentPushHandler = EmarsysStreamHandler()
     let pushHandler = EmarsysStreamHandler()
+    let geofenceHandler = EmarsysStreamHandler()
     
     NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "EmarsysSDKWrapperCheckerNotification"), object: nil, queue: nil) { (notification) in
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "EmarsysSDKWrapperExist"), object: "flutter")
     }
     
-      factory = EmarsysCommandFactory(pushEventHandler: pushHandler.eventHandler!, silentPushEventHandler: silentPushHandler.eventHandler!, inboxMapper: InboxMapper())
+    factory = EmarsysCommandFactory(pushEventHandler: pushHandler.eventHandler!,
+                                    silentPushEventHandler: silentPushHandler.eventHandler!,
+                                    inboxMapper: InboxMapper(),
+                                    geofenceEventHandler: geofenceHandler.eventHandler!)
+    
     pushEventChannel.setStreamHandler(pushHandler)
     silentPushEventChannel.setStreamHandler(silentPushHandler)
+    geofenceEventChannel.setStreamHandler(geofenceHandler)
     
     let instance = SwiftEmarsysSdkPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)

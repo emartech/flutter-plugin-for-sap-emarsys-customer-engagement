@@ -115,5 +115,35 @@ class EmarsysCommandFactoryTests: XCTestCase {
         
         XCTAssertTrue(command is RemoveTagCommand)
     }
+    
+    func testCreate_enable() throws {
+        let command = factory?.create(name: "geofence.enable")
+        
+        XCTAssertTrue(command is GeofenceEnableCommand)
+    }
+    
+    func testCreate_disable() throws {
+        let command = factory?.create(name: "geofence.disable")
+        
+        XCTAssertTrue(command is GeofenceDisableCommand)
+    }
+    
+    func testCreate_setInitialEnterTriggerEnabled() throws {
+        let command = factory?.create(name: "geofence.setInitialEnterTriggerEnabled")
+        
+        XCTAssertTrue(command is GeofenceSetInitialEnterTriggerEnabledCommand)
+    }
+    
+    func testCreate_iOSRequestAlwaysAuthorization() throws {
+        let command = factory?.create(name: "geofence.ios.requestAlwaysAuthorization")
+        
+        XCTAssertTrue(command is GeofenceiOSRequestAlwaysAuthorizationCommand)
+    }
+    
+    func testCreate_isEnabled() throws {
+        let command = factory?.create(name: "geofence.isEnabled")
+        
+        XCTAssertTrue(command is GeofenceisEnabledCommand)
+    }
 }
 

@@ -6,10 +6,14 @@ import EmarsysSDK
 public class SetupCommand: EmarsysCommandProtocol {
     private var pushEventHandler: EMSEventHandlerBlock
     private var silentPushEventHandler: EMSEventHandlerBlock
+    private var geofenceEventHandler: EMSEventHandlerBlock
     
-    init(pushEventHandler: @escaping EMSEventHandlerBlock, silentPushEventHandler: @escaping EMSEventHandlerBlock) {
+    init(pushEventHandler: @escaping EMSEventHandlerBlock,
+         silentPushEventHandler: @escaping EMSEventHandlerBlock,
+         geofenceEventHandler: @escaping EMSEventHandlerBlock) {
         self.pushEventHandler = pushEventHandler
         self.silentPushEventHandler = silentPushEventHandler
+        self.geofenceEventHandler = geofenceEventHandler
     }
     
     func execute(arguments: [String : Any]?, resultCallback: @escaping ResultCallback) {
@@ -68,6 +72,7 @@ public class SetupCommand: EmarsysCommandProtocol {
             
             Emarsys.push.silentMessageEventHandler = self.silentPushEventHandler
             Emarsys.push.notificationEventHandler = self.pushEventHandler
+            Emarsys.geofence.eventHandler = self.geofenceEventHandler
             
             Emarsys.trackCustomEvent(eventName: "wrapper:init", eventAttributes: ["type" : "flutter"])
             resultCallback(["success": true])

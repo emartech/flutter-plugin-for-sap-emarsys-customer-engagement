@@ -7,19 +7,26 @@ class EmarsysCommandFactory {
     
     var pushEventHandler: EMSEventHandlerBlock
     var silentPushEventHandler: EMSEventHandlerBlock
+    var geofenceEventHandler: EMSEventHandlerBlock
     var inboxMapper: InboxMapper
     
-    init(pushEventHandler: @escaping EMSEventHandlerBlock, silentPushEventHandler: @escaping EMSEventHandlerBlock, inboxMapper: InboxMapper) {
+    init(pushEventHandler: @escaping EMSEventHandlerBlock,
+         silentPushEventHandler: @escaping EMSEventHandlerBlock,
+         inboxMapper: InboxMapper,
+         geofenceEventHandler: @escaping EMSEventHandlerBlock) {
         self.pushEventHandler = pushEventHandler
         self.silentPushEventHandler = silentPushEventHandler
         self.inboxMapper = inboxMapper
+        self.geofenceEventHandler = geofenceEventHandler
     }
 
     func create(name: String) -> EmarsysCommandProtocol? {
         var result: EmarsysCommandProtocol?
         switch name {
         case "setup":
-            result = SetupCommand(pushEventHandler: self.pushEventHandler, silentPushEventHandler: self.silentPushEventHandler)
+            result = SetupCommand(pushEventHandler: self.pushEventHandler,
+                                  silentPushEventHandler: self.silentPushEventHandler,
+                                  geofenceEventHandler: self.geofenceEventHandler)
         case "setContact":
             result = SetContactCommand()
         case "clearContact":
@@ -52,6 +59,16 @@ class EmarsysCommandFactory {
             result = AddTagCommand()
         case "inbox.removeTag":
             result = RemoveTagCommand()
+        case "geofence.enable":
+            result = GeofenceEnableCommand()
+        case "geofence.disable":
+            result = GeofenceDisableCommand()
+        case "geofence.setInitialEnterTriggerEnabled":
+            result = GeofenceSetInitialEnterTriggerEnabledCommand()
+        case "geofence.ios.requestAlwaysAuthorization":
+            result = GeofenceiOSRequestAlwaysAuthorizationCommand()
+        case "geofence.isEnabled":
+            result = GeofenceisEnabledCommand()
         default:
             result = nil
         }
