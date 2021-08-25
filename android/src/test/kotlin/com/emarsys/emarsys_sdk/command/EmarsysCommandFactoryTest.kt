@@ -1,6 +1,10 @@
 package com.emarsys.emarsys_sdk.command
 
 import com.emarsys.emarsys_sdk.command.config.*
+import com.emarsys.emarsys_sdk.command.geofence.GeofenceDisableCommand
+import com.emarsys.emarsys_sdk.command.geofence.GeofenceEnableCommand
+import com.emarsys.emarsys_sdk.command.geofence.GeofenceInitialEnterTriggerEnabledCommand
+import com.emarsys.emarsys_sdk.command.geofence.GeofenceIsEnabledCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.TrackCustomEventCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.contact.ClearContactCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.contact.SetContactCommand
@@ -122,7 +126,7 @@ class EmarsysCommandFactoryTest {
     }
 
     @Test
-    fun testCreate_shouldCreatTrackCustomEventCommandFromMethodCall() {
+    fun testCreate_shouldCreateTrackCustomEventCommandFromMethodCall() {
         val result = factory.create("trackCustomEvent")
 
         result shouldBe TrackCustomEventCommand()
@@ -147,6 +151,34 @@ class EmarsysCommandFactoryTest {
         val result = factory.create("inbox.removeTag")
 
         result shouldBe RemoveTagCommand()
+    }
+
+    @Test
+    fun testCreate_shouldCreateGeofenceEnableCommandFromMethodCall() {
+        val result = factory.create("geofence.enable")
+
+        result shouldBe GeofenceEnableCommand()
+    }
+
+    @Test
+    fun testCreate_shouldCreateGeofenceDisableCommandFromMethodCall() {
+        val result = factory.create("geofence.disable")
+
+        result shouldBe GeofenceDisableCommand()
+    }
+
+    @Test
+    fun testCreate_shouldCreateGeofenceInitialEnterTriggerEnabledCommandFromMethodCall() {
+        val result = factory.create("geofence.initialEnterTriggerEnabled")
+
+        result shouldBe GeofenceInitialEnterTriggerEnabledCommand()
+    }
+
+    @Test
+    fun testCreate_shouldCreateGeofenceIsEnabledCommandFromMethodCall() {
+        val result = factory.create("geofence.isEnabled")
+
+        result shouldBe GeofenceIsEnabledCommand()
     }
 
     @Test

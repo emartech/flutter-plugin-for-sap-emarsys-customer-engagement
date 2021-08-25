@@ -3,6 +3,10 @@ package com.emarsys.emarsys_sdk.command
 import android.app.Application
 import android.content.SharedPreferences
 import com.emarsys.emarsys_sdk.command.config.*
+import com.emarsys.emarsys_sdk.command.geofence.GeofenceDisableCommand
+import com.emarsys.emarsys_sdk.command.geofence.GeofenceEnableCommand
+import com.emarsys.emarsys_sdk.command.geofence.GeofenceInitialEnterTriggerEnabledCommand
+import com.emarsys.emarsys_sdk.command.geofence.GeofenceIsEnabledCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.TrackCustomEventCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.contact.ClearContactCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.contact.SetContactCommand
@@ -58,6 +62,10 @@ class EmarsysCommandFactory(
             "inbox.fetchMessages" -> FetchMessagesCommand(inboxResultMapper)
             "inbox.addTag" -> AddTagCommand()
             "inbox.removeTag" -> RemoveTagCommand()
+            "geofence.enable" -> GeofenceEnableCommand()
+            "geofence.disable" -> GeofenceDisableCommand()
+            "geofence.initialEnterTriggerEnabled" -> GeofenceInitialEnterTriggerEnabledCommand()
+            "geofence.isEnabled" -> GeofenceIsEnabledCommand()
             else -> null
         }
     }
