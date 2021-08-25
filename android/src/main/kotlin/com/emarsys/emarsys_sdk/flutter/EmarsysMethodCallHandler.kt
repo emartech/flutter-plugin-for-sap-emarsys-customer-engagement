@@ -1,7 +1,8 @@
 package com.emarsys.emarsys_sdk.flutter
 
 import android.app.Application
-import com.emarsys.emarsys_sdk.api.EmarsysMessagingService
+import com.emarsys.emarsys_sdk.api.EmarsysFirebaseMessagingService
+import com.emarsys.emarsys_sdk.api.EmarsysHuaweiMessagingService
 import com.emarsys.emarsys_sdk.di.dependencyContainer
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -30,7 +31,8 @@ class EmarsysMethodCallHandler(
     private fun onInitialized(methodName: String?) {
         if (methodName == "android.setupFromCache") {
             onInitialized(true)
-            EmarsysMessagingService.showInitialMessages(application)
+            EmarsysFirebaseMessagingService.showInitialMessages(application)
+            EmarsysHuaweiMessagingService.showInitialMessages(application)
         }
     }
 

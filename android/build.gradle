@@ -2,15 +2,19 @@ group 'com.emarsys.emarsys_sdk'
 version '1.0-SNAPSHOT'
 
 buildscript {
+    ext.gradle_version = '7.0.1'
     ext.kotlin_version = '1.5.21'
+    ext.agconnect_version = '1.6.0.300'
     repositories {
         google()
         jcenter()
+        maven { url 'https://developer.huawei.com/repo/' }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.3'
+        classpath "com.android.tools.build:gradle:$gradle_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.huawei.agconnect:agcp:$agconnect_version"
     }
 }
 
@@ -51,11 +55,17 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    api "com.emarsys:emarsys-sdk:3.0.0"
-    api "com.emarsys:emarsys-firebase:3.0.0"
+    ext.emarsys_sdk_version = '3.0.0'
+    ext.junit_version = '4.13.2'
+    ext.kotlintest_version = '3.4.2'
+    ext.mockk_version = '1.12.0'
 
-    testImplementation 'junit:junit:4.13.2'
-    testImplementation "io.kotlintest:kotlintest-runner-junit4:3.4.2"
-    testImplementation "io.mockk:mockk:1.12.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api "com.emarsys:emarsys-sdk:$emarsys_sdk_version"
+    api "com.emarsys:emarsys-firebase:$emarsys_sdk_version"
+    api "com.emarsys:emarsys-huawei:$emarsys_sdk_version"
+
+    testImplementation "junit:junit:$junit_version"
+    testImplementation "io.kotlintest:kotlintest-runner-junit4:$kotlintest_version"
+    testImplementation "io.mockk:mockk:$mockk_version"
 }

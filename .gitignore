@@ -26,6 +26,7 @@ pubspec.lock
 **/android/**/GeneratedPluginRegistrant.java
 **/android/**/GeneratedPluginRegistrant.kt
 example/android/app/google-services.json
+example/android/app/agconnect-services.json
 
 # iOS/XCode related
 **/Flutter/ephemeral/

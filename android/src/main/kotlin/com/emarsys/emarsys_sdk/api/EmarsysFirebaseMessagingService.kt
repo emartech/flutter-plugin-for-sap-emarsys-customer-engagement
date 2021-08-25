@@ -12,7 +12,7 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import java.util.*
 
-class EmarsysMessagingService : FirebaseMessagingService() {
+class EmarsysFirebaseMessagingService : FirebaseMessagingService() {
     companion object {
         private val messageQueue: MutableList<RemoteMessage> =
             Collections.synchronizedList(LinkedList())
