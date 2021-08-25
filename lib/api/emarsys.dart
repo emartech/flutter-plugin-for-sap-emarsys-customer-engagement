@@ -8,6 +8,7 @@ import 'dart:io' show Platform;
 
 import 'package:emarsys_sdk/model/emarsys_config.dart';
 import 'config.dart';
+import 'geofence.dart';
 import 'message_inbox.dart';
 
 typedef _GetCallbackHandle = CallbackHandle? Function(Function callback);
@@ -16,13 +17,17 @@ const EventChannel _silentPushEventChannel =
     const EventChannel('com.emarsys.events.silentPush');
 const EventChannel _pushEventChannel =
     const EventChannel('com.emarsys.events.push');
+const EventChannel _geofenceEventChannel =
+    const EventChannel('com.emarsys.events.geofence');
 
 class Emarsys {
   static Push push = Push(_channel, _pushEventChannel, _silentPushEventChannel);
 
   static Config config = Config(_channel);
-  
+
   static MessageInbox messageInbox = MessageInbox(_channel, MessageMapper());
+
+  static Geofence geofence = Geofence(_channel, _geofenceEventChannel);
 
   static Future<void> setup(EmarsysConfig config) {
     Emarsys._initialize();
