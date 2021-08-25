@@ -45,6 +45,6 @@ class GeofenceInitialEnterTriggerEnabledCommandTest {
         }
 
         returnedError shouldNotBe null
-        returnedError?.message shouldBe "Illegal argument: 'enabled' is not satisfying!"
+        returnedError?.message shouldBe "Illegal argument: 'enabled' must not be null!"
     }
 }

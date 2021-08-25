@@ -12,7 +12,7 @@ class GeofenceInitialEnterTriggerEnabledCommand : EmarsysCommand {
         if (enabled != null) {
             Emarsys.geofence.setInitialEnterTriggerEnabled(enabled)
         } else {
-            error = IllegalArgumentException("Illegal argument: 'enabled' is not satisfying!")
+            error = IllegalArgumentException("Illegal argument: 'enabled' must not be null!")
         }
 
         resultCallback.invoke(null, error)
