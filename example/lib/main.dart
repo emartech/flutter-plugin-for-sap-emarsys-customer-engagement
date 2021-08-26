@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:emarsys_sdk/emarsys_sdk.dart';
 
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
@@ -8,7 +11,7 @@ import 'dart:convert';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Emarsys.setup(EmarsysConfig(
-      applicationCode: 'EMS74-EFB68',
+      applicationCode: 'EMS11-C3FD3',
       androidVerboseConsoleLoggingEnabled: true,
       iOSEnabledConsoleLogLevels: [
         ConsoleLogLevels.BASIC,
@@ -142,7 +145,9 @@ class _MyAppState extends State<MyApp> {
                       TextField(
                         controller: _contactFieldIdController,
                         keyboardType: TextInputType.number,
-                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: "contactFieldId"),
@@ -273,15 +278,46 @@ class _MyAppState extends State<MyApp> {
                             setState(() {
                               customEventName =
                                   _customEventNameFieldController.text;
-                              customEventPayload = _customEventPayloadFieldController.text;
+                              customEventPayload =
+                                  _customEventPayloadFieldController.text;
                             });
                           } else {
-                            _messangerKey.currentState!.showSnackBar(
-                                SnackBar(content: Text('Fill customEventName')));
+                            _messangerKey.currentState!.showSnackBar(SnackBar(
+                                content: Text('Fill customEventName')));
                           }
                         },
                         child: Text("customEvent"),
-                      )
+                      ),
+                      Divider(),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(
+                            child: Text("Geofence",
+                                style: TextStyle(fontWeight: FontWeight.w500))),
+                      ),
+                      Row(
+                        children: [
+                          ElevatedButton(
+                              onPressed: () async {
+                                if (Platform.isIOS) {
+                                  await Emarsys.geofence
+                                      .iOSRequestAlwaysAuthorization();
+                                } else {
+                                  await Permission.location.request();
+                                  await Permission.locationAlways.request();
+                                  await Permission.locationWhenInUse.request();
+                                }
+                                Emarsys.geofence.enable();
+                              },
+                              child: Text("Enable Geofence")),
+                          ElevatedButton(
+                              onPressed: () async {
+                                Emarsys.geofence.disable();
+                              },
+                              child: Text("Disable Geofence")),
+                        ],
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      ),
                     ])),
           )),
     );
