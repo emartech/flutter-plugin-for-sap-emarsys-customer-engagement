@@ -8,8 +8,9 @@ class Geofence {
   Geofence(this._channel, EventChannel _geofenceEventChannel)
       : geofenceEventStream = _geofenceEventChannel
             .receiveBroadcastStream()
-            .map((event) =>
-                Event(name: event["name"], payload: event["payload"]));
+            .map((event) => Event(
+                name: event["name"],
+                payload: Map<String, dynamic>.from(event["payload"])));
 
   Future<void> enable() {
     return _channel.invokeMethod('geofence.enable');

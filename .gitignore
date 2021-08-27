@@ -75,3 +75,4 @@ Podfile.lock
 *.code-workspace
 
 .idea/
+example/android/app/local.properties

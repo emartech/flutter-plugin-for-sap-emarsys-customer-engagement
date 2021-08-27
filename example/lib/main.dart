@@ -41,6 +41,9 @@ void main() async {
   Emarsys.push.silentPushEventStream.listen((event) {
     print(event.name);
   });
+  Emarsys.geofence.geofenceEventStream.listen((event) {
+    print(event.name);
+  });
 }
 
 class MyApp extends StatefulWidget {
