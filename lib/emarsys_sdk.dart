@@ -11,4 +11,5 @@ export 'notification_settings/ios_notification_settings.dart';
 export 'notification_settings/notification_settings.dart';
 export 'model/event.dart';
 export 'model/emarsys_config.dart';
+export 'model/message.dart';
 export 'model/notification_channel.dart';
