@@ -18,8 +18,8 @@ class MessageMapper {
             receivedAt: messageMap["receivedAt"] as int,
             updatedAt: messageMap["updatedAt"] as int?,
             expiresAt: messageMap["expiresAt"] as int?,
-            properties: messageMap["properties"] as Map<String, String>?,
-            tags: messageMap["tags"] as List<String>,
+            properties: Map<String, String>.from(messageMap["properties"]),
+            tags: List<String>.from(messageMap["tags"]),
             actions: mapActions(
                 messageMap["actions"] as List<Map<String, Object>>?)))
         .toList();
