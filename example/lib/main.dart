@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:emarsys_sdk/emarsys_sdk.dart';
+import 'package:emarsys_sdk_example/inbox_messages.dart';
 
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -127,7 +128,7 @@ class _MyAppState extends State<MyApp> {
               });
             },
             items: [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: "HOME"),
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
               BottomNavigationBarItem(
                   icon: Icon(Icons.track_changes), label: "Tracking"),
               BottomNavigationBarItem(
@@ -139,37 +140,9 @@ class _MyAppState extends State<MyApp> {
   }
 
   Widget body(int index) {
-    return [home(), tracking(), inbox()][index];
+    return [home(), tracking(), InboxMessages()][index];
   }
 
-  Widget inbox() {
-    return FutureBuilder<List<Message>>(
-        builder: (context, snapshot) {
-          if (snapshot.hasData && snapshot.data != null) {
-            return Container(
-                child: ListView.builder(
-                    itemCount: snapshot.data?.length ?? 0,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(snapshot.data![index].title),
-                        subtitle: Text(snapshot.data![index].body),
-                        leading: loadImageUrl(snapshot.data![index].imageUrl),
-                      );
-                    }));
-          } else {
-            return Center(child: Text("No messages"));
-          }
-        },
-        future: Emarsys.messageInbox.fetchMessages());
-  }
-
-  Widget loadImageUrl(String? url) {
-    if (url != null) {
-      return Image.network(url, height: 60, width: 60);
-    } else {
-      return Image.asset("placeholder.png", height: 60, width: 60);
-    }
-  }
 
   Widget home() {
     return Padding(
