@@ -27,7 +27,8 @@ class DefaultDependencyContainer(
             eventHandlerFactory,
             sharedPreferences,
             notificationChannelFactory,
-            inboxResultMapper
+            inboxResultMapper,
+            backgroundHandler
         )
     }
     override val sharedPreferences: SharedPreferences by lazy {

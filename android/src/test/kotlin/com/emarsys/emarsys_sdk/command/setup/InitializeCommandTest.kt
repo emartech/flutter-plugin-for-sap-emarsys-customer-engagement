@@ -1,6 +1,7 @@
 package com.emarsys.emarsys_sdk.command.setup
 
 import android.content.SharedPreferences
+import android.os.Handler
 import com.emarsys.emarsys_sdk.command.ResultCallback
 import io.mockk.clearAllMocks
 import io.mockk.every
@@ -14,12 +15,18 @@ class InitializeCommandTest {
 
     private lateinit var command: InitializeCommand
     private lateinit var mockSharedPreferences: SharedPreferences
+    private lateinit var mockBackgroundHandler: Handler
     private lateinit var mockEdit: SharedPreferences.Editor
 
     @Before
     fun setUp() {
         mockSharedPreferences = mockk()
-        command = InitializeCommand(mockSharedPreferences)
+        mockBackgroundHandler = mockk(relaxed = true)
+        every { mockBackgroundHandler.post(any()) } answers {
+            (it.invocation.args[0] as Runnable).run()
+            true
+        }
+        command = InitializeCommand(mockSharedPreferences, mockBackgroundHandler)
         mockEdit = mockk(relaxed = true)
         every { mockSharedPreferences.edit() } returns mockEdit
     }

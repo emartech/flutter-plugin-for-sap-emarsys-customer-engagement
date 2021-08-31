@@ -2,6 +2,7 @@ package com.emarsys.emarsys_sdk.command
 
 import android.app.Application
 import android.content.SharedPreferences
+import android.os.Handler
 import com.emarsys.emarsys_sdk.command.config.*
 import com.emarsys.emarsys_sdk.command.geofence.GeofenceDisableCommand
 import com.emarsys.emarsys_sdk.command.geofence.GeofenceEnableCommand
@@ -29,7 +30,8 @@ class EmarsysCommandFactory(
     private val eventHandlerFactory: EventHandlerFactory,
     private val sharedPreferences: SharedPreferences,
     private val notificationChannelFactory: NotificationChannelFactory,
-    private val inboxResultMapper: InboxResultMapper
+    private val inboxResultMapper: InboxResultMapper,
+    private val backgroundHandler: Handler
 ) {
 
     fun create(methodName: String): EmarsysCommand? {
@@ -44,7 +46,7 @@ class EmarsysCommandFactory(
             )
             "setContact" -> SetContactCommand()
             "clearContact" -> ClearContactCommand()
-            "android.initialize" -> InitializeCommand(sharedPreferences)
+            "android.initialize" -> InitializeCommand(sharedPreferences, backgroundHandler)
             "push.pushSendingEnabled" -> PushSendingEnabledCommand(pushTokenStorage)
             "push.android.registerNotificationChannels" -> RegisterNotificationChannelsCommand(
                 application,

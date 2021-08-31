@@ -24,7 +24,8 @@ class EmarsysCommandFactoryTest {
 
     @Before
     fun setUp() {
-        factory = EmarsysCommandFactory(mockk(), mockk(), mockk(), mockk(), mockk(), mockk())
+        factory =
+            EmarsysCommandFactory(mockk(), mockk(), mockk(), mockk(), mockk(), mockk(), mockk())
     }
 
     @Test
@@ -59,7 +60,7 @@ class EmarsysCommandFactoryTest {
     fun testCreate_shouldCreateAnInitializeCommandFromMethodCall() {
         val result = factory.create("android.initialize")
 
-        result shouldBe InitializeCommand(mockk())
+        result shouldBe InitializeCommand(mockk(), mockk())
     }
 
     @Test
