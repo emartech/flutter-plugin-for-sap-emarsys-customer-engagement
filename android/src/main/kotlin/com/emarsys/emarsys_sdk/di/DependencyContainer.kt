@@ -2,6 +2,7 @@ package com.emarsys.emarsys_sdk.di
 
 import android.app.Application
 import android.content.SharedPreferences
+import android.os.Handler
 import com.emarsys.emarsys_sdk.command.EmarsysCommandFactory
 import com.emarsys.emarsys_sdk.event.EventHandlerFactory
 import com.emarsys.emarsys_sdk.mapper.InboxResultMapper
@@ -29,6 +30,8 @@ interface DependencyContainer {
     companion object {
         var instance: DependencyContainer? = null
     }
+
+    val backgroundHandler: Handler
 
     val emarsysCommandFactory: EmarsysCommandFactory
 

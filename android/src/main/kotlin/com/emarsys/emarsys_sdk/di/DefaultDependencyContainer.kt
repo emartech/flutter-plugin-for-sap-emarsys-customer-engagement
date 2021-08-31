@@ -2,10 +2,12 @@ package com.emarsys.emarsys_sdk.di
 
 import android.app.Application
 import android.content.SharedPreferences
+import android.os.Handler
 import com.emarsys.emarsys_sdk.command.EmarsysCommandFactory
 import com.emarsys.emarsys_sdk.event.EventHandlerFactory
 import com.emarsys.emarsys_sdk.mapper.InboxResultMapper
 import com.emarsys.emarsys_sdk.notification.NotificationChannelFactory
+import com.emarsys.emarsys_sdk.provider.BackgroundHandlerProvider
 import com.emarsys.emarsys_sdk.storage.PushTokenStorage
 import io.flutter.plugin.common.BinaryMessenger
 
@@ -13,6 +15,10 @@ class DefaultDependencyContainer(
     override val application: Application,
     private val binaryMessenger: BinaryMessenger
 ) : DependencyContainer {
+    override val backgroundHandler: Handler by lazy {
+        BackgroundHandlerProvider.provide()
+    }
+
 
     override val emarsysCommandFactory: EmarsysCommandFactory by lazy {
         EmarsysCommandFactory(
