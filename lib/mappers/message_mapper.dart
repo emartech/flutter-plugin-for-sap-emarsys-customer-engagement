@@ -19,18 +19,21 @@ class MessageMapper {
             updatedAt: messageMap["updatedAt"] as int?,
             expiresAt: messageMap["expiresAt"] as int?,
             properties: Map<String, String>.from(messageMap["properties"]),
-            tags: List<String>.from(messageMap["tags"]),
-            actions: mapActions(
-                messageMap["actions"] as List<Map<String, Object>>?)))
+            tags: messageMap["tags"] != null
+                ? List<String>.from(messageMap["tags"])
+                : [],
+            actions: messageMap["actions"] != null
+                ? mapActions(List.from(messageMap["actions"]))
+                : []))
         .toList();
   }
 
-  List<ActionModel>? mapActions(List<Map<String, Object>>? actionList) {
+  List<ActionModel>? mapActions(List<dynamic>? actionList) {
     if (actionList == null) {
       return null;
     }
     return List.from(actionList
-        .map((actionMap) => actionFromMap(actionMap))
+        .map((actionMap) => actionFromMap(Map<String, Object>.from(actionMap)))
         .where((element) => element != null)
         .toList());
   }
@@ -44,14 +47,20 @@ class MessageMapper {
             title: actionMap["title"] as String,
             type: actionMap["type"] as String,
             name: actionMap["name"] as String,
-            payload: actionMap["payload"] as Map<String, Object>);
+            payload: actionMap["payload"] != null
+                ? Map<String, Object>.from(
+                    actionMap["payload"] as Map<dynamic, dynamic>)
+                : {});
       case "MECustomEvent":
         return CustomEventActionModel(
             id: actionMap["id"] as String,
             title: actionMap["title"] as String,
             type: actionMap["type"] as String,
             name: actionMap["name"] as String,
-            payload: actionMap["payload"] as Map<String, Object>);
+            payload: actionMap["payload"] != null
+                ? Map<String, Object>.from(
+                    actionMap["payload"] as Map<dynamic, dynamic>)
+                : {});
       case "OpenExternalUrl":
         return OpenExternalUrlActionModel(
             id: actionMap["id"] as String,
