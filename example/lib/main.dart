@@ -12,7 +12,7 @@ import 'dart:convert';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Emarsys.setup(EmarsysConfig(
-      applicationCode: 'EMS11-C3FD3',
+      applicationCode: 'EMS74-EFB68',
       androidVerboseConsoleLoggingEnabled: true,
       iOSEnabledConsoleLogLevels: [
         ConsoleLogLevels.BASIC,
@@ -142,7 +142,6 @@ class _MyAppState extends State<MyApp> {
   Widget body(int index) {
     return [home(), tracking(), InboxMessages()][index];
   }
-
 
   Widget home() {
     return Padding(

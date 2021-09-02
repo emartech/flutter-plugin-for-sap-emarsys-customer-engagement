@@ -1,3 +1,4 @@
+import 'package:emarsys_sdk/api/emarsys.dart';
 import 'package:emarsys_sdk/emarsys_sdk.dart';
 import 'package:flutter/material.dart';
 
@@ -96,6 +97,12 @@ class _InboxMessagesState extends State<InboxMessages> {
         setState(() {
           selectedMessages.add(message.id);
         });
+        if (!(message.tags?.contains("seen") ?? false)) {
+          setState(() {
+            message.tags?.add("seen");
+          });
+          Emarsys.messageInbox.addTag(message.id, "seen");
+        }
       },
       title: Text(message.title),
       subtitle: Text(message.body),
