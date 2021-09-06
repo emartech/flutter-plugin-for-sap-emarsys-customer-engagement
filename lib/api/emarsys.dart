@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:ui';
+import 'package:emarsys_sdk/api/inapp.dart';
 import 'package:emarsys_sdk/api/push.dart';
 import 'package:emarsys_sdk/mappers/message_mapper.dart';
 import 'package:flutter/material.dart';
@@ -19,9 +20,13 @@ const EventChannel _pushEventChannel =
     const EventChannel('com.emarsys.events.push');
 const EventChannel _geofenceEventChannel =
     const EventChannel('com.emarsys.events.geofence');
+const EventChannel _inAppEventChannel =
+    const EventChannel('com.emarsys.events.inApp');
 
 class Emarsys {
   static Push push = Push(_channel, _pushEventChannel, _silentPushEventChannel);
+
+  static InApp inApp = InApp(_channel, _inAppEventChannel);
 
   static Config config = Config(_channel);
 

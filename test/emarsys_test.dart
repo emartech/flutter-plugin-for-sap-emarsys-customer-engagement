@@ -22,6 +22,10 @@ void main() {
     expect(Emarsys.push != null, true);
   });
 
+  test('inApp is not null', () async {
+    expect(Emarsys.inApp != null, true);
+  });
+
   test('setup should work', () async {
     EmarsysConfig config = EmarsysConfig(applicationCode: '');
 
