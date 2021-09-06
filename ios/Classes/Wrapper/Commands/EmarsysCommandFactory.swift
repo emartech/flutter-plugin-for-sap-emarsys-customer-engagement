@@ -69,6 +69,12 @@ class EmarsysCommandFactory {
             result = GeofenceiOSRequestAlwaysAuthorizationCommand()
         case "geofence.isEnabled":
             result = GeofenceisEnabledCommand()
+        case "inApp.pause":
+            result = InAppPauseCommand()
+        case "inApp.resume":
+            result = InAppResumeCommand()
+        case "inApp.isPaused":
+            result = InAppIsPausedCommand()
         default:
             result = nil
         }

@@ -145,5 +145,23 @@ class EmarsysCommandFactoryTests: XCTestCase {
         
         XCTAssertTrue(command is GeofenceisEnabledCommand)
     }
+    
+    func testCreate_pause() throws {
+        let command = factory?.create(name: "inApp.pause")
+        
+        XCTAssertTrue(command is InAppPauseCommand)
+    }
+    
+    func testCreate_resume() throws {
+        let command = factory?.create(name: "inApp.resume")
+        
+        XCTAssertTrue(command is InAppResumeCommand)
+    }
+    
+    func testCreate_isPaused() throws {
+        let command = factory?.create(name: "inApp.isPaused")
+        
+        XCTAssertTrue(command is InAppIsPausedCommand)
+    }
 }
 
