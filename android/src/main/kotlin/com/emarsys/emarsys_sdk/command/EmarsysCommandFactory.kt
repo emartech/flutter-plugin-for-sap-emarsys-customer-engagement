@@ -8,6 +8,9 @@ import com.emarsys.emarsys_sdk.command.geofence.GeofenceDisableCommand
 import com.emarsys.emarsys_sdk.command.geofence.GeofenceEnableCommand
 import com.emarsys.emarsys_sdk.command.geofence.GeofenceInitialEnterTriggerEnabledCommand
 import com.emarsys.emarsys_sdk.command.geofence.GeofenceIsEnabledCommand
+import com.emarsys.emarsys_sdk.command.inapp.InAppIsPausedCommand
+import com.emarsys.emarsys_sdk.command.inapp.InAppPauseCommand
+import com.emarsys.emarsys_sdk.command.inapp.InAppResumeCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.TrackCustomEventCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.contact.ClearContactCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.contact.SetContactCommand
@@ -68,6 +71,9 @@ class EmarsysCommandFactory(
             "geofence.disable" -> GeofenceDisableCommand()
             "geofence.initialEnterTriggerEnabled" -> GeofenceInitialEnterTriggerEnabledCommand()
             "geofence.isEnabled" -> GeofenceIsEnabledCommand()
+            "inApp.resume" -> InAppResumeCommand()
+            "inApp.pause" -> InAppPauseCommand()
+            "inApp.isPaused" -> InAppIsPausedCommand()
             else -> null
         }
     }
