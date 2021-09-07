@@ -45,6 +45,9 @@ void main() async {
   Emarsys.geofence.geofenceEventStream.listen((event) {
     print(event.name);
   });
+  Emarsys.inApp.inAppEventStream.listen((event) {
+    print(event.name);
+  });
 }
 
 class MyApp extends StatefulWidget {
