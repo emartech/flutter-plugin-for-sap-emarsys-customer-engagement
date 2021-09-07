@@ -11,7 +11,7 @@ class SetupCommandTests: XCTestCase {
     var command: SetupCommand?
     
     override func setUpWithError() throws {
-        command = SetupCommand(pushEventHandler: {name, payload in }, silentPushEventHandler: {name, payload in }, geofenceEventHandler: {name, payload in })
+        command = SetupCommand(pushEventHandler: {name, payload in }, silentPushEventHandler: {name, payload in }, geofenceEventHandler: {name, payload in }, inAppEventHandler: {name, payload in})
     }
     
     func testExecute_returnTrue() throws {
