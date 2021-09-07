@@ -9,15 +9,18 @@ class EmarsysCommandFactory {
     var silentPushEventHandler: EMSEventHandlerBlock
     var geofenceEventHandler: EMSEventHandlerBlock
     var inboxMapper: InboxMapper
+    var inAppEventHandler: EMSEventHandlerBlock
     
     init(pushEventHandler: @escaping EMSEventHandlerBlock,
          silentPushEventHandler: @escaping EMSEventHandlerBlock,
          inboxMapper: InboxMapper,
-         geofenceEventHandler: @escaping EMSEventHandlerBlock) {
+         geofenceEventHandler: @escaping EMSEventHandlerBlock,
+         inAppEventHandler: @escaping EMSEventHandlerBlock) {
         self.pushEventHandler = pushEventHandler
         self.silentPushEventHandler = silentPushEventHandler
         self.inboxMapper = inboxMapper
         self.geofenceEventHandler = geofenceEventHandler
+        self.inAppEventHandler = inAppEventHandler
     }
 
     func create(name: String) -> EmarsysCommandProtocol? {
@@ -26,7 +29,8 @@ class EmarsysCommandFactory {
         case "setup":
             result = SetupCommand(pushEventHandler: self.pushEventHandler,
                                   silentPushEventHandler: self.silentPushEventHandler,
-                                  geofenceEventHandler: self.geofenceEventHandler)
+                                  geofenceEventHandler: self.geofenceEventHandler,
+                                  inAppEventHandler: self.inAppEventHandler)
         case "setContact":
             result = SetContactCommand()
         case "clearContact":
