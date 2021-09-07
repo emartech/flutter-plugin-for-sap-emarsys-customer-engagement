@@ -14,7 +14,8 @@ class EventHandlerFactory(private val binaryMessenger: BinaryMessenger) {
     enum class EventChannelName(val channelName: String) {
         PUSH("com.emarsys.events.push"),
         SILENT_PUSH("com.emarsys.events.silentPush"),
-        GEOFENCE("com.emarsys.events.geofence")
+        GEOFENCE("com.emarsys.events.geofence"),
+        INAPP("com.emarsys.events.inApp")
     }
 
     init {

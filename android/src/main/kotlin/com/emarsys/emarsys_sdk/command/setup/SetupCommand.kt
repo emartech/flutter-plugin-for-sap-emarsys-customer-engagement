@@ -50,6 +50,8 @@ class SetupCommand(
                 .apply { Emarsys.push.setSilentMessageEventHandler(this) }
         eventHandlerFactory.create(EventHandlerFactory.EventChannelName.GEOFENCE)
                 .apply { Emarsys.geofence.setEventHandler(this) }
+        eventHandlerFactory.create(EventHandlerFactory.EventChannelName.INAPP)
+                .apply { Emarsys.inApp.setEventHandler(this) }
         
         resultCallback(null, null)
     }

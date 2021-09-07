@@ -35,6 +35,7 @@ class SetupCommandTest {
     private lateinit var mockPushEventHandler: EventHandler
     private lateinit var mockSilentPushEventHandler: EventHandler
     private lateinit var mockGeofenceEventHandler: EventHandler
+    private lateinit var mockInAppEventHandler: EventHandler
     private lateinit var mockEventHandlerFactory: EventHandlerFactory
 
     @Before
@@ -46,6 +47,7 @@ class SetupCommandTest {
         mockPushEventHandler = mockk(relaxed = true)
         mockSilentPushEventHandler = mockk(relaxed = true)
         mockGeofenceEventHandler = mockk(relaxed = true)
+        mockInAppEventHandler = mockk(relaxed = true)
         mockEventHandlerFactory = mockk(relaxed = true)
         setupCommand = SetupCommand(
             mockApplication,
@@ -57,6 +59,7 @@ class SetupCommandTest {
         every { mockEventHandlerFactory.create(EventHandlerFactory.EventChannelName.PUSH) } returns mockPushEventHandler
         every { mockEventHandlerFactory.create(EventHandlerFactory.EventChannelName.SILENT_PUSH) } returns mockSilentPushEventHandler
         every { mockEventHandlerFactory.create(EventHandlerFactory.EventChannelName.GEOFENCE) } returns mockGeofenceEventHandler
+        every { mockEventHandlerFactory.create(EventHandlerFactory.EventChannelName.INAPP) } returns mockInAppEventHandler
 
         every { mockPushTokenStorage.pushToken } returns PUSH_TOKEN
         every { mockPushTokenStorage.enabled } returns true
@@ -74,6 +77,7 @@ class SetupCommandTest {
         every { Emarsys.push.setNotificationEventHandler(any()) } just Runs
         every { Emarsys.push.setSilentMessageEventHandler(any()) } just Runs
         every { Emarsys.geofence.setEventHandler(any()) } just Runs
+        every { Emarsys.inApp.setEventHandler(any()) } just Runs
     }
 
 
@@ -143,6 +147,7 @@ class SetupCommandTest {
         verify { Emarsys.push.setNotificationEventHandler(mockPushEventHandler) }
         verify { Emarsys.push.setSilentMessageEventHandler(mockSilentPushEventHandler) }
         verify { Emarsys.geofence.setEventHandler(mockGeofenceEventHandler) }
+        verify { Emarsys.inApp.setEventHandler(mockInAppEventHandler) }
     }
 
     @Test
