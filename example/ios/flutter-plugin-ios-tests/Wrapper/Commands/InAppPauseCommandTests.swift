@@ -1,32 +1,32 @@
 //
-//  InAppPauseCommandTests.swift
-//  flutter-plugin-ios-tests
-//
-//  Created by Sarro, Andras Gabor on 2021. 09. 07..
+//  Created by Emarsys
 //
 
 import XCTest
+@testable import emarsys_sdk
+import EmarsysSDK
 
 class InAppPauseCommandTests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    
+    var command: InAppPauseCommand!
+    
+    override func setUp() {
+        command = InAppPauseCommand()
     }
+    
+    func testExecute_returnSuccess_WhenCalled() throws {
+        Emarsys.setup(config: EMSConfig.make(builder: { builder in
+            builder.setMobileEngageApplicationCode("EMS11-C3FD3")
+        }))
+        
+        let expectedResponse = ["success": true]
+        var result = [String: Any]()
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+        command?.execute(arguments: [:]) { response in
+            result = response
         }
+
+        XCTAssertEqual(result as? [String: Bool], expectedResponse)
     }
 
 }

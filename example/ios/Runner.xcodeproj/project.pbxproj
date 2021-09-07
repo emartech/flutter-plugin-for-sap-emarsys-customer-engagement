@@ -14,6 +14,9 @@
 		4F721E6242E4E6AE4743CA3D /* Pods_flutter_plugin_ios_tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 266C84BAF8BB2638D368C83A /* Pods_flutter_plugin_ios_tests.framework */; };
 		569CECB02642C4CF00D743F7 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569CECAF2642C4CF00D743F7 /* NotificationService.swift */; };
 		569CECB42642C4CF00D743F7 /* NotificationExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 569CECAD2642C4CF00D743F7 /* NotificationExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		57DF31EA26E74F43008202B8 /* InAppPauseCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DF31E926E74F43008202B8 /* InAppPauseCommandTests.swift */; };
+		57DF31EC26E75535008202B8 /* InAppResumeCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DF31EB26E75535008202B8 /* InAppResumeCommandTests.swift */; };
+		57DF31EE26E755EC008202B8 /* InAppIsPausedCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DF31ED26E755EC008202B8 /* InAppIsPausedCommandTests.swift */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		8A108405263195A300A18E54 /* SetupCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A108404263195A300A18E54 /* SetupCommandTests.swift */; };
 		8A1084102631B48800A18E54 /* SetContactCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A10840F2631B48800A18E54 /* SetContactCommandTests.swift */; };
@@ -80,6 +83,9 @@
 		569CECAD2642C4CF00D743F7 /* NotificationExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		569CECAF2642C4CF00D743F7 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		569CECB12642C4CF00D743F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		57DF31E926E74F43008202B8 /* InAppPauseCommandTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppPauseCommandTests.swift; sourceTree = "<group>"; };
+		57DF31EB26E75535008202B8 /* InAppResumeCommandTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppResumeCommandTests.swift; sourceTree = "<group>"; };
+		57DF31ED26E755EC008202B8 /* InAppIsPausedCommandTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppIsPausedCommandTests.swift; sourceTree = "<group>"; };
 		5ADE1EF4341167075223DC86 /* Pods-NotificationExtension.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationExtension.profile.xcconfig"; path = "Target Support Files/Pods-NotificationExtension/Pods-NotificationExtension.profile.xcconfig"; sourceTree = "<group>"; };
 		65991B2A58383B11DB061C54 /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		67682C6CB6686EE85FEC9E6D /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
@@ -177,6 +183,9 @@
 				8AB898D626C3C8B300904126 /* TrackCustomEventCommandTests.swift */,
 				8A5CA5E626CE527900AC8CAB /* AddTagCommandTests.swift */,
 				8A5CA5E826CE53ED00AC8CAB /* RemoveTagCommandTests.swift */,
+				57DF31E926E74F43008202B8 /* InAppPauseCommandTests.swift */,
+				57DF31EB26E75535008202B8 /* InAppResumeCommandTests.swift */,
+				57DF31ED26E755EC008202B8 /* InAppIsPausedCommandTests.swift */,
 			);
 			path = Commands;
 			sourceTree = "<group>";
@@ -550,12 +559,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A762EBD26C2AC2F00EFF694 /* ChangeApplicationCodeTests.swift in Sources */,
+				57DF31EA26E74F43008202B8 /* InAppPauseCommandTests.swift in Sources */,
 				8AB898D726C3C8B300904126 /* TrackCustomEventCommandTests.swift in Sources */,
 				8A5CA5E726CE527900AC8CAB /* AddTagCommandTests.swift in Sources */,
 				8AC3B27326316D070092C7B8 /* EmarsysCommandFactoryTests.swift in Sources */,
 				8A1084102631B48800A18E54 /* SetContactCommandTests.swift in Sources */,
+				57DF31EE26E755EC008202B8 /* InAppIsPausedCommandTests.swift in Sources */,
 				8A108405263195A300A18E54 /* SetupCommandTests.swift in Sources */,
 				8A5CA5E926CE53ED00AC8CAB /* RemoveTagCommandTests.swift in Sources */,
+				57DF31EC26E75535008202B8 /* InAppResumeCommandTests.swift in Sources */,
 				8AB379C226417F4200721ED3 /* PushSendingEnabledCommandTests.swift in Sources */,
 				8A5CA5E326CE39DD00AC8CAB /* InboxMapperTests.swift in Sources */,
 			);
