@@ -5,10 +5,12 @@ import android.content.SharedPreferences
 import com.emarsys.Emarsys
 import com.emarsys.config.EmarsysConfig
 import com.emarsys.core.provider.wrapper.WrapperInfoContainer
+import com.emarsys.di.emarsys
 import com.emarsys.di.isEmarsysComponentSetup
 import com.emarsys.emarsys_sdk.command.EmarsysCommand
 import com.emarsys.emarsys_sdk.command.ResultCallback
 import com.emarsys.emarsys_sdk.config.ConfigStorageKeys
+import com.emarsys.emarsys_sdk.di.dependencyContainer
 import com.emarsys.emarsys_sdk.event.EventHandlerFactory
 import com.emarsys.emarsys_sdk.storage.PushTokenStorage
 
@@ -43,6 +45,8 @@ class SetupCommand(
                 }
             }
         }
+
+        emarsys().currentActivityProvider.set(dependencyContainer().flutterActivity?.get())
 
         eventHandlerFactory.create(EventHandlerFactory.EventChannelName.PUSH)
                 .apply { Emarsys.push.setNotificationEventHandler(this) }
