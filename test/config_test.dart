@@ -29,7 +29,8 @@ void main() {
     expect(actualMethodCall != null, true);
     if (actualMethodCall != null) {
       expect(actualMethodCall!.method, 'config.changeApplicationCode');
-      expect(actualMethodCall!.arguments, {"applicationCode": "testApplicationCode"});
+      expect(actualMethodCall!.arguments,
+          {"applicationCode": "testApplicationCode"});
     }
   });
 

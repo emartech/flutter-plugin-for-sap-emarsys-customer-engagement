@@ -23,7 +23,6 @@ class CustomEventActionModel extends Equatable implements ActionModel {
       required this.name,
       this.payload});
 
-
   @override
   List<Object?> get props {
     return [

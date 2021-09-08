@@ -6,8 +6,7 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   setUpAll(() async {
-    final config =
-        EmarsysConfig(applicationCode: "EMS11-C3FD3");
+    final config = EmarsysConfig(applicationCode: "EMS11-C3FD3");
     await Emarsys.setup(config);
   });
 
