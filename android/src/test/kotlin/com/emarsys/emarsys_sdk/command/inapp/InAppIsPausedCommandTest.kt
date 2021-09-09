@@ -31,6 +31,8 @@ class InAppIsPausedCommandTest {
 
     @Test
     fun testExecute_shouldCallMethodOnEmarsys() {
+        every { mockInAppApi.isPaused } returns true
+
         command.execute(null) { _, _ ->
         }
 
@@ -43,7 +45,7 @@ class InAppIsPausedCommandTest {
             mockInAppApi.isPaused
         } returns false
 
-        var result : Any? = null
+        var result: Any? = null
         command.execute(null) { success, _ ->
             result = success
         }
@@ -58,7 +60,7 @@ class InAppIsPausedCommandTest {
             mockInAppApi.isPaused
         } returns true
 
-        var result : Any? = null
+        var result: Any? = null
         command.execute(null) { success, _ ->
             result = success
         }
