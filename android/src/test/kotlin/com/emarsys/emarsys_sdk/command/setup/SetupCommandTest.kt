@@ -5,8 +5,10 @@ import android.content.SharedPreferences
 import com.emarsys.Emarsys
 import com.emarsys.config.EmarsysConfig
 import com.emarsys.core.provider.wrapper.WrapperInfoContainer
+import com.emarsys.di.emarsys
 import com.emarsys.di.isEmarsysComponentSetup
 import com.emarsys.emarsys_sdk.config.ConfigStorageKeys
+import com.emarsys.emarsys_sdk.di.dependencyContainer
 import com.emarsys.emarsys_sdk.di.tearDownDependencyContainer
 import com.emarsys.emarsys_sdk.event.EventHandlerFactory
 import com.emarsys.emarsys_sdk.storage.PushTokenStorage
@@ -64,9 +66,12 @@ class SetupCommandTest {
         every { mockPushTokenStorage.pushToken } returns PUSH_TOKEN
         every { mockPushTokenStorage.enabled } returns true
 
+        mockkStatic("com.emarsys.emarsys_sdk.di.DependencyContainerKt")
+        every { dependencyContainer().flutterActivity } returns mockk(relaxed = true)
+
         mockkStatic("com.emarsys.di.EmarsysComponentKt")
         every { isEmarsysComponentSetup() } returns true
-
+        every { emarsys().currentActivityProvider.set(any()) } just Runs
         mockkStatic(Emarsys::class)
         every { Emarsys.trackCustomEvent(any(), any()) } just Runs
 
