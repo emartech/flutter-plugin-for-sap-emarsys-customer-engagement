@@ -7,6 +7,7 @@ import android.os.Handler
 import com.emarsys.di.emarsys
 import com.emarsys.emarsys_sdk.command.EmarsysCommandFactory
 import com.emarsys.emarsys_sdk.event.EventHandlerFactory
+import com.emarsys.emarsys_sdk.flutter.InlineInAppViewFactory
 import com.emarsys.emarsys_sdk.mapper.InboxResultMapper
 import com.emarsys.emarsys_sdk.notification.NotificationChannelFactory
 import com.emarsys.emarsys_sdk.provider.BackgroundHandlerProvider
@@ -50,6 +51,11 @@ class DefaultDependencyContainer(
     override val eventHandlerFactory: EventHandlerFactory by lazy {
         EventHandlerFactory(binaryMessenger)
     }
+
+    override val inlineInAppViewFactory: InlineInAppViewFactory by lazy {
+        InlineInAppViewFactory(binaryMessenger)
+    }
+
     override val notificationChannelFactory: NotificationChannelFactory by lazy {
         NotificationChannelFactory()
     }

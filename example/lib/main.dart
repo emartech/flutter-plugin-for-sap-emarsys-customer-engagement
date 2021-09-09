@@ -75,7 +75,7 @@ class _MyAppState extends State<MyApp> {
   String? customEventName;
   String? customEventPayload;
   int _currentIndex = 0;
-
+  bool showInlineInApp = true;
   @override
   void initState() {
     super.initState();
@@ -89,17 +89,15 @@ class _MyAppState extends State<MyApp> {
   }
 
   void afterFirstLayout(BuildContext context) async {
-    prefs = await SharedPreferences.getInstance();
-
     String hardwareIdFromNative = await Emarsys.config.hardwareId();
-    int? contactFieldIdFromNative = prefs.getInt("contactFieldId");
     String? applicationCodeFromNative = await Emarsys.config.applicationCode();
     String? languageCodeFromNative = await Emarsys.config.languageCode();
     String? merchantIdFromNative = await Emarsys.config.merchantId();
+    int? contactFieldIdFromNative = await Emarsys.config.contactFieldId();
     NotificationSettings notificationSettingsFromNative =
         await Emarsys.config.notificationSettings();
+
     String sdkVersionFromNative = await Emarsys.config.sdkVersion();
-    contactFieldValue = prefs.getString("loggedInUser");
     _contactFieldValueController.text = contactFieldValue ?? "";
     _appCodeFieldController.text = applicationCodeFromNative ?? "";
     _contactFieldIdController.text =
@@ -113,6 +111,12 @@ class _MyAppState extends State<MyApp> {
       notificationSettings = notificationSettingsFromNative.toString();
       sdkVersion = sdkVersionFromNative;
     });
+    try {
+      prefs = await SharedPreferences.getInstance();
+      contactFieldValue = prefs.getString("loggedInUser");
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
@@ -336,6 +340,24 @@ class _MyAppState extends State<MyApp> {
             ],
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           ),
+          if (showInlineInApp)
+            SizedBox(
+                height: 100,
+                child: InlineInAppView(
+                  viewId: "ia",
+                  androidUseVirtualDisplay: true,
+                  onAppEvent: (event) {
+                    print("eventName: ${event.name}, payload:${event.payload}");
+                  },
+                  onCompleted: () {
+                    print("in-app view has been loaded.");
+                  },
+                  onClose: () {
+                    setState(() {
+                      showInlineInApp = false;
+                    });
+                  },
+                )),
         ]),
       ),
     );

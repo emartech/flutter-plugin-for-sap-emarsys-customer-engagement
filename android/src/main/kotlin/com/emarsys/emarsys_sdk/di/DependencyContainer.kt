@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.os.Handler
 import com.emarsys.emarsys_sdk.command.EmarsysCommandFactory
 import com.emarsys.emarsys_sdk.event.EventHandlerFactory
+import com.emarsys.emarsys_sdk.flutter.InlineInAppViewFactory
 import com.emarsys.emarsys_sdk.mapper.InboxResultMapper
 import com.emarsys.emarsys_sdk.notification.NotificationChannelFactory
 import com.emarsys.emarsys_sdk.storage.PushTokenStorage
@@ -44,6 +45,8 @@ interface DependencyContainer {
     val sharedPreferences: SharedPreferences
 
     val pushTokenStorage: PushTokenStorage
+
+    val inlineInAppViewFactory: InlineInAppViewFactory
 
     val eventHandlerFactory: EventHandlerFactory
 

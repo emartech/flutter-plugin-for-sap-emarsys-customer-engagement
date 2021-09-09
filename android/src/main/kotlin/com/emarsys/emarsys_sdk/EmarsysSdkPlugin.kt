@@ -7,6 +7,7 @@ import com.emarsys.emarsys_sdk.di.DefaultDependencyContainer
 import com.emarsys.emarsys_sdk.di.dependencyContainer
 import com.emarsys.emarsys_sdk.di.setupDependencyContainer
 import com.emarsys.emarsys_sdk.flutter.EmarsysMethodCallHandler
+import com.emarsys.emarsys_sdk.flutter.InlineInAppViewFactory
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -23,13 +24,9 @@ class EmarsysSdkPlugin : FlutterPlugin, ActivityAware {
     private val initializationLock = Any()
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        onAttachedToEngine(
-            flutterPluginBinding.applicationContext,
-            flutterPluginBinding.binaryMessenger
-        )
-    }
+        val applicationContext = flutterPluginBinding.applicationContext
+        val messenger = flutterPluginBinding.binaryMessenger
 
-    private fun onAttachedToEngine(applicationContext: Context, messenger: BinaryMessenger) {
         synchronized(initializationLock) {
             setupDependencyContainer(
                 DefaultDependencyContainer(
@@ -44,6 +41,13 @@ class EmarsysSdkPlugin : FlutterPlugin, ActivityAware {
 
             channel = MethodChannel(messenger, METHOD_CHANNEL_NAME)
             channel!!.setMethodCallHandler(EmarsysMethodCallHandler(applicationContext))
+
+            flutterPluginBinding
+                .platformViewRegistry
+                .registerViewFactory(
+                    "inlineInAppView",
+                    dependencyContainer().inlineInAppViewFactory
+                )
         }
     }
 
