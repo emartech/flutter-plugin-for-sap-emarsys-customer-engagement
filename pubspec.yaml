@@ -4,13 +4,13 @@ version: 0.2.0
 homepage: https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: '>=2.14.0 <3.0.0'
   flutter: ">=1.20.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  shared_preferences: ^2.0.6
+  shared_preferences: ^2.0.7
   equatable: ^2.0.3
   
 dev_dependencies:
