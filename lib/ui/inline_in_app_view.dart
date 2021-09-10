@@ -82,6 +82,7 @@ class InlineInAppView extends StatelessWidget {
     return UiKitView(
       viewType: viewType,
       layoutDirection: TextDirection.ltr,
+      onPlatformViewCreated: _onPlatformViewCreated,
       creationParams: creationParams,
       creationParamsCodec: const StandardMessageCodec(),
     );
