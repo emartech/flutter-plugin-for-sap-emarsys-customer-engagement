@@ -35,8 +35,8 @@ class InlineInAppView extends StatelessWidget {
           return buildAndroidHybridDisplay();
         }
       case TargetPlatform.iOS:
-        return Container();
-      default:
+        return buildIOSDisplay();
+    default: 
         throw UnsupportedError("Unsupported platform view");
     }
   }
@@ -76,6 +76,15 @@ class InlineInAppView extends StatelessWidget {
             ..addOnPlatformViewCreatedListener(params.onPlatformViewCreated)
             ..create();
         });
+  }
+
+  buildIOSDisplay() {
+    return UiKitView(
+      viewType: viewType,
+      layoutDirection: TextDirection.ltr,
+      creationParams: creationParams,
+      creationParamsCodec: const StandardMessageCodec(),
+    );
   }
 
   void _onPlatformViewCreated(int id) {
