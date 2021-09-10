@@ -34,6 +34,8 @@ public class SwiftEmarsysSdkPlugin: NSObject, FlutterPlugin {
     
     let instance = SwiftEmarsysSdkPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
+    let inlineInappViewFactory = InlineInAppViewFactory(messenger: registrar.messenger())
+    registrar.register(inlineInappViewFactory, withId: "inlineInAppView")
   }
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {

@@ -9,6 +9,8 @@ class EmarsysStreamHandler: NSObject, FlutterStreamHandler {
     
     var sink: FlutterEventSink?
     var eventHandler: EMSEventHandlerBlock?
+    var voidHandler: (() -> ())!
+    var completionHandler: ((Error?) -> ())!
     
     override init() {
         super.init()
@@ -17,6 +19,12 @@ class EmarsysStreamHandler: NSObject, FlutterStreamHandler {
             event["name"] = eventName
             event["payload"] = payload
             self.sink?(event)
+        }
+        self.voidHandler = {
+            self.sink?(nil)
+        }
+        self.completionHandler = { error in
+            self.sink?(error)
         }
     }
         

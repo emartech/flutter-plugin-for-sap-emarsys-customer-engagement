@@ -10,6 +10,6 @@
 
 @implementation EmarsysSdkPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-  [SwiftEmarsysSdkPlugin registerWithRegistrar:registrar];
+    [SwiftEmarsysSdkPlugin registerWithRegistrar:registrar];
 }
 @end
