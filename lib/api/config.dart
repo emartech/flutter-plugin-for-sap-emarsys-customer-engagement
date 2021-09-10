@@ -1,4 +1,5 @@
 import 'package:emarsys_sdk/notification_settings/notification_settings.dart';
+import 'package:emarsys_sdk/version.dart';
 import 'package:flutter/services.dart';
 
 class Config {
@@ -57,6 +58,6 @@ class Config {
   }
 
   Future<String> flutterPluginVersion() async {
-    return "0.1.1";
+    return packageVersion;
   }
 }
