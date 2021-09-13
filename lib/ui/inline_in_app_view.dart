@@ -30,18 +30,18 @@ class InlineInAppView extends StatelessWidget {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         if (androidUseVirtualDisplay) {
-          return buildAndroidVirtualDisplay();
+          return _buildAndroidVirtualDisplay();
         } else {
-          return buildAndroidHybridDisplay();
+          return _buildAndroidHybridDisplay();
         }
       case TargetPlatform.iOS:
-        return buildIOSDisplay();
-    default: 
+        return _buildIOSDisplay();
+      default:
         throw UnsupportedError("Unsupported platform view");
     }
   }
 
-  buildAndroidVirtualDisplay() {
+  Widget _buildAndroidVirtualDisplay() {
     return AndroidView(
       viewType: viewType,
       layoutDirection: TextDirection.ltr,
@@ -51,7 +51,7 @@ class InlineInAppView extends StatelessWidget {
     );
   }
 
-  buildAndroidHybridDisplay() {
+  Widget _buildAndroidHybridDisplay() {
     return PlatformViewLink(
         viewType: viewType,
         surfaceFactory:
@@ -78,7 +78,7 @@ class InlineInAppView extends StatelessWidget {
         });
   }
 
-  buildIOSDisplay() {
+  Widget _buildIOSDisplay() {
     return UiKitView(
       viewType: viewType,
       layoutDirection: TextDirection.ltr,
