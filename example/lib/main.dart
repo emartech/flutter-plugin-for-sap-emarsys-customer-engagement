@@ -341,11 +341,11 @@ class _MyAppState extends State<MyApp> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           ),
           if (showInlineInApp)
-            SizedBox(
+            Card(
+              child: SizedBox(
                 height: 100,
                 child: InlineInAppView(
                   viewId: "ia",
-                  androidUseVirtualDisplay: true,
                   onAppEvent: (event) {
                     print("eventName: ${event.name}, payload:${event.payload}");
                   },
@@ -357,7 +357,9 @@ class _MyAppState extends State<MyApp> {
                       showInlineInApp = false;
                     });
                   },
-                )),
+                ),
+              ),
+            ),
         ]),
       ),
     );
