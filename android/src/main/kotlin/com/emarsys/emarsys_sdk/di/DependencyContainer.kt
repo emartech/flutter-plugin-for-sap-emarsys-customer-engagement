@@ -9,6 +9,7 @@ import com.emarsys.emarsys_sdk.event.EventHandlerFactory
 import com.emarsys.emarsys_sdk.flutter.InlineInAppViewFactory
 import com.emarsys.emarsys_sdk.mapper.InboxResultMapper
 import com.emarsys.emarsys_sdk.notification.NotificationChannelFactory
+import com.emarsys.emarsys_sdk.storage.CurrentActivityHolder
 import com.emarsys.emarsys_sdk.storage.PushTokenStorage
 import java.lang.ref.WeakReference
 
@@ -34,8 +35,6 @@ interface DependencyContainer {
         var instance: DependencyContainer? = null
     }
 
-    var flutterActivity: WeakReference<Activity?>?
-
     val backgroundHandler: Handler
 
     val emarsysCommandFactory: EmarsysCommandFactory
@@ -45,6 +44,8 @@ interface DependencyContainer {
     val sharedPreferences: SharedPreferences
 
     val pushTokenStorage: PushTokenStorage
+
+    val currentActivityHolder: CurrentActivityHolder
 
     val inlineInAppViewFactory: InlineInAppViewFactory
 

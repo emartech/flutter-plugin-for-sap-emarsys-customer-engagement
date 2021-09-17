@@ -9,6 +9,7 @@ import com.emarsys.emarsys_sdk.event.EventHandlerFactory
 import com.emarsys.emarsys_sdk.flutter.InlineInAppViewFactory
 import com.emarsys.emarsys_sdk.mapper.InboxResultMapper
 import com.emarsys.emarsys_sdk.notification.NotificationChannelFactory
+import com.emarsys.emarsys_sdk.storage.CurrentActivityHolder
 import com.emarsys.emarsys_sdk.storage.PushTokenStorage
 import io.mockk.mockk
 import java.lang.ref.WeakReference
@@ -22,6 +23,6 @@ class FakeDependencyContainer(
     override val notificationChannelFactory: NotificationChannelFactory = mockk(relaxed = true),
     override val inboxResultMapper: InboxResultMapper = mockk(relaxed = true),
     override val backgroundHandler: Handler = mockk(relaxed = true),
-    override var flutterActivity: WeakReference<Activity?>? = mockk(relaxed = true),
-    override val inlineInAppViewFactory: InlineInAppViewFactory = mockk(relaxed = true)
+    override val inlineInAppViewFactory: InlineInAppViewFactory = mockk(relaxed = true),
+    override val currentActivityHolder: CurrentActivityHolder = mockk(relaxed = true)
 ) : DependencyContainer

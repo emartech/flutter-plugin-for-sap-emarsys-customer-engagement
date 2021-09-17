@@ -57,18 +57,20 @@ class EmarsysSdkPlugin : FlutterPlugin, ActivityAware {
     }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
-        dependencyContainer().flutterActivity = WeakReference(binding.activity)
+        dependencyContainer().currentActivityHolder.currentActivity =
+            WeakReference(binding.activity)
     }
 
     override fun onDetachedFromActivityForConfigChanges() {
-        dependencyContainer().flutterActivity = null
+        dependencyContainer().currentActivityHolder.currentActivity = null
     }
 
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
-        dependencyContainer().flutterActivity = WeakReference(binding.activity)
+        dependencyContainer().currentActivityHolder.currentActivity =
+            WeakReference(binding.activity)
     }
 
     override fun onDetachedFromActivity() {
-        dependencyContainer().flutterActivity = null
+        dependencyContainer().currentActivityHolder.currentActivity = null
     }
 }

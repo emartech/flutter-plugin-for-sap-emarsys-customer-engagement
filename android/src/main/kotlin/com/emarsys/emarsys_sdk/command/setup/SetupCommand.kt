@@ -16,11 +16,11 @@ import com.emarsys.emarsys_sdk.storage.PushTokenStorage
 
 
 class SetupCommand(
-        private val application: Application,
-        private val pushTokenStorage: PushTokenStorage,
-        private val eventHandlerFactory: EventHandlerFactory,
-        private val sharedPreferences: SharedPreferences,
-        private val fromCache: Boolean
+    private val application: Application,
+    private val pushTokenStorage: PushTokenStorage,
+    private val eventHandlerFactory: EventHandlerFactory,
+    private val sharedPreferences: SharedPreferences,
+    private val fromCache: Boolean
 ) : EmarsysCommand {
 
     override fun execute(parameters: Map<String, Any?>?, resultCallback: ResultCallback) {
@@ -36,6 +36,7 @@ class SetupCommand(
         if (!setupHasBeenCalledPreviously) {
             Emarsys.trackCustomEvent("wrapper:init", mapOf("type" to "flutter"))
         }
+
         if (pushTokenStorage.enabled) {
             if (pushTokenStorage.pushToken != null) {
                 Emarsys.push.pushToken = pushTokenStorage.pushToken
@@ -45,45 +46,51 @@ class SetupCommand(
                 }
             }
         }
-
-        emarsys().currentActivityProvider.set(dependencyContainer().flutterActivity?.get())
+        if (dependencyContainer().currentActivityHolder.currentActivity != null) {
+            emarsys().currentActivityProvider.set(dependencyContainer().currentActivityHolder.currentActivity?.get())
+        } else {
+            dependencyContainer().currentActivityHolder.currentActivityObserver =
+                { currentActivity ->
+                    emarsys().currentActivityProvider.set(currentActivity?.get())
+                }
+        }
 
         eventHandlerFactory.create(EventHandlerFactory.EventChannelName.PUSH)
-                .apply { Emarsys.push.setNotificationEventHandler(this) }
+            .apply { Emarsys.push.setNotificationEventHandler(this) }
         eventHandlerFactory.create(EventHandlerFactory.EventChannelName.SILENT_PUSH)
-                .apply { Emarsys.push.setSilentMessageEventHandler(this) }
+            .apply { Emarsys.push.setSilentMessageEventHandler(this) }
         eventHandlerFactory.create(EventHandlerFactory.EventChannelName.GEOFENCE)
-                .apply { Emarsys.geofence.setEventHandler(this) }
+            .apply { Emarsys.geofence.setEventHandler(this) }
         eventHandlerFactory.create(EventHandlerFactory.EventChannelName.INAPP)
-                .apply { Emarsys.inApp.setEventHandler(this) }
-        
+            .apply { Emarsys.inApp.setEventHandler(this) }
+
         resultCallback(null, null)
     }
 
 
     private fun configFromSharedPref(): EmarsysConfig.Builder {
         val appCode =
-                sharedPreferences.getString(ConfigStorageKeys.MOBILE_ENGAGE_APPLICATION_CODE.name, null)
+            sharedPreferences.getString(ConfigStorageKeys.MOBILE_ENGAGE_APPLICATION_CODE.name, null)
         val merchantId =
-                sharedPreferences.getString(ConfigStorageKeys.PREDICT_MERCHANT_ID.name, null)
+            sharedPreferences.getString(ConfigStorageKeys.PREDICT_MERCHANT_ID.name, null)
         val disableAutomaticPushSending = sharedPreferences.getBoolean(
-                ConfigStorageKeys.ANDROID_DISABLE_AUTOMATIC_PUSH_TOKEN_SENDING.name,
-                false
+            ConfigStorageKeys.ANDROID_DISABLE_AUTOMATIC_PUSH_TOKEN_SENDING.name,
+            false
         )
         val sharedPackages = sharedPreferences.getStringSet(
-                ConfigStorageKeys.ANDROID_SHARED_PACKAGE_NAMES.name,
-                mutableSetOf()
+            ConfigStorageKeys.ANDROID_SHARED_PACKAGE_NAMES.name,
+            mutableSetOf()
         )
         val secret = sharedPreferences.getString(ConfigStorageKeys.ANDROID_SHARED_SECRET.name, null)
         val enableVerboseLogging = sharedPreferences.getBoolean(
-                ConfigStorageKeys.ANDROID_VERBOSE_CONSOLE_LOGGING_ENABLED.name,
-                false
+            ConfigStorageKeys.ANDROID_VERBOSE_CONSOLE_LOGGING_ENABLED.name,
+            false
         )
 
         val builder = EmarsysConfig.Builder()
-                .application(application)
-                .applicationCode(appCode)
-                .merchantId(merchantId)
+            .application(application)
+            .applicationCode(appCode)
+            .merchantId(merchantId)
         if (disableAutomaticPushSending) {
             builder.disableAutomaticPushTokenSending()
         }
@@ -105,37 +112,37 @@ class SetupCommand(
         val sharedPreferencesEdit = sharedPreferences.edit()
         if (parameters != null) {
             val configBuild = configBuilder
-                    .application(application)
+                .application(application)
 
             (parameters["applicationCode"] as String?).let {
                 configBuild.applicationCode(it)
                 sharedPreferencesEdit.putString(
-                        ConfigStorageKeys.MOBILE_ENGAGE_APPLICATION_CODE.name,
-                        it
+                    ConfigStorageKeys.MOBILE_ENGAGE_APPLICATION_CODE.name,
+                    it
                 )
             }
 
             (parameters["merchantId"] as String?).let {
                 configBuild.merchantId(it)
                 sharedPreferencesEdit.putString(
-                        ConfigStorageKeys.PREDICT_MERCHANT_ID.name,
-                        it
+                    ConfigStorageKeys.PREDICT_MERCHANT_ID.name,
+                    it
                 )
             }
 
             (parameters["androidSharedPackageNames"] as List<String>?)?.let {
                 configBuild.sharedPackageNames(parameters["androidSharedPackageNames"] as List<String>)
                 sharedPreferencesEdit.putStringSet(
-                        ConfigStorageKeys.ANDROID_SHARED_PACKAGE_NAMES.name,
-                        it?.let { packageNames -> mutableSetOf(*packageNames.toTypedArray()) }
+                    ConfigStorageKeys.ANDROID_SHARED_PACKAGE_NAMES.name,
+                    it?.let { packageNames -> mutableSetOf(*packageNames.toTypedArray()) }
                 )
             }
 
             (parameters["androidSharedSecret"] as String?)?.let {
                 configBuild.sharedSecret(parameters["androidSharedSecret"] as String)
                 sharedPreferencesEdit.putString(
-                        ConfigStorageKeys.ANDROID_SHARED_SECRET.name,
-                        it
+                    ConfigStorageKeys.ANDROID_SHARED_SECRET.name,
+                    it
                 )
             }
 
@@ -144,8 +151,8 @@ class SetupCommand(
                     configBuild.enableVerboseConsoleLogging()
                 }
                 sharedPreferencesEdit.putBoolean(
-                        ConfigStorageKeys.ANDROID_VERBOSE_CONSOLE_LOGGING_ENABLED.name,
-                        it
+                    ConfigStorageKeys.ANDROID_VERBOSE_CONSOLE_LOGGING_ENABLED.name,
+                    it
                 )
             }
             sharedPreferencesEdit.apply()

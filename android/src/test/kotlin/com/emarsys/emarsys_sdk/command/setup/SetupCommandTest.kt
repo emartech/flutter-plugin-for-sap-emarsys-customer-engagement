@@ -67,7 +67,7 @@ class SetupCommandTest {
         every { mockPushTokenStorage.enabled } returns true
 
         mockkStatic("com.emarsys.emarsys_sdk.di.DependencyContainerKt")
-        every { dependencyContainer().flutterActivity } returns mockk(relaxed = true)
+        every { dependencyContainer().currentActivityHolder.currentActivity } returns mockk(relaxed = true)
 
         mockkStatic("com.emarsys.di.EmarsysComponentKt")
         every { isEmarsysComponentSetup() } returns true

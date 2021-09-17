@@ -11,6 +11,7 @@ import com.emarsys.emarsys_sdk.flutter.InlineInAppViewFactory
 import com.emarsys.emarsys_sdk.mapper.InboxResultMapper
 import com.emarsys.emarsys_sdk.notification.NotificationChannelFactory
 import com.emarsys.emarsys_sdk.provider.BackgroundHandlerProvider
+import com.emarsys.emarsys_sdk.storage.CurrentActivityHolder
 import com.emarsys.emarsys_sdk.storage.PushTokenStorage
 import io.flutter.plugin.common.BinaryMessenger
 import java.lang.ref.WeakReference
@@ -19,12 +20,6 @@ class DefaultDependencyContainer(
     override val application: Application,
     private val binaryMessenger: BinaryMessenger
 ) : DependencyContainer {
-
-    override var flutterActivity: WeakReference<Activity?>? = null
-        set(value) {
-            field = value
-            emarsys().currentActivityProvider.set(value?.get())
-        }
 
     override val backgroundHandler: Handler by lazy {
         BackgroundHandlerProvider.provide()
@@ -42,12 +37,19 @@ class DefaultDependencyContainer(
             backgroundHandler
         )
     }
+
     override val sharedPreferences: SharedPreferences by lazy {
         application.getSharedPreferences("flutter_wrapper", 0)
     }
+
     override val pushTokenStorage: PushTokenStorage by lazy {
         PushTokenStorage(sharedPreferences)
     }
+
+    override val currentActivityHolder: CurrentActivityHolder by lazy {
+        CurrentActivityHolder()
+    }
+
     override val eventHandlerFactory: EventHandlerFactory by lazy {
         EventHandlerFactory(binaryMessenger)
     }
