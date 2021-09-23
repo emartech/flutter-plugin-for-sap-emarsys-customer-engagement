@@ -12,7 +12,8 @@ env:
   SLACK_WEBHOOK: ${{ secrets.SLACK_MOBILE_TEAM_CI_CHANNEL_WEBHOOK }}
 
 jobs:
-  android:
+  Android:
+    needs: [Lint]
     runs-on: macos-latest
     steps:
       - name: Checkout repo
@@ -42,16 +43,10 @@ jobs:
         
       - name: Run Android unit tests with gradle
         run: (cd example/android && ./gradlew clean build test -x lint)        
-        
-      # - name: Run tests
-      #   uses: reactivecircus/android-emulator-runner@v2
-      #   with:
-      #     api-level: 29
-      #     target: google_apis
-      #     script: cd example/android && (flutter drive --driver=test_driver/integration_test.dart --target=integration_test/emarsys_test.dart)
-                
-  ios:
+               
+  IOS:
     runs-on: macos-latest
+    needs: [Lint]
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
@@ -81,10 +76,16 @@ jobs:
 
       - name: Run iOS unit tests
         run: xcodebuild -workspace ~/work/flutter-plugin-for-sap-emarsys-customer-engagement/flutter-plugin-for-sap-emarsys-customer-engagement/example/ios/Runner.xcworkspace -scheme flutter-plugin-ios-tests -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 12 Pro Max' test
-        
-      # - name: Run integration tests on iOS
-      #   if: always()
-      #   run: |
-      #     (cd example && flutter drive \
-      #       --driver=test_driver/integration_test.dart \
-      #       --target=integration_test/emarsys_test.dart)
+
+  Lint:
+    runs-on: macos-latest
+    steps:
+      - name: Setup flutter env
+        uses: subosito/flutter-action@v1
+        with:
+          flutter-version: "2.5.0"
+          channel: "stable"
+
+      - name: Flutter lint
+        run: dart analyze
+        shell: bash   
