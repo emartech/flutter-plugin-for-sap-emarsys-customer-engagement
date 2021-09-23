@@ -77,3 +77,4 @@ Podfile.lock
 
 .idea/
 example/android/app/local.properties
+detect.sh
