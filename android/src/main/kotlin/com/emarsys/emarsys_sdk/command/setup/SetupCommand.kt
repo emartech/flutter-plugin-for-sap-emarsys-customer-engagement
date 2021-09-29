@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.SharedPreferences
 import com.emarsys.Emarsys
 import com.emarsys.config.EmarsysConfig
+import com.emarsys.core.activity.ActivityLifecycleAction
 import com.emarsys.core.provider.wrapper.WrapperInfoContainer
 import com.emarsys.di.emarsys
 import com.emarsys.di.isEmarsysComponentSetup
@@ -48,10 +49,12 @@ class SetupCommand(
         }
         if (dependencyContainer().currentActivityHolder.currentActivity != null) {
             emarsys().currentActivityProvider.set(dependencyContainer().currentActivityHolder.currentActivity?.get())
+            emarsys().activityLifecycleActionRegistry.execute(dependencyContainer().currentActivityHolder.currentActivity?.get(), listOf(ActivityLifecycleAction.ActivityLifecycle.CREATE, ActivityLifecycleAction.ActivityLifecycle.RESUME))
         } else {
             dependencyContainer().currentActivityHolder.currentActivityObserver =
                 { currentActivity ->
                     emarsys().currentActivityProvider.set(currentActivity?.get())
+                    emarsys().activityLifecycleActionRegistry.execute(currentActivity?.get(), listOf(ActivityLifecycleAction.ActivityLifecycle.CREATE, ActivityLifecycleAction.ActivityLifecycle.RESUME))
                 }
         }
 
