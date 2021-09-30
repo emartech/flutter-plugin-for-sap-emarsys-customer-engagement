@@ -15,9 +15,12 @@ import com.emarsys.emarsys_sdk.storage.PushTokenStorage
 import io.flutter.plugin.common.BinaryMessenger
 
 class DefaultDependencyContainer(
-        override val application: Application,
-        private val binaryMessenger: BinaryMessenger
+    override val application: Application,
+    private val binaryMessenger: BinaryMessenger
 ) : DependencyContainer {
+    companion object {
+        const val EMARSYS_SETUP_CACHE_SHARED_PREFERENCES = "emarsys_setup_cache"
+    }
 
     override val backgroundHandler: Handler by lazy {
         BackgroundHandlerProvider.provide()
@@ -26,24 +29,28 @@ class DefaultDependencyContainer(
 
     override val emarsysCommandFactory: EmarsysCommandFactory by lazy {
         EmarsysCommandFactory(
-                application,
-                pushTokenStorage,
-                eventHandlerFactory,
-                setupCacheSharedPreferences,
-                flutterWrapperSharedPreferences,
-                notificationChannelFactory,
-                inboxResultMapper,
-                backgroundHandler
+            application,
+            pushTokenStorage,
+            eventHandlerFactory,
+            setupCacheSharedPreferences,
+            flutterWrapperSharedPreferences,
+            notificationChannelFactory,
+            inboxResultMapper,
+            backgroundHandler
         )
     }
 
     override val setupCacheSharedPreferences: SharedPreferences by lazy {
-        val prefs = application.getSharedPreferences("emarsys_setup_cache", 0)
+        val prefs = application.getSharedPreferences(EMARSYS_SETUP_CACHE_SHARED_PREFERENCES, 0)
         if (prefs.getString(ConfigStorageKeys.MOBILE_ENGAGE_APPLICATION_CODE.name, null) == null &&
-                prefs.getString(ConfigStorageKeys.PREDICT_MERCHANT_ID.name, null) == null &&
-                prefs.getString(ConfigStorageKeys.ANDROID_SHARED_PACKAGE_NAMES.name, null) == null &&
-                prefs.getString(ConfigStorageKeys.ANDROID_SHARED_SECRET.name, null) == null &&
-                prefs.getString(ConfigStorageKeys.ANDROID_VERBOSE_CONSOLE_LOGGING_ENABLED.name, null) == null) {
+            prefs.getString(ConfigStorageKeys.PREDICT_MERCHANT_ID.name, null) == null &&
+            prefs.getString(ConfigStorageKeys.ANDROID_SHARED_PACKAGE_NAMES.name, null) == null &&
+            prefs.getString(ConfigStorageKeys.ANDROID_SHARED_SECRET.name, null) == null &&
+            prefs.getString(
+                ConfigStorageKeys.ANDROID_VERBOSE_CONSOLE_LOGGING_ENABLED.name,
+                null
+            ) == null
+        ) {
             flutterWrapperSharedPreferences.copyTo(prefs)
         }
         prefs

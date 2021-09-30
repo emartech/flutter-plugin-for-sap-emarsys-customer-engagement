@@ -12,6 +12,7 @@ import com.emarsys.di.isEmarsysComponentSetup
 import com.emarsys.emarsys_sdk.command.EmarsysCommand
 import com.emarsys.emarsys_sdk.command.ResultCallback
 import com.emarsys.emarsys_sdk.config.ConfigStorageKeys
+import com.emarsys.emarsys_sdk.di.DefaultDependencyContainer.Companion.EMARSYS_SETUP_CACHE_SHARED_PREFERENCES
 import com.emarsys.emarsys_sdk.di.dependencyContainer
 import com.emarsys.emarsys_sdk.event.EventHandlerFactory
 import com.emarsys.emarsys_sdk.storage.PushTokenStorage
@@ -28,7 +29,7 @@ class SetupCommand(
     override fun execute(parameters: Map<String, Any?>?, resultCallback: ResultCallback) {
         WrapperInfoContainer.wrapperInfo = "flutter"
         val configBuilder = if (fromCache) {
-            ConfigLoader().loadConfigFromSharedPref(application, "emarsys_setup_cache")
+            ConfigLoader().loadConfigFromSharedPref(application, EMARSYS_SETUP_CACHE_SHARED_PREFERENCES)
         } else {
             configFromParameters(parameters)
         }
