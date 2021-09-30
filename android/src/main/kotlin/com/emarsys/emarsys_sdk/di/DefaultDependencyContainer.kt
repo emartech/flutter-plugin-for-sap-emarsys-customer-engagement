@@ -1,11 +1,10 @@
 package com.emarsys.emarsys_sdk.di
 
-import android.app.Activity
 import android.app.Application
 import android.content.SharedPreferences
 import android.os.Handler
-import com.emarsys.di.emarsys
 import com.emarsys.emarsys_sdk.command.EmarsysCommandFactory
+import com.emarsys.emarsys_sdk.config.ConfigStorageKeys
 import com.emarsys.emarsys_sdk.event.EventHandlerFactory
 import com.emarsys.emarsys_sdk.flutter.InlineInAppViewFactory
 import com.emarsys.emarsys_sdk.mapper.InboxResultMapper
@@ -14,11 +13,10 @@ import com.emarsys.emarsys_sdk.provider.BackgroundHandlerProvider
 import com.emarsys.emarsys_sdk.storage.CurrentActivityHolder
 import com.emarsys.emarsys_sdk.storage.PushTokenStorage
 import io.flutter.plugin.common.BinaryMessenger
-import java.lang.ref.WeakReference
 
 class DefaultDependencyContainer(
-    override val application: Application,
-    private val binaryMessenger: BinaryMessenger
+        override val application: Application,
+        private val binaryMessenger: BinaryMessenger
 ) : DependencyContainer {
 
     override val backgroundHandler: Handler by lazy {
@@ -28,22 +26,35 @@ class DefaultDependencyContainer(
 
     override val emarsysCommandFactory: EmarsysCommandFactory by lazy {
         EmarsysCommandFactory(
-            application,
-            pushTokenStorage,
-            eventHandlerFactory,
-            sharedPreferences,
-            notificationChannelFactory,
-            inboxResultMapper,
-            backgroundHandler
+                application,
+                pushTokenStorage,
+                eventHandlerFactory,
+                setupCacheSharedPreferences,
+                flutterWrapperSharedPreferences,
+                notificationChannelFactory,
+                inboxResultMapper,
+                backgroundHandler
         )
     }
 
-    override val sharedPreferences: SharedPreferences by lazy {
+    override val setupCacheSharedPreferences: SharedPreferences by lazy {
+        val prefs = application.getSharedPreferences("emarsys_setup_cache", 0)
+        if (prefs.getString(ConfigStorageKeys.MOBILE_ENGAGE_APPLICATION_CODE.name, null) == null &&
+                prefs.getString(ConfigStorageKeys.PREDICT_MERCHANT_ID.name, null) == null &&
+                prefs.getString(ConfigStorageKeys.ANDROID_SHARED_PACKAGE_NAMES.name, null) == null &&
+                prefs.getString(ConfigStorageKeys.ANDROID_SHARED_SECRET.name, null) == null &&
+                prefs.getString(ConfigStorageKeys.ANDROID_VERBOSE_CONSOLE_LOGGING_ENABLED.name, null) == null) {
+            flutterWrapperSharedPreferences.copyTo(prefs)
+        }
+        prefs
+    }
+
+    override val flutterWrapperSharedPreferences: SharedPreferences by lazy {
         application.getSharedPreferences("flutter_wrapper", 0)
     }
 
     override val pushTokenStorage: PushTokenStorage by lazy {
-        PushTokenStorage(sharedPreferences)
+        PushTokenStorage(flutterWrapperSharedPreferences)
     }
 
     override val currentActivityHolder: CurrentActivityHolder by lazy {
@@ -65,4 +76,21 @@ class DefaultDependencyContainer(
     override val inboxResultMapper: InboxResultMapper by lazy {
         InboxResultMapper()
     }
+}
+
+fun SharedPreferences.copyTo(dest: SharedPreferences) = with(dest.edit()) {
+    for (entry in all.entries) {
+        val value = entry.value ?: continue
+        val key = entry.key
+        when (value) {
+            is String -> putString(key, value)
+            is Set<*> -> putStringSet(key, value as Set<String>)
+            is Int -> putInt(key, value)
+            is Long -> putLong(key, value)
+            is Float -> putFloat(key, value)
+            is Boolean -> putBoolean(key, value)
+            else -> error("Unknown value type: $value")
+        }
+    }
+    apply()
 }

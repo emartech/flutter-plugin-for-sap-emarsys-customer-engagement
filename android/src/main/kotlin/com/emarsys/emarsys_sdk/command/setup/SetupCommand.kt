@@ -3,6 +3,7 @@ package com.emarsys.emarsys_sdk.command.setup
 import android.app.Application
 import android.content.SharedPreferences
 import com.emarsys.Emarsys
+import com.emarsys.config.ConfigLoader
 import com.emarsys.config.EmarsysConfig
 import com.emarsys.core.activity.ActivityLifecycleAction
 import com.emarsys.core.provider.wrapper.WrapperInfoContainer
@@ -27,7 +28,7 @@ class SetupCommand(
     override fun execute(parameters: Map<String, Any?>?, resultCallback: ResultCallback) {
         WrapperInfoContainer.wrapperInfo = "flutter"
         val configBuilder = if (fromCache) {
-            configFromSharedPref()
+            ConfigLoader().loadConfigFromSharedPref(application, "emarsys_setup_cache")
         } else {
             configFromParameters(parameters)
         }
@@ -49,12 +50,24 @@ class SetupCommand(
         }
         if (dependencyContainer().currentActivityHolder.currentActivity != null) {
             emarsys().currentActivityProvider.set(dependencyContainer().currentActivityHolder.currentActivity?.get())
-            emarsys().activityLifecycleActionRegistry.execute(dependencyContainer().currentActivityHolder.currentActivity?.get(), listOf(ActivityLifecycleAction.ActivityLifecycle.CREATE, ActivityLifecycleAction.ActivityLifecycle.RESUME))
+            emarsys().activityLifecycleActionRegistry.execute(
+                dependencyContainer().currentActivityHolder.currentActivity?.get(),
+                listOf(
+                    ActivityLifecycleAction.ActivityLifecycle.CREATE,
+                    ActivityLifecycleAction.ActivityLifecycle.RESUME
+                )
+            )
         } else {
             dependencyContainer().currentActivityHolder.currentActivityObserver =
                 { currentActivity ->
                     emarsys().currentActivityProvider.set(currentActivity?.get())
-                    emarsys().activityLifecycleActionRegistry.execute(currentActivity?.get(), listOf(ActivityLifecycleAction.ActivityLifecycle.CREATE, ActivityLifecycleAction.ActivityLifecycle.RESUME))
+                    emarsys().activityLifecycleActionRegistry.execute(
+                        currentActivity?.get(),
+                        listOf(
+                            ActivityLifecycleAction.ActivityLifecycle.CREATE,
+                            ActivityLifecycleAction.ActivityLifecycle.RESUME
+                        )
+                    )
                 }
         }
 
@@ -68,46 +81,6 @@ class SetupCommand(
             .apply { Emarsys.inApp.setEventHandler(this) }
 
         resultCallback(null, null)
-    }
-
-
-    private fun configFromSharedPref(): EmarsysConfig.Builder {
-        val appCode =
-            sharedPreferences.getString(ConfigStorageKeys.MOBILE_ENGAGE_APPLICATION_CODE.name, null)
-        val merchantId =
-            sharedPreferences.getString(ConfigStorageKeys.PREDICT_MERCHANT_ID.name, null)
-        val disableAutomaticPushSending = sharedPreferences.getBoolean(
-            ConfigStorageKeys.ANDROID_DISABLE_AUTOMATIC_PUSH_TOKEN_SENDING.name,
-            false
-        )
-        val sharedPackages = sharedPreferences.getStringSet(
-            ConfigStorageKeys.ANDROID_SHARED_PACKAGE_NAMES.name,
-            mutableSetOf()
-        )
-        val secret = sharedPreferences.getString(ConfigStorageKeys.ANDROID_SHARED_SECRET.name, null)
-        val enableVerboseLogging = sharedPreferences.getBoolean(
-            ConfigStorageKeys.ANDROID_VERBOSE_CONSOLE_LOGGING_ENABLED.name,
-            false
-        )
-
-        val builder = EmarsysConfig.Builder()
-            .application(application)
-            .applicationCode(appCode)
-            .merchantId(merchantId)
-        if (disableAutomaticPushSending) {
-            builder.disableAutomaticPushTokenSending()
-        }
-        if (enableVerboseLogging) {
-            builder.enableVerboseConsoleLogging()
-        }
-        if (!sharedPackages.isNullOrEmpty()) {
-            builder.sharedPackageNames(sharedPackages.toList())
-        }
-        if (secret != null) {
-            builder.sharedSecret(secret)
-        }
-
-        return builder
     }
 
     private fun configFromParameters(parameters: Map<String, Any?>?): EmarsysConfig.Builder {

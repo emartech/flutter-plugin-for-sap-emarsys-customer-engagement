@@ -72,6 +72,7 @@ class SetupCommandTest {
         mockkStatic("com.emarsys.di.EmarsysComponentKt")
         every { isEmarsysComponentSetup() } returns true
         every { emarsys().currentActivityProvider.set(any()) } just Runs
+        every { emarsys().activityLifecycleActionRegistry.execute(null, any()) } just Runs
         mockkStatic(Emarsys::class)
         every { Emarsys.trackCustomEvent(any(), any()) } just Runs
 

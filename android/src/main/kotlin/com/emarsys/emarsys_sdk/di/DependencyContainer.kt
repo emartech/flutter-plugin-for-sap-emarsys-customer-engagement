@@ -41,7 +41,9 @@ interface DependencyContainer {
 
     val application: Application
 
-    val sharedPreferences: SharedPreferences
+    val setupCacheSharedPreferences: SharedPreferences
+
+    val flutterWrapperSharedPreferences: SharedPreferences
 
     val pushTokenStorage: PushTokenStorage
 

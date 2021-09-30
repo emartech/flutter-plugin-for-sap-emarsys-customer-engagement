@@ -28,7 +28,7 @@ class EmarsysCommandFactoryTest {
     @Before
     fun setUp() {
         factory =
-            EmarsysCommandFactory(mockk(), mockk(), mockk(), mockk(), mockk(), mockk(), mockk())
+            EmarsysCommandFactory(mockk(), mockk(), mockk(), mockk(), mockk(), mockk(), mockk(), mockk())
     }
 
     @Test

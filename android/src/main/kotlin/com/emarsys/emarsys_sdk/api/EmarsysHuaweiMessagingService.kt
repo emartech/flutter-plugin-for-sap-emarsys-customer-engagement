@@ -35,7 +35,7 @@ class EmarsysHuaweiMessagingService : HmsMessageService() {
         if (!isEmarsysComponentSetup()) {
             initFlutterEngine().apply {
                 MainHandlerProvider.provide().post {
-                    awakeFlutterCallback(dependencyContainer().sharedPreferences)
+                    awakeFlutterCallback(dependencyContainer().flutterWrapperSharedPreferences)
                 }
             }
         }
