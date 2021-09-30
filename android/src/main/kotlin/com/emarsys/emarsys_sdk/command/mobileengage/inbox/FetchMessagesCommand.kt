@@ -1,5 +1,7 @@
 package com.emarsys.emarsys_sdk.command.mobileengage.inbox
 
+import android.os.Handler
+import android.os.Looper
 import com.emarsys.Emarsys
 import com.emarsys.emarsys_sdk.command.EmarsysCommand
 import com.emarsys.emarsys_sdk.command.ResultCallback
@@ -14,7 +16,9 @@ class FetchMessagesCommand(private val inboxResultMapper: InboxResultMapper) : E
                 resultCallback.invoke(null, result.errorCause)
                 return@fetchMessages
             }
-            resultCallback.invoke((inboxResultMapper.map(result.result as InboxResult)), null)
+            Handler(Looper.getMainLooper()).post {
+                resultCallback.invoke((inboxResultMapper.map(result.result as InboxResult)), null)
+            }
         }
     }
 
