@@ -57,6 +57,7 @@ class EmarsysCommandFactory(
                 notificationChannelFactory
             )
             "config.changeApplicationCode" -> ChangeApplicationCodeCommand(setupCacheSharedPreferences)
+            "config.changeMerchantId" -> ChangeMerchantIdCommand(setupCacheSharedPreferences)
             "config.applicationCode" -> ApplicationCodeCommand()
             "config.merchantId" -> MerchantIdCommand()
             "config.contactFieldId" -> ContactFieldIdCommand()
