@@ -34,6 +34,22 @@ void main() {
     }
   });
 
+  test('changeMerchantId should delegate to the Platform', () async {
+    MethodCall? actualMethodCall;
+    channel.setMockMethodCallHandler((MethodCall methodCall) async {
+      actualMethodCall = methodCall;
+      return "testMerchantId";
+    });
+
+    await Emarsys.config.changeMerchantId("testMerchantId");
+
+    expect(actualMethodCall != null, true);
+    if (actualMethodCall != null) {
+      expect(actualMethodCall!.method, 'config.changeMerchantId');
+      expect(actualMethodCall!.arguments, {"merchantId": "testMerchantId"});
+    }
+  });
+
   test('applicationCode should delegate to the Platform', () async {
     MethodCall? actualMethodCall;
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
