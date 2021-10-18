@@ -91,6 +91,12 @@ class EmarsysCommandFactoryTests: XCTestCase {
 
         XCTAssertTrue(command is ChangeApplicationCodeCommand)
     }
+
+    func testCreate_changeMerchantIdCommand() throws {
+        let command = factory?.create(name: "config.changeMerchantId")
+
+        XCTAssertTrue(command is ChangeMerchantIdCommand)
+    }
     
     func testCreate_trackCustomEventCommand() throws {
         let command = factory?.create(name: "trackCustomEvent")

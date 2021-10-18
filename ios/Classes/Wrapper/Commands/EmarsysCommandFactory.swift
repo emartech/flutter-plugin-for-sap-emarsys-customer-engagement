@@ -55,6 +55,8 @@ class EmarsysCommandFactory {
             result = SdkVersionCommand()
         case "config.changeApplicationCode":
             result = ChangeApplicationCodeCommand()
+        case "config.changeMerchantId":
+            result = ChangeMerchantIdCommand()
         case "trackCustomEvent":
             result = TrackCustomEventCommand()
         case "inbox.fetchMessages":
