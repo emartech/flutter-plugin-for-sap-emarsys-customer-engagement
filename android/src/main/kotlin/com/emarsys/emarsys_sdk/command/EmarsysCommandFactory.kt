@@ -16,6 +16,7 @@ import com.emarsys.emarsys_sdk.command.mobileengage.inbox.FetchMessagesCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.inbox.RemoveTagCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.push.PushSendingEnabledCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.push.RegisterNotificationChannelsCommand
+import com.emarsys.emarsys_sdk.command.predict.*
 import com.emarsys.emarsys_sdk.command.setup.InitializeCommand
 import com.emarsys.emarsys_sdk.command.setup.SetupCommand
 import com.emarsys.emarsys_sdk.event.EventHandlerFactory
@@ -76,6 +77,11 @@ class EmarsysCommandFactory(
             "inApp.resume" -> InAppResumeCommand()
             "inApp.pause" -> InAppPauseCommand()
             "inApp.isPaused" -> InAppIsPausedCommand()
+            "predict.trackItemView" -> TrackItemViewCommand()
+            "predict.trackCategoryView" -> TrackCategoryViewCommand()
+            "predict.trackTag" -> TrackTagCommand()
+            "predict.trackSearchTerm" -> TrackSearchTermCommand()
+            "predict.trackPurchase" -> TrackPurchaseCommand()
             else -> null
         }
     }

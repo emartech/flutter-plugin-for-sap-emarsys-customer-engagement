@@ -12,6 +12,7 @@ import 'package:emarsys_sdk/model/emarsys_config.dart';
 import 'config.dart';
 import 'geofence.dart';
 import 'message_inbox.dart';
+import 'predict.dart';
 
 typedef _GetCallbackHandle = CallbackHandle? Function(Function callback);
 const MethodChannel _channel = const MethodChannel('com.emarsys.methods');
@@ -34,6 +35,8 @@ class Emarsys {
   static MessageInbox messageInbox = MessageInbox(_channel, MessageMapper());
 
   static Geofence geofence = Geofence(_channel, GeofenceMapper(), _geofenceEventChannel);
+
+  static Predict predict = Predict(_channel);
 
   static Future<void> setup(EmarsysConfig config) {
     Emarsys._initialize();
