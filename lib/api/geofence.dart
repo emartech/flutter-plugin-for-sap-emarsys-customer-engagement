@@ -1,11 +1,14 @@
+import 'package:emarsys_sdk/mappers/geofence_mapper.dart';
 import 'package:emarsys_sdk/model/event.dart';
+import 'package:emarsys_sdk/model/geofence_model.dart';
 import 'package:flutter/services.dart';
 
 class Geofence {
   final MethodChannel _channel;
   final Stream<Event> geofenceEventStream;
+  final GeofenceMapper _mapper;  
 
-  Geofence(this._channel, EventChannel _geofenceEventChannel)
+  Geofence(this._channel, GeofenceMapper this._mapper, EventChannel _geofenceEventChannel)
       : geofenceEventStream = _geofenceEventChannel
             .receiveBroadcastStream()
             .map((event) => Event(
@@ -35,5 +38,14 @@ class Geofence {
       throw NullThrownError();
     }
     return result;
+  }
+
+  Future<List<GeofenceModel>> registeredGeofences() async {
+    List<dynamic>? geofences =
+        await _channel.invokeMethod('geofence.registeredGeofences');
+    if (geofences == null) {
+      throw NullThrownError();
+    }
+    return _mapper.map(geofences);
   }
 }

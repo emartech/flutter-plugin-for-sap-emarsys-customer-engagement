@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:emarsys_sdk/api/inapp.dart';
 import 'package:emarsys_sdk/api/push.dart';
+import 'package:emarsys_sdk/mappers/geofence_mapper.dart';
 import 'package:emarsys_sdk/mappers/message_mapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -32,7 +33,7 @@ class Emarsys {
 
   static MessageInbox messageInbox = MessageInbox(_channel, MessageMapper());
 
-  static Geofence geofence = Geofence(_channel, _geofenceEventChannel);
+  static Geofence geofence = Geofence(_channel, GeofenceMapper(), _geofenceEventChannel);
 
   static Future<void> setup(EmarsysConfig config) {
     Emarsys._initialize();

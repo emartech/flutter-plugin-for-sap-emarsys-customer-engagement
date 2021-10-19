@@ -84,4 +84,23 @@ void main() {
           actualMethodCall!.method, 'geofence.ios.requestAlwaysAuthorization');
     }
   });
+
+
+  test('registeredGeofences should delegate to the Platform',
+      () async {
+    MethodCall? actualMethodCall;
+    channel.setMockMethodCallHandler((MethodCall methodCall) async {
+      actualMethodCall = methodCall;
+      final map = <String, dynamic>{};
+      return [map];
+    });
+
+    await Emarsys.geofence.registeredGeofences();
+
+    expect(actualMethodCall != null, true);
+    if (actualMethodCall != null) {
+      expect(
+          actualMethodCall!.method, 'geofence.registeredGeofences');
+    }
+  });
 }

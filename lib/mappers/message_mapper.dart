@@ -1,10 +1,13 @@
+import 'package:emarsys_sdk/mappers/mapper.dart';
 import 'package:emarsys_sdk/model/action_model.dart';
 import 'package:emarsys_sdk/model/actions/app_event_action_model.dart';
 import 'package:emarsys_sdk/model/actions/custom_event_action_model.dart';
 import 'package:emarsys_sdk/model/actions/open_external_url_action_model.dart';
 import 'package:emarsys_sdk/model/message.dart';
 
-class MessageMapper {
+class MessageMapper extends Mapper<List<Message>, List<dynamic>> {
+
+  @override
   List<Message> map(List<dynamic> input) {
     return input
         .where((element) => element != null && (element as Map).isNotEmpty)
@@ -71,4 +74,5 @@ class MessageMapper {
         return null;
     }
   }
+
 }
