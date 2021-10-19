@@ -12,6 +12,11 @@ class Config {
         'config.changeApplicationCode', {"applicationCode": applicationCode});
   }
 
+  Future<void> changeMerchantId(String merchantId) async {
+    return _channel
+        .invokeMethod('config.changeMerchantId', {"merchantId": merchantId});
+  }
+
   Future<String?> applicationCode() {
     return _channel.invokeMethod('config.applicationCode');
   }

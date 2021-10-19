@@ -29,6 +29,13 @@ void main() {
     expect(result, equals(APPLICATION_CODE));
   });
 
+  testWidgets("changeAppCode should be ok", (WidgetTester tester) async {
+    bool onErrorHasBeenCalled = false;
+    await Emarsys.config
+        .changeApplicationCode(APPLICATION_CODE)
+        .onError((error, stackTrace) => onErrorHasBeenCalled = true);
+    expect(onErrorHasBeenCalled, false);
+  });
   testWidgets("contactFieldValue should return the expected value",
       (WidgetTester tester) async {
     final result = await Emarsys.config.contactFieldId();
@@ -44,6 +51,14 @@ void main() {
       (WidgetTester tester) async {
     final result = await Emarsys.config.merchantId();
     expect(result, equals(MERCHANT_ID));
+  });
+
+  testWidgets("changeMerchantId should be ok", (WidgetTester tester) async {
+    bool onErrorHasBeenCalled = false;
+    await Emarsys.config
+        .changeMerchantId(MERCHANT_ID)
+        .onError((error, stackTrace) => onErrorHasBeenCalled = true);
+    expect(onErrorHasBeenCalled, false);
   });
   testWidgets("sdkVersion should return  a non-null value",
       (WidgetTester tester) async {

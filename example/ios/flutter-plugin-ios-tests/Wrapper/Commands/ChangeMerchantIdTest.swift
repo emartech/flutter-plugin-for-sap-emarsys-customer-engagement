@@ -1,21 +1,21 @@
 //
-//  Created by Emarsys on 2021. 08. 10..
+//  Created by Emarsys on 2021. 10. 18..
 //
 
 import XCTest
 @testable import emarsys_sdk
 
-class ChangeApplicationCodeTests: XCTestCase {
+class ChangeMerchantIdTests: XCTestCase {
 
 
-    var command: ChangeApplicationCodeCommand!
+    var command: ChangeMerchantIdCommand!
     
     override func setUpWithError() throws {
-        command = ChangeApplicationCodeCommand()
+        command = ChangeMerchantIdCommand()
     }
     
-    func testExecute_returnError_whenApplicationCodeIsInvalid() throws {
-        let expectedResponse = ["error": "Invalid applicationCode"]
+    func testExecute_returnError_whenMerchantIdIsInvalid() throws {
+        let expectedResponse = ["error": "Invalid merchantId"]
         var result = [String: Any]()
 
         command.execute(arguments: nil) { response in
