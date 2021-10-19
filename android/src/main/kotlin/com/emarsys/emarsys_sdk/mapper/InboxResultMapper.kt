@@ -3,10 +3,10 @@ package com.emarsys.emarsys_sdk.mapper
 import com.emarsys.mobileengage.api.action.*
 import com.emarsys.mobileengage.api.inbox.InboxResult
 
-class InboxResultMapper {
+class InboxResultMapper: ResultMapper<InboxResult> {
 
-    fun map(inboxResult: InboxResult): List<Map<String, Any>> {
-        return inboxResult.messages.map { message ->
+    override fun map(result: InboxResult): List<Map<String, Any>> {
+        return result.messages.map { message ->
             val resultMap = mutableMapOf<String, Any>(
                 "id" to message.id,
                 "campaignId" to message.campaignId,

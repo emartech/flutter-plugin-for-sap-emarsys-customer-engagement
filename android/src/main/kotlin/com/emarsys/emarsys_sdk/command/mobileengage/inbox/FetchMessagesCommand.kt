@@ -16,9 +16,7 @@ class FetchMessagesCommand(private val inboxResultMapper: InboxResultMapper) : E
                 resultCallback.invoke(null, result.errorCause)
                 return@fetchMessages
             }
-            Handler(Looper.getMainLooper()).post {
-                resultCallback.invoke((inboxResultMapper.map(result.result as InboxResult)), null)
-            }
+            resultCallback.invoke((inboxResultMapper.map(result.result as InboxResult)), null)
         }
     }
 

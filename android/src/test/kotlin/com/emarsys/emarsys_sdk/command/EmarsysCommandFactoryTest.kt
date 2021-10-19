@@ -1,10 +1,7 @@
 package com.emarsys.emarsys_sdk.command
 
 import com.emarsys.emarsys_sdk.command.config.*
-import com.emarsys.emarsys_sdk.command.geofence.GeofenceDisableCommand
-import com.emarsys.emarsys_sdk.command.geofence.GeofenceEnableCommand
-import com.emarsys.emarsys_sdk.command.geofence.GeofenceInitialEnterTriggerEnabledCommand
-import com.emarsys.emarsys_sdk.command.geofence.GeofenceIsEnabledCommand
+import com.emarsys.emarsys_sdk.command.geofence.*
 import com.emarsys.emarsys_sdk.command.inapp.InAppIsPausedCommand
 import com.emarsys.emarsys_sdk.command.inapp.InAppPauseCommand
 import com.emarsys.emarsys_sdk.command.inapp.InAppResumeCommand
@@ -28,7 +25,7 @@ class EmarsysCommandFactoryTest {
     @Before
     fun setUp() {
         factory =
-            EmarsysCommandFactory(mockk(), mockk(), mockk(), mockk(), mockk(), mockk(), mockk(), mockk())
+            EmarsysCommandFactory(mockk(), mockk(), mockk(), mockk(), mockk(), mockk(), mockk(), mockk(), mockk())
     }
 
     @Test
@@ -190,6 +187,13 @@ class EmarsysCommandFactoryTest {
         val result = factory.create("geofence.isEnabled")
 
         result shouldBe GeofenceIsEnabledCommand()
+    }
+
+    @Test
+    fun testCreate_shouldCreateGeofenceRegisteredGeofencesCommandFromMethodCall() {
+        val result = factory.create("geofence.registeredGeofences")
+
+        result shouldBe RegisteredGeofencesCommand(mockk())
     }
 
     @Test

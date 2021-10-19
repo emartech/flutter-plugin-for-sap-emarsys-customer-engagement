@@ -4,10 +4,7 @@ import android.app.Application
 import android.content.SharedPreferences
 import android.os.Handler
 import com.emarsys.emarsys_sdk.command.config.*
-import com.emarsys.emarsys_sdk.command.geofence.GeofenceDisableCommand
-import com.emarsys.emarsys_sdk.command.geofence.GeofenceEnableCommand
-import com.emarsys.emarsys_sdk.command.geofence.GeofenceInitialEnterTriggerEnabledCommand
-import com.emarsys.emarsys_sdk.command.geofence.GeofenceIsEnabledCommand
+import com.emarsys.emarsys_sdk.command.geofence.*
 import com.emarsys.emarsys_sdk.command.inapp.InAppIsPausedCommand
 import com.emarsys.emarsys_sdk.command.inapp.InAppPauseCommand
 import com.emarsys.emarsys_sdk.command.inapp.InAppResumeCommand
@@ -22,6 +19,7 @@ import com.emarsys.emarsys_sdk.command.mobileengage.push.RegisterNotificationCha
 import com.emarsys.emarsys_sdk.command.setup.InitializeCommand
 import com.emarsys.emarsys_sdk.command.setup.SetupCommand
 import com.emarsys.emarsys_sdk.event.EventHandlerFactory
+import com.emarsys.emarsys_sdk.mapper.GeofenceMapper
 import com.emarsys.emarsys_sdk.mapper.InboxResultMapper
 import com.emarsys.emarsys_sdk.notification.NotificationChannelFactory
 import com.emarsys.emarsys_sdk.storage.PushTokenStorage
@@ -35,7 +33,8 @@ class EmarsysCommandFactory(
         private val flutterWrapperSharedPreferences: SharedPreferences,
         private val notificationChannelFactory: NotificationChannelFactory,
         private val inboxResultMapper: InboxResultMapper,
-        private val backgroundHandler: Handler
+        private val backgroundHandler: Handler,
+        private val geofenceMapper: GeofenceMapper
 ) {
 
     fun create(methodName: String): EmarsysCommand? {
@@ -73,6 +72,7 @@ class EmarsysCommandFactory(
             "geofence.disable" -> GeofenceDisableCommand()
             "geofence.initialEnterTriggerEnabled" -> GeofenceInitialEnterTriggerEnabledCommand()
             "geofence.isEnabled" -> GeofenceIsEnabledCommand()
+            "geofence.registeredGeofences" -> RegisteredGeofencesCommand(geofenceMapper)
             "inApp.resume" -> InAppResumeCommand()
             "inApp.pause" -> InAppPauseCommand()
             "inApp.isPaused" -> InAppIsPausedCommand()
