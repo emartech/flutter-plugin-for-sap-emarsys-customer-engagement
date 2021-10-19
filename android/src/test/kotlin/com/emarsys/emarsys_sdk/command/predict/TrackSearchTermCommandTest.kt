@@ -1,7 +1,6 @@
 package com.emarsys.emarsys_sdk.command.predict
 
 import com.emarsys.Emarsys
-import com.emarsys.core.api.result.CompletionListener
 import com.emarsys.emarsys_sdk.command.EmarsysCommand
 import com.emarsys.emarsys_sdk.command.ResultCallback
 import io.mockk.*
@@ -9,14 +8,13 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
-class TrackItemViewCommandTest {
-
+internal class TrackSearchTermCommandTest {
     private lateinit var command: EmarsysCommand
 
     @Before
     fun setUp() {
         mockkStatic(Emarsys::class)
-        command = TrackItemViewCommand()
+        command = TrackSearchTermCommand()
     }
 
     @After
@@ -26,31 +24,39 @@ class TrackItemViewCommandTest {
 
     @Test
     fun testExecute_shouldCallMethodOnEmarsys() {
-        every { Emarsys.predict.trackItemView(any()) } just Runs
+        every { Emarsys.predict.trackSearchTerm(any()) } just Runs
 
-        command.execute(mapOf("itemId" to "testItemId")) { _, _ ->
+        command.execute(
+            mapOf(
+                "searchTerm" to "testSearchTerm",
+            )
+        ) { _, _ ->
         }
 
-        verify { Emarsys.predict.trackItemView("testItemId") }
+        verify { Emarsys.predict.trackSearchTerm("testSearchTerm") }
     }
 
     @Test(expected = IllegalArgumentException::class)
-    fun testExecute_shouldThrowException_whenItemIdIsMissing() {
-        every { Emarsys.predict.trackItemView(any()) } just Runs
+    fun testExecute_shouldThrowException_whenSearchTermIsMissing() {
+        every { Emarsys.predict.trackSearchTerm(any()) } just Runs
 
         command.execute(mapOf()) { _, _ ->
         }
 
-        verify(exactly = 0) { Emarsys.predict.trackItemView(any()) }
+        verify(exactly = 0) { Emarsys.predict.trackSearchTerm(any()) }
     }
 
     @Test
     fun testExecute_shouldInvokeResultCallback() {
         val mockResultCallback: ResultCallback = mockk(relaxed = true)
 
-        every { Emarsys.predict.trackItemView(any()) } just Runs
+        every { Emarsys.predict.trackSearchTerm(any()) } just Runs
 
-        command.execute(mapOf("itemId" to "testItemId"), mockResultCallback)
+        command.execute(
+            mapOf(
+                "searchTerm" to "testSearchTerm",
+            ), mockResultCallback
+        )
 
         verify { mockResultCallback.invoke(null, null) }
     }

@@ -8,7 +8,9 @@ class TrackItemViewCommand : EmarsysCommand {
     override fun execute(parameters: Map<String, Any?>?, resultCallback: ResultCallback) {
         val itemId: String? = parameters?.get("itemId") as String?
         itemId ?: throw IllegalArgumentException("itemId should not be null!")
+
         Emarsys.predict.trackItemView(itemId)
+
         resultCallback.invoke(null, null)
     }
 

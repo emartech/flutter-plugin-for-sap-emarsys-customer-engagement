@@ -1,10 +1,20 @@
 package com.emarsys.emarsys_sdk.command.predict
 
+import com.emarsys.Emarsys
 import com.emarsys.emarsys_sdk.command.EmarsysCommand
 import com.emarsys.emarsys_sdk.command.ResultCallback
 
 class TrackTagCommand : EmarsysCommand {
     override fun execute(parameters: Map<String, Any?>?, resultCallback: ResultCallback) {
+        val eventName: String? = parameters?.get("eventName") as String?
+        eventName ?: throw IllegalArgumentException("eventName should not be null!")
+
+        val attributes: Map<String, String>? = parameters?.get("attributes") as Map<String, String>?
+        attributes ?: throw IllegalArgumentException("attributes should not be null!")
+
+        Emarsys.predict.trackTag(eventName, attributes)
+
+        resultCallback.invoke(null, null)
     }
 
 
