@@ -15,6 +15,7 @@ import com.emarsys.emarsys_sdk.command.mobileengage.inbox.AddTagCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.inbox.FetchMessagesCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.inbox.RemoveTagCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.push.PushSendingEnabledCommand
+import com.emarsys.emarsys_sdk.command.predict.*
 import com.emarsys.emarsys_sdk.command.setup.InitializeCommand
 import com.emarsys.emarsys_sdk.command.setup.SetupCommand
 import io.kotlintest.shouldBe
@@ -211,6 +212,38 @@ class EmarsysCommandFactoryTest {
         val result = factory.create("inApp.isPaused")
 
         result shouldBe InAppIsPausedCommand()
+    }
+
+    @Test
+    fun testCreate_shouldCreatePredictTrackItemViewCommandFromMethodCall() {
+        val result = factory.create("predict.trackItemView")
+
+        result shouldBe TrackItemViewCommand()
+    }
+
+    @Test
+    fun testCreate_shouldCreatePredictTrackCategoryViewCommandFromMethodCall() {
+        val result = factory.create("predict.trackCategoryView")
+
+        result shouldBe TrackCategoryViewCommand()
+    }
+    @Test
+    fun testCreate_shouldCreatePredictTrackTagCommandFromMethodCall() {
+        val result = factory.create("predict.trackTag")
+
+        result shouldBe TrackTagCommand()
+    }
+    @Test
+    fun testCreate_shouldCreatePredictTrackSearchTermCommandFromMethodCall() {
+        val result = factory.create("predict.trackSearchTerm")
+
+        result shouldBe TrackSearchTermCommand()
+    }
+    @Test
+    fun testCreate_shouldCreatePredictTrackPurchaseCommandFromMethodCall() {
+        val result = factory.create("predict.trackPurchase")
+
+        result shouldBe TrackPurchaseCommand()
     }
 
     @Test
