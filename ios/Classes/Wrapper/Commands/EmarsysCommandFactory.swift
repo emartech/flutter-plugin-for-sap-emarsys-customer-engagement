@@ -85,7 +85,7 @@ class EmarsysCommandFactory {
             result = TrackCartItemCommand()
         case "predict.trackPurchase":
             result = TrackPurchaseCommand()
-        case "predict.trackCategory":
+        case "predict.trackCategoryView":
             result = TrackCategoryCommand()
         case "predict.trackSearchTerm":
             result = TrackSearchTermCommand()

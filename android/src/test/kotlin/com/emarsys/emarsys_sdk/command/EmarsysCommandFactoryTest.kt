@@ -243,11 +243,19 @@ class EmarsysCommandFactoryTest {
 
         result shouldBe TrackSearchTermCommand()
     }
+
     @Test
     fun testCreate_shouldCreatePredictTrackPurchaseCommandFromMethodCall() {
         val result = factory.create("predict.trackPurchase")
 
         result shouldBe TrackPurchaseCommand()
+    }
+
+    @Test
+    fun testCreate_shouldCreatePredictTrackCartItemCommandFromMethodCall() {
+        val result = factory.create("predict.trackCart")
+
+        result shouldBe TrackCartItemCommand()
     }
 
     @Test

@@ -81,6 +81,7 @@ class EmarsysCommandFactory(
             "predict.trackCategoryView" -> TrackCategoryViewCommand()
             "predict.trackTag" -> TrackTagCommand()
             "predict.trackSearchTerm" -> TrackSearchTermCommand()
+            "predict.trackCart" -> TrackCartItemCommand()
             "predict.trackPurchase" -> TrackPurchaseCommand()
             else -> null
         }

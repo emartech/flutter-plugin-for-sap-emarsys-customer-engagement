@@ -14,7 +14,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Emarsys.setup(EmarsysConfig(
       applicationCode: 'EMS74-EFB68',
-      merchantId: "ASDF",
+      merchantId: "4J5FXBB97U",
       androidVerboseConsoleLoggingEnabled: true,
       iOSEnabledConsoleLogLevels: [
         ConsoleLogLevels.BASIC,
@@ -137,13 +137,22 @@ class _MyAppState extends State<MyApp> {
               });
             },
             items: [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.track_changes), label: "Tracking"),
+                  backgroundColor: Colors.black87,
+                  icon: Icon(Icons.home),
+                  label: "Home"),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.message), label: "Inbox"),
+                  backgroundColor: Colors.black87,
+                  icon: Icon(Icons.track_changes),
+                  label: "Tracking"),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.bug_report), label: "Predict"),
+                  backgroundColor: Colors.black87,
+                  icon: Icon(Icons.message),
+                  label: "Inbox"),
+              BottomNavigationBarItem(
+                  backgroundColor: Colors.black87,
+                  icon: Icon(Icons.bug_report),
+                  label: "Predict"),
             ],
           ),
           body: body(_currentIndex)),

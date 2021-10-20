@@ -183,7 +183,7 @@ class EmarsysCommandFactoryTests: XCTestCase {
     }
     
     func testCreate_trackCategory() throws {
-        let command = factory?.create(name: "predict.trackCategory")
+        let command = factory?.create(name: "predict.trackCategoryView")
 
         XCTAssertTrue(command is TrackCategoryCommand)
     }

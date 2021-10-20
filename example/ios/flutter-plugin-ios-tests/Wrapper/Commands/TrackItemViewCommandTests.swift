@@ -13,8 +13,8 @@ class TrackItemViewCommandTests: XCTestCase {
         command = TrackItemViewCommand()
     }
     
-    func testExecute_returnError_whenItemViewIsInvalid() throws {
-        let expectedResponse = ["error": "Invalid itemView argument"]
+    func testExecute_returnError_whenItemIdIsInvalid() throws {
+        let expectedResponse = ["error": "Invalid itemId argument"]
         var result = [String: Any]()
 
         command.execute(arguments: nil) { response in
