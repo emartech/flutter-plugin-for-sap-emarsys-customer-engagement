@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:emarsys_sdk/emarsys_sdk.dart';
 import 'package:emarsys_sdk_example/inbox_messages.dart';
+import 'package:emarsys_sdk_example/predict.dart';
 
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -13,6 +14,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Emarsys.setup(EmarsysConfig(
       applicationCode: 'EMS74-EFB68',
+      merchantId: "ASDF",
       androidVerboseConsoleLoggingEnabled: true,
       iOSEnabledConsoleLogLevels: [
         ConsoleLogLevels.BASIC,
@@ -140,6 +142,8 @@ class _MyAppState extends State<MyApp> {
                   icon: Icon(Icons.track_changes), label: "Tracking"),
               BottomNavigationBarItem(
                   icon: Icon(Icons.message), label: "Inbox"),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.bug_report), label: "Predict"),
             ],
           ),
           body: body(_currentIndex)),
@@ -147,7 +151,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Widget body(int index) {
-    return [home(), tracking(), InboxMessages()][index];
+    return [home(), tracking(), InboxMessages(), PredictView()][index];
   }
 
   Widget home() {
