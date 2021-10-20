@@ -1,4 +1,12 @@
 class RecommendationFilter extends _Filter {
+  @override
+  late FilterType filterType;
+  @override
+  late String field;
+  @override
+  late Comparison comparison;
+  @override
+  late List<String> values;
   static _Filter exclude(String field) {
     return Exclude._(field);
   }
@@ -6,6 +14,9 @@ class RecommendationFilter extends _Filter {
   static _Filter include(String field) {
     return Include._(field);
   }
+
+  RecommendationFilter._create(
+      this.filterType, this.field, this.comparison, this.values);
 }
 
 class _Filter {
@@ -14,23 +25,23 @@ class _Filter {
   late Comparison comparison;
   late List<String> values;
 
-  _Filter();
-  _Filter._create(this.filterType, this.field, this.comparison, this.values);
-
-  _Filter isValue(String value) {
-    return _Filter._create(filterType, field, Comparison.IS, [value]);
+  RecommendationFilter isValue(String value) {
+    return RecommendationFilter._create(
+        filterType, field, Comparison.IS, [value]);
   }
 
-  _Filter hasValue(String value) {
-    return _Filter._create(filterType, field, Comparison.HAS, [value]);
+  RecommendationFilter hasValue(String value) {
+    return RecommendationFilter._create(
+        filterType, field, Comparison.HAS, [value]);
   }
 
-  _Filter inValues(List<String> list) {
-    return _Filter._create(filterType, field, Comparison.IN, list);
+  RecommendationFilter inValues(List<String> list) {
+    return RecommendationFilter._create(filterType, field, Comparison.IN, list);
   }
 
-  _Filter overlapsValues(List<String> list) {
-    return _Filter._create(filterType, field, Comparison.OVERLAPS, list);
+  RecommendationFilter overlapsValues(List<String> list) {
+    return RecommendationFilter._create(
+        filterType, field, Comparison.OVERLAPS, list);
   }
 }
 

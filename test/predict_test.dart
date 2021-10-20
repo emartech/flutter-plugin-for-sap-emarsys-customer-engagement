@@ -164,6 +164,30 @@ void main() {
       expect(actualMethodCall!.method, 'predict.recommendProducts');
     }
   });
+
+  test('recommendProducts with all properties should delegate to the Platform',
+      () async {
+    MethodCall? actualMethodCall;
+    channel.setMockMethodCallHandler((MethodCall methodCall) async {
+      actualMethodCall = methodCall;
+      final map = <String, dynamic>{};
+      return [map];
+    });
+
+    Logic recommendationLogic = RecommendationLogic.search();
+    var recommendationFilter =
+        RecommendationFilter.exclude("testField").isValue("testValue");
+    await Emarsys.predict.recommendProducts(
+        logic: recommendationLogic,
+        filters: [recommendationFilter],
+        limit: 5,
+        availabilityZone: "HU");
+
+    expect(actualMethodCall != null, true);
+    if (actualMethodCall != null) {
+      expect(actualMethodCall!.method, 'predict.recommendProducts');
+    }
+  });
 }
 
 class TestCartItem implements CartItem {
