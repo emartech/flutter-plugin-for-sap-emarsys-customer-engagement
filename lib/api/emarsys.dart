@@ -2,8 +2,11 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:emarsys_sdk/api/inapp.dart';
 import 'package:emarsys_sdk/api/push.dart';
+import 'package:emarsys_sdk/mappers/cart_item_list_mapper.dart';
 import 'package:emarsys_sdk/mappers/geofence_mapper.dart';
+import 'package:emarsys_sdk/mappers/logic_mapper.dart';
 import 'package:emarsys_sdk/mappers/message_mapper.dart';
+import 'package:emarsys_sdk/mappers/product_mapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:io' show Platform;
@@ -34,9 +37,11 @@ class Emarsys {
 
   static MessageInbox messageInbox = MessageInbox(_channel, MessageMapper());
 
-  static Geofence geofence = Geofence(_channel, GeofenceMapper(), _geofenceEventChannel);
+  static Geofence geofence =
+      Geofence(_channel, GeofenceMapper(), _geofenceEventChannel);
 
-  static Predict predict = Predict(_channel);
+  static Predict predict =
+      Predict(_channel, ProductMapper(), CartItemListMapper());
 
   static Future<void> setup(EmarsysConfig config) {
     Emarsys._initialize();

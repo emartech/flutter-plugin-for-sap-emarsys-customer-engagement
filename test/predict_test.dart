@@ -1,4 +1,7 @@
 import 'package:emarsys_sdk/emarsys_sdk.dart';
+import 'package:emarsys_sdk/model/predict/cart_item.dart';
+import 'package:emarsys_sdk/model/predict/logic.dart';
+import 'package:emarsys_sdk/model/predict/recommendation_logic.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:emarsys_sdk/api/emarsys.dart';
@@ -15,15 +18,13 @@ void main() {
 
   test('trackItemView should delegate to the Platform with correct parameters',
       () async {
-    //GIVEN
     final itemId = "testItemId";
     MethodCall? actualMethodCall;
     channel.setMockMethodCallHandler((MethodCall methodCall) {
       actualMethodCall = methodCall;
     });
-    //WHEN
+
     await Emarsys.predict.trackItemView(itemId);
-//THEN
     expect(actualMethodCall != null, true);
     if (actualMethodCall != null) {
       expect(actualMethodCall!.method, 'predict.trackItemView');
@@ -79,7 +80,7 @@ void main() {
       expect(actualMethodCall!.arguments, {"categoryPath": categoryPath});
     }
   });
-  test('trackTag  should delegate to the Platform with correct parameters',
+  test('trackTag should delegate to the Platform with correct parameters',
       () async {
     final eventName = "eventName";
     Map<String, String> attributes = {"testKey": "testValue"};
@@ -97,7 +98,7 @@ void main() {
     }
   });
 
-  test('trackCartItem  should delegate to the Platform with correct parameters',
+  test('trackCartItem should delegate to the Platform with correct parameters',
       () async {
     final cartItems = [
       TestCartItem("item1", 0.0, 0.0),
@@ -144,6 +145,23 @@ void main() {
           {"itemId": "item2", "price": 0.5, "quantity": 1.0}
         ]
       });
+    }
+  });
+
+  test('recommendProducts should delegate to the Platform', () async {
+    MethodCall? actualMethodCall;
+    channel.setMockMethodCallHandler((MethodCall methodCall) async {
+      actualMethodCall = methodCall;
+      final map = <String, dynamic>{};
+      return [map];
+    });
+
+    Logic recommendationLogic = RecommendationLogic.search();
+    await Emarsys.predict.recommendProducts(logic: recommendationLogic);
+
+    expect(actualMethodCall != null, true);
+    if (actualMethodCall != null) {
+      expect(actualMethodCall!.method, 'predict.recommendProducts');
     }
   });
 }
