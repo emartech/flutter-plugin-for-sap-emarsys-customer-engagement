@@ -81,6 +81,18 @@ class EmarsysCommandFactory {
             result = InAppResumeCommand()
         case "inApp.isPaused":
             result = InAppIsPausedCommand()
+        case "predict.trackCart":
+            result = TrackCartItemCommand()
+        case "predict.trackPurchase":
+            result = TrackPurchaseCommand()
+        case "predict.trackCategory":
+            result = TrackCategoryCommand()
+        case "predict.trackSearchTerm":
+            result = TrackSearchTermCommand()
+        case "predict.trackTag":
+            result = TrackTagCommand()
+        case "predict.trackItemView":
+            result = TrackItemViewCommand()
         default:
             result = nil
         }
