@@ -3,7 +3,7 @@ package com.emarsys.emarsys_sdk.mapper
 import com.emarsys.mobileengage.api.action.*
 import com.emarsys.mobileengage.api.inbox.InboxResult
 
-class InboxResultMapper: ResultMapper<InboxResult> {
+class InboxResultMapper: Mapper<InboxResult,List<Map<String, Any>>> {
 
     override fun map(result: InboxResult): List<Map<String, Any>> {
         return result.messages.map { message ->
