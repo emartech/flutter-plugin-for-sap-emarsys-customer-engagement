@@ -8,27 +8,27 @@ class ProductMapper extends Mapper<List<Product>, List<Map<String, dynamic>>> {
     return input
         .where((element) => element != null && (element as Map).isNotEmpty)
         .map((productMap) => Product(
-            productMap["productId"],
-            productMap["title"],
-            productMap["linkUrl"],
-            productMap["feature"],
-            productMap["cohort"],
-            productMap["customFields"],
-            productMap["imageUrlString"],
-            productMap["imageUrl"],
-            productMap["zoomImageUrlString"],
-            productMap["zoomImageUrl"],
-            productMap["categoryPath"],
-            productMap["available"],
-            productMap["productDescription"],
-            productMap["price"],
-            productMap["msrp"],
-            productMap["album"],
-            productMap["actor"],
-            productMap["artist"],
-            productMap["author"],
-            productMap["brand"],
-            productMap["year"]))
+            productId: productMap["productId"],
+            title: productMap["title"],
+            linkUrl: productMap["linkUrl"],
+            feature: productMap["feature"],
+            cohort: productMap["cohort"],
+            customFields: productMap["customFields"],
+            imageUrlString: productMap["imageUrlString"],
+            imageUrl: productMap["imageUrl"],
+            zoomImageUrlString: productMap["zoomImageUrlString"],
+            zoomImageUrl: productMap["zoomImageUrl"],
+            categoryPath: productMap["categoryPath"],
+            available: productMap["available"],
+            productDescription: productMap["productDescription"],
+            price: productMap["price"],
+            msrp: productMap["msrp"],
+            album: productMap["album"],
+            actor: productMap["actor"],
+            artist: productMap["artist"],
+            author: productMap["author"],
+            brand: productMap["brand"],
+            year: productMap["year"]))
         .toList();
   }
 }

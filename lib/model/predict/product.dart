@@ -23,13 +23,13 @@ class Product extends Equatable {
   String? brand;
   int? year;
 
-  Product(
-      this.productId,
-      this.title,
-      this.linkUrl,
-      this.feature,
-      this.cohort,
-      this.customFields,
+  Product({
+      required this.productId,
+      required this.title,
+      required this.linkUrl,
+      required this.feature,
+      required this.cohort,
+      required this.customFields,
       this.imageUrlString,
       this.imageUrl,
       this.zoomImageUrlString,
@@ -44,7 +44,7 @@ class Product extends Equatable {
       this.artist,
       this.author,
       this.brand,
-      this.year);
+      this.year});
 
   @override
   List<Object?> get props {
