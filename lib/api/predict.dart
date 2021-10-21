@@ -1,6 +1,7 @@
 import 'package:emarsys_sdk/mappers/cart_item_list_mapper.dart';
 import 'package:emarsys_sdk/mappers/logic_mapper.dart';
 import 'package:emarsys_sdk/mappers/product_mapper.dart';
+import 'package:emarsys_sdk/mappers/recommendation_filter_list_mapper.dart';
 import 'package:emarsys_sdk/model/predict/cart_item.dart';
 import 'package:emarsys_sdk/model/predict/logic.dart';
 import 'package:emarsys_sdk/model/predict/product.dart';
@@ -12,8 +13,10 @@ class Predict {
   final ProductMapper _productMapper;
   final LogicMapper _logicMapper;
   final CartItemListMapper _cartItemListMapper;
+  final RecommendationFilterListMapper _recommendationFilterListMapper;
 
-  Predict(this._channel, this._productMapper, this._cartItemListMapper)
+  Predict(this._channel, this._productMapper, this._cartItemListMapper,
+      this._recommendationFilterListMapper)
       : _logicMapper = LogicMapper(_cartItemListMapper);
 
   Future<void> trackItemView(String itemId) async {
@@ -56,8 +59,19 @@ class Predict {
       List<RecommendationFilter>? filters,
       int? limit,
       String? availabilityZone}) async {
-    List<dynamic>? products = await _channel.invokeMethod(
-        'predict.recommendProducts', {"logic": _logicMapper.map(logic)});
+    Map<String, dynamic> attributes = {"logic": _logicMapper.map(logic)};
+    if (filters != null) {
+      attributes["recommendationFilter"] =
+          _recommendationFilterListMapper.map(filters);
+    }
+    if (limit != null) {
+      attributes["limit"] = limit;
+    }
+    if (availabilityZone != null) {
+      attributes["availabilityZone"] = availabilityZone;
+    }
+    List<dynamic>? products =
+        await _channel.invokeMethod('predict.recommendProducts', attributes);
     if (products == null) {
       throw NullThrownError();
     }

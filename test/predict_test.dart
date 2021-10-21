@@ -148,7 +148,8 @@ void main() {
     }
   });
 
-  test('recommendProducts should delegate to the Platform', () async {
+  test('recommendProducts with only Logic should delegate to the Platform',
+      () async {
     MethodCall? actualMethodCall;
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
       actualMethodCall = methodCall;
@@ -161,6 +162,11 @@ void main() {
 
     expect(actualMethodCall != null, true);
     if (actualMethodCall != null) {
+      expect(actualMethodCall!.arguments["logic"],
+          {"name": "SEARCH", "data": {}, "variants": []});
+      expect(actualMethodCall!.arguments["recommendationFilter"], null);
+      expect(actualMethodCall!.arguments["limit"], null);
+      expect(actualMethodCall!.arguments["availabilityZone"], null);
       expect(actualMethodCall!.method, 'predict.recommendProducts');
     }
   });
@@ -185,6 +191,19 @@ void main() {
 
     expect(actualMethodCall != null, true);
     if (actualMethodCall != null) {
+      expect(actualMethodCall!.arguments["logic"],
+          {"name": "SEARCH", "data": {}, "variants": []});
+
+      expect(actualMethodCall!.arguments["recommendationFilter"], [
+        {
+          "filterType": "EXCLUDE",
+          "field": "testField",
+          "comparison": "IS",
+          "values": ["testValue"]
+        }
+      ]);
+      expect(actualMethodCall!.arguments["limit"], 5);
+      expect(actualMethodCall!.arguments["availabilityZone"], "HU");
       expect(actualMethodCall!.method, 'predict.recommendProducts');
     }
   });
