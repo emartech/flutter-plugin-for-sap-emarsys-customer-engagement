@@ -1,39 +1,37 @@
 import 'package:equatable/equatable.dart';
 
 class Product extends Equatable {
-  late String productId;
-  late String title;
-  late String linkUrl;
-  late String feature;
-  late String cohort;
-  late Map customFields;
-  String? imageUrlString;
-  String? imageUrl;
-  String? zoomImageUrlString;
-  String? zoomImageUrl;
-  String? categoryPath;
-  bool? available;
-  String? productDescription;
-  double? price;
-  double? msrp;
-  String? album;
-  String? actor;
-  String? artist;
-  String? author;
-  String? brand;
-  int? year;
+  final String productId;
+  final String title;
+  final String linkUrl;
+  final String feature;
+  final String cohort;
+  final Map customFields;
+  final String? imageUrlString;
+  final Uri? imageUrl;
+  final String? zoomImageUrlString;
+  final Uri? zoomImageUrl;
+  final String? categoryPath;
+  final bool? available;
+  final String? productDescription;
+  final double? price;
+  final double? msrp;
+  final String? album;
+  final String? actor;
+  final String? artist;
+  final String? author;
+  final String? brand;
+  final int? year;
 
-  Product({
-      required this.productId,
+  Product(
+      {required this.productId,
       required this.title,
       required this.linkUrl,
       required this.feature,
       required this.cohort,
       required this.customFields,
       this.imageUrlString,
-      this.imageUrl,
       this.zoomImageUrlString,
-      this.zoomImageUrl,
       this.categoryPath,
       this.available,
       this.productDescription,
@@ -44,7 +42,10 @@ class Product extends Equatable {
       this.artist,
       this.author,
       this.brand,
-      this.year});
+      this.year})
+      : imageUrl = imageUrlString != null ? Uri.parse(imageUrlString) : null,
+        zoomImageUrl =
+            zoomImageUrlString != null ? Uri.parse(zoomImageUrlString) : null;
 
   @override
   List<Object?> get props {
