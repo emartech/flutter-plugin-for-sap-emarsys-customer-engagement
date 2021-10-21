@@ -46,6 +46,11 @@ class Predict {
         {"orderId": orderId, 'items': _cartItemListMapper.map(items)});
   }
 
+  Future<void> trackRecommendationClick(Product product) async {
+    return _channel
+        .invokeMethod('predict.trackRecommendationClick', {"product": product});
+  }
+
   Future<List<Product>> recommendProducts(
       {required Logic logic,
       List<RecommendationFilter>? filters,

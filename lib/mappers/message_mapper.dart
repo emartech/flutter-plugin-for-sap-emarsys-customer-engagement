@@ -5,8 +5,7 @@ import 'package:emarsys_sdk/model/actions/custom_event_action_model.dart';
 import 'package:emarsys_sdk/model/actions/open_external_url_action_model.dart';
 import 'package:emarsys_sdk/model/message.dart';
 
-class MessageMapper extends Mapper<List<Message>, List<dynamic>> {
-
+class MessageMapper extends Mapper<List<dynamic>, List<Message>> {
   @override
   List<Message> map(List<dynamic> input) {
     return input
@@ -74,5 +73,4 @@ class MessageMapper extends Mapper<List<Message>, List<dynamic>> {
         return null;
     }
   }
-
 }

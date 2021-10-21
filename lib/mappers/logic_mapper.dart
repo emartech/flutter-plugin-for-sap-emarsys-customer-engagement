@@ -3,7 +3,7 @@ import 'package:emarsys_sdk/mappers/cart_item_list_mapper.dart';
 import 'package:emarsys_sdk/mappers/mapper.dart';
 import 'package:emarsys_sdk/model/predict/logic.dart';
 
-class LogicMapper extends Mapper<Map<String, dynamic>, Logic> {
+class LogicMapper extends Mapper<Logic, Map<String, dynamic>> {
   final CartItemListMapper _cartItemListMapper;
 
   LogicMapper(this._cartItemListMapper);

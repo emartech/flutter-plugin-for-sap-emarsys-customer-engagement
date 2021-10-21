@@ -2,7 +2,7 @@ import 'package:emarsys_sdk/model/predict/product.dart';
 
 import 'mapper.dart';
 
-class ProductMapper extends Mapper<List<Product>, List<Map<String, dynamic>>> {
+class ProductMapper extends Mapper<List<Map<String, dynamic>>, List<Product>> {
   @override
   List<Product> map(List<dynamic> input) {
     return input
