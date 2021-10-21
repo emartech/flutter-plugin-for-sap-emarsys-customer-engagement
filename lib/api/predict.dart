@@ -31,7 +31,7 @@ class Predict {
   }
 
   Future<void> trackTag(
-      String eventName, Map<String, String> attributes) async {
+      String eventName, Map<String, String>? attributes) async {
     return _channel.invokeMethod(
         'predict.trackTag', {'eventName': eventName, 'attributes': attributes});
   }

@@ -24,13 +24,4 @@ func testExecute_returnError_whenEventNameIsInvalid() throws {
     XCTAssertEqual(result as? [String: String], expectedResponse)
 }
 
-func testExecute_returnError_whenAttributesIsInvalid() throws {
-    let expectedResponse = ["error": "Invalid attributes argument"]
-    var result = [String: Any]()
-    command.execute(arguments: ["eventName":"testData"]) { response in
-        result = response
-    }
-
-    XCTAssertEqual(result as? [String: String], expectedResponse)
-}
 }

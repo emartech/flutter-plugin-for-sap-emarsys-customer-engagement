@@ -10,7 +10,6 @@ class TrackTagCommand : EmarsysCommand {
         eventName ?: throw IllegalArgumentException("eventName should not be null!")
 
         val attributes: Map<String, String>? = parameters?.get("attributes") as Map<String, String>?
-        attributes ?: throw IllegalArgumentException("attributes should not be null!")
 
         Emarsys.predict.trackTag(eventName, attributes)
 

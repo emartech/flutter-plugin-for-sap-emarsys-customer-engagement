@@ -10,10 +10,7 @@ class TrackTagCommand: EmarsysCommandProtocol {
             resultCallback(["error": "Invalid eventName argument"])
             return
         }
-        guard let attributes = arguments?["attributes"] as? Dictionary<String, String> else {
-            resultCallback(["error": "Invalid attributes argument"])
-            return
-        }
+        let attributes = arguments?["attributes"] as? Dictionary<String, String> 
 
         Emarsys.predict.trackTag(tag: eventName,attributes: attributes)
 

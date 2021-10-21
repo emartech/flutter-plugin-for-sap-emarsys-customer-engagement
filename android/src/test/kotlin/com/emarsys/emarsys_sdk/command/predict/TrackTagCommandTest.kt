@@ -48,14 +48,14 @@ internal class TrackTagCommandTest {
         verify(exactly = 0) { Emarsys.predict.trackTag(any(), any()) }
     }
 
-    @Test(expected = IllegalArgumentException::class)
-    fun testExecute_shouldThrowException_whenAttributesIsMissing() {
+    @Test
+    fun testExecute_shouldNotThrowException_whenAttributesIsMissing() {
         every { Emarsys.predict.trackTag(any(), any()) } just Runs
 
         command.execute(mapOf("eventName" to "testEventName")) { _, _ ->
         }
 
-        verify(exactly = 0) { Emarsys.predict.trackTag(any(), any()) }
+        verify(exactly = 1) { Emarsys.predict.trackTag(any(), any()) }
     }
 
     @Test
