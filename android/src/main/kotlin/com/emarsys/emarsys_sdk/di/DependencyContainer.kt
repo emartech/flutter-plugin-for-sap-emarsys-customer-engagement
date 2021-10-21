@@ -8,6 +8,7 @@ import com.emarsys.emarsys_sdk.command.EmarsysCommandFactory
 import com.emarsys.emarsys_sdk.event.EventHandlerFactory
 import com.emarsys.emarsys_sdk.flutter.InlineInAppViewFactory
 import com.emarsys.emarsys_sdk.mapper.InboxResultMapper
+import com.emarsys.emarsys_sdk.mapper.MapToProductMapper
 import com.emarsys.emarsys_sdk.notification.NotificationChannelFactory
 import com.emarsys.emarsys_sdk.storage.CurrentActivityHolder
 import com.emarsys.emarsys_sdk.storage.PushTokenStorage
@@ -56,4 +57,6 @@ interface DependencyContainer {
     val notificationChannelFactory: NotificationChannelFactory
 
     val inboxResultMapper: InboxResultMapper
+
+    val mapToProductMapper: MapToProductMapper
 }

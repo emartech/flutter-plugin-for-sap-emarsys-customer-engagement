@@ -22,6 +22,7 @@ import com.emarsys.emarsys_sdk.command.setup.SetupCommand
 import com.emarsys.emarsys_sdk.event.EventHandlerFactory
 import com.emarsys.emarsys_sdk.mapper.GeofenceMapper
 import com.emarsys.emarsys_sdk.mapper.InboxResultMapper
+import com.emarsys.emarsys_sdk.mapper.MapToProductMapper
 import com.emarsys.emarsys_sdk.notification.NotificationChannelFactory
 import com.emarsys.emarsys_sdk.storage.PushTokenStorage
 
@@ -35,7 +36,8 @@ class EmarsysCommandFactory(
         private val notificationChannelFactory: NotificationChannelFactory,
         private val inboxResultMapper: InboxResultMapper,
         private val backgroundHandler: Handler,
-        private val geofenceMapper: GeofenceMapper
+        private val geofenceMapper: GeofenceMapper,
+        private val mapToProductMapper: MapToProductMapper
 ) {
 
     fun create(methodName: String): EmarsysCommand? {
@@ -83,6 +85,7 @@ class EmarsysCommandFactory(
             "predict.trackSearchTerm" -> TrackSearchTermCommand()
             "predict.trackCart" -> TrackCartItemCommand()
             "predict.trackPurchase" -> TrackPurchaseCommand()
+            "predict.trackRecommendationClick" -> TrackRecommendationClickCommand(mapToProductMapper)
             else -> null
         }
     }

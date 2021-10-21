@@ -8,6 +8,7 @@ import com.emarsys.emarsys_sdk.command.EmarsysCommandFactory
 import com.emarsys.emarsys_sdk.event.EventHandlerFactory
 import com.emarsys.emarsys_sdk.flutter.InlineInAppViewFactory
 import com.emarsys.emarsys_sdk.mapper.InboxResultMapper
+import com.emarsys.emarsys_sdk.mapper.MapToProductMapper
 import com.emarsys.emarsys_sdk.notification.NotificationChannelFactory
 import com.emarsys.emarsys_sdk.storage.CurrentActivityHolder
 import com.emarsys.emarsys_sdk.storage.PushTokenStorage
@@ -25,5 +26,6 @@ class FakeDependencyContainer(
         override val inlineInAppViewFactory: InlineInAppViewFactory = mockk(relaxed = true),
         override val currentActivityHolder: CurrentActivityHolder = mockk(relaxed = true),
         override val setupCacheSharedPreferences: SharedPreferences = mockk(relaxed = true),
-        override val flutterWrapperSharedPreferences: SharedPreferences = mockk(relaxed = true)
+        override val flutterWrapperSharedPreferences: SharedPreferences = mockk(relaxed = true),
+        override val mapToProductMapper: MapToProductMapper = mockk(relaxed = true)
 ) : DependencyContainer

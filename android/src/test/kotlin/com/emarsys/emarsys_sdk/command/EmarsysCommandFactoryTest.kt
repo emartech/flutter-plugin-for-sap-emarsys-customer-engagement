@@ -26,7 +26,7 @@ class EmarsysCommandFactoryTest {
     @Before
     fun setUp() {
         factory =
-            EmarsysCommandFactory(mockk(), mockk(), mockk(), mockk(), mockk(), mockk(), mockk(), mockk(), mockk())
+            EmarsysCommandFactory(mockk(), mockk(), mockk(), mockk(), mockk(), mockk(), mockk(), mockk(), mockk(),mockk())
     }
 
     @Test
@@ -256,6 +256,13 @@ class EmarsysCommandFactoryTest {
         val result = factory.create("predict.trackCart")
 
         result shouldBe TrackCartItemCommand()
+    }
+
+    @Test
+    fun testCreate_shouldCreatePredictTrackRecommendationClickCommandFromMethodCall() {
+        val result = factory.create("predict.trackRecommendationClick")
+
+        result shouldBe TrackRecommendationClickCommand(mockk())
     }
 
     @Test
