@@ -5,8 +5,8 @@ import com.emarsys.mobileengage.api.inbox.InboxResult
 
 class InboxResultMapper: Mapper<InboxResult,List<Map<String, Any>>> {
 
-    override fun map(result: InboxResult): List<Map<String, Any>> {
-        return result.messages.map { message ->
+    override fun map(input: InboxResult): List<Map<String, Any>> {
+        return input.messages.map { message ->
             val resultMap = mutableMapOf<String, Any>(
                 "id" to message.id,
                 "campaignId" to message.campaignId,
