@@ -5,46 +5,45 @@
 import EmarsysSDK
 
 class Product: NSObject, EMSProductProtocol {
-   
+
     var productId: String
-    
+
     var title: String
-    
+
     var linkUrl: URL
 
-    
     var customFields: [String: Any]
-    
+
     var feature: String
-    
+
     var cohort: String
-    
+
     var imageUrl: URL?
-    
+
     var zoomImageUrl: URL?
-    
+
     var categoryPath: String?
-    
+
     var available: NSNumber?
-    
+
     var productDescription: String?
-    
+
     var price: NSNumber?
-    
+
     var msrp: NSNumber?
-    
+
     var album: String?
-    
+
     var actor: String?
-    
+
     var artist: String?
-    
+
     var author: String?
-    
+
     var brand: String?
-    
+
     var year: NSNumber?
-    
+
     init(productId: String,
          title: String,
          linkUrlString: String,
@@ -83,9 +82,9 @@ class Product: NSObject, EMSProductProtocol {
         self.author = author
         self.brand = brand
         self.year = year as NSNumber?
-        
+
     }
-    
+
     override var hash: Int {
         var result = productId.hashValue
         result = result &* 31 &+ title.hashValue
@@ -107,7 +106,7 @@ class Product: NSObject, EMSProductProtocol {
         result = result &* 31 &+ (year?.hashValue ?? 0)
         return result
     }
-    
+
     override func isEqual(_ object: Any?) -> Bool {
         guard let object = object as? Product else {
             return false
@@ -173,5 +172,29 @@ class Product: NSObject, EMSProductProtocol {
             return false
         }
         return true
+    }
+}
+
+extension Product {
+    open func toMap() -> [String: Any?] {
+        ["productId": productId,
+         "title": title,
+         "linkUrlString": linkUrl.absoluteString,
+         "feature": feature,
+         "cohort": cohort,
+         "customFields": customFields,
+         "imageUrlString": imageUrl?.absoluteString,
+         "zoomImageUrlString": zoomImageUrl?.absoluteString,
+         "categoryPath": categoryPath,
+         "available": available,
+         "productDescription": productDescription,
+         "price": price,
+         "msrp": msrp,
+         "album": album,
+         "actor": actor,
+         "artist": artist,
+         "author": author,
+         "brand": brand,
+         "year": year]
     }
 }
