@@ -7,9 +7,7 @@ import com.emarsys.emarsys_sdk.command.EmarsysCommandFactory
 import com.emarsys.emarsys_sdk.config.ConfigStorageKeys
 import com.emarsys.emarsys_sdk.event.EventHandlerFactory
 import com.emarsys.emarsys_sdk.flutter.InlineInAppViewFactory
-import com.emarsys.emarsys_sdk.mapper.GeofenceMapper
-import com.emarsys.emarsys_sdk.mapper.InboxResultMapper
-import com.emarsys.emarsys_sdk.mapper.MapToProductMapper
+import com.emarsys.emarsys_sdk.mapper.*
 import com.emarsys.emarsys_sdk.notification.NotificationChannelFactory
 import com.emarsys.emarsys_sdk.provider.BackgroundHandlerProvider
 import com.emarsys.emarsys_sdk.storage.CurrentActivityHolder
@@ -40,7 +38,10 @@ class DefaultDependencyContainer(
             inboxResultMapper,
             backgroundHandler,
             GeofenceMapper(),
-            mapToProductMapper
+            mapToProductMapper,
+            recommendationLogicMapper,
+            recommendationFilterListMapper,
+            productMapper
         )
     }
 
@@ -89,6 +90,15 @@ class DefaultDependencyContainer(
     }
     override val mapToProductMapper: MapToProductMapper by lazy {
         MapToProductMapper()
+    }
+    override val recommendationLogicMapper: RecommendationLogicMapper by lazy {
+        RecommendationLogicMapper()
+    }
+    override val recommendationFilterListMapper: RecommendationFilterListMapper by lazy {
+        RecommendationFilterListMapper()
+    }
+    override val productMapper: ProductMapper by lazy {
+        ProductMapper()
     }
 }
 

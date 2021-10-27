@@ -26,7 +26,21 @@ class EmarsysCommandFactoryTest {
     @Before
     fun setUp() {
         factory =
-            EmarsysCommandFactory(mockk(), mockk(), mockk(), mockk(), mockk(), mockk(), mockk(), mockk(), mockk(),mockk())
+            EmarsysCommandFactory(
+                mockk(),
+                mockk(),
+                mockk(),
+                mockk(),
+                mockk(),
+                mockk(),
+                mockk(),
+                mockk(),
+                mockk(),
+                mockk(),
+                mockk(),
+                mockk(),
+                mockk()
+            )
     }
 
     @Test
@@ -231,12 +245,14 @@ class EmarsysCommandFactoryTest {
 
         result shouldBe TrackCategoryViewCommand()
     }
+
     @Test
     fun testCreate_shouldCreatePredictTrackTagCommandFromMethodCall() {
         val result = factory.create("predict.trackTag")
 
         result shouldBe TrackTagCommand()
     }
+
     @Test
     fun testCreate_shouldCreatePredictTrackSearchTermCommandFromMethodCall() {
         val result = factory.create("predict.trackSearchTerm")
@@ -263,6 +279,13 @@ class EmarsysCommandFactoryTest {
         val result = factory.create("predict.trackRecommendationClick")
 
         result shouldBe TrackRecommendationClickCommand(mockk())
+    }
+
+    @Test
+    fun testCreate_shouldCreatePredictRecommendProductsCommandFromMethodCall() {
+        val result = factory.create("predict.recommendProducts")
+
+        result shouldBe RecommendProductsCommand(mockk(), mockk(), mockk())
     }
 
     @Test
