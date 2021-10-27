@@ -16,3 +16,27 @@ class ProductsMapper: Mappable {
         }
     }
 }
+
+extension EMSProductProtocol {
+    func toMap() -> [String: Any?] {
+        ["productId": productId,
+         "title": title,
+         "linkUrlString": linkUrl.absoluteString,
+         "feature": feature,
+         "cohort": cohort,
+         "customFields": customFields,
+         "imageUrlString": imageUrl?.absoluteString,
+         "zoomImageUrlString": zoomImageUrl?.absoluteString,
+         "categoryPath": categoryPath,
+         "available": available,
+         "productDescription": productDescription,
+         "price": price,
+         "msrp": msrp,
+         "album": album,
+         "actor": actor,
+         "artist": artist,
+         "author": author,
+         "brand": brand,
+         "year": year]
+    }
+}
