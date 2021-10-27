@@ -4,14 +4,14 @@ import './logic.dart';
 import 'cart_item.dart';
 
 class RecommendationLogic extends Equatable implements Logic {
-  static const String SEARCH = "SEARCH";
-  static const String CART = "CART";
-  static const String RELATED = "RELATED";
-  static const String CATEGORY = "CATEGORY";
-  static const String ALSO_BOUGHT = "ALSO_BOUGHT";
-  static const String POPULAR = "POPULAR";
-  static const String PERSONAL = "PERSONAL";
-  static const String HOME = "HOME";
+  static const String _SEARCH = "SEARCH";
+  static const String _CART = "CART";
+  static const String _RELATED = "RELATED";
+  static const String _CATEGORY = "CATEGORY";
+  static const String _ALSO_BOUGHT = "ALSO_BOUGHT";
+  static const String _POPULAR = "POPULAR";
+  static const String _PERSONAL = "PERSONAL";
+  static const String _HOME = "HOME";
   @override
   Map<String, dynamic> data;
 
@@ -29,7 +29,7 @@ class RecommendationLogic extends Equatable implements Logic {
     if (searchTerm != null) {
       dataMap["searchTerm"] = searchTerm;
     }
-    return RecommendationLogic._(name: SEARCH, data: dataMap);
+    return RecommendationLogic._(name: _SEARCH, data: dataMap);
   }
 
   static RecommendationLogic cart({List<CartItem>? cartItems}) {
@@ -37,7 +37,7 @@ class RecommendationLogic extends Equatable implements Logic {
     if (cartItems != null && cartItems.isNotEmpty) {
       dataMap["cartItems"] = cartItems;
     }
-    return RecommendationLogic._(name: CART, data: dataMap);
+    return RecommendationLogic._(name: _CART, data: dataMap);
   }
 
   static RecommendationLogic related({String? itemId}) {
@@ -45,7 +45,7 @@ class RecommendationLogic extends Equatable implements Logic {
     if (itemId != null) {
       dataMap["itemId"] = itemId;
     }
-    return RecommendationLogic._(name: RELATED, data: dataMap);
+    return RecommendationLogic._(name: _RELATED, data: dataMap);
   }
 
   static RecommendationLogic category({String? categoryPath}) {
@@ -53,7 +53,7 @@ class RecommendationLogic extends Equatable implements Logic {
     if (categoryPath != null) {
       dataMap["categoryPath"] = categoryPath;
     }
-    return RecommendationLogic._(name: CATEGORY, data: dataMap);
+    return RecommendationLogic._(name: _CATEGORY, data: dataMap);
   }
 
   static RecommendationLogic alsoBought({String? itemId}) {
@@ -61,7 +61,7 @@ class RecommendationLogic extends Equatable implements Logic {
     if (itemId != null) {
       dataMap["itemId"] = itemId;
     }
-    return RecommendationLogic._(name: ALSO_BOUGHT, data: dataMap);
+    return RecommendationLogic._(name: _ALSO_BOUGHT, data: dataMap);
   }
 
   static RecommendationLogic popular({String? categoryPath}) {
@@ -69,15 +69,15 @@ class RecommendationLogic extends Equatable implements Logic {
     if (categoryPath != null) {
       dataMap["categoryPath"] = categoryPath;
     }
-    return RecommendationLogic._(name: POPULAR, data: dataMap);
+    return RecommendationLogic._(name: _POPULAR, data: dataMap);
   }
 
   static RecommendationLogic personal({List<String> variants = const []}) {
-    return RecommendationLogic._(name: PERSONAL, variants: variants);
+    return RecommendationLogic._(name: _PERSONAL, variants: variants);
   }
 
   static RecommendationLogic home({List<String> variants = const []}) {
-    return RecommendationLogic._(name: HOME, variants: variants);
+    return RecommendationLogic._(name: _HOME, variants: variants);
   }
 
   @override

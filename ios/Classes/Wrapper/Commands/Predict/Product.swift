@@ -175,8 +175,8 @@ class Product: NSObject, EMSProductProtocol {
     }
 }
 
-extension Product {
-    open func toMap() -> [String: Any?] {
+extension EMSProductProtocol {
+    func toMap() -> [String: Any?] {
         ["productId": productId,
          "title": title,
          "linkUrlString": linkUrl.absoluteString,

@@ -12,7 +12,7 @@ class ProductsMapper: Mappable {
     
     func map(_ input: [EMSProductProtocol]) -> [[String : Any?]] {
         input.map{
-            ($0 as! Product).toMap()
+            $0.toMap()
         }
     }
 }

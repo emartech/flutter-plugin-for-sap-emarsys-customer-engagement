@@ -1,26 +1,39 @@
 //
 // Created by Emarsys on 2021. 04. 22..
 //
+
 import EmarsysSDK
 
 class EmarsysCommandFactory {
-    
+
     var pushEventHandler: EMSEventHandlerBlock
     var silentPushEventHandler: EMSEventHandlerBlock
     var geofenceEventHandler: EMSEventHandlerBlock
     var inboxMapper: InboxMapper
     var inAppEventHandler: EMSEventHandlerBlock
-    
+    var mapToProductMapper: MapToProductMapper
+    var productsMapper: ProductsMapper
+    var logicMapper: LogicMapper
+    var recommendationFilterMapper: RecommendationFilterMapper
+
     init(pushEventHandler: @escaping EMSEventHandlerBlock,
          silentPushEventHandler: @escaping EMSEventHandlerBlock,
          inboxMapper: InboxMapper,
          geofenceEventHandler: @escaping EMSEventHandlerBlock,
-         inAppEventHandler: @escaping EMSEventHandlerBlock) {
+         inAppEventHandler: @escaping EMSEventHandlerBlock,
+         mapToProductMapper: MapToProductMapper,
+         productsMapper: ProductsMapper,
+         logicMapper: LogicMapper,
+         recommendationFilterMapper: RecommendationFilterMapper) {
         self.pushEventHandler = pushEventHandler
         self.silentPushEventHandler = silentPushEventHandler
         self.inboxMapper = inboxMapper
         self.geofenceEventHandler = geofenceEventHandler
         self.inAppEventHandler = inAppEventHandler
+        self.mapToProductMapper = mapToProductMapper
+        self.productsMapper = productsMapper
+        self.logicMapper = logicMapper
+        self.recommendationFilterMapper = recommendationFilterMapper
     }
 
     func create(name: String) -> EmarsysCommandProtocol? {
@@ -28,9 +41,9 @@ class EmarsysCommandFactory {
         switch name {
         case "setup":
             result = SetupCommand(pushEventHandler: self.pushEventHandler,
-                                  silentPushEventHandler: self.silentPushEventHandler,
-                                  geofenceEventHandler: self.geofenceEventHandler,
-                                  inAppEventHandler: self.inAppEventHandler)
+                    silentPushEventHandler: self.silentPushEventHandler,
+                    geofenceEventHandler: self.geofenceEventHandler,
+                    inAppEventHandler: self.inAppEventHandler)
         case "setContact":
             result = SetContactCommand()
         case "clearContact":
@@ -93,6 +106,10 @@ class EmarsysCommandFactory {
             result = TrackTagCommand()
         case "predict.trackItemView":
             result = TrackItemViewCommand()
+        case "predict.recommendProducts":
+            result = RecommendProductsCommand(productsMapper: productsMapper, logicMapper: logicMapper, recommendationFilterMapper: recommendationFilterMapper)
+        case "predict.trackRecommendationClick":
+            result = TrackRecommendationClickCommand(mapToProductMapper: mapToProductMapper)
         default:
             result = nil
         }

@@ -12,7 +12,7 @@ class LogicMapper extends Mapper<Logic, Map<String, dynamic>> {
   Map<String, dynamic> map(Logic input) {
     var mapFromLogic = Map<String, dynamic>();
     mapFromLogic["name"] = input.name;
-    if (mapFromLogic["name"] == RecommendationLogic.CART) {
+    if (mapFromLogic["name"] == "CART") {
       mapFromLogic["data"] = {};
       mapFromLogic["data"]["cartItems"] =
           _cartItemListMapper.map(input.data["cartItems"]);

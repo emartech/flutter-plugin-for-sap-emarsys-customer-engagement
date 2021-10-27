@@ -21,6 +21,7 @@ class _PredictState extends State<PredictView> {
   late TextEditingController _tagEventNameController;
   late TextEditingController _tagAttributesController;
   late List<CartItem> _cartItems;
+  late List<Product> _productsToShow;
   @override
   void initState() {
     super.initState();
@@ -31,6 +32,7 @@ class _PredictState extends State<PredictView> {
     _tagEventNameController = TextEditingController();
     _tagAttributesController = TextEditingController();
     _cartItems = [];
+    _productsToShow = [];
   }
 
   @override
@@ -50,7 +52,9 @@ class _PredictState extends State<PredictView> {
           Padding(
               padding: const EdgeInsets.all(8.0),
               child: buildCartAndPurchase()),
-          Padding(padding: const EdgeInsets.all(8.0), child: buildTrackTag())
+          Padding(padding: const EdgeInsets.all(8.0), child: buildTrackTag()),
+          Padding(
+              padding: const EdgeInsets.all(8.0), child: buildRecommendation())
         ],
       ),
     );
@@ -248,6 +252,34 @@ class _PredictState extends State<PredictView> {
                   child: Text("Track Cart items"))
             ],
           )
+        ],
+      ),
+    );
+  }
+
+  Widget buildRecommendation() {
+    return Card(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TitleText("Recommendation"),
+          Row(
+            children: [
+              TextButton(
+                  onPressed: () async {
+                    List<Product> products = await Emarsys.predict
+                        .recommendProducts(
+                            logic: RecommendationLogic.search(
+                                searchTerm: "shirt"));
+                    setState(() {
+                      _productsToShow = products;
+                    });
+                  },
+                  child: Text("Recommend products"))
+            ],
+          ),
+          Text(_productsToShow.map((e) => e.toString()).join("\n")),
+         
         ],
       ),
     );

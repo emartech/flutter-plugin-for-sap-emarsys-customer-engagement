@@ -11,7 +11,16 @@ class EmarsysCommandFactoryTests: XCTestCase {
     var factory: EmarsysCommandFactory?
 
     override func setUpWithError() throws {
-        factory = EmarsysCommandFactory(pushEventHandler: {name, payload in }, silentPushEventHandler: {name, payload in }, inboxMapper: InboxMapper(), geofenceEventHandler: {name, payload in }, inAppEventHandler: {name, payload in})
+        factory = EmarsysCommandFactory(
+                pushEventHandler: {name, payload in },
+                silentPushEventHandler: {name, payload in },
+                inboxMapper: InboxMapper(),
+                geofenceEventHandler: {name, payload in },
+                inAppEventHandler: {name, payload in},
+                mapToProductMapper: MapToProductMapper(),
+                productsMapper: ProductsMapper(),
+                logicMapper: LogicMapper(),
+                recommendationFilterMapper: RecommendationFilterMapper())
     }
 
     func testCreate_setup() throws {
@@ -204,6 +213,16 @@ class EmarsysCommandFactoryTests: XCTestCase {
         let command = factory?.create(name: "predict.trackItemView")
 
         XCTAssertTrue(command is TrackItemViewCommand)
+    }
+    func testCreate_recommendProducts() throws {
+        let command = factory?.create(name: "predict.recommendProducts")
+
+        XCTAssertTrue(command is RecommendProductsCommand)
+    }
+    func testCreate_trackRecommendationClick() throws {
+        let command = factory?.create(name: "predict.trackRecommendationClick")
+
+        XCTAssertTrue(command is TrackRecommendationClickCommand)
     }
 }
 
