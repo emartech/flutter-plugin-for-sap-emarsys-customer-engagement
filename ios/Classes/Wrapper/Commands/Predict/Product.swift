@@ -5,48 +5,49 @@
 import EmarsysSDK
 
 class Product: NSObject, EMSProductProtocol {
-
+   
     var productId: String
-
+    
     var title: String
-
+    
     var linkUrl: URL
 
+    
     var customFields: [String: Any]
-
+    
     var feature: String
-
+    
     var cohort: String
-
+    
     var imageUrl: URL?
-
+    
     var zoomImageUrl: URL?
-
+    
     var categoryPath: String?
-
+    
     var available: NSNumber?
-
+    
     var productDescription: String?
-
+    
     var price: NSNumber?
-
+    
     var msrp: NSNumber?
-
+    
     var album: String?
-
+    
     var actor: String?
-
+    
     var artist: String?
-
+    
     var author: String?
-
+    
     var brand: String?
-
+    
     var year: NSNumber?
-
+    
     init(productId: String,
          title: String,
-         linkUrl: String,
+         linkUrlString: String,
          feature: String,
          cohort: String,
          customFields: [String: Any],
@@ -65,7 +66,7 @@ class Product: NSObject, EMSProductProtocol {
          year: Int?) {
         self.productId = productId
         self.title = title
-        self.linkUrl = URL.init(string: linkUrl)!
+        self.linkUrl = URL.init(string: linkUrlString)!
         self.feature = feature
         self.cohort = cohort
         self.customFields = customFields
@@ -74,8 +75,17 @@ class Product: NSObject, EMSProductProtocol {
         self.categoryPath = categoryPath
         self.available = available as NSNumber?
         self.productDescription = productDescription
+        self.price = price as NSNumber?
+        self.msrp = msrp as NSNumber?
+        self.album = album
+        self.actor = actor
+        self.artist = artist
+        self.author = author
+        self.brand = brand
+        self.year = year as NSNumber?
+        
     }
-
+    
     override var hash: Int {
         var result = productId.hashValue
         result = result &* 31 &+ title.hashValue
@@ -97,7 +107,7 @@ class Product: NSObject, EMSProductProtocol {
         result = result &* 31 &+ (year?.hashValue ?? 0)
         return result
     }
-
+    
     override func isEqual(_ object: Any?) -> Bool {
         guard let object = object as? Product else {
             return false

@@ -5,14 +5,14 @@
 import EmarsysSDK
 
 class RecommendProductsCommand: EmarsysCommandProtocol {
-    var productMapper: ProductMapper
+    var productsMapper: ProductsMapper
     var logicMapper: LogicMapper
     var recommendationFilterMapper: RecommendationFilterMapper
     
-    init(productMapper: ProductMapper,
+    init(productsMapper: ProductsMapper,
          logicMapper: LogicMapper,
          recommendationFilterMapper: RecommendationFilterMapper) {
-        self.productMapper = productMapper
+        self.productsMapper = productsMapper
         self.logicMapper = logicMapper
         self.recommendationFilterMapper = recommendationFilterMapper
     }
@@ -46,12 +46,10 @@ class RecommendProductsCommand: EmarsysCommandProtocol {
         
         Emarsys.predict.recommendProducts(logic: logic, filters: filters, limit: limit as NSNumber?, availabilityZone: availabilityZone, productsBlock: { result, error in
             if let res = result {
-                let products: [EMSProduct] = res
-                if let productsDict = self.productMapper.map(products) {
-                    resultCallback(["success": productsDict])
-                } else {
-                    resultCallback(["success": []])
-                }
+                let products: [EMSProductProtocol] = res
+                let productsDict: [[String: Any?]] = self.productsMapper.map(products)
+                
+                resultCallback(["success": productsDict])
             } else if let e = error {
                 resultCallback(["error": e])
             }

@@ -31,7 +31,7 @@ void main() {
     Product prod = Product(
         productId: "test_productId",
         title: "test_title",
-        linkUrl: "test_link",
+        linkUrlString: "test_link",
         feature: "test_feature",
         cohort: "test_cohort",
         customFields: {"field1": "value1", "field2": "value2"},

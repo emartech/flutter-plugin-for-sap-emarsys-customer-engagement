@@ -3,7 +3,8 @@ import 'package:equatable/equatable.dart';
 class Product extends Equatable {
   final String productId;
   final String title;
-  final String linkUrl;
+  final String linkUrlString;
+  final Uri linkUrl;
   final String feature;
   final String cohort;
   final Map customFields;
@@ -26,7 +27,7 @@ class Product extends Equatable {
   Product(
       {required this.productId,
       required this.title,
-      required this.linkUrl,
+      required this.linkUrlString,
       required this.feature,
       required this.cohort,
       required this.customFields,
@@ -43,7 +44,8 @@ class Product extends Equatable {
       this.author,
       this.brand,
       this.year})
-      : imageUrl = imageUrlString != null ? Uri.parse(imageUrlString) : null,
+      : linkUrl = Uri.parse(linkUrlString),
+        imageUrl = imageUrlString != null ? Uri.parse(imageUrlString) : null,
         zoomImageUrl =
             zoomImageUrlString != null ? Uri.parse(zoomImageUrlString) : null;
 
@@ -53,6 +55,7 @@ class Product extends Equatable {
       productId,
       title,
       linkUrl,
+      linkUrlString,
       feature,
       cohort,
       customFields,

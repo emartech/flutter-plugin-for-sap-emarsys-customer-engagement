@@ -17,7 +17,7 @@ void main() {
       {
         "productId": "test_productId",
         "title": "test_title",
-        "linkUrl": "test_link",
+        "linkUrlString": "test_link",
         "feature": "test_feature",
         "cohort": "test_cohort",
         "customFields": {"field1": "value1", "field2": "value2"},
@@ -38,7 +38,7 @@ void main() {
       {
         "productId": "test_productId2",
         "title": "test_title2",
-        "linkUrl": "test_link2",
+        "linkUrlString": "test_link2",
         "feature": "test_feature2",
         "cohort": "test_cohort2",
         "customFields": {"field3": "value3", "field4": "value4"},
@@ -61,7 +61,7 @@ void main() {
     Product prod1 = Product(
         productId: "test_productId",
         title: "test_title",
-        linkUrl: "test_link",
+        linkUrlString: "test_link",
         feature: "test_feature",
         cohort: "test_cohort",
         customFields: {"field1": "value1", "field2": "value2"},
@@ -81,7 +81,7 @@ void main() {
     Product prod2 = Product(
         productId: "test_productId2",
         title: "test_title2",
-        linkUrl: "test_link2",
+        linkUrlString: "test_link2",
         feature: "test_feature2",
         cohort: "test_cohort2",
         customFields: {"field3": "value3", "field4": "value4"},

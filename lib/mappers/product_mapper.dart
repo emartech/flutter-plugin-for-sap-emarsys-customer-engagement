@@ -10,7 +10,7 @@ class ProductMapper extends Mapper<List<Map<String, dynamic>>, List<Product>> {
         .map((productMap) => Product(
             productId: productMap["productId"],
             title: productMap["title"],
-            linkUrl: productMap["linkUrl"],
+            linkUrlString: productMap["linkUrlString"],
             feature: productMap["feature"],
             cohort: productMap["cohort"],
             customFields: productMap["customFields"],

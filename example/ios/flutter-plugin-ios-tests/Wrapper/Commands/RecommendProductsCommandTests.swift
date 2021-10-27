@@ -8,15 +8,16 @@ import XCTest
 
 class RecommendProductsCommandTests: XCTestCase {
     var command: EmarsysCommandProtocol!
-    var productMapper: ProductMapper!
+    var productsMapper: ProductsMapper!
     var logicMapper: LogicMapper!
     var recommendationFilterMapper: RecommendationFilterMapper!
     
     override func setUpWithError() throws {
-        productMapper = ProductMapper()
+        productsMapper = ProductsMapper()
         logicMapper = LogicMapper()
         recommendationFilterMapper = RecommendationFilterMapper()
-        command = RecommendProductsCommand(productMapper: productMapper,
+        
+        command = RecommendProductsCommand(productsMapper: productsMapper,
                                            logicMapper: logicMapper,
                                            recommendationFilterMapper: recommendationFilterMapper)
     }

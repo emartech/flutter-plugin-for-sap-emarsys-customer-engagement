@@ -7,7 +7,7 @@ class ProductToMapMapper extends Mapper<Product, Map<String, dynamic>> {
     Map<String, dynamic> productMap = {
       "productId": input.productId,
       "title": input.title,
-      "linkUrl": input.linkUrl,
+      "linkUrlString": input.linkUrlString,
       "feature": input.feature,
       "cohort": input.cohort,
       "customFields": input.customFields,

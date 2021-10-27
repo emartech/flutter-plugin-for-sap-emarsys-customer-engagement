@@ -16,7 +16,7 @@ class MapToProductMapper: Mappable {
         return Product(
                 productId: input!["productId"] as! String,
                 title: input!["title"] as! String,
-                linkUrl: input!["linkUrl"] as! String,
+                linkUrlString: input!["linkUrlString"] as! String,
                 feature: input!["feature"] as! String,
                 cohort: input!["cohort"] as! String,
                 customFields: input!["customFields"] as! [String: Any],
