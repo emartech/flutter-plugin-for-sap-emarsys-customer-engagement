@@ -78,6 +78,7 @@ class SetupCommandTest {
 
         every { mockSharedPreferences.edit() } returns mockEdit
         every { Emarsys.setup(any()) } just Runs
+        every { mockApplication.getSharedPreferences("emarsys_setup_cache", 0) } returns mockSharedPreferences
         every { Emarsys.push.pushToken = any() } just Runs
         every { Emarsys.push.setPushToken(any(), any()) } just Runs
         every { Emarsys.push.setNotificationEventHandler(any()) } just Runs
