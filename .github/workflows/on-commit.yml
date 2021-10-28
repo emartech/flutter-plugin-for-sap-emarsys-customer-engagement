@@ -14,7 +14,7 @@ env:
 jobs:
   Android:
     needs: [Lint]
-    runs-on: macos-latest
+    runs-on: macos-11
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
@@ -45,7 +45,7 @@ jobs:
         run: (cd example/android && ./gradlew clean build test -x lint)        
                
   IOS:
-    runs-on: macos-latest
+    runs-on: macos-11
     needs: [Lint]
     steps:
       - name: Checkout repo
@@ -75,10 +75,10 @@ jobs:
         run: flutter test
 
       - name: Run iOS unit tests
-        run: xcodebuild -workspace ~/work/flutter-plugin-for-sap-emarsys-customer-engagement/flutter-plugin-for-sap-emarsys-customer-engagement/example/ios/Runner.xcworkspace -scheme flutter-plugin-ios-tests -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 12 Pro Max' test
+        run: xcodebuild -workspace ~/work/flutter-plugin-for-sap-emarsys-customer-engagement/flutter-plugin-for-sap-emarsys-customer-engagement/example/ios/Runner.xcworkspace -scheme flutter-plugin-ios-tests -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 12 Pro Max,OS=15.1' test
 
   Lint:
-    runs-on: macos-latest
+    runs-on: macos-11
     steps:
       - name: Setup flutter env
         uses: subosito/flutter-action@v1
