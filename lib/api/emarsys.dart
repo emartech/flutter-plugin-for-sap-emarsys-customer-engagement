@@ -6,6 +6,7 @@ import 'package:emarsys_sdk/mappers/cart_item_list_mapper.dart';
 import 'package:emarsys_sdk/mappers/geofence_mapper.dart';
 import 'package:emarsys_sdk/mappers/message_mapper.dart';
 import 'package:emarsys_sdk/mappers/product_mapper.dart';
+import 'package:emarsys_sdk/mappers/product_to_map_mapper.dart';
 import 'package:emarsys_sdk/mappers/recommendation_filter_list_mapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -40,8 +41,12 @@ class Emarsys {
   static Geofence geofence =
       Geofence(_channel, GeofenceMapper(), _geofenceEventChannel);
 
-  static Predict predict = Predict(_channel, ProductMapper(),
-      CartItemListMapper(), RecommendationFilterListMapper());
+  static Predict predict = Predict(
+      _channel,
+      ProductMapper(),
+      CartItemListMapper(),
+      RecommendationFilterListMapper(),
+      ProductToMapMapper());
 
   static Future<void> setup(EmarsysConfig config) {
     Emarsys._initialize();

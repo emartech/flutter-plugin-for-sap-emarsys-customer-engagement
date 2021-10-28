@@ -1,6 +1,7 @@
 import 'package:emarsys_sdk/mappers/cart_item_list_mapper.dart';
 import 'package:emarsys_sdk/mappers/logic_mapper.dart';
 import 'package:emarsys_sdk/mappers/product_mapper.dart';
+import 'package:emarsys_sdk/mappers/product_to_map_mapper.dart';
 import 'package:emarsys_sdk/mappers/recommendation_filter_list_mapper.dart';
 import 'package:emarsys_sdk/model/predict/cart_item.dart';
 import 'package:emarsys_sdk/model/predict/logic.dart';
@@ -14,9 +15,10 @@ class Predict {
   final LogicMapper _logicMapper;
   final CartItemListMapper _cartItemListMapper;
   final RecommendationFilterListMapper _recommendationFilterListMapper;
+  final ProductToMapMapper _productToMapMapper;
 
   Predict(this._channel, this._productMapper, this._cartItemListMapper,
-      this._recommendationFilterListMapper)
+      this._recommendationFilterListMapper, this._productToMapMapper)
       : _logicMapper = LogicMapper(_cartItemListMapper);
 
   Future<void> trackItemView(String itemId) async {
@@ -50,8 +52,8 @@ class Predict {
   }
 
   Future<void> trackRecommendationClick(Product product) async {
-    return _channel
-        .invokeMethod('predict.trackRecommendationClick', {"product": product});
+    return _channel.invokeMethod('predict.trackRecommendationClick',
+        {"product": _productToMapMapper.map(product)});
   }
 
   Future<List<Product>> recommendProducts(

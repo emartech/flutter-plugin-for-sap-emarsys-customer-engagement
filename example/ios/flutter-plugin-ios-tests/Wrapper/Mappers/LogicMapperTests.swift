@@ -50,6 +50,37 @@ class LogicMapperTests: XCTestCase {
         XCTAssertEqual(result, expectation)
     }
     
+    func testMap_cart() throws {
+        let expectation = EMSLogic.cart()
+        let logic = ["name": "CART",
+                     "data": [:],
+                     "variants": []] as [String : Any]
+        
+        
+        let result = self.mapper.map(logic)
+        
+        XCTAssertEqual(result, expectation)
+    }
+    
+    func testMap_cart_withItems() throws {
+        let expectation = EMSLogic.cart(cartItems: [EMSCartItem(itemId: "testId", price: 12.2, quantity: 23.4),
+                                                    EMSCartItem(itemId: "testId2", price: 12.22, quantity: 23.42)])
+        let logic = ["name": "CART",
+                     "data": ["items": [
+                        ["itemId" : "testId",
+                         "price": 12.2,
+                         "quantity" : 23.4],
+                        ["itemId" : "testId2",
+                         "price": 12.22,
+                         "quantity" : 23.42]]],
+                     "variants": []] as [String : Any]
+        
+        
+        let result = self.mapper.map(logic)
+        
+        XCTAssertEqual(result, expectation)
+    }
+    
     func testMap_category() throws {
         let expectation = EMSLogic.category()
         let logic = ["name": "CATEGORY",

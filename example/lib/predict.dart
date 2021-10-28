@@ -274,12 +274,118 @@ class _PredictState extends State<PredictView> {
                     setState(() {
                       _productsToShow = products;
                     });
+                    await Emarsys.predict
+                        .trackRecommendationClick(products[0]);
                   },
-                  child: Text("Recommend products"))
+                  child: Text("Recommend search"))
+            ],
+          ),
+          Row(
+            children: [
+              TextButton(
+                  onPressed: () async {
+                    List<Product> products = await Emarsys.predict
+                        .recommendProducts(
+                            logic: RecommendationLogic.cart(
+                                cartItems: _cartItems));
+                    setState(() {
+                      _productsToShow = products;
+                    });
+                  },
+                  child: Text("Recommend cart"))
+            ],
+          ),
+          Row(
+            children: [
+              TextButton(
+                  onPressed: () async {
+                    List<Product> products = await Emarsys.predict
+                        .recommendProducts(
+                            logic: RecommendationLogic.related(itemId: "2407"));
+                    setState(() {
+                      _productsToShow = products;
+                    });
+                    await Emarsys.predict.trackRecommendationClick(products[0]);
+                  },
+                  child: Text("Recommend related"))
+            ],
+          ),
+          Row(
+            children: [
+              TextButton(
+                  onPressed: () async {
+                    List<Product> products = await Emarsys.predict
+                        .recommendProducts(
+                            logic: RecommendationLogic.category(
+                                categoryPath: "shirt->"));
+                    setState(() {
+                      _productsToShow = products;
+                    });
+                  },
+                  child: Text("Recommend category"))
+            ],
+          ),
+          Row(
+            children: [
+              TextButton(
+                  onPressed: () async {
+                    List<Product> products = await Emarsys.predict
+                        .recommendProducts(
+                            logic:
+                                RecommendationLogic.alsoBought(itemId: "2407"));
+                    setState(() {
+                      _productsToShow = products;
+                    });
+                  },
+                  child: Text("Recommend also bought"))
+            ],
+          ),
+          Row(
+            children: [
+              TextButton(
+                  onPressed: () async {
+                    List<Product> products = await Emarsys.predict
+                        .recommendProducts(
+                            logic: RecommendationLogic.popular(
+                                categoryPath: "shirt"));
+                    setState(() {
+                      _productsToShow = products;
+                    });
+                  },
+                  child: Text("Recommend popular"))
+            ],
+          ),
+          Row(
+            children: [
+              TextButton(
+                  onPressed: () async {
+                    List<Product> products = await Emarsys.predict
+                        .recommendProducts(
+                            logic: RecommendationLogic.personal(
+                                variants: ["var1"]));
+                    setState(() {
+                      _productsToShow = products;
+                    });
+                  },
+                  child: Text("Recommend personal"))
+            ],
+          ),
+          Row(
+            children: [
+              TextButton(
+                  onPressed: () async {
+                    List<Product> products = await Emarsys.predict
+                        .recommendProducts(
+                            logic:
+                                RecommendationLogic.home(variants: ["var2"]));
+                    setState(() {
+                      _productsToShow = products;
+                    });
+                  },
+                  child: Text("Recommend home"))
             ],
           ),
           Text(_productsToShow.map((e) => e.toString()).join("\n")),
-         
         ],
       ),
     );

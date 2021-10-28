@@ -42,7 +42,7 @@ class ProductMapperTest {
 
      result["productId"] shouldBe "testId"
      result["title"] shouldBe "testTitle"
-     result["linkUrl"] shouldBe "testUrl"
+     result["linkUrlString"] shouldBe "testUrl"
      result["feature"] shouldBe "testFeature"
      result["cohort"] shouldBe "testCohort"
      result["customFields"] shouldBe mapOf("key1" to "value1", "key2" to "value2")

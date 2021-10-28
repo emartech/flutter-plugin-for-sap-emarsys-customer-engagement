@@ -21,6 +21,15 @@ class LogicMapper: Mappable {
            } else {
                logic = EMSLogic.search()
            }
+       case "CART":
+           if let cartItemsMap = data["items"] as? [[String: Any]] {
+               let cartItems = cartItemsMap.map{
+                   EMSCartItem(itemId: ($0["itemId"] as! String), price: $0["price"] as! Double, quantity: $0["quantity"] as! Double) as EMSCartItemProtocol
+               }
+               logic = EMSLogic.cart(cartItems: cartItems)
+           } else {
+               logic = EMSLogic.cart()
+           }
        case "CATEGORY":
            if let categoryPath = data["categoryPath"] as? String {
                logic = EMSLogic.category(categoryPath: categoryPath)

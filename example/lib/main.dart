@@ -14,7 +14,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Emarsys.setup(EmarsysConfig(
       applicationCode: 'EMS74-EFB68',
-      merchantId: "4J5FXBB97U",
+      merchantId: "1428C8EE286EC34B",
       androidVerboseConsoleLoggingEnabled: true,
       iOSEnabledConsoleLogLevels: [
         ConsoleLogLevels.BASIC,

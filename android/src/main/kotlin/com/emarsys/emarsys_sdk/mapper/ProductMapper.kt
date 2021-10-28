@@ -7,7 +7,7 @@ class ProductMapper : Mapper<Product, Map<String, Any?>> {
         return mutableMapOf(
             "productId" to input.productId,
             "title" to input.title,
-            "linkUrl" to input.linkUrl,
+            "linkUrlString" to input.linkUrl,
             "feature" to input.feature,
             "cohort" to input.cohort,
             "customFields" to input.customFields,

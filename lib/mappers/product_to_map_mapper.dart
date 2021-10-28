@@ -25,6 +25,7 @@ class ProductToMapMapper extends Mapper<Product, Map<String, dynamic>> {
       "brand": input.brand,
       "year": input.year,
     };
+    productMap.removeWhere((key, value) => value == null);
     return productMap;
   }
 }

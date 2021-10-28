@@ -40,7 +40,7 @@ class MapToProductMapperTest {
         val input = mapOf(
             "productId" to "test_productId",
             "title" to "test_title",
-            "linkUrl" to "http://lifestylelabels.com/lsl-men-polo-shirt-se16.html",
+            "linkUrlString" to "http://lifestylelabels.com/lsl-men-polo-shirt-se16.html",
             "feature" to "test_feature",
             "cohort" to "test_cohort",
             "customFields" to mapOf("field1" to "value1", "field2" to "value2"),
@@ -49,8 +49,8 @@ class MapToProductMapperTest {
             "categoryPath" to "test_categoryPath",
             "available" to true,
             "productDescription" to "test_productDescription",
-            "price" to 12.3f,
-            "msrp" to 45.6f,
+            "price" to 12.3,
+            "msrp" to 45.6,
             "album" to "test_album",
             "actor" to "test_actor",
             "artist" to "test_artist",
@@ -77,7 +77,7 @@ class MapToProductMapperTest {
         val input = mapOf(
             "productId" to "test_productId",
             "title" to "test_title",
-            "linkUrl" to "http://lifestylelabels.com/lsl-men-polo-shirt-se16.html",
+            "linkUrlString" to "http://lifestylelabels.com/lsl-men-polo-shirt-se16.html",
             "feature" to "test_feature",
             "cohort" to "test_cohort",
             "customFields" to mapOf("field1" to "value1", "field2" to "value2")
