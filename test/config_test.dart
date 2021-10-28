@@ -196,7 +196,9 @@ void main() {
           'alertStyle': 'testAlertStyle',
           'showPreviewSetting': 'testShowPreviewSetting',
           'criticalAlertSetting': 'testCriticalAlertSetting',
-          'providesAppNotificationSettings': false
+          'providesAppNotificationSettings': false,
+          'timeSensitiveSetting': "testTimeSensitiveSetting",
+          'scheduledDeliverySetting': "testScheduledDeliverySetting"
         }
       };
     });
@@ -231,7 +233,9 @@ void main() {
                   showPreviewSetting: 'testShowPreviewSetting',
                   soundSetting: 'testSoundSetting',
                   criticalAlertSetting: 'testCriticalAlertSetting',
-                  providesAppNotificationSettings: false)));
+                  providesAppNotificationSettings: false,
+                  timeSensitiveSetting: "testTimeSensitiveSetting",
+                  scheduledDeliverySetting: "testScheduledDeliverySetting")));
     }
   });
 

@@ -9,45 +9,52 @@ class IOSNotificationSettings {
   String showPreviewSetting;
   String? criticalAlertSetting;
   bool? providesAppNotificationSettings;
-  IOSNotificationSettings({
-    required this.authorizationStatus,
-    required this.soundSetting,
-    required this.badgeSetting,
-    required this.notificationCenterSetting,
-    required this.lockScreenSetting,
-    required this.carPlaySetting,
-    required this.alertStyle,
-    required this.showPreviewSetting,
-    this.criticalAlertSetting,
-    this.providesAppNotificationSettings,
-  });
+  String? scheduledDeliverySetting;
+  String? timeSensitiveSetting;
+  IOSNotificationSettings(
+      {required this.authorizationStatus,
+      required this.soundSetting,
+      required this.badgeSetting,
+      required this.notificationCenterSetting,
+      required this.lockScreenSetting,
+      required this.carPlaySetting,
+      required this.alertStyle,
+      required this.showPreviewSetting,
+      this.criticalAlertSetting,
+      this.providesAppNotificationSettings,
+      this.scheduledDeliverySetting,
+      this.timeSensitiveSetting});
 
-  IOSNotificationSettings copyWith({
-    String? authorizationStatus,
-    String? soundSetting,
-    String? badgeSetting,
-    String? notificationCenterSetting,
-    String? lockScreenSetting,
-    String? carPlaySetting,
-    String? alertStyle,
-    String? showPreviewSetting,
-    String? criticalAlertSetting,
-    bool? providesAppNotificationSettings,
-  }) {
+  IOSNotificationSettings copyWith(
+      {String? authorizationStatus,
+      String? soundSetting,
+      String? badgeSetting,
+      String? notificationCenterSetting,
+      String? lockScreenSetting,
+      String? carPlaySetting,
+      String? alertStyle,
+      String? showPreviewSetting,
+      String? criticalAlertSetting,
+      bool? providesAppNotificationSettings,
+      String? scheduledDeliverySetting,
+      String? timeSensitiveSetting}) {
     return IOSNotificationSettings(
-      authorizationStatus: authorizationStatus ?? this.authorizationStatus,
-      soundSetting: soundSetting ?? this.soundSetting,
-      badgeSetting: badgeSetting ?? this.badgeSetting,
-      notificationCenterSetting:
-          notificationCenterSetting ?? this.notificationCenterSetting,
-      lockScreenSetting: lockScreenSetting ?? this.lockScreenSetting,
-      carPlaySetting: carPlaySetting ?? this.carPlaySetting,
-      alertStyle: alertStyle ?? this.alertStyle,
-      showPreviewSetting: showPreviewSetting ?? this.showPreviewSetting,
-      criticalAlertSetting: criticalAlertSetting ?? this.criticalAlertSetting,
-      providesAppNotificationSettings: providesAppNotificationSettings ??
-          this.providesAppNotificationSettings,
-    );
+        authorizationStatus: authorizationStatus ?? this.authorizationStatus,
+        soundSetting: soundSetting ?? this.soundSetting,
+        badgeSetting: badgeSetting ?? this.badgeSetting,
+        notificationCenterSetting:
+            notificationCenterSetting ?? this.notificationCenterSetting,
+        lockScreenSetting: lockScreenSetting ?? this.lockScreenSetting,
+        carPlaySetting: carPlaySetting ?? this.carPlaySetting,
+        alertStyle: alertStyle ?? this.alertStyle,
+        showPreviewSetting: showPreviewSetting ?? this.showPreviewSetting,
+        criticalAlertSetting: criticalAlertSetting ?? this.criticalAlertSetting,
+        providesAppNotificationSettings: providesAppNotificationSettings ??
+            this.providesAppNotificationSettings,
+        scheduledDeliverySetting:
+            scheduledDeliverySetting ?? this.scheduledDeliverySetting,
+        timeSensitiveSetting:
+            timeSensitiveSetting ?? this.timeSensitiveSetting);
   }
 
   factory IOSNotificationSettings.fromMap(Map<dynamic, dynamic> map) {
@@ -62,12 +69,14 @@ class IOSNotificationSettings {
       showPreviewSetting: map['showPreviewSetting'],
       criticalAlertSetting: map['criticalAlertSetting'],
       providesAppNotificationSettings: map['providesAppNotificationSettings'],
+      scheduledDeliverySetting: map['scheduledDeliverySetting'],
+      timeSensitiveSetting: map['timeSensitiveSetting'],
     );
   }
 
   @override
   String toString() {
-    return 'IOSNotificationSettings(authorizationStatus: $authorizationStatus, soundSetting: $soundSetting, badgeSetting: $badgeSetting, notificationCenterSetting: $notificationCenterSetting, lockScreenSetting: $lockScreenSetting, carPlaySetting: $carPlaySetting, alertStyle: $alertStyle, showPreviewSetting: $showPreviewSetting, criticalAlertSetting: $criticalAlertSetting, providesAppNotificationSettings: $providesAppNotificationSettings)';
+    return 'IOSNotificationSettings(authorizationStatus: $authorizationStatus, soundSetting: $soundSetting, badgeSetting: $badgeSetting, notificationCenterSetting: $notificationCenterSetting, lockScreenSetting: $lockScreenSetting, carPlaySetting: $carPlaySetting, alertStyle: $alertStyle, showPreviewSetting: $showPreviewSetting, criticalAlertSetting: $criticalAlertSetting, providesAppNotificationSettings: $providesAppNotificationSettings, timeSensitiveSetting: $timeSensitiveSetting, scheduledDeliverySetting: $scheduledDeliverySetting)';
   }
 
   @override
@@ -85,7 +94,9 @@ class IOSNotificationSettings {
         other.showPreviewSetting == showPreviewSetting &&
         other.criticalAlertSetting == criticalAlertSetting &&
         other.providesAppNotificationSettings ==
-            providesAppNotificationSettings;
+            providesAppNotificationSettings &&
+        other.scheduledDeliverySetting == scheduledDeliverySetting &&
+        other.timeSensitiveSetting == timeSensitiveSetting;
   }
 
   @override
@@ -99,6 +110,8 @@ class IOSNotificationSettings {
         alertStyle.hashCode ^
         showPreviewSetting.hashCode ^
         criticalAlertSetting.hashCode ^
-        providesAppNotificationSettings.hashCode;
+        providesAppNotificationSettings.hashCode ^
+        timeSensitiveSetting.hashCode ^
+        scheduledDeliverySetting.hashCode;
   }
 }
