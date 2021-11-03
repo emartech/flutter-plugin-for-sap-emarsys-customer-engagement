@@ -18,25 +18,55 @@ class ProductsMapper: Mappable {
 }
 
 extension EMSProductProtocol {
-    func toMap() -> [String: Any?] {
-        ["productId": productId,
-         "title": title,
-         "linkUrlString": linkUrl.absoluteString,
-         "feature": feature,
-         "cohort": cohort,
-         "customFields": customFields,
-         "imageUrlString": imageUrl?.absoluteString,
-         "zoomImageUrlString": zoomImageUrl?.absoluteString,
-         "categoryPath": categoryPath,
-         "available": available,
-         "productDescription": productDescription,
-         "price": price,
-         "msrp": msrp,
-         "album": album,
-         "actor": actor,
-         "artist": artist,
-         "author": author,
-         "brand": brand,
-         "year": year]
+    func toMap() -> [String: Any] {
+        var result = [String: Any]();
+        
+        result["productId"] = productId
+        result["title"] = title
+        result["linkUrlString"] = linkUrl.absoluteString
+        result["feature"] = feature
+        result["cohort"] = cohort
+        result["customFields"] = customFields
+        if let imageUrlString = imageUrl {
+            result["imageUrlString"] = imageUrlString.absoluteString
+        }
+        if let zoomImageUrlString = zoomImageUrl {
+            result["zoomImageUrlString"] = zoomImageUrlString.absoluteString
+        }
+        if let categoryPath = categoryPath {
+            result["categoryPath"] = categoryPath
+        }
+        if let available = available {
+            result["available"] = available
+        }
+        if let productDescription = productDescription {
+            result["productDescription"] = productDescription
+        }
+        if let price = price {
+            result["price"] = price
+        }
+        if let msrp = msrp {
+            result["msrp"] = msrp
+        }
+        if let album = album {
+            result["album"] = album
+        }
+        if let actor = actor {
+            result["actor"] = actor
+        }
+        if let artist = artist {
+            result["artist"] = artist
+        }
+        if let author = author {
+            result["author"] = author
+        }
+        if let brand = brand {
+            result["brand"] = brand
+        }
+        if let year = year {
+            result["year"] = year
+        }
+        
+        return result
     }
 }

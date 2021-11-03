@@ -136,4 +136,59 @@ class ProductsMapperTests: XCTestCase {
         XCTAssertEqual(actual["brand"] as! String, expectation["brand"] as! String)
         XCTAssertEqual(actual["year"] as! NSNumber, expectation["year"] as! NSNumber)
     }
+    
+    func testMapWithMissingOptionalParameters() {
+        let expectation = [
+            "productId": "productId",
+            "title": "title",
+            "linkUrlString": "https://emarsys.com",
+            "feature": "feature",
+            "cohort": "cohort",
+            "customFields": ["key": "value"]
+        ] as [String : Any]
+        
+        let products : [Product] = [
+            Product(
+                productId: "productId",
+                title: "title",
+                linkUrlString: "https://emarsys.com",
+                feature: "feature",
+                cohort: "cohort",
+                customFields: ["key": "value"],
+                imageUrlString: nil,
+                zoomImageUrlString: nil,
+                categoryPath: nil,
+                available: nil,
+                productDescription: nil,
+                price: nil,
+                msrp: nil,
+                album: nil,
+                actor: nil,
+                artist: nil,
+                author: nil,
+                brand: nil,
+                year: nil)]
+        
+        let actual = self.mapper.map(products)[0]
+        
+        XCTAssertEqual(actual["productId"] as! String, expectation["productId"] as! String)
+        XCTAssertEqual(actual["title"] as! String, expectation["title"] as! String)
+        XCTAssertEqual(actual["linkUrlString"] as! String, expectation["linkUrlString"] as! String)
+        XCTAssertEqual(actual["feature"] as! String, expectation["feature"] as! String)
+        XCTAssertEqual(actual["cohort"] as! String, expectation["cohort"] as! String)
+        XCTAssertEqual(actual["customFields"] as! [String: String], expectation["customFields"] as! [String: String])
+        XCTAssertFalse(actual.keys.contains("imageUrlString"))
+        XCTAssertFalse(actual.keys.contains("zoomImageUrlString"))
+        XCTAssertFalse(actual.keys.contains("categoryPath"))
+        XCTAssertFalse(actual.keys.contains("available"))
+        XCTAssertFalse(actual.keys.contains("productDescription"))
+        XCTAssertFalse(actual.keys.contains("price"))
+        XCTAssertFalse(actual.keys.contains("msrp"))
+        XCTAssertFalse(actual.keys.contains("album"))
+        XCTAssertFalse(actual.keys.contains("actor"))
+        XCTAssertFalse(actual.keys.contains("artist"))
+        XCTAssertFalse(actual.keys.contains("author"))
+        XCTAssertFalse(actual.keys.contains("brand"))
+        XCTAssertFalse(actual.keys.contains("year"))
+    }
 }

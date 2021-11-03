@@ -5,7 +5,7 @@
 import EmarsysSDK
 
 class EmarsysCommandFactory {
-
+    
     var pushEventHandler: EMSEventHandlerBlock
     var silentPushEventHandler: EMSEventHandlerBlock
     var geofenceEventHandler: EMSEventHandlerBlock
@@ -15,7 +15,8 @@ class EmarsysCommandFactory {
     var productsMapper: ProductsMapper
     var logicMapper: LogicMapper
     var recommendationFilterMapper: RecommendationFilterMapper
-
+    var geofencesMapper: GeofencesMapper
+    
     init(pushEventHandler: @escaping EMSEventHandlerBlock,
          silentPushEventHandler: @escaping EMSEventHandlerBlock,
          inboxMapper: InboxMapper,
@@ -24,7 +25,8 @@ class EmarsysCommandFactory {
          mapToProductMapper: MapToProductMapper,
          productsMapper: ProductsMapper,
          logicMapper: LogicMapper,
-         recommendationFilterMapper: RecommendationFilterMapper) {
+         recommendationFilterMapper: RecommendationFilterMapper,
+         geofencesMapper: GeofencesMapper) {
         self.pushEventHandler = pushEventHandler
         self.silentPushEventHandler = silentPushEventHandler
         self.inboxMapper = inboxMapper
@@ -34,16 +36,17 @@ class EmarsysCommandFactory {
         self.productsMapper = productsMapper
         self.logicMapper = logicMapper
         self.recommendationFilterMapper = recommendationFilterMapper
+        self.geofencesMapper = geofencesMapper
     }
-
+    
     func create(name: String) -> EmarsysCommandProtocol? {
         var result: EmarsysCommandProtocol?
         switch name {
         case "setup":
             result = SetupCommand(pushEventHandler: self.pushEventHandler,
-                    silentPushEventHandler: self.silentPushEventHandler,
-                    geofenceEventHandler: self.geofenceEventHandler,
-                    inAppEventHandler: self.inAppEventHandler)
+                                  silentPushEventHandler: self.silentPushEventHandler,
+                                  geofenceEventHandler: self.geofenceEventHandler,
+                                  inAppEventHandler: self.inAppEventHandler)
         case "setContact":
             result = SetContactCommand()
         case "clearContact":
@@ -88,6 +91,8 @@ class EmarsysCommandFactory {
             result = GeofenceiOSRequestAlwaysAuthorizationCommand()
         case "geofence.isEnabled":
             result = GeofenceisEnabledCommand()
+        case "geofence.registeredGeofences":
+            result = GeofenceRegisteredGeofencesCommand(geofencesMapper: self.geofencesMapper)
         case "inApp.pause":
             result = InAppPauseCommand()
         case "inApp.resume":
@@ -115,5 +120,5 @@ class EmarsysCommandFactory {
         }
         return result
     }
-
+    
 }
