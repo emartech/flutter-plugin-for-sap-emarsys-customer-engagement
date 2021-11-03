@@ -49,6 +49,7 @@
             android:name="flutterEmbedding"
             android:value="2" />
 
+
         <service
             android:name="com.emarsys.emarsys_sdk.api.EmarsysFirebaseMessagingService"
             android:exported="false">
@@ -63,5 +64,16 @@
                 <action android:name="com.huawei.push.action.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+        <provider
+android:name="com.emarsys.provider.SharedHardwareIdentificationContentProvider"
+android:authorities="${applicationId}"
+android:enabled="true"
+android:exported="true"
+android:grantUriPermissions="true" />
     </application>
+
+        <queries>
+            <package android:name="com.emarsys.sample" />
+        </queries>
+
 </manifest>

@@ -16,6 +16,8 @@ void main() async {
       applicationCode: 'EMS11-C3FD3',
       merchantId: "1428C8EE286EC34B",
       androidVerboseConsoleLoggingEnabled: true,
+      androidSharedPackageNames: ["com.emarsys.sample"],
+      androidSharedSecret: "secret",
       iOSEnabledConsoleLogLevels: [
         ConsoleLogLevels.BASIC,
         ConsoleLogLevels.DEBUG,
