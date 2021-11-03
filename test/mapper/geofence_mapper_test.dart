@@ -14,7 +14,7 @@
     });
     
     test('map should not crash when inputList contains null', () async {
-      final List<dynamic> emptyList = [null];
+      final List<Map<String,dynamic>?> emptyList = [null];
       final List<GeofenceModel> result = mapper.map(emptyList);
 
       expect(result.length, 0);

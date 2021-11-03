@@ -5,18 +5,18 @@ class GeofenceModel extends Equatable {
   final String id;
   final double lat;
   final double lon;
-  final int r;
-  final double waitInterval;
+  final double radius;
+  final double? waitInterval;
   final List<GeofenceTrigger> triggers;
 
   GeofenceModel(
       {required this.id,
       required this.lat,
       required this.lon,
-      required this.r,
+      required this.radius,
       required this.waitInterval,
       required this.triggers});
 
   @override
-  List<Object?> get props => [id, lat, lon, r, waitInterval, triggers];
+  List<Object?> get props => [id, lat, lon, radius, waitInterval, triggers];
 }

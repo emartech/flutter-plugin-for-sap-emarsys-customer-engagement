@@ -13,7 +13,7 @@ import 'dart:convert';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Emarsys.setup(EmarsysConfig(
-      applicationCode: 'EMS74-EFB68',
+      applicationCode: 'EMS11-C3FD3',
       merchantId: "1428C8EE286EC34B",
       androidVerboseConsoleLoggingEnabled: true,
       iOSEnabledConsoleLogLevels: [
@@ -352,6 +352,16 @@ class _MyAppState extends State<MyApp> {
                   child: Text("Disable Geofence")),
             ],
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                  onPressed: () async {
+                    print(await Emarsys.geofence.registeredGeofences());
+                  },
+                  child: Text("Log registered Geofences")),
+            ],
           ),
           if (showInlineInApp)
             Card(

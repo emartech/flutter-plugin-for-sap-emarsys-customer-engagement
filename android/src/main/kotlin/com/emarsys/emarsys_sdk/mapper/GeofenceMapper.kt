@@ -1,7 +1,9 @@
 package com.emarsys.emarsys_sdk.mapper
 
+import com.emarsys.emarsys_sdk.util.JsonUtils
 import com.emarsys.mobileengage.api.geofence.Geofence
 import com.emarsys.mobileengage.api.geofence.Trigger
+import org.json.JSONObject
 
 class GeofenceMapper : Mapper<List<Geofence>, List<Map<String, Any>>> {
 
@@ -18,21 +20,42 @@ class GeofenceMapper : Mapper<List<Geofence>, List<Map<String, Any>>> {
                 it.waitInterval?.let { waitInterval ->
                     resultMap["waitInterval"] = waitInterval
                 }
-                resultMap
+                resultMap.toMap()
             }
-            .toList()
     }
 
     private fun mapTriggers(triggers: List<Trigger>): List<Map<String, Any>> {
         return triggers
             .map {
-                mapOf(
+                val mappedAction = mutableMapOf<String, Any>(
                     "id" to it.id,
                     "type" to it.type.name,
                     "loiteringDelay" to it.loiteringDelay,
-                    "action" to it.action
                 )
+                mapAction(it.action)?.let { action ->
+                    mappedAction["action"] = action
+                }
+                mappedAction
             }
             .toList()
+    }
+
+    private fun mapAction(action: JSONObject): Map<String, Any>? {
+        if (action.length() != 0) {
+            val result = mutableMapOf(
+                "id" to action.get("id"),
+                "type" to action.get("type")
+            )
+
+            when (action["type"]) {
+                "OpenExternalUrl" -> result["url"] = action.get("url")
+                "MECustomEvent", "MEAppEvent" -> {
+                    result["name"] = action.get("name")
+                    result["payload"] = JsonUtils.toMap(action.get("payload") as JSONObject)
+                }
+            }
+            return result.toMap()
+        }
+        return null
     }
 }

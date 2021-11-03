@@ -68,4 +68,5 @@ dependencies {
     testImplementation "junit:junit:$junit_version"
     testImplementation "io.kotlintest:kotlintest-runner-junit4:$kotlintest_version"
     testImplementation "io.mockk:mockk:$mockk_version"
+    testImplementation 'org.json:json:20140107'
 }

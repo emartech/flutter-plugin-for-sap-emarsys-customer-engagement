@@ -6,9 +6,9 @@ import 'package:flutter/services.dart';
 class Geofence {
   final MethodChannel _channel;
   final Stream<Event> geofenceEventStream;
-  final GeofenceMapper _mapper;  
+  final GeofenceMapper _mapper;
 
-  Geofence(this._channel, GeofenceMapper this._mapper, EventChannel _geofenceEventChannel)
+  Geofence(this._channel, this._mapper, EventChannel _geofenceEventChannel)
       : geofenceEventStream = _geofenceEventChannel
             .receiveBroadcastStream()
             .map((event) => Event(
@@ -41,8 +41,10 @@ class Geofence {
   }
 
   Future<List<GeofenceModel>> registeredGeofences() async {
-    List<dynamic>? geofences =
-        await _channel.invokeMethod('geofence.registeredGeofences');
+    List<Map<String, dynamic>>? geofences =
+        List.from(await _channel.invokeMethod('geofence.registeredGeofences'))
+            .map((geofence) => Map<String, dynamic>.from(geofence))
+            .toList();
     if (geofences == null) {
       throw NullThrownError();
     }
