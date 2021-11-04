@@ -1,12 +1,16 @@
 package com.emarsys.emarsys_sdk.flutter
 
+import android.os.Handler
 import com.emarsys.emarsys_sdk.command.EmarsysCommandFactory
 import com.emarsys.emarsys_sdk.command.ResultCallback
 import com.emarsys.emarsys_sdk.command.mobileengage.contact.ClearContactCommand
 import com.emarsys.emarsys_sdk.command.setup.SetupCommand
 import com.emarsys.emarsys_sdk.di.FakeDependencyContainer
+import com.emarsys.emarsys_sdk.di.dependencyContainer
 import com.emarsys.emarsys_sdk.di.setupDependencyContainer
 import com.emarsys.emarsys_sdk.di.tearDownDependencyContainer
+import com.emarsys.emarsys_sdk.provider.MainHandlerProvider
+import com.emarsys.emarsys_sdk.provider.MainHandlerProvider.provide
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.mockk.*
@@ -19,13 +23,18 @@ class EmarsysMethodCallHandlerTest {
 
     private lateinit var emarsysMethodCallHandler: EmarsysMethodCallHandler
     private lateinit var mockCommandFactory: EmarsysCommandFactory
+    private lateinit var mockUIHandler: Handler
 
     @Before
     fun setUp() {
-        emarsysMethodCallHandler = EmarsysMethodCallHandler(mockk())
+        mockkObject(MainHandlerProvider)
+        every { provide() } returns mockk(relaxed = true)
 
         mockCommandFactory = mockk(relaxed = true)
-        setupDependencyContainer(FakeDependencyContainer(emarsysCommandFactory = mockCommandFactory))
+        mockUIHandler = mockk(relaxed = true)
+        setupDependencyContainer(FakeDependencyContainer(emarsysCommandFactory = mockCommandFactory, uiHandler = mockUIHandler))
+
+        emarsysMethodCallHandler = EmarsysMethodCallHandler(mockk(), uiHandler = dependencyContainer().uiHandler)
     }
 
     @After
@@ -140,6 +149,13 @@ class EmarsysMethodCallHandlerTest {
             (call.invocation.args[1] as ResultCallback).invoke(null, testError)
         }
 
+        every {
+            mockUIHandler.post(any())
+        } answers { call ->
+            (call.invocation.args[0] as Runnable).run()
+            true
+        }
+
         emarsysMethodCallHandler.onMethodCall(
             MethodCall(
                 "setup",
@@ -149,6 +165,7 @@ class EmarsysMethodCallHandlerTest {
         )
 
         verify { mockResult.error("EMARSYS_SDK_ERROR", "testErrorMessage", testError) }
+        verify { mockUIHandler.post(any()) }
     }
 
     @Test
@@ -168,6 +185,13 @@ class EmarsysMethodCallHandlerTest {
             (call.invocation.args[1] as ResultCallback).invoke(Any(), null)
         }
 
+        every {
+            mockUIHandler.post(any())
+        } answers { call ->
+            (call.invocation.args[0] as Runnable).run()
+            true
+        }
+
         emarsysMethodCallHandler.onMethodCall(
             MethodCall(
                 "setup",
@@ -177,6 +201,7 @@ class EmarsysMethodCallHandlerTest {
         )
 
         verify { mockResult.success(any()) }
+        verify { mockUIHandler.post(any()) }
     }
 
     @Test

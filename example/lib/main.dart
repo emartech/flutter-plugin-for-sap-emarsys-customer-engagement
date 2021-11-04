@@ -13,7 +13,7 @@ import 'dart:convert';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Emarsys.setup(EmarsysConfig(
-      applicationCode: 'EMS11-C3FD3',
+      applicationCode: 'EMS74-EFB68',
       merchantId: "1428C8EE286EC34B",
       androidVerboseConsoleLoggingEnabled: true,
       androidSharedPackageNames: ["com.emarsys.sample"],

@@ -10,6 +10,7 @@ import com.emarsys.emarsys_sdk.flutter.InlineInAppViewFactory
 import com.emarsys.emarsys_sdk.mapper.*
 import com.emarsys.emarsys_sdk.notification.NotificationChannelFactory
 import com.emarsys.emarsys_sdk.provider.BackgroundHandlerProvider
+import com.emarsys.emarsys_sdk.provider.MainHandlerProvider
 import com.emarsys.emarsys_sdk.storage.CurrentActivityHolder
 import com.emarsys.emarsys_sdk.storage.PushTokenStorage
 import io.flutter.plugin.common.BinaryMessenger
@@ -26,6 +27,9 @@ class DefaultDependencyContainer(
         BackgroundHandlerProvider.provide()
     }
 
+    override val uiHandler: Handler by lazy {
+        MainHandlerProvider.provide()
+    }
 
     override val emarsysCommandFactory: EmarsysCommandFactory by lazy {
         EmarsysCommandFactory(

@@ -13,7 +13,6 @@ import io.flutter.embedding.engine.dart.DartExecutor
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.view.FlutterCallbackInformation
-import java.lang.RuntimeException
 import java.util.concurrent.atomic.AtomicBoolean
 
 class FlutterBackgroundExecutor(private val application: Application) {
@@ -68,9 +67,15 @@ class FlutterBackgroundExecutor(private val application: Application) {
             isolate,
             BACKGROUND_CHANNEL_NAME
         ).also {
-            it.setMethodCallHandler(EmarsysMethodCallHandler(application) { isRunning ->
-                isCallbackDispatcherReady.set(isRunning)
-            })
+            it.setMethodCallHandler(
+                EmarsysMethodCallHandler(
+                    application,
+                    { isRunning ->
+                        isCallbackDispatcherReady.set(isRunning)
+                    },
+                    MainHandlerProvider.provide()
+                )
+            )
         }
     }
 }

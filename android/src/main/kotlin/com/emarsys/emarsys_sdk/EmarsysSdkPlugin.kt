@@ -1,17 +1,14 @@
 package com.emarsys.emarsys_sdk
 
 import android.app.Application
-import android.content.Context
 import androidx.annotation.NonNull
 import com.emarsys.emarsys_sdk.di.DefaultDependencyContainer
 import com.emarsys.emarsys_sdk.di.dependencyContainer
 import com.emarsys.emarsys_sdk.di.setupDependencyContainer
 import com.emarsys.emarsys_sdk.flutter.EmarsysMethodCallHandler
-import com.emarsys.emarsys_sdk.flutter.InlineInAppViewFactory
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
-import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodChannel
 import java.lang.ref.WeakReference
 
@@ -40,7 +37,7 @@ class EmarsysSdkPlugin : FlutterPlugin, ActivityAware {
             }
 
             channel = MethodChannel(messenger, METHOD_CHANNEL_NAME)
-            channel!!.setMethodCallHandler(EmarsysMethodCallHandler(applicationContext))
+            channel!!.setMethodCallHandler(EmarsysMethodCallHandler(applicationContext, uiHandler = dependencyContainer().uiHandler))
 
             flutterPluginBinding
                 .platformViewRegistry
