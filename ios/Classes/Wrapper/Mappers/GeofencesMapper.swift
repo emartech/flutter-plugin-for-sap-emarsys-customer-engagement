@@ -24,7 +24,7 @@ extension EMSGeofence {
             "id": id as String,
             "lat": lat as Double,
             "lon": lon as Double,
-            "radius": r as Int32,
+            "radius": Double(r as Int32),
             "waitInterval": waitInterval as Double,
             "triggers": triggers.map{$0.toMap()}
          ]
