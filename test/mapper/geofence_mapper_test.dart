@@ -1,4 +1,6 @@
-  import 'package:emarsys_sdk/mappers/geofence_mapper.dart';
+  import 'dart:ffi';
+
+import 'package:emarsys_sdk/mappers/geofence_mapper.dart';
   import 'package:emarsys_sdk/model/geofence_model.dart';
   import 'package:emarsys_sdk/model/geofence_trigger.dart';
   import 'package:flutter_test/flutter_test.dart';
@@ -32,7 +34,7 @@
         "id": "testId",
         "lat": 12.34,
         "lon": 56.78,
-        "r": 30,
+        "radius": 30.0,
         "waitInterval": 90.12
       };
       fullMessageMap["triggers"] = [
@@ -84,7 +86,7 @@
       id: "testId",
       lat: 12.34,
       lon: 56.78,
-      r: 30,
+      radius:  30.0,
       waitInterval: 90.12,
       triggers:[trigger1, trigger2]
       );

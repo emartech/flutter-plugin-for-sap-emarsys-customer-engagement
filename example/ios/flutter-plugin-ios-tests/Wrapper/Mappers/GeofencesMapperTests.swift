@@ -74,7 +74,7 @@ class GeofencesMapperTests: XCTestCase {
                 "id": "testGeofenceId",
                 "lat": 12.34,
                 "lon": 56.78,
-                "radius": 30 as Int32,
+                "radius": 30.0,
                 "waitInterval": 90.12,
                 "triggers": [
                     [
@@ -89,7 +89,7 @@ class GeofencesMapperTests: XCTestCase {
                 "id": "testGeofenceId2",
                 "lat": 12.34,
                 "lon": 56.78,
-                "radius": 30 as Int32,
+                "radius": 30.0,
                 "waitInterval": 90.12,
                 "triggers": [
                     [
@@ -112,7 +112,7 @@ class GeofencesMapperTests: XCTestCase {
         XCTAssertEqual(result[0]["id"] as! String, expectedResult[0]["id"] as! String)
         XCTAssertEqual(result[0]["lat"] as! Double, expectedResult[0]["lat"] as! Double)
         XCTAssertEqual(result[0]["lon"] as! Double, expectedResult[0]["lon"] as! Double)
-        XCTAssertEqual(result[0]["radius"] as! Int32, expectedResult[0]["radius"] as! Int32)
+        XCTAssertEqual(result[0]["radius"] as! Double, expectedResult[0]["radius"] as! Double)
         XCTAssertEqual(result[0]["waitInterval"] as! Double, expectedResult[0]["waitInterval"] as! Double)
         XCTAssertEqual(resultTriggers1[0]["id"] as! String, expectedResultTrigger1[0]["id"] as! String)
         XCTAssertEqual(resultTriggers1[0]["type"] as! String, expectedResultTrigger1[0]["type"] as! String)
@@ -126,7 +126,7 @@ class GeofencesMapperTests: XCTestCase {
         XCTAssertEqual(result[1]["id"] as! String, expectedResult[1]["id"] as! String)
         XCTAssertEqual(result[1]["lat"] as! Double, expectedResult[1]["lat"] as! Double)
         XCTAssertEqual(result[1]["lon"] as! Double, expectedResult[1]["lon"] as! Double)
-        XCTAssertEqual(result[1]["radius"] as! Int32, expectedResult[1]["radius"] as! Int32)
+        XCTAssertEqual(result[1]["radius"] as! Double, expectedResult[1]["radius"] as! Double)
         XCTAssertEqual(result[1]["waitInterval"] as! Double, expectedResult[1]["waitInterval"] as! Double)
         XCTAssertEqual(resultTriggers2[0]["id"] as! String, expectedResultTrigger2[0]["id"] as! String)
         XCTAssertEqual(resultTriggers2[0]["type"] as! String, expectedResultTrigger2[0]["type"] as! String)

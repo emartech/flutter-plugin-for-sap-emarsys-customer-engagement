@@ -32,6 +32,7 @@ scripts:
     - flutter pub get
     - flutter pub run build_runner build --delete-conflicting-outputs
     - rm example/lib/version.dart
+    - $pana-test
   test-flutter:
     -  echo running Flutter unit tests
     -  flutter test
@@ -50,4 +51,7 @@ scripts:
     - $test-android
     - sleep 10s
     - $test-ios
+  pana-test:
+    - flutter pub global activate pana
+    - flutter pub global run pana  ~/work/flutter-plugin-for-sap-emarsys-customer-engagement/
     
