@@ -4,7 +4,6 @@ import android.content.SharedPreferences
 import android.os.Handler
 import com.emarsys.emarsys_sdk.command.EmarsysCommand
 import com.emarsys.emarsys_sdk.command.ResultCallback
-import com.emarsys.emarsys_sdk.di.dependencyContainer
 import com.emarsys.emarsys_sdk.flutter.FlutterBackgroundExecutor
 
 class InitializeCommand(

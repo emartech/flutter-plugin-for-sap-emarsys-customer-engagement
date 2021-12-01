@@ -39,10 +39,12 @@ class SetupCommandTest {
     private lateinit var mockGeofenceEventHandler: EventHandler
     private lateinit var mockInAppEventHandler: EventHandler
     private lateinit var mockEventHandlerFactory: EventHandlerFactory
+    private lateinit var mockPushApi: PushApi
 
     @Before
     fun setUp() {
         mockPushTokenStorage = mockk(relaxed = true)
+        mockPushApi = mockk(relaxed = true)
         mockApplication = mockk(relaxed = true)
         mockSharedPreferences = mockk(relaxed = true)
         mockEdit = mockk(relaxed = true)
@@ -58,10 +60,18 @@ class SetupCommandTest {
             mockSharedPreferences,
             false
         )
-        every { mockEventHandlerFactory.create(EventHandlerFactory.EventChannelName.PUSH) } returns mockPushEventHandler
-        every { mockEventHandlerFactory.create(EventHandlerFactory.EventChannelName.SILENT_PUSH) } returns mockSilentPushEventHandler
-        every { mockEventHandlerFactory.create(EventHandlerFactory.EventChannelName.GEOFENCE) } returns mockGeofenceEventHandler
-        every { mockEventHandlerFactory.create(EventHandlerFactory.EventChannelName.INAPP) } returns mockInAppEventHandler
+        every {
+            mockEventHandlerFactory.create(EventHandlerFactory.EventChannelName.PUSH)
+        } returns mockPushEventHandler
+        every {
+            mockEventHandlerFactory.create(EventHandlerFactory.EventChannelName.SILENT_PUSH)
+        } returns mockSilentPushEventHandler
+        every {
+            mockEventHandlerFactory.create(EventHandlerFactory.EventChannelName.GEOFENCE)
+        } returns mockGeofenceEventHandler
+        every {
+            mockEventHandlerFactory.create(EventHandlerFactory.EventChannelName.INAPP)
+        } returns mockInAppEventHandler
 
         every { mockPushTokenStorage.pushToken } returns PUSH_TOKEN
         every { mockPushTokenStorage.enabled } returns true
@@ -78,7 +88,13 @@ class SetupCommandTest {
 
         every { mockSharedPreferences.edit() } returns mockEdit
         every { Emarsys.setup(any()) } just Runs
-        every { mockApplication.getSharedPreferences("emarsys_setup_cache", 0) } returns mockSharedPreferences
+        every {
+            mockApplication.getSharedPreferences(
+                "emarsys_setup_cache",
+                0
+            )
+        } returns mockSharedPreferences
+        every { Emarsys.push } returns mockPushApi
         every { Emarsys.push.pushToken = any() } just Runs
         every { Emarsys.push.setPushToken(any(), any()) } just Runs
         every { Emarsys.push.setNotificationEventHandler(any()) } just Runs
@@ -148,6 +164,7 @@ class SetupCommandTest {
                 true
             )
         }
+
         verify { mockEdit.apply() }
         verify { Emarsys.setup(expectedConfig) }
         verify { Emarsys.push.pushToken = PUSH_TOKEN }
@@ -270,6 +287,11 @@ class SetupCommandTest {
         }
 
         verify { Emarsys.setup(expectedConfig) }
+        verify { Emarsys.push.pushToken = PUSH_TOKEN }
+        verify(exactly = 0) { mockPushApi.setNotificationEventHandler(mockPushEventHandler) }
+        verify(exactly = 0) { mockPushApi.setSilentMessageEventHandler(mockSilentPushEventHandler) }
+        verify(exactly = 0) { Emarsys.geofence.setEventHandler(mockGeofenceEventHandler) }
+        verify(exactly = 0) { Emarsys.inApp.setEventHandler(mockInAppEventHandler) }
     }
 
     @Test

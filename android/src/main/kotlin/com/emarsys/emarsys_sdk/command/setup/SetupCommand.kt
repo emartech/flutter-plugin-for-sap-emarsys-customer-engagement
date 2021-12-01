@@ -2,6 +2,7 @@ package com.emarsys.emarsys_sdk.command.setup
 
 import android.app.Application
 import android.content.SharedPreferences
+import android.util.Log
 import com.emarsys.Emarsys
 import com.emarsys.config.ConfigLoader
 import com.emarsys.config.EmarsysConfig
@@ -29,13 +30,17 @@ class SetupCommand(
     override fun execute(parameters: Map<String, Any?>?, resultCallback: ResultCallback) {
         WrapperInfoContainer.wrapperInfo = "flutter"
         val configBuilder = if (fromCache) {
-            ConfigLoader().loadConfigFromSharedPref(application, EMARSYS_SETUP_CACHE_SHARED_PREFERENCES)
+            ConfigLoader().loadConfigFromSharedPref(
+                application,
+                EMARSYS_SETUP_CACHE_SHARED_PREFERENCES
+            )
         } else {
             configFromParameters(parameters)
         }
 
         val setupHasBeenCalledPreviously = isEmarsysComponentSetup()
         Emarsys.setup(configBuilder.build())
+
         if (!setupHasBeenCalledPreviously) {
             Emarsys.trackCustomEvent("wrapper:init", mapOf("type" to "flutter"))
         }
@@ -72,15 +77,16 @@ class SetupCommand(
                 }
         }
 
-        eventHandlerFactory.create(EventHandlerFactory.EventChannelName.PUSH)
-            .apply { Emarsys.push.setNotificationEventHandler(this) }
-        eventHandlerFactory.create(EventHandlerFactory.EventChannelName.SILENT_PUSH)
-            .apply { Emarsys.push.setSilentMessageEventHandler(this) }
-        eventHandlerFactory.create(EventHandlerFactory.EventChannelName.GEOFENCE)
-            .apply { Emarsys.geofence.setEventHandler(this) }
-        eventHandlerFactory.create(EventHandlerFactory.EventChannelName.INAPP)
-            .apply { Emarsys.inApp.setEventHandler(this) }
-
+        if (!fromCache) {
+            eventHandlerFactory.create(EventHandlerFactory.EventChannelName.PUSH)
+                .apply { Emarsys.push.setNotificationEventHandler(this) }
+            eventHandlerFactory.create(EventHandlerFactory.EventChannelName.SILENT_PUSH)
+                .apply { Emarsys.push.setSilentMessageEventHandler(this) }
+            eventHandlerFactory.create(EventHandlerFactory.EventChannelName.GEOFENCE)
+                .apply { Emarsys.geofence.setEventHandler(this) }
+            eventHandlerFactory.create(EventHandlerFactory.EventChannelName.INAPP)
+                .apply { Emarsys.inApp.setEventHandler(this) }
+        }
         resultCallback(null, null)
     }
 
