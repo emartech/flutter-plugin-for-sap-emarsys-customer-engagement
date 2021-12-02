@@ -14,7 +14,7 @@
 		0D2D1902272014F300D2035A /* TrackItemViewCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2D1901272014F300D2035A /* TrackItemViewCommandTests.swift */; };
 		0D2D19042720151B00D2035A /* TrackSearchTermCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2D19032720151B00D2035A /* TrackSearchTermCommandTests.swift */; };
 		0D3EFB2D2728357F001B538E /* MapToProductMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3EFB2C2728357F001B538E /* MapToProductMapperTests.swift */; };
-		0D3EFB2E27283914001B538E /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		0D3EFB2E27283914001B538E /* (null) in Sources */ = {isa = PBXBuildFile; };
 		0D70661E27294FB8007F236E /* TrackRecommendationClickCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D70661D27294FB8007F236E /* TrackRecommendationClickCommandTests.swift */; };
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
@@ -612,7 +612,7 @@
 				8AC3B27326316D070092C7B8 /* EmarsysCommandFactoryTests.swift in Sources */,
 				0D2D18FA2720123F00D2035A /* TrackTagCommandTests.swift in Sources */,
 				D42681A12726EABA0073915E /* LogicMapperTests.swift in Sources */,
-				0D3EFB2E27283914001B538E /* BuildFile in Sources */,
+				0D3EFB2E27283914001B538E /* (null) in Sources */,
 				0D70661E27294FB8007F236E /* TrackRecommendationClickCommandTests.swift in Sources */,
 				0D3EFB2D2728357F001B538E /* MapToProductMapperTests.swift in Sources */,
 				8A1084102631B48800A18E54 /* SetContactCommandTests.swift in Sources */,
@@ -735,7 +735,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = 7ZFXXDJH82;
+				DEVELOPMENT_TEAM = 4J5FXBB97U;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -744,7 +744,7 @@
 					"@executable_path/Frameworks",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.emarsys.emarsysSdkExample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.emarsys.EmarsysExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -1054,7 +1054,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = 7ZFXXDJH82;
+				DEVELOPMENT_TEAM = 4J5FXBB97U;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -1063,7 +1063,7 @@
 					"@executable_path/Frameworks",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.emarsys.emarsysSdkExample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.emarsys.EmarsysExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1081,7 +1081,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = 7ZFXXDJH82;
+				DEVELOPMENT_TEAM = 4J5FXBB97U;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -1090,7 +1090,7 @@
 					"@executable_path/Frameworks",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.emarsys.emarsysSdkExample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.emarsys.EmarsysExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
