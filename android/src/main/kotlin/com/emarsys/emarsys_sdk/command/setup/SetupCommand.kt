@@ -2,11 +2,12 @@ package com.emarsys.emarsys_sdk.command.setup
 
 import android.app.Application
 import android.content.SharedPreferences
-import android.util.Log
 import com.emarsys.Emarsys
+import com.emarsys.common.feature.InnerFeature
 import com.emarsys.config.ConfigLoader
 import com.emarsys.config.EmarsysConfig
 import com.emarsys.core.activity.ActivityLifecycleAction
+import com.emarsys.core.feature.FeatureRegistry
 import com.emarsys.core.provider.wrapper.WrapperInfoContainer
 import com.emarsys.di.emarsys
 import com.emarsys.di.isEmarsysComponentSetup
@@ -40,6 +41,7 @@ class SetupCommand(
 
         val setupHasBeenCalledPreviously = isEmarsysComponentSetup()
         Emarsys.setup(configBuilder.build())
+        FeatureRegistry.enableFeature(InnerFeature.APP_EVENT_CACHE)
 
         if (!setupHasBeenCalledPreviously) {
             Emarsys.trackCustomEvent("wrapper:init", mapOf("type" to "flutter"))

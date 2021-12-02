@@ -26,6 +26,7 @@ void main() async {
         ConsoleLogLevels.WARN,
         ConsoleLogLevels.ERROR
       ]));
+
   runApp(MyApp());
 
   Emarsys.push.registerAndroidNotificationChannels([
@@ -40,6 +41,7 @@ void main() async {
         description: "Important messages go into this channel",
         importance: NotificationChannel.IMPORTANCE_HIGH),
   ]);
+
   Emarsys.push.pushEventStream.listen((event) {
     print(event.name);
   });
@@ -80,6 +82,7 @@ class _MyAppState extends State<MyApp> {
   String? customEventPayload;
   int _currentIndex = 0;
   bool showInlineInApp = true;
+
   @override
   void initState() {
     super.initState();
@@ -99,13 +102,13 @@ class _MyAppState extends State<MyApp> {
     String? merchantIdFromNative = await Emarsys.config.merchantId();
     int? contactFieldIdFromNative = await Emarsys.config.contactFieldId();
     NotificationSettings notificationSettingsFromNative =
-        await Emarsys.config.notificationSettings();
+    await Emarsys.config.notificationSettings();
 
     String sdkVersionFromNative = await Emarsys.config.sdkVersion();
     _contactFieldValueController.text = contactFieldValue ?? "";
     _appCodeFieldController.text = applicationCodeFromNative ?? "";
     _contactFieldIdController.text =
-        contactFieldId == null ? contactFieldId.toString() : "";
+    contactFieldId == null ? contactFieldId.toString() : "";
     setState(() {
       hardwareId = hardwareIdFromNative;
       contactFieldId = contactFieldIdFromNative;

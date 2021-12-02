@@ -3,7 +3,9 @@ package com.emarsys.emarsys_sdk.command.setup
 import android.app.Application
 import android.content.SharedPreferences
 import com.emarsys.Emarsys
+import com.emarsys.common.feature.InnerFeature
 import com.emarsys.config.EmarsysConfig
+import com.emarsys.core.feature.FeatureRegistry
 import com.emarsys.core.provider.wrapper.WrapperInfoContainer
 import com.emarsys.di.emarsys
 import com.emarsys.di.isEmarsysComponentSetup
@@ -53,6 +55,12 @@ class SetupCommandTest {
         mockGeofenceEventHandler = mockk(relaxed = true)
         mockInAppEventHandler = mockk(relaxed = true)
         mockEventHandlerFactory = mockk(relaxed = true)
+
+        mockkStatic("com.emarsys.emarsys_sdk.di.DependencyContainerKt")
+        mockkStatic("com.emarsys.di.EmarsysComponentKt")
+        mockkStatic(Emarsys::class)
+        mockkStatic(FeatureRegistry::class)
+
         setupCommand = SetupCommand(
             mockApplication,
             mockPushTokenStorage,
@@ -76,18 +84,15 @@ class SetupCommandTest {
         every { mockPushTokenStorage.pushToken } returns PUSH_TOKEN
         every { mockPushTokenStorage.enabled } returns true
 
-        mockkStatic("com.emarsys.emarsys_sdk.di.DependencyContainerKt")
         every { dependencyContainer().currentActivityHolder.currentActivity } returns mockk(relaxed = true)
 
-        mockkStatic("com.emarsys.di.EmarsysComponentKt")
         every { isEmarsysComponentSetup() } returns true
         every { emarsys().currentActivityProvider.set(any()) } just Runs
         every { emarsys().activityLifecycleActionRegistry.execute(null, any()) } just Runs
-        mockkStatic(Emarsys::class)
         every { Emarsys.trackCustomEvent(any(), any()) } just Runs
-
         every { mockSharedPreferences.edit() } returns mockEdit
         every { Emarsys.setup(any()) } just Runs
+        every { FeatureRegistry.enableFeature(any()) } just Runs
         every {
             mockApplication.getSharedPreferences(
                 "emarsys_setup_cache",
@@ -167,6 +172,7 @@ class SetupCommandTest {
 
         verify { mockEdit.apply() }
         verify { Emarsys.setup(expectedConfig) }
+        verify { FeatureRegistry.enableFeature(InnerFeature.APP_EVENT_CACHE) }
         verify { Emarsys.push.pushToken = PUSH_TOKEN }
         verify { Emarsys.push.setNotificationEventHandler(mockPushEventHandler) }
         verify { Emarsys.push.setSilentMessageEventHandler(mockSilentPushEventHandler) }
@@ -198,6 +204,7 @@ class SetupCommandTest {
         pushTokenStorage.pushToken = "localTestPushToken"
 
         verify { Emarsys.setup(expectedConfig) }
+        verify { FeatureRegistry.enableFeature(InnerFeature.APP_EVENT_CACHE) }
         verify { Emarsys.push.pushToken = "localTestPushToken" }
     }
 
@@ -224,6 +231,7 @@ class SetupCommandTest {
         }
 
         verify { Emarsys.setup(expectedConfig) }
+        verify { FeatureRegistry.enableFeature(InnerFeature.APP_EVENT_CACHE) }
         verify(exactly = 0) { mockPushApi.setPushToken(any(), any()) }
     }
 
@@ -287,6 +295,7 @@ class SetupCommandTest {
         }
 
         verify { Emarsys.setup(expectedConfig) }
+        verify { FeatureRegistry.enableFeature(InnerFeature.APP_EVENT_CACHE) }
         verify { Emarsys.push.pushToken = PUSH_TOKEN }
         verify(exactly = 0) { mockPushApi.setNotificationEventHandler(mockPushEventHandler) }
         verify(exactly = 0) { mockPushApi.setSilentMessageEventHandler(mockSilentPushEventHandler) }
