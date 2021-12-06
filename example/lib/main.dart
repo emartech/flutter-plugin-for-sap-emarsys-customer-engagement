@@ -12,8 +12,9 @@ import 'dart:convert';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
   Emarsys.setup(EmarsysConfig(
-      applicationCode: 'EMS74-EFB68',
+      applicationCode: prefs.getString("appcode") ?? 'EMS74-EFB68',
       merchantId: "1428C8EE286EC34B",
       androidVerboseConsoleLoggingEnabled: true,
       androidSharedPackageNames: ["com.emarsys.sample"],
@@ -41,19 +42,6 @@ void main() async {
         description: "Important messages go into this channel",
         importance: NotificationChannel.IMPORTANCE_HIGH),
   ]);
-
-  Emarsys.push.pushEventStream.listen((event) {
-    print(event.name);
-  });
-  Emarsys.push.silentPushEventStream.listen((event) {
-    print(event.name);
-  });
-  Emarsys.geofence.geofenceEventStream.listen((event) {
-    print(event.name);
-  });
-  Emarsys.inApp.inAppEventStream.listen((event) {
-    print(event.name);
-  });
 }
 
 class MyApp extends StatefulWidget {
@@ -67,7 +55,7 @@ class _MyAppState extends State<MyApp> {
   late TextEditingController _appCodeFieldController;
   late TextEditingController _customEventNameFieldController;
   late TextEditingController _customEventPayloadFieldController;
-  final _messangerKey = GlobalKey<ScaffoldMessengerState>();
+  final _messengerKey = GlobalKey<ScaffoldMessengerState>();
   String hardwareId = "-";
   int? contactFieldId;
   String? applicationCode;
@@ -91,6 +79,28 @@ class _MyAppState extends State<MyApp> {
     _contactFieldIdController = TextEditingController();
     _customEventNameFieldController = TextEditingController();
     _customEventPayloadFieldController = TextEditingController();
+
+    Emarsys.push.pushEventStream.listen((event) {
+      _messengerKey.currentState!.showSnackBar(
+          SnackBar(content: Text("${event.name} - ${event.payload}")));
+      print(event.name);
+    });
+    Emarsys.push.silentPushEventStream.listen((event) {
+      _messengerKey.currentState!.showSnackBar(
+          SnackBar(content: Text("${event.name} - ${event.payload}")));
+      print(event.name);
+    });
+    Emarsys.geofence.geofenceEventStream.listen((event) {
+      _messengerKey.currentState!.showSnackBar(
+          SnackBar(content: Text("${event.name} - ${event.payload}")));
+      print(event.name);
+    });
+    Emarsys.inApp.inAppEventStream.listen((event) {
+      _messengerKey.currentState!.showSnackBar(
+          SnackBar(content: Text("${event.name} - ${event.payload}")));
+      print(event.name);
+    });
+
     WidgetsBinding.instance!
         .addPostFrameCallback((_) => afterFirstLayout(context));
   }
@@ -102,13 +112,13 @@ class _MyAppState extends State<MyApp> {
     String? merchantIdFromNative = await Emarsys.config.merchantId();
     int? contactFieldIdFromNative = await Emarsys.config.contactFieldId();
     NotificationSettings notificationSettingsFromNative =
-    await Emarsys.config.notificationSettings();
+        await Emarsys.config.notificationSettings();
 
     String sdkVersionFromNative = await Emarsys.config.sdkVersion();
     _contactFieldValueController.text = contactFieldValue ?? "";
     _appCodeFieldController.text = applicationCodeFromNative ?? "";
     _contactFieldIdController.text =
-    contactFieldId == null ? contactFieldId.toString() : "";
+        contactFieldId == null ? contactFieldId.toString() : "";
     setState(() {
       hardwareId = hardwareIdFromNative;
       contactFieldId = contactFieldIdFromNative;
@@ -129,7 +139,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      scaffoldMessengerKey: _messangerKey,
+      scaffoldMessengerKey: _messengerKey,
       home: Scaffold(
           appBar: AppBar(
             title: const Text('Emarsys SDK Example'),
@@ -183,12 +193,13 @@ class _MyAppState extends State<MyApp> {
               if (_appCodeFieldController.text.isNotEmpty) {
                 await Emarsys.config
                     .changeApplicationCode(_appCodeFieldController.text);
+                prefs.setString("appcode", _appCodeFieldController.text);
                 setState(() {
                   applicationCode = _appCodeFieldController.text;
                   contactFieldValue = null;
                 });
               } else {
-                _messangerKey.currentState!.showSnackBar(
+                _messengerKey.currentState!.showSnackBar(
                     SnackBar(content: Text('Fill the textField')));
               }
             },
@@ -222,7 +233,7 @@ class _MyAppState extends State<MyApp> {
                         "loggedInUser", _contactFieldValueController.text);
                   });
                 } else {
-                  _messangerKey.currentState!.showSnackBar(
+                  _messengerKey.currentState!.showSnackBar(
                       SnackBar(content: Text('Something went wrong...')));
                 }
               },
@@ -323,7 +334,7 @@ class _MyAppState extends State<MyApp> {
                   customEventPayload = _customEventPayloadFieldController.text;
                 });
               } else {
-                _messangerKey.currentState!.showSnackBar(
+                _messengerKey.currentState!.showSnackBar(
                     SnackBar(content: Text('Fill customEventName')));
               }
             },
