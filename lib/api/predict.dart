@@ -47,8 +47,12 @@ class Predict {
   }
 
   Future<void> trackPurchase(String orderId, List<CartItem> items) async {
-    return _channel.invokeMethod('predict.trackPurchase',
-        {"orderId": orderId, 'items': _cartItemListMapper.map(items)});
+    if (items.isNotEmpty) {
+      return _channel.invokeMethod('predict.trackPurchase',
+          {"orderId": orderId, 'items': _cartItemListMapper.map(items)});
+    } else {
+      throw PlatformException(code: '42', message: 'Items list should not be empty!');
+    }
   }
 
   Future<void> trackRecommendationClick(Product product) async {
