@@ -13,6 +13,7 @@ import EmarsysSDK
         }
         UNUserNotificationCenter.current().requestAuthorization(options: authorizationOptions) { granted, error in
         }
+        UNUserNotificationCenter.current().delegate = UserNotificationCenterDeleagteCacherForFlutterPluginForEmarsysSapCustomerEngagement.instance
         
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
