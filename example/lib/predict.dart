@@ -274,8 +274,7 @@ class _PredictState extends State<PredictView> {
                     setState(() {
                       _productsToShow = products;
                     });
-                    await Emarsys.predict
-                        .trackRecommendationClick(products[0]);
+                    await Emarsys.predict.trackRecommendationClick(products[0]);
                   },
                   child: Text("Recommend search"))
             ],

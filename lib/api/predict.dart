@@ -51,7 +51,8 @@ class Predict {
       return _channel.invokeMethod('predict.trackPurchase',
           {"orderId": orderId, 'items': _cartItemListMapper.map(items)});
     } else {
-      throw PlatformException(code: '42', message: 'Items list should not be empty!');
+      throw PlatformException(
+          code: '42', message: 'Items list should not be empty!');
     }
   }
 
