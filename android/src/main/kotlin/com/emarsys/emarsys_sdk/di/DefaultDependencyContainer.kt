@@ -13,14 +13,39 @@ import com.emarsys.emarsys_sdk.provider.BackgroundHandlerProvider
 import com.emarsys.emarsys_sdk.provider.MainHandlerProvider
 import com.emarsys.emarsys_sdk.storage.CurrentActivityHolder
 import com.emarsys.emarsys_sdk.storage.PushTokenStorage
+import com.emarsys.mobileengage.api.event.EventHandler
 import io.flutter.plugin.common.BinaryMessenger
 
 class DefaultDependencyContainer(
-    override val application: Application,
-    private val binaryMessenger: BinaryMessenger
+        override val application: Application,
+        binaryMessenger: BinaryMessenger
 ) : DependencyContainer {
     companion object {
         const val EMARSYS_SETUP_CACHE_SHARED_PREFERENCES = "emarsys_setup_cache"
+    }
+
+    override var messenger: BinaryMessenger = binaryMessenger
+        set(value) {
+            field = value
+            initEventChannels()
+        }
+
+    private lateinit var preparedEventHandlerFactory: EventHandlerFactory
+    private lateinit var preparedPushEventHandler: EventHandler
+    private lateinit var preparedSilentPushEventHandler: EventHandler
+    private lateinit var preparedGeofenceEventHandler: EventHandler
+    private lateinit var preparedInAppEventHandler: EventHandler
+
+    init {
+        initEventChannels()
+    }
+
+    fun initEventChannels() {
+        preparedEventHandlerFactory = EventHandlerFactory(messenger)
+        preparedPushEventHandler = preparedEventHandlerFactory.create(EventHandlerFactory.EventChannelName.PUSH)
+        preparedSilentPushEventHandler = preparedEventHandlerFactory.create(EventHandlerFactory.EventChannelName.SILENT_PUSH)
+        preparedGeofenceEventHandler = preparedEventHandlerFactory.create(EventHandlerFactory.EventChannelName.GEOFENCE)
+        preparedInAppEventHandler = preparedEventHandlerFactory.create(EventHandlerFactory.EventChannelName.INAPP)
     }
 
     override val backgroundHandler: Handler by lazy {
@@ -33,32 +58,31 @@ class DefaultDependencyContainer(
 
     override val emarsysCommandFactory: EmarsysCommandFactory by lazy {
         EmarsysCommandFactory(
-            application,
-            pushTokenStorage,
-            eventHandlerFactory,
-            setupCacheSharedPreferences,
-            flutterWrapperSharedPreferences,
-            notificationChannelFactory,
-            inboxResultMapper,
-            backgroundHandler,
-            GeofenceMapper(),
-            mapToProductMapper,
-            recommendationLogicMapper,
-            recommendationFilterListMapper,
-            productMapper
+                application,
+                pushTokenStorage,
+                setupCacheSharedPreferences,
+                flutterWrapperSharedPreferences,
+                notificationChannelFactory,
+                inboxResultMapper,
+                backgroundHandler,
+                GeofenceMapper(),
+                mapToProductMapper,
+                recommendationLogicMapper,
+                recommendationFilterListMapper,
+                productMapper
         )
     }
 
     override val setupCacheSharedPreferences: SharedPreferences by lazy {
         val prefs = application.getSharedPreferences(EMARSYS_SETUP_CACHE_SHARED_PREFERENCES, 0)
         if (prefs.getString(ConfigStorageKeys.MOBILE_ENGAGE_APPLICATION_CODE.name, null) == null &&
-            prefs.getString(ConfigStorageKeys.PREDICT_MERCHANT_ID.name, null) == null &&
-            prefs.getString(ConfigStorageKeys.ANDROID_SHARED_PACKAGE_NAMES.name, null) == null &&
-            prefs.getString(ConfigStorageKeys.ANDROID_SHARED_SECRET.name, null) == null &&
-            prefs.getString(
-                ConfigStorageKeys.ANDROID_VERBOSE_CONSOLE_LOGGING_ENABLED.name,
-                null
-            ) == null
+                prefs.getString(ConfigStorageKeys.PREDICT_MERCHANT_ID.name, null) == null &&
+                prefs.getString(ConfigStorageKeys.ANDROID_SHARED_PACKAGE_NAMES.name, null) == null &&
+                prefs.getString(ConfigStorageKeys.ANDROID_SHARED_SECRET.name, null) == null &&
+                prefs.getString(
+                        ConfigStorageKeys.ANDROID_VERBOSE_CONSOLE_LOGGING_ENABLED.name,
+                        null
+                ) == null
         ) {
             flutterWrapperSharedPreferences.copyTo(prefs)
         }
@@ -77,13 +101,11 @@ class DefaultDependencyContainer(
         CurrentActivityHolder()
     }
 
-    override val eventHandlerFactory: EventHandlerFactory by lazy {
-        EventHandlerFactory(binaryMessenger)
-    }
-
     override val inlineInAppViewFactory: InlineInAppViewFactory by lazy {
-        InlineInAppViewFactory(binaryMessenger)
+        InlineInAppViewFactory(messenger)
     }
+    override val eventHandlerFactory: EventHandlerFactory
+        get() = preparedEventHandlerFactory
 
     override val notificationChannelFactory: NotificationChannelFactory by lazy {
         NotificationChannelFactory()
@@ -104,6 +126,14 @@ class DefaultDependencyContainer(
     override val productMapper: ProductMapper by lazy {
         ProductMapper()
     }
+    override val pushEventHandler: EventHandler
+        get() = preparedPushEventHandler
+    override val silentPushEventHandler: EventHandler
+        get() = preparedSilentPushEventHandler
+    override val geofenceEventHandler: EventHandler
+        get() = preparedGeofenceEventHandler
+    override val inAppEventHandler: EventHandler
+        get() = preparedInAppEventHandler
 }
 
 fun SharedPreferences.copyTo(dest: SharedPreferences) = with(dest.edit()) {

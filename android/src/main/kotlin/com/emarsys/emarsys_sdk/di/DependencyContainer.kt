@@ -10,9 +10,11 @@ import com.emarsys.emarsys_sdk.mapper.*
 import com.emarsys.emarsys_sdk.notification.NotificationChannelFactory
 import com.emarsys.emarsys_sdk.storage.CurrentActivityHolder
 import com.emarsys.emarsys_sdk.storage.PushTokenStorage
+import com.emarsys.mobileengage.api.event.EventHandler
+import io.flutter.plugin.common.BinaryMessenger
 
 fun dependencyContainer() = DependencyContainer.instance
-    ?: throw IllegalStateException("DependencyContainer has to be setup first!")
+        ?: throw IllegalStateException("DependencyContainer has to be setup first!")
 
 fun tearDownDependencyContainer() {
     DependencyContainer.instance = null
@@ -29,9 +31,12 @@ fun dependencyContainerIsSetup(): Boolean {
 }
 
 interface DependencyContainer {
+
     companion object {
         var instance: DependencyContainer? = null
     }
+
+    var messenger: BinaryMessenger
 
     val backgroundHandler: Handler
 
@@ -64,4 +69,12 @@ interface DependencyContainer {
     val recommendationFilterListMapper: RecommendationFilterListMapper
 
     val productMapper: ProductMapper
+
+    val pushEventHandler: EventHandler
+
+    val silentPushEventHandler: EventHandler
+
+    val geofenceEventHandler: EventHandler
+
+    val inAppEventHandler: EventHandler
 }

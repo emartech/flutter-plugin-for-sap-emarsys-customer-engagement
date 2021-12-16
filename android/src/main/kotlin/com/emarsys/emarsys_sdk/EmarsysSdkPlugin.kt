@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.annotation.NonNull
 import com.emarsys.emarsys_sdk.di.DefaultDependencyContainer
 import com.emarsys.emarsys_sdk.di.dependencyContainer
+import com.emarsys.emarsys_sdk.di.dependencyContainerIsSetup
 import com.emarsys.emarsys_sdk.di.setupDependencyContainer
 import com.emarsys.emarsys_sdk.flutter.EmarsysMethodCallHandler
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -25,26 +26,29 @@ class EmarsysSdkPlugin : FlutterPlugin, ActivityAware {
         val messenger = flutterPluginBinding.binaryMessenger
 
         synchronized(initializationLock) {
-            setupDependencyContainer(
-                DefaultDependencyContainer(
-                    applicationContext as Application,
-                    messenger
+            if (dependencyContainerIsSetup()) {
+                dependencyContainer().messenger = messenger
+            } else {
+                setupDependencyContainer(
+                        DefaultDependencyContainer(
+                                applicationContext as Application,
+                                messenger
+                        )
                 )
-            )
-
+            }
             if (channel != null) {
                 return
             }
 
             channel = MethodChannel(messenger, METHOD_CHANNEL_NAME)
-            channel!!.setMethodCallHandler(EmarsysMethodCallHandler(applicationContext, uiHandler = dependencyContainer().uiHandler))
+            channel!!.setMethodCallHandler(EmarsysMethodCallHandler((applicationContext as Application), uiHandler = dependencyContainer().uiHandler))
 
             flutterPluginBinding
-                .platformViewRegistry
-                .registerViewFactory(
-                    "inlineInAppView",
-                    dependencyContainer().inlineInAppViewFactory
-                )
+                    .platformViewRegistry
+                    .registerViewFactory(
+                            "inlineInAppView",
+                            dependencyContainer().inlineInAppViewFactory
+                    )
         }
     }
 
@@ -55,7 +59,7 @@ class EmarsysSdkPlugin : FlutterPlugin, ActivityAware {
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         dependencyContainer().currentActivityHolder.currentActivity =
-            WeakReference(binding.activity)
+                WeakReference(binding.activity)
     }
 
     override fun onDetachedFromActivityForConfigChanges() {
@@ -64,7 +68,7 @@ class EmarsysSdkPlugin : FlutterPlugin, ActivityAware {
 
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
         dependencyContainer().currentActivityHolder.currentActivity =
-            WeakReference(binding.activity)
+                WeakReference(binding.activity)
     }
 
     override fun onDetachedFromActivity() {

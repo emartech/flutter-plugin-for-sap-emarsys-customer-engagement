@@ -22,7 +22,7 @@ class EventHandlerFactory(private val binaryMessenger: BinaryMessenger) {
 
     init {
         eventChannels = EventChannelName.values()
-            .associate { Pair(it, EventChannel(binaryMessenger, it.channelName)) }
+                .associate { Pair(it, EventChannel(binaryMessenger, it.channelName)) }
     }
 
     fun create(eventChannelName: EventChannelName): EventHandler {
@@ -34,10 +34,10 @@ class EventHandlerFactory(private val binaryMessenger: BinaryMessenger) {
                 this.events = events
                 cache.forEach {
                     this.events?.success(
-                        mapOf(
-                            "name" to it.first,
-                            "payload" to JsonUtils.toMap(it.second ?: JSONObject())
-                        )
+                            mapOf(
+                                    "name" to it.first,
+                                    "payload" to JsonUtils.toMap(it.second ?: JSONObject())
+                            )
                     )
                 }
                 cache.clear()
@@ -51,10 +51,10 @@ class EventHandlerFactory(private val binaryMessenger: BinaryMessenger) {
                     cache.add(eventName to payload)
                 } else {
                     events?.success(
-                        mapOf(
-                            "name" to eventName,
-                            "payload" to JsonUtils.toMap(payload ?: JSONObject())
-                        )
+                            mapOf(
+                                    "name" to eventName,
+                                    "payload" to JsonUtils.toMap(payload ?: JSONObject())
+                            )
                     )
                 }
             }

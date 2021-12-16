@@ -19,51 +19,49 @@ import com.emarsys.emarsys_sdk.command.mobileengage.push.RegisterNotificationCha
 import com.emarsys.emarsys_sdk.command.predict.*
 import com.emarsys.emarsys_sdk.command.setup.InitializeCommand
 import com.emarsys.emarsys_sdk.command.setup.SetupCommand
-import com.emarsys.emarsys_sdk.event.EventHandlerFactory
 import com.emarsys.emarsys_sdk.mapper.*
 import com.emarsys.emarsys_sdk.notification.NotificationChannelFactory
 import com.emarsys.emarsys_sdk.storage.PushTokenStorage
 
 
 class EmarsysCommandFactory(
-    private val application: Application,
-    private val pushTokenStorage: PushTokenStorage,
-    private val eventHandlerFactory: EventHandlerFactory,
-    private val setupCacheSharedPreferences: SharedPreferences,
-    private val flutterWrapperSharedPreferences: SharedPreferences,
-    private val notificationChannelFactory: NotificationChannelFactory,
-    private val inboxResultMapper: InboxResultMapper,
-    private val backgroundHandler: Handler,
-    private val geofenceMapper: GeofenceMapper,
-    private val mapToProductMapper: MapToProductMapper,
-    private val recommendationLogicMapper: RecommendationLogicMapper,
-    private val recommendationFilterListMapper: RecommendationFilterListMapper,
-    private val productMapper: ProductMapper
+        private val application: Application,
+        private val pushTokenStorage: PushTokenStorage,
+        private val setupCacheSharedPreferences: SharedPreferences,
+        private val flutterWrapperSharedPreferences: SharedPreferences,
+        private val notificationChannelFactory: NotificationChannelFactory,
+        private val inboxResultMapper: InboxResultMapper,
+        private val backgroundHandler: Handler,
+        private val geofenceMapper: GeofenceMapper,
+        private val mapToProductMapper: MapToProductMapper,
+        private val recommendationLogicMapper: RecommendationLogicMapper,
+        private val recommendationFilterListMapper: RecommendationFilterListMapper,
+        private val productMapper: ProductMapper
 ) {
 
     fun create(methodName: String): EmarsysCommand? {
         return when (methodName) {
             "setup" -> SetupCommand(
-                application, pushTokenStorage, eventHandlerFactory,
-                setupCacheSharedPreferences, false
+                    application, pushTokenStorage,
+                    setupCacheSharedPreferences, false
             )
             "android.setupFromCache" -> SetupCommand(
-                application, pushTokenStorage,
-                eventHandlerFactory, setupCacheSharedPreferences, true
+                    application, pushTokenStorage,
+                    setupCacheSharedPreferences, true
             )
             "setContact" -> SetContactCommand()
             "clearContact" -> ClearContactCommand()
             "android.initialize" -> InitializeCommand(
-                flutterWrapperSharedPreferences,
-                backgroundHandler
+                    flutterWrapperSharedPreferences,
+                    backgroundHandler
             )
             "push.pushSendingEnabled" -> PushSendingEnabledCommand(pushTokenStorage)
             "push.android.registerNotificationChannels" -> RegisterNotificationChannelsCommand(
-                application,
-                notificationChannelFactory
+                    application,
+                    notificationChannelFactory
             )
             "config.changeApplicationCode" -> ChangeApplicationCodeCommand(
-                setupCacheSharedPreferences
+                    setupCacheSharedPreferences
             )
             "config.changeMerchantId" -> ChangeMerchantIdCommand(setupCacheSharedPreferences)
             "config.applicationCode" -> ApplicationCodeCommand()
@@ -93,9 +91,9 @@ class EmarsysCommandFactory(
             "predict.trackPurchase" -> TrackPurchaseCommand()
             "predict.trackRecommendationClick" -> TrackRecommendationClickCommand(mapToProductMapper)
             "predict.recommendProducts" -> RecommendProductsCommand(
-                logicMapper = recommendationLogicMapper,
-                filterListMapper = recommendationFilterListMapper,
-                productMapper = productMapper
+                    logicMapper = recommendationLogicMapper,
+                    filterListMapper = recommendationFilterListMapper,
+                    productMapper = productMapper
             )
             else -> null
         }

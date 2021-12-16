@@ -26,35 +26,34 @@ class EmarsysCommandFactoryTest {
     @Before
     fun setUp() {
         factory =
-            EmarsysCommandFactory(
-                mockk(),
-                mockk(),
-                mockk(),
-                mockk(),
-                mockk(),
-                mockk(),
-                mockk(),
-                mockk(),
-                mockk(),
-                mockk(),
-                mockk(),
-                mockk(),
-                mockk()
-            )
+                EmarsysCommandFactory(
+                        mockk(),
+                        mockk(),
+                        mockk(),
+                        mockk(),
+                        mockk(),
+                        mockk(),
+                        mockk(),
+                        mockk(),
+                        mockk(),
+                        mockk(),
+                        mockk(),
+                        mockk()
+                )
     }
 
     @Test
     fun testCreate_shouldCreateASetupCommandFromMethodCall() {
         val result = factory.create("setup")
 
-        result shouldBe SetupCommand(mockk(), mockk(), mockk(), mockk(), false)
+        result shouldBe SetupCommand(mockk(), mockk(), mockk(), false)
     }
 
     @Test
     fun testCreate_shouldCreateASetupFromCacheCommandFromMethodCall() {
         val result = factory.create("android.setupFromCache")
 
-        result shouldBe SetupCommand(mockk(), mockk(), mockk(), mockk(), true)
+        result shouldBe SetupCommand(mockk(), mockk(), mockk(), true)
     }
 
     @Test

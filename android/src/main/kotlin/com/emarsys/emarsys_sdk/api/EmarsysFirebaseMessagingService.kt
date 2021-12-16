@@ -4,6 +4,7 @@ import android.content.Context
 import com.emarsys.di.isEmarsysComponentSetup
 import com.emarsys.emarsys_sdk.di.DefaultDependencyContainer
 import com.emarsys.emarsys_sdk.di.dependencyContainer
+import com.emarsys.emarsys_sdk.di.dependencyContainerIsSetup
 import com.emarsys.emarsys_sdk.di.setupDependencyContainer
 import com.emarsys.emarsys_sdk.flutter.FlutterBackgroundExecutor
 import com.emarsys.emarsys_sdk.provider.MainHandlerProvider
@@ -15,7 +16,7 @@ import java.util.*
 class EmarsysFirebaseMessagingService : FirebaseMessagingService() {
     companion object {
         private val messageQueue: MutableList<RemoteMessage> =
-            Collections.synchronizedList(LinkedList())
+                Collections.synchronizedList(LinkedList())
 
         fun showInitialMessages(context: Context) {
             if (isEmarsysComponentSetup()) {
@@ -32,9 +33,9 @@ class EmarsysFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
         if (!isEmarsysComponentSetup()) {
-            initFlutterEngine().apply {
+            initFlutterEngine {
                 MainHandlerProvider.provide().post {
-                    awakeFlutterCallback(dependencyContainer().flutterWrapperSharedPreferences)
+                    it.awakeFlutterCallback(dependencyContainer().flutterWrapperSharedPreferences)
                 }
             }
         }
@@ -46,15 +47,20 @@ class EmarsysFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onNewToken(pushToken: String) {
         super.onNewToken(pushToken)
-        initFlutterEngine()
-        dependencyContainer().pushTokenStorage.pushToken = pushToken
+        initFlutterEngine {
+            dependencyContainer().pushTokenStorage.pushToken = pushToken
+        }
     }
 
-    private fun initFlutterEngine(): FlutterBackgroundExecutor {
-        return FlutterBackgroundExecutor(application).apply {
-            startBackgroundIsolate { dartExecutor ->
+    private fun initFlutterEngine(onCompleted: (FlutterBackgroundExecutor) -> Unit) {
+        val executor = FlutterBackgroundExecutor(application)
+        executor.startBackgroundIsolate { dartExecutor ->
+            if (dependencyContainerIsSetup()) {
+                dependencyContainer().messenger = dartExecutor
+            } else {
                 setupDependencyContainer(DefaultDependencyContainer(application, dartExecutor))
             }
+            onCompleted.invoke(executor)
         }
     }
 }
