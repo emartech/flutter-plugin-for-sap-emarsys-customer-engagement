@@ -72,7 +72,7 @@ public class SetupCommand: EmarsysCommandProtocol {
                 }
             }
             UNUserNotificationCenter.current().delegate = Emarsys.push
-            UserNotificationCenterDeleagteCacherForFlutterPluginForEmarsysSapCustomerEngagement.instance.emptyCache(with: Emarsys.push)
+            UserNotificationCenterDelegateCacher.instance.emptyCache(with: Emarsys.push)
             
             Emarsys.push.silentMessageEventHandler = self.silentPushEventHandler
             Emarsys.push.notificationEventHandler = self.pushEventHandler

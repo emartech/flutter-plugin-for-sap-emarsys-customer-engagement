@@ -1,29 +1,29 @@
 import Foundation
 import UserNotifications
 
-class UserNotificationCenterDeleagteCacherForFlutterPluginForEmarsysSapCustomerEngagement: NSObject, UNUserNotificationCenterDelegate {
+public class UserNotificationCenterDelegateCacher: NSObject, UNUserNotificationCenterDelegate {
     
     private var didReceiveCache = [[String: Any]]()
     private var willPresentCache = [[String: Any]]()
     private var openSettingsCache = [[String: Any]]()
     
-    static let instance = UserNotificationCenterDeleagteCacherForFlutterPluginForEmarsysSapCustomerEngagement()
+    static let instance = UserNotificationCenterDelegateCacher()
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+    public func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         didReceiveCache.append([
             "center": center,
             "response": response,
             "completionHandler": completionHandler])
     }
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+    public func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         willPresentCache.append([
             "center": center,
             "notification": notification,
             "completionHandler": completionHandler])
     }
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
+    public func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
         var dict = [String: Any]()
         dict["center"] =  center
         if let noti = notification {
