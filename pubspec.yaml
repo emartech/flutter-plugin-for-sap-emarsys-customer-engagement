@@ -42,9 +42,10 @@ scripts:
   pretest-ios:
     - open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/
   test-ios:
-    -  echo running iOS unit tests
-    - cd example/ios && pod install --no-repo-update --verbose
-    - xcodebuild -workspace ~/work/flutter-plugin-for-sap-emarsys-customer-engagement/example/ios/Runner.xcworkspace -scheme flutter-plugin-ios-tests -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 12 Pro Max' test
+    - echo running iOS unit tests
+    - rm -rf ~/Library/Developer/Xcode/DerivedData
+    - cd example/ios && pod deintegrate && pod install --no-repo-update --verbose
+    - cd example/ios && xcodebuild -workspace Runner.xcworkspace -scheme flutter-plugin-ios-tests -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 12 Pro Max' test
   test:
     - $test-flutter
     - sleep 10s
