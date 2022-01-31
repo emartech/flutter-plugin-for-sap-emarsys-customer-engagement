@@ -41,13 +41,10 @@ class Geofence {
   }
 
   Future<List<GeofenceModel>> registeredGeofences() async {
-    List<Map<String, dynamic>>? geofences =
+    List<Map<String, dynamic>> geofences =
         List.from(await _channel.invokeMethod('geofence.registeredGeofences'))
             .map((geofence) => Map<String, dynamic>.from(geofence))
             .toList();
-    if (geofences == null) {
-      throw NullThrownError();
-    }
     return _mapper.map(geofences);
   }
 }

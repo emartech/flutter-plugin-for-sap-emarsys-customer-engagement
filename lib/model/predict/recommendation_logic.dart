@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import './logic.dart';
 import 'cart_item.dart';
 
-class RecommendationLogic extends Equatable implements Logic {
+class RecommendationLogic extends Logic with EquatableMixin {
   static const String _SEARCH = "SEARCH";
   static const String _CART = "CART";
   static const String _RELATED = "RELATED";
@@ -12,17 +12,12 @@ class RecommendationLogic extends Equatable implements Logic {
   static const String _POPULAR = "POPULAR";
   static const String _PERSONAL = "PERSONAL";
   static const String _HOME = "HOME";
-  @override
-  Map<String, dynamic> data;
-
-  @override
-  String name;
-
-  @override
-  List<String> variants;
 
   RecommendationLogic._(
-      {this.data = const {}, required this.name, this.variants = const []});
+      {Map<String, dynamic> data = const {},
+      required String name,
+      List<String> variants = const []})
+      : super(name, data, variants);
 
   static RecommendationLogic search({String? searchTerm}) {
     Map<String, String> dataMap = {};

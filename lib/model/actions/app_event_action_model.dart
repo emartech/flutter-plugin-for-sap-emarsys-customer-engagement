@@ -2,26 +2,18 @@ import 'package:equatable/equatable.dart';
 
 import '../action_model.dart';
 
-class AppEventActionModel extends Equatable implements ActionModel {
-  @override
-  String id;
+class AppEventActionModel extends ActionModel with EquatableMixin {
+  final String name;
 
-  @override
-  String title;
-
-  @override
-  String type;
-
-  String name;
-
-  Map<String, Object>? payload;
+  final Map<String, Object>? payload;
 
   AppEventActionModel(
-      {required this.id,
-      required this.title,
-      required this.type,
+      {required String id,
+      required String title,
+      required String type,
       required this.name,
-      this.payload});
+      this.payload})
+      : super(id, title, type);
 
   @override
   List<Object?> get props {

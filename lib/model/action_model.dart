@@ -1,5 +1,7 @@
-abstract class ActionModel {
-  late String id;
-  late String title;
-  late String type;
+class ActionModel {
+  final String id;
+  final String title;
+  final String type;
+
+  ActionModel(this.id, this.title, this.type);
 }

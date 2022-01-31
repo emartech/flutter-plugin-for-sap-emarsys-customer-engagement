@@ -4,23 +4,15 @@ import 'package:emarsys_sdk/model/action_model.dart';
 
 import '../action_model.dart';
 
-class OpenExternalUrlActionModel extends Equatable implements ActionModel {
-  @override
-  String id;
-
-  @override
-  String title;
-
-  @override
-  String type;
-
+class OpenExternalUrlActionModel extends ActionModel with EquatableMixin {
   String url;
 
   OpenExternalUrlActionModel(
-      {required this.id,
-      required this.title,
-      required this.type,
-      required this.url});
+      {required String id,
+      required String title,
+      required String type,
+      required this.url})
+      : super(id, title, type);
 
   @override
   List<Object> get props => [id, title, type, url];

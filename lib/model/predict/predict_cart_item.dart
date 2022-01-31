@@ -1,18 +1,10 @@
 import 'package:emarsys_sdk/model/predict/cart_item.dart';
 import 'package:equatable/equatable.dart';
 
-class PredictCartItem extends Equatable implements CartItem {
-  @override
-  String itemId;
-
-  @override
-  double price;
-
-  @override
-  double quantity;
-
+class PredictCartItem extends CartItem with EquatableMixin {
   PredictCartItem(
-      {required this.itemId, required this.price, required this.quantity});
+      {required String itemId, required double price, required double quantity})
+      : super(itemId, price, quantity);
 
   @override
   List<Object?> get props {
