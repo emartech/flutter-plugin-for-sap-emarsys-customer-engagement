@@ -7,7 +7,7 @@ public class UserNotificationCenterDelegateCacher: NSObject, UNUserNotificationC
     private var willPresentCache = [[String: Any]]()
     private var openSettingsCache = [[String: Any]]()
     
-    static let instance = UserNotificationCenterDelegateCacher()
+    public static let instance = UserNotificationCenterDelegateCacher()
     
     public func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         didReceiveCache.append([
