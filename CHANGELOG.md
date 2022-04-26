@@ -2,8 +2,8 @@
 
 ## What's changed
 [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
-* Updated underlying Emarsys SDK for Android to 3.2.1
-* Updated underlying Emarsys SDK for iOS to 3.2.1
+* Updated underlying Emarsys SDK for Android to 3.2.1
+* Updated underlying Emarsys SDK for iOS to 3.2.1
 
 # 1.2.1
 ## What's fixed
@@ -20,8 +20,8 @@
 
 ## What's changed
 [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
-* Updated underlying Emarsys SDK for Android to 3.2.0
-* Updated underlying Emarsys SDK for iOS to 3.2.0
+* Updated underlying Emarsys SDK for Android to 3.2.0
+* Updated underlying Emarsys SDK for iOS to 3.2.0
 ### [Predict](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#7-predict)
 * Added new validation to the trackPurchase method so that empty cartItems lists are no longer accepted as it would be an invalid request. 
 ## What's fixed
