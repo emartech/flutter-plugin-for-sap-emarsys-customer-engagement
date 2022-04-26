@@ -183,6 +183,7 @@ class _MyAppState extends State<MyApp> {
       padding: const EdgeInsets.all(8.0),
       child: SingleChildScrollView(
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          SizedBox(height: 8),
           TextField(
             controller: _appCodeFieldController,
             decoration: InputDecoration(
@@ -205,6 +206,7 @@ class _MyAppState extends State<MyApp> {
             },
             child: Text("changeAppCode"),
           ),
+          SizedBox(height: 8),
           TextField(
             controller: _contactFieldIdController,
             keyboardType: TextInputType.number,
@@ -212,6 +214,7 @@ class _MyAppState extends State<MyApp> {
             decoration: InputDecoration(
                 border: OutlineInputBorder(), labelText: "contactFieldId"),
           ),
+          SizedBox(height: 8),
           TextField(
             controller: _contactFieldValueController,
             decoration: InputDecoration(
