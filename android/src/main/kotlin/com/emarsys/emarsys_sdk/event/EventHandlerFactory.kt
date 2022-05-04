@@ -44,6 +44,7 @@ class EventHandlerFactory(private val binaryMessenger: BinaryMessenger) {
             }
 
             override fun onCancel(arguments: Any?) {
+                events = null
             }
 
             override fun handleEvent(context: Context, eventName: String, payload: JSONObject?) {

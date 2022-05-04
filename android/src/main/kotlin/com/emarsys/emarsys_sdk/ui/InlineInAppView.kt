@@ -45,10 +45,10 @@ class InlineInAppView(
             "inlineInAppViewOnAppEvent$id"
         ).setStreamHandler(onAppEventHandler as EventChannel.StreamHandler)
         view = NativeInlineInAppView(context)
-        view.loadInApp(creationParams?.get("viewId") as String)
         view.onCloseListener = onCloseHandler
         view.onCompletionListener = onCompletedHandler
         view.onAppEventListener = onAppEventHandler
+        view.loadInApp(creationParams?.get("viewId") as String)
     }
 
     private fun createOnCloseEventChannel(): OnCloseListener {
@@ -60,6 +60,7 @@ class InlineInAppView(
             }
 
             override fun onCancel(arguments: Any?) {
+                events = null
             }
 
             override fun invoke() {
@@ -70,7 +71,7 @@ class InlineInAppView(
     }
 
     private fun createOnCompletedChannel(): CompletionListener {
-        val onCloseHandler = object : EventChannel.StreamHandler, CompletionListener {
+        val onCompletedHandler = object : EventChannel.StreamHandler, CompletionListener {
             var events: EventChannel.EventSink? = null
 
             override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
@@ -78,13 +79,18 @@ class InlineInAppView(
             }
 
             override fun onCancel(arguments: Any?) {
+                events = null
             }
 
             override fun onCompleted(errorCause: Throwable?) {
-                events?.success(mapOf<String, Any?>("cause" to errorCause))
+                if (errorCause != null) {
+                    events?.error("500", errorCause.message, errorCause)
+                } else {
+                    events?.success(mapOf<String, Any>())
+                }
             }
         }
-        return onCloseHandler
+        return onCompletedHandler
     }
 
     private fun createOnAppEventChannel(): OnAppEventListener {
@@ -96,6 +102,7 @@ class InlineInAppView(
             }
 
             override fun onCancel(arguments: Any?) {
+                events = null
             }
 
             override fun invoke(property: String?, json: JSONObject) {

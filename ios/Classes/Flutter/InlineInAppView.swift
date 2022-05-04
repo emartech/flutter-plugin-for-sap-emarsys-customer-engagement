@@ -14,15 +14,15 @@ class InlineInAppView: NSObject, FlutterPlatformView {
         viewIdentifier viewId: Int64,
         arguments args: Dictionary<String, String>,
         binaryMessenger messenger: FlutterBinaryMessenger?) {
-        self.inlineInAppView = EMSInlineInAppView()
-        self.inlineInAppView.loadInApp(viewId: args["viewId"])
-        super.init()
-        self.messenger = messenger
-        registerCloseBlock(viewId: viewId)
-        registerCompletionBlock(viewId: viewId)
-        registerEventHandler(viewId: viewId)
-    }
-
+            self.inlineInAppView = EMSInlineInAppView()
+            self.messenger = messenger
+            super.init()
+            registerCloseBlock(viewId: viewId)
+            registerCompletionBlock(viewId: viewId)
+            registerEventHandler(viewId: viewId)
+            self.inlineInAppView.loadInApp(viewId: args["viewId"])
+        }
+    
     func view() -> UIView {
         return inlineInAppView
     }

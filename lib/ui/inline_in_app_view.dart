@@ -105,6 +105,8 @@ class InlineInAppView extends StatelessWidget {
     EventChannel? eventChannel = EventChannel("inlineInAppViewOnCompleted$id");
     eventChannel.receiveBroadcastStream().listen((event) {
       onCompleted?.call();
+    }).onError((error) {
+      print(error);
     });
   }
 
