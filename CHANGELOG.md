@@ -1,3 +1,8 @@
+# 1.2.3
+## What's fixed
+[Inline In-App](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#42-inline-in-app)
+* Fixed crash when an Inline In-App was fetched with a wrong viewId
+
 # 1.2.2
 
 ## What's changed
