@@ -7,10 +7,15 @@ import io.flutter.plugin.common.StandardMessageCodec
 import io.flutter.plugin.platform.PlatformView
 import io.flutter.plugin.platform.PlatformViewFactory
 
-class InlineInAppViewFactory(private val messenger: BinaryMessenger) :
+class InlineInAppViewFactory(
+    private val messenger: BinaryMessenger,
+    private val applicationContext: Context
+) :
     PlatformViewFactory(StandardMessageCodec.INSTANCE) {
-    override fun create(context: Context, viewId: Int, args: Any?): PlatformView {
+
+    override fun create(context: Context?, viewId: Int, args: Any?): PlatformView {
+        val contextForInlineInAppView = context ?: applicationContext
         val creationParams = args as Map<String?, Any?>?
-        return InlineInAppView(context, viewId, creationParams,messenger)
+        return InlineInAppView(contextForInlineInAppView, viewId, creationParams,messenger)
     }
 }

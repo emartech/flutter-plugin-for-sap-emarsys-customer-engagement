@@ -102,7 +102,7 @@ class DefaultDependencyContainer(
     }
 
     override val inlineInAppViewFactory: InlineInAppViewFactory by lazy {
-        InlineInAppViewFactory(messenger)
+        InlineInAppViewFactory(messenger, application.applicationContext)
     }
     override val eventHandlerFactory: EventHandlerFactory
         get() = preparedEventHandlerFactory
