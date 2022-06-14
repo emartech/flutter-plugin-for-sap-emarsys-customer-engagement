@@ -2,9 +2,9 @@ group 'com.emarsys.emarsys_sdk'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.gradle_version = '7.0.1'
+    ext.gradle_version = '7.2.1'
     ext.kotlin_version = '1.5.30'
-    ext.agconnect_version = '1.6.2.300'
+    ext.agconnect_version = '1.6.6.200'
     repositories {
         google()
         mavenCentral()
@@ -56,7 +56,7 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 }
 
 dependencies {
-    ext.emarsys_sdk_version = '3.2.2'
+    ext.emarsys_sdk_version = '3.2.4'
     ext.junit_version = '4.13.2'
     ext.kotlintest_version = '3.4.2'
     ext.mockk_version = '1.12.0'
