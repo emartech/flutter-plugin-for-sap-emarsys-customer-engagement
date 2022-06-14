@@ -66,4 +66,5 @@ class Include extends _Filter {
 }
 
 enum FilterType { EXCLUDE, INCLUDE }
+
 enum Comparison { IS, IN, HAS, OVERLAPS }

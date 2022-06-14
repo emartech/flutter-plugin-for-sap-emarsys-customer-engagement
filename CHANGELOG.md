@@ -1,7 +1,19 @@
+# 1.3.0
+## What's new
+[Inline In-App](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#42-inline-in-app)
+* Added support for Inline in-app views on Flutter version 3.0 and above
+## What's changed
+[Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
+* Updated underlying Emarsys SDK for Android to 3.2.4
+* Updated underlying Emarsys SDK for iOS to 3.2.3
 # 1.2.3
 ## What's fixed
 [Inline In-App](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#42-inline-in-app)
 * Fixed crash when an Inline In-App was fetched with a wrong viewId
+## What's changed
+[Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
+* Updated underlying Emarsys SDK for Android to 3.2.2
+* Updated underlying Emarsys SDK for iOS to 3.2.2
 
 # 1.2.2
 

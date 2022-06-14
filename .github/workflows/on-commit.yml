@@ -28,7 +28,7 @@ jobs:
       - name: Setup flutter env
         uses: subosito/flutter-action@v1
         with:
-          flutter-version: "2.10.5"
+          flutter-version: "3.0.2"
           channel: "stable"
           
       - name: Update dependencies
@@ -54,7 +54,7 @@ jobs:
       - name: Setup flutter env
         uses: subosito/flutter-action@v1
         with:
-          flutter-version: "2.10.5"
+          flutter-version: "3.0.2"
           channel: "stable"
         
       - name: Open simulator
@@ -83,7 +83,7 @@ jobs:
       - name: Setup flutter env
         uses: subosito/flutter-action@v1
         with:
-          flutter-version: "2.10.5"
+          flutter-version: "3.0.2"
           channel: "stable"
 
       - name: Flutter lint
