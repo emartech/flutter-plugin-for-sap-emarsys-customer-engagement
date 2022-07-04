@@ -26,9 +26,10 @@ jobs:
           java-version: 11
           
       - name: Setup flutter env
-        uses: subosito/flutter-action@v1
+        uses: subosito/flutter-action@v2.4.0
         with:
           flutter-version: "3.0.2"
+          architecture: x64
           channel: "stable"
           
       - name: Update dependencies
@@ -52,9 +53,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Setup flutter env
-        uses: subosito/flutter-action@v1
+        uses: subosito/flutter-action@v2.4.0
         with:
           flutter-version: "3.0.2"
+          architecture: x64
           channel: "stable"
         
       - name: Open simulator
@@ -81,9 +83,10 @@ jobs:
     runs-on: macos-11
     steps:
       - name: Setup flutter env
-        uses: subosito/flutter-action@v1
+        uses: subosito/flutter-action@v2.4.0
         with:
           flutter-version: "3.0.2"
+          architecture: x64
           channel: "stable"
 
       - name: Flutter lint
