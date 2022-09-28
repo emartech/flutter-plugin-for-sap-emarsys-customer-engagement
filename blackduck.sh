@@ -10,6 +10,5 @@ chmod +x detect.sh
 --detect.project.version.name=master \
 --detect.report.timeout=4800 \
 --detect.source.path=~/work/flutter-plugin-for-sap-emarsys-customer-engagement \
---detect.latest.release.version=6.7.0 \
 --detect.npm.include.dev.dependencies=false \
 --detect.sbt.report.search.depth=4 \
