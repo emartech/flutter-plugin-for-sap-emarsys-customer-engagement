@@ -1,6 +1,9 @@
 package com.emarsys.emarsys_sdk.api
 
+import android.app.Application
 import android.content.Context
+import com.emarsys.Emarsys
+import com.emarsys.config.ConfigLoader
 import com.emarsys.di.isEmarsysComponentSetup
 import com.emarsys.emarsys_sdk.di.DefaultDependencyContainer
 import com.emarsys.emarsys_sdk.di.dependencyContainer
@@ -16,17 +19,31 @@ import java.util.*
 class EmarsysHuaweiMessagingService : HmsMessageService() {
 
     companion object {
+        private val configLoader = ConfigLoader()
+
         private val messageQueue: MutableList<RemoteMessage> =
                 Collections.synchronizedList(LinkedList())
 
         fun showInitialMessages(context: Context) {
             if (isEmarsysComponentSetup()) {
-                synchronized(messageQueue) {
-                    messageQueue.forEach {
-                        EmarsysHuaweiMessagingServiceUtils.handleMessage(context, it)
-                    }
-                    messageQueue.clear()
+                handleMessageQueue(context)
+            } else {
+                Emarsys.setup(
+                    configLoader.loadConfigFromSharedPref(
+                        context.applicationContext as Application,
+                        "emarsys_setup_cache"
+                    ).build()
+                )
+                handleMessageQueue(context)
+            }
+        }
+
+        private fun handleMessageQueue(context: Context) {
+            synchronized(messageQueue) {
+                messageQueue.forEach {
+                    EmarsysHuaweiMessagingServiceUtils.handleMessage(context, it)
                 }
+                messageQueue.clear()
             }
         }
     }
