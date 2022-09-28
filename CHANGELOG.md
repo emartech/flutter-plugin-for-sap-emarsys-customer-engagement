@@ -1,3 +1,7 @@
+# 1.3.3
+## What's fixed
+### [Push](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#3-push)
+* Fixed issue where notifications didn't arrive when application was not running
 # 1.3.2
 ## What's changed
 [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
