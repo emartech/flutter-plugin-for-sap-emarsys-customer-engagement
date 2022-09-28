@@ -14,7 +14,7 @@ env:
 jobs:
   Android:
     needs: [Lint]
-    runs-on: macos-11
+    runs-on: macos-12
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
@@ -28,7 +28,7 @@ jobs:
       - name: Setup flutter env
         uses: subosito/flutter-action@v2.4.0
         with:
-          flutter-version: "3.0.2"
+          flutter-version: "3.3.2"
           architecture: x64
           channel: "stable"
           
@@ -46,7 +46,7 @@ jobs:
         run: (cd example/android && ./gradlew clean build test -x lint)        
                
   IOS:
-    runs-on: macos-11
+    runs-on: macos-12
     needs: [Lint]
     steps:
       - name: Checkout repo
@@ -55,7 +55,7 @@ jobs:
       - name: Setup flutter env
         uses: subosito/flutter-action@v2.4.0
         with:
-          flutter-version: "3.0.2"
+          flutter-version: "3.3.2"
           architecture: x64
           channel: "stable"
         
@@ -80,12 +80,12 @@ jobs:
         run: xcodebuild -workspace ~/work/flutter-plugin-for-sap-emarsys-customer-engagement/flutter-plugin-for-sap-emarsys-customer-engagement/example/ios/Runner.xcworkspace -scheme flutter-plugin-ios-tests -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 12 Pro Max,OS=15.2' test
 
   Lint:
-    runs-on: macos-11
+    runs-on: macos-12
     steps:
       - name: Setup flutter env
         uses: subosito/flutter-action@v2.4.0
         with:
-          flutter-version: "3.0.2"
+          flutter-version: "3.2.2"
           architecture: x64
           channel: "stable"
 
