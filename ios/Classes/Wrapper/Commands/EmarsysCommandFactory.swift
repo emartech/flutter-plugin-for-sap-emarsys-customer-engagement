@@ -55,6 +55,8 @@ class EmarsysCommandFactory {
             result = PushSendingEnabledCommand()
         case "push.android.registerNotificationChannels":
             result = EmptyCommand()
+        case "push.setPushToken":
+            result = SetPushTokenCommand()
         case "config.applicationCode":
             result = ApplicationCodeCommand()
         case "config.merchantId":
