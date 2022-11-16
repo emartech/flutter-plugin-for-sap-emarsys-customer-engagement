@@ -54,6 +54,12 @@ class EmarsysCommandFactoryTests: XCTestCase {
         XCTAssertTrue(command is PushSendingEnabledCommand)
     }
     
+    func testCreate_setPushToken() throws {
+        let command = factory?.create(name: "push.setPushToken")
+        
+        XCTAssertTrue(command is SetPushTokenCommand)
+    }
+    
     func testCreate_applicationCodeCommand() throws {
         let command = factory?.create(name: "config.applicationCode")
         
