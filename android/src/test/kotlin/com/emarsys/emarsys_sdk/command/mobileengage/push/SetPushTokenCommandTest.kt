@@ -37,4 +37,10 @@ class SetPushTokenCommandTest {
         command.execute(mapOf()) { _, _ ->
         }
     }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun testExecute_shouldThrowException_whenPushTokenIsEmpty() {
+        command.execute(mapOf("pushToken" to "")) { _, _ ->
+        }
+    }
 }
