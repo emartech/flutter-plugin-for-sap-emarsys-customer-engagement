@@ -1,6 +1,9 @@
 package com.emarsys.emarsys_sdk.mapper
 
-import com.emarsys.mobileengage.api.action.*
+import com.emarsys.mobileengage.api.action.ActionModel
+import com.emarsys.mobileengage.api.action.AppEventActionModel
+import com.emarsys.mobileengage.api.action.CustomEventActionModel
+import com.emarsys.mobileengage.api.action.OpenExternalUrlActionModel
 import com.emarsys.mobileengage.api.inbox.InboxResult
 
 class InboxResultMapper: Mapper<InboxResult,List<Map<String, Any>>> {
@@ -57,6 +60,7 @@ class InboxResultMapper: Mapper<InboxResult,List<Map<String, Any>>> {
                 }
                 is OpenExternalUrlActionModel ->
                     actionMap["url"] = action.url.toString()
+                else -> {}
             }
             actionMap.toMap()
         }

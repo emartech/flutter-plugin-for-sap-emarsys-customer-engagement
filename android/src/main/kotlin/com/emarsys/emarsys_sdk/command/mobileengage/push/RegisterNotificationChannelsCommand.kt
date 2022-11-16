@@ -13,7 +13,7 @@ class RegisterNotificationChannelsCommand(
     private val notificationChannelFactory: NotificationChannelFactory
 ) : EmarsysCommand {
     override fun execute(parameters: Map<String, Any?>?, resultCallback: ResultCallback) {
-        if (AndroidVersionUtils.isOreoOrAbove()) {
+        if (AndroidVersionUtils.isOreoOrAbove) {
             val manager = application.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             (parameters?.get("notificationChannels") as List<Map<String, Any>>).forEach { channelMap ->
                 try {

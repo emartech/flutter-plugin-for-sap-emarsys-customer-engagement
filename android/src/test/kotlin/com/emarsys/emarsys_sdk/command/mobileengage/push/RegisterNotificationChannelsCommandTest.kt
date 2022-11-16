@@ -22,7 +22,7 @@ class RegisterNotificationChannelsCommandTest {
     @Before
     fun setUp() {
         mockkStatic(AndroidVersionUtils::class)
-        every { AndroidVersionUtils.isOreoOrAbove() } returns true
+        every { AndroidVersionUtils.isOreoOrAbove } returns true
         mockApplication = mockk()
         mockNotificationChannelFactory = mockk()
         mockNotificationManager = mockk(relaxed = true)
@@ -106,7 +106,7 @@ class RegisterNotificationChannelsCommandTest {
 
     @Test
     fun testExecute_shouldDoNothingIfBelowOreo() {
-        every { AndroidVersionUtils.isOreoOrAbove() } returns false
+        every { AndroidVersionUtils.isOreoOrAbove } returns false
         verify { mockNotificationManager wasNot called }
     }
 }
