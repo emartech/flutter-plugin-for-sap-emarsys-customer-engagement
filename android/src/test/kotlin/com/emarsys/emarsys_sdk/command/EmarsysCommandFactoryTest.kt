@@ -12,6 +12,7 @@ import com.emarsys.emarsys_sdk.command.mobileengage.inbox.AddTagCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.inbox.FetchMessagesCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.inbox.RemoveTagCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.push.PushSendingEnabledCommand
+import com.emarsys.emarsys_sdk.command.mobileengage.push.SetPushTokenCommand
 import com.emarsys.emarsys_sdk.command.predict.*
 import com.emarsys.emarsys_sdk.command.setup.InitializeCommand
 import com.emarsys.emarsys_sdk.command.setup.SetupCommand
@@ -78,10 +79,17 @@ class EmarsysCommandFactoryTest {
     }
 
     @Test
-    fun testCreate_shouldCreateAClearPushTokenCommandFromMethodCall() {
+    fun testCreate_shouldCreatePushSendingEnabledCommandFromMethodCall() {
         val result = factory.create("push.pushSendingEnabled")
 
         result shouldBe PushSendingEnabledCommand(mockk())
+    }
+
+    @Test
+    fun testCreate_shouldCreateSetPushTokenCommandFromMethodCall() {
+        val result = factory.create("push.setPushToken")
+
+        result shouldBe SetPushTokenCommand()
     }
 
     @Test
