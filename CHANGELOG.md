@@ -1,3 +1,7 @@
+# 1.4.0
+## What's new
+### [Push](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#3-push)
+* Introduce setPushToken method what can be used for setting the pushToken when not the [automatic / recommended](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#31-pushsendingenabled) way is used
 # 1.3.3
 ## What's fixed
 ### [Push](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#3-push)
