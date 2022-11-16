@@ -8,8 +8,8 @@ import EmarsysSDK
 public class SetPushTokenCommand: EmarsysCommandProtocol {
     
     func execute(arguments: [String : Any]?, resultCallback: @escaping ResultCallback) {
-        guard let pushToken = arguments?["pushToken"] as? String else {
-            resultCallback(["error": "Invalid pushToken argument"])
+        guard let pushToken = arguments?["pushToken"] as? String, pushToken.count > 0 else {
+            resultCallback(["error": "Invalid argument: pushToken should not be empty or null!"])
             return
         }
         
