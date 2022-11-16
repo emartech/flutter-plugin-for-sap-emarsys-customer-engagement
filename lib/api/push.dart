@@ -1,6 +1,6 @@
-import 'package:flutter/services.dart';
-import 'package:emarsys_sdk/model/notification_channel.dart';
 import 'package:emarsys_sdk/model/event.dart';
+import 'package:emarsys_sdk/model/notification_channel.dart';
+import 'package:flutter/services.dart';
 
 class Push {
   final MethodChannel _channel;
@@ -22,6 +22,10 @@ class Push {
   Future<void> pushSendingEnabled(bool enable) {
     return _channel.invokeMethod(
         'push.pushSendingEnabled', {'pushSendingEnabled': enable});
+  }
+
+  Future<void> setPushToken(String pushToken) {
+    return _channel.invokeMethod('push.setPushToken', {'pushToken': pushToken});
   }
 
   Future<void> registerAndroidNotificationChannels(
