@@ -13,18 +13,24 @@ public class SetPushTokenCommand: EmarsysCommandProtocol {
             return
         }
         
-        let pushData = convertPushToken(token: pushToken)
-        
-        Emarsys.push.setPushToken(pushToken: pushData) { error in
-            if let e = error {
-                resultCallback(["error": e])
-            } else {
-                resultCallback(["success": true])
+        do {
+            let pushData = try convertPushToken(token: pushToken)
+            
+            Emarsys.push.setPushToken(pushToken: pushData) { error in
+                if let e = error {
+                    resultCallback(["error": e])
+                } else {
+                    resultCallback(["success": true])
+                }
             }
+        } catch let e as InvalidError {
+            resultCallback(["error": "\(e.kind): \(e.message)"])
+        } catch {
+            resultCallback(["error": error.localizedDescription])
         }
     }
     
-    func convertPushToken(token: String) -> Data {
+    func convertPushToken(token: String) throws -> Data {
         let len = token.count / 2
         var data = Data(capacity:len)
         let ptr = token.cString(using: String.Encoding.utf8)!
@@ -44,7 +50,7 @@ public class SetPushTokenCommand: EmarsysCommandProtocol {
                 case 97...102:
                     offset = 97 - 10
                 default:
-                    assert(false)
+                    throw InvalidError(message: "Invalid pushToken", kind: .invalidPushTokenError)
                 }
                 
                 num += (c - offset)*multi
