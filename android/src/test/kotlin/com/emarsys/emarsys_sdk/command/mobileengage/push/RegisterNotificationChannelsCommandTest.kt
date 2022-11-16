@@ -21,7 +21,7 @@ class RegisterNotificationChannelsCommandTest {
 
     @Before
     fun setUp() {
-        mockkStatic(AndroidVersionUtils::class)
+        mockkObject(AndroidVersionUtils)
         every { AndroidVersionUtils.isOreoOrAbove } returns true
         mockApplication = mockk()
         mockNotificationChannelFactory = mockk()
