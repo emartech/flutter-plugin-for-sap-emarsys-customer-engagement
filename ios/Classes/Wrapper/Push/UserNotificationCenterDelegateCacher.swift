@@ -32,12 +32,12 @@ public class UserNotificationCenterDelegateCacher: NSObject, UNUserNotificationC
         openSettingsCache.append(dict)
     }
     
-    func emptyCache(with notificationCenterDeleagte: UNUserNotificationCenterDelegate) {
+    func emptyCache(with notificationCenterDelegate: UNUserNotificationCenterDelegate) {
         willPresentCache.forEach { cachedDict in
-            notificationCenterDeleagte.userNotificationCenter?(cachedDict["center"] as! UNUserNotificationCenter, willPresent: cachedDict["notification"] as! UNNotification, withCompletionHandler: cachedDict["completionHandler"] as! (UNNotificationPresentationOptions) -> Void)
+            notificationCenterDelegate.userNotificationCenter?(cachedDict["center"] as! UNUserNotificationCenter, willPresent: cachedDict["notification"] as! UNNotification, withCompletionHandler: cachedDict["completionHandler"] as! (UNNotificationPresentationOptions) -> Void)
         }
         didReceiveCache.forEach { cachedDict in
-            notificationCenterDeleagte.userNotificationCenter?(cachedDict["center"] as! UNUserNotificationCenter, didReceive: cachedDict["response"] as! UNNotificationResponse, withCompletionHandler: cachedDict["completionHandler"] as! () -> Void)
+            notificationCenterDelegate.userNotificationCenter?(cachedDict["center"] as! UNUserNotificationCenter, didReceive: cachedDict["response"] as! UNNotificationResponse, withCompletionHandler: cachedDict["completionHandler"] as! () -> Void)
         }
         if #available(iOS 12.0, *) {
             openSettingsCache.forEach { cachedDict in
@@ -45,7 +45,7 @@ public class UserNotificationCenterDelegateCacher: NSObject, UNUserNotificationC
                 if let noti = cachedDict["notification"] as? UNNotification {
                     notification = noti
                 }
-                notificationCenterDeleagte.userNotificationCenter?(cachedDict["center"] as! UNUserNotificationCenter, openSettingsFor: notification)
+                notificationCenterDelegate.userNotificationCenter?(cachedDict["center"] as! UNUserNotificationCenter, openSettingsFor: notification)
             }
             openSettingsCache.removeAll()
         }
