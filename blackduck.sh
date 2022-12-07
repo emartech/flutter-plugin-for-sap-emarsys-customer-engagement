@@ -9,5 +9,4 @@ chmod +x detect7.sh
 --detect.project.name="Github:emartech\ /\ flutter-plugin-for-sap-emarsys-customer-engagement" \
 --detect.project.version.name=master \
 --detect.source.path=~/work/flutter-plugin-for-sap-emarsys-customer-engagement \
---detect.npm.include.dev.dependencies=false \
 --detect.sbt.report.search.depth=4 \
