@@ -1,3 +1,13 @@
+# 1.5.0
+# What's new
+### [InApp](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#4-in-app)
+* SDK now supports CopyToClipboard action in inapp messages.
+# What's fixed
+### [Android SDK](https://github.com/emartech/android-emarsys-sdk/wiki)
+* Fixed an issue that could cause the SDK to crash because of rare race conditions in the database.
+# What's changed
+### [ChangeAppcode](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#21-changeapplicationcode)
+* Prevent SDK from unnecessary network calls when an invalid `applicationCode` was set.
 # 1.4.0
 ## What's new
 ### [Push](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#3-push)
