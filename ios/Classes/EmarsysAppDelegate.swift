@@ -6,13 +6,18 @@ import EmarsysSDK
 @objc open class EmarsysAppDelegate: FlutterAppDelegate {
   
     open override func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        application.registerForRemoteNotifications()
         var authorizationOptions: UNAuthorizationOptions = [.sound, .alert, .badge]
         if #available(iOS 12.0, *) {
             authorizationOptions = [.sound, .alert, .badge, .provisional]
         }
-        UNUserNotificationCenter.current().requestAuthorization(options: authorizationOptions) { granted, error in
-        }
+        UNUserNotificationCenter.current().requestAuthorization(options: authorizationOptions,
+                    completionHandler: {(granted, error) in
+                        if granted {
+                            DispatchQueue.main.async() {
+                                UIApplication.shared.registerForRemoteNotifications()
+                            }
+                        }
+                    });
         UNUserNotificationCenter.current().delegate = UserNotificationCenterDelegateCacher.instance
         
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
