@@ -1,3 +1,10 @@
+# 1.6.0
+# What's fixed
+### [Android SDK](https://github.com/emartech/android-emarsys-sdk/wiki#3-inapp)
+* Fixed an issue that could cause the SDK to crash during In-App appearing.
+# What's changed
+### [Android SDK](https://github.com/emartech/android-emarsys-sdk/wiki#2-push)
+* Push Internal ID now supports string.
 # 1.5.0
 # What's new
 ### [InApp](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#4-in-app)
