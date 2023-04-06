@@ -35,7 +35,7 @@ class Geofence {
   Future<bool> isEnabled() async {
     bool? result = await _channel.invokeMethod('geofence.isEnabled');
     if (result == null) {
-      throw NullThrownError();
+      throw TypeError();
     }
     return result;
   }

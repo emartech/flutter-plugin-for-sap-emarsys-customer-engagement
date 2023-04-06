@@ -32,7 +32,7 @@ class Config {
   Future<String> hardwareId() async {
     String? hardwareId = await _channel.invokeMethod('config.hardwareId');
     if (hardwareId == null) {
-      throw NullThrownError();
+      throw TypeError();
     }
     return hardwareId;
   }
@@ -40,7 +40,7 @@ class Config {
   Future<String> languageCode() async {
     String? language = await _channel.invokeMethod('config.languageCode');
     if (language == null) {
-      throw NullThrownError();
+      throw TypeError();
     }
     return language;
   }
@@ -49,7 +49,7 @@ class Config {
     Map<dynamic, dynamic>? notificationSettings =
         await _channel.invokeMethod('config.notificationSettings');
     if (notificationSettings == null) {
-      throw NullThrownError();
+      throw TypeError();
     }
     return NotificationSettings.fromMap(notificationSettings);
   }
@@ -57,7 +57,7 @@ class Config {
   Future<String> sdkVersion() async {
     String? sdkVersion = await _channel.invokeMethod('config.sdkVersion');
     if (sdkVersion == null) {
-      throw NullThrownError();
+      throw TypeError();
     }
     return sdkVersion;
   }

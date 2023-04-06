@@ -139,7 +139,7 @@ void main() {
       return null;
     });
 
-    expect(Emarsys.config.hardwareId(), throwsA(isA<NullThrownError>()));
+    expect(Emarsys.config.hardwareId(), throwsA(isA<TypeError>()));
   });
 
   test('languageCode should delegate to the Platform', () async {
@@ -163,7 +163,7 @@ void main() {
       return null;
     });
 
-    expect(Emarsys.config.languageCode(), throwsA(isA<NullThrownError>()));
+    expect(Emarsys.config.languageCode(), throwsA(isA<TypeError>()));
   });
 
   test('notificationSettings should retrieve the correct NotificationSettings',
@@ -244,8 +244,7 @@ void main() {
       return null;
     });
 
-    expect(
-        Emarsys.config.notificationSettings(), throwsA(isA<NullThrownError>()));
+    expect(Emarsys.config.notificationSettings(), throwsA(isA<TypeError>()));
   });
 
   test('sdkVersion should delegate to the Platform', () async {
@@ -269,6 +268,6 @@ void main() {
       return null;
     });
 
-    expect(Emarsys.config.sdkVersion(), throwsA(isA<NullThrownError>()));
+    expect(Emarsys.config.sdkVersion(), throwsA(isA<TypeError>()));
   });
 }

@@ -101,7 +101,7 @@ class _MyAppState extends State<MyApp> {
       print(event.name);
     });
 
-    WidgetsBinding.instance!
+    WidgetsBinding.instance
         .addPostFrameCallback((_) => afterFirstLayout(context));
   }
 

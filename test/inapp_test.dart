@@ -60,6 +60,6 @@ void main() {
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
       return null;
     });
-    expect(Emarsys.inApp.isPaused(), throwsA(isA<NullThrownError>()));
+    expect(Emarsys.inApp.isPaused(), throwsA(isA<TypeError>()));
   });
 }

@@ -12,7 +12,7 @@ class MessageInbox {
     List<dynamic>? messages =
         await _channel.invokeMethod('inbox.fetchMessages');
     if (messages == null) {
-      throw NullThrownError();
+      throw TypeError();
     }
     return _mapper.map(messages);
   }

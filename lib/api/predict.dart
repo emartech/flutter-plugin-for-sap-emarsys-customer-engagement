@@ -80,7 +80,7 @@ class Predict {
     List<dynamic>? products =
         await _channel.invokeMethod('predict.recommendProducts', attributes);
     if (products == null) {
-      throw NullThrownError();
+      throw TypeError();
     }
     return _productMapper.map(products);
   }

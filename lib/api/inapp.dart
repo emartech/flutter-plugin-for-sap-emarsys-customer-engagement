@@ -22,7 +22,7 @@ class InApp {
   Future<bool> isPaused() async {
     bool? result = await _channel.invokeMethod('inApp.isPaused');
     if (result == null) {
-      throw NullThrownError();
+      throw TypeError();
     }
     return result;
   }

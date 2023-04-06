@@ -114,7 +114,7 @@ class _InboxMessagesState extends State<InboxMessages> {
     if (url != null) {
       return Image.network(url, height: 60, width: 60);
     } else {
-      return Image.asset("placeholder.png", height: 60, width: 60);
+      return Image.asset("assets/placeholder.png", height: 60, width: 60);
     }
   }
 }
