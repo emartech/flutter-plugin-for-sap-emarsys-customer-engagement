@@ -11,6 +11,7 @@ import com.emarsys.emarsys_sdk.command.mobileengage.contact.SetContactCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.inbox.AddTagCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.inbox.FetchMessagesCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.inbox.RemoveTagCommand
+import com.emarsys.emarsys_sdk.command.mobileengage.push.GetPushTokenCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.push.PushSendingEnabledCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.push.SetPushTokenCommand
 import com.emarsys.emarsys_sdk.command.predict.*
@@ -27,20 +28,20 @@ class EmarsysCommandFactoryTest {
     @Before
     fun setUp() {
         factory =
-                EmarsysCommandFactory(
-                        mockk(),
-                        mockk(),
-                        mockk(),
-                        mockk(),
-                        mockk(),
-                        mockk(),
-                        mockk(),
-                        mockk(),
-                        mockk(),
-                        mockk(),
-                        mockk(),
-                        mockk()
-                )
+            EmarsysCommandFactory(
+                mockk(),
+                mockk(),
+                mockk(),
+                mockk(),
+                mockk(),
+                mockk(),
+                mockk(),
+                mockk(),
+                mockk(),
+                mockk(),
+                mockk(),
+                mockk()
+            )
     }
 
     @Test
@@ -90,6 +91,13 @@ class EmarsysCommandFactoryTest {
         val result = factory.create("push.setPushToken")
 
         result shouldBe SetPushTokenCommand()
+    }
+
+    @Test
+    fun testCreate_shouldCreateGetPushTokenCommandFromMethodCall() {
+        val result = factory.create("push.getPushToken")
+
+        result shouldBe GetPushTokenCommand()
     }
 
     @Test

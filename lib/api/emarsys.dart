@@ -76,6 +76,7 @@ class Emarsys {
 
   static _GetCallbackHandle _getCallbackHandle =
       (Function callback) => PluginUtilities.getCallbackHandle(callback);
+
   static _initialize() async {
     bool? result = false;
     if (Platform.isAndroid) {
@@ -90,6 +91,7 @@ class Emarsys {
   }
 }
 
+@pragma('vm:entry-point')
 Future<void> _callbackDispatcher() async {
   WidgetsFlutterBinding.ensureInitialized();
   const MethodChannel _backgroundChannel =

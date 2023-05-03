@@ -17,6 +17,7 @@ import com.emarsys.emarsys_sdk.command.mobileengage.inbox.RemoveTagCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.push.PushSendingEnabledCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.push.RegisterNotificationChannelsCommand
 import com.emarsys.emarsys_sdk.command.mobileengage.push.SetPushTokenCommand
+import com.emarsys.emarsys_sdk.command.mobileengage.push.GetPushTokenCommand
 import com.emarsys.emarsys_sdk.command.predict.*
 import com.emarsys.emarsys_sdk.command.setup.InitializeCommand
 import com.emarsys.emarsys_sdk.command.setup.SetupCommand
@@ -62,6 +63,7 @@ class EmarsysCommandFactory(
                     notificationChannelFactory
             )
             "push.setPushToken" -> SetPushTokenCommand()
+            "push.getPushToken" -> GetPushTokenCommand()
             "config.changeApplicationCode" -> ChangeApplicationCodeCommand(
                     setupCacheSharedPreferences
             )
