@@ -1,6 +1,14 @@
+# 1.6.2
+## What's new
+### [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
+* Updated underlying [Emarsys SDK](https://github.com/emartech/android-emarsys-sdk/releases/tag/3.5.3) for Android to 3.5.3
+## What's fixed
+ ### [Push](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#3-push) 
+* Fixed an issue that caused App Events being missed in case the App start was triggered by a push message.
+
 # 1.6.1
 ## What's new
-[Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
+### [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
 * Updated underlying [Emarsys SDK](https://github.com/emartech/android-emarsys-sdk/releases/tag/3.5.1) for Android to 3.5.1
 * Updated underlying [Emarsys SDK](https://github.com/emartech/ios-emarsys-sdk/releases/tag/3.3.1) for iOS to 3.3.1
 # 1.6.0
@@ -30,52 +38,52 @@
 * Fixed issue where notifications didn't arrive when application was not running
 # 1.3.2
 ## What's changed
-[Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
+### [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
 * Updated underlying [Emarsys SDK](https://github.com/emartech/android-emarsys-sdk/releases/tag/3.2.6) for Android to 3.2.6
 * This version is Android 13 and iOS 16 compatible
 # 1.3.1
 ## What's changed
-[Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
+### [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
 * Updated underlying [Emarsys SDK](https://github.com/emartech/android-emarsys-sdk/releases/tag/3.2.5) for Android to 3.2.5
 # 1.3.0
 ## What's new
-[Inline In-App](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#42-inline-in-app)
+### [Inline In-App](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#42-inline-in-app)
 * Added support for Inline in-app views on Flutter version 3.0 and above
 ## What's changed
-[Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
+### [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
 * Updated underlying Emarsys SDK for Android to 3.2.4
 * Updated underlying Emarsys SDK for iOS to 3.2.3
 # 1.2.3
 ## What's fixed
-[Inline In-App](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#42-inline-in-app)
+### [Inline In-App](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#42-inline-in-app)
 * Fixed crash when an Inline In-App was fetched with a wrong viewId
 ## What's changed
-[Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
+### [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
 * Updated underlying Emarsys SDK for Android to 3.2.2
 * Updated underlying Emarsys SDK for iOS to 3.2.2
 
 # 1.2.2
 
 ## What's changed
-[Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
+### [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
 * Updated underlying Emarsys SDK for Android to 3.2.1
 * Updated underlying Emarsys SDK for iOS to 3.2.1
 
 # 1.2.1
 ## What's fixed
-[UserNotificationCenterDelegateCacher](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/blob/master/ios/Classes/Wrapper/Push/UserNotificationCenterDelegateCacher.swift)
+### [UserNotificationCenterDelegateCacher](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/blob/master/ios/Classes/Wrapper/Push/UserNotificationCenterDelegateCacher.swift)
 * Made UserNotificationCenterDelegateCacher instance public
 
 # 1.2.0
 
 ## What's changed
-[UserNotificationCenterDelegateCacher](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/blob/master/ios/Classes/Wrapper/Push/UserNotificationCenterDelegateCacher.swift)
+### [UserNotificationCenterDelegateCacher](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/blob/master/ios/Classes/Wrapper/Push/UserNotificationCenterDelegateCacher.swift)
 * Made UserNotificationCenterDelegateCacher public to be available
 
 # 1.1.0
 
 ## What's changed
-[Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
+### [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
 * Updated underlying Emarsys SDK for Android to 3.2.0
 * Updated underlying Emarsys SDK for iOS to 3.2.0
 ### [Predict](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#7-predict)
