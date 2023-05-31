@@ -1,14 +1,14 @@
 class ChannelSettings {
   String channelId;
   int importance = -1000;
-  bool isCanBypassDns = false;
+  bool isCanBypassDnd = false;
   bool isCanShowBadge = false;
   bool isShouldVibrate = false;
   bool isShouldShowLights = false;
   ChannelSettings({
     required this.channelId,
     required this.importance,
-    required this.isCanBypassDns,
+    required this.isCanBypassDnd,
     required this.isCanShowBadge,
     required this.isShouldVibrate,
     required this.isShouldShowLights,
@@ -17,7 +17,7 @@ class ChannelSettings {
   ChannelSettings copyWith({
     String? channelId,
     int? importance,
-    bool? isCanBypassDns,
+    bool? isCanBypassDnd,
     bool? isCanShowBadge,
     bool? isShouldVibrate,
     bool? isShouldShowLights,
@@ -25,7 +25,7 @@ class ChannelSettings {
     return ChannelSettings(
       channelId: channelId ?? this.channelId,
       importance: importance ?? this.importance,
-      isCanBypassDns: isCanBypassDns ?? this.isCanBypassDns,
+      isCanBypassDnd: isCanBypassDnd ?? this.isCanBypassDnd,
       isCanShowBadge: isCanShowBadge ?? this.isCanShowBadge,
       isShouldVibrate: isShouldVibrate ?? this.isShouldVibrate,
       isShouldShowLights: isShouldShowLights ?? this.isShouldShowLights,
@@ -36,7 +36,7 @@ class ChannelSettings {
     return {
       'channelId': channelId,
       'importance': importance,
-      'isCanBypassDns': isCanBypassDns,
+      'isCanBypassDnd': isCanBypassDnd,
       'isCanShowBadge': isCanShowBadge,
       'isShouldVibrate': isShouldVibrate,
       'isShouldShowLights': isShouldShowLights,
@@ -47,7 +47,7 @@ class ChannelSettings {
     return ChannelSettings(
       channelId: map['channelId'],
       importance: map['importance'],
-      isCanBypassDns: map['isCanBypassDns'],
+      isCanBypassDnd: map['isCanBypassDnd'],
       isCanShowBadge: map['isCanShowBadge'],
       isShouldVibrate: map['isShouldVibrate'],
       isShouldShowLights: map['isShouldShowLights'],
@@ -56,7 +56,7 @@ class ChannelSettings {
 
   @override
   String toString() {
-    return 'ChannelSettings(channelId: $channelId, importance: $importance, isCanBypassDns: $isCanBypassDns, isCanShowBadge: $isCanShowBadge, isShouldVibrate: $isShouldVibrate, isShouldShowLights: $isShouldShowLights)';
+    return 'ChannelSettings(channelId: $channelId, importance: $importance, isCanBypassDnd: $isCanBypassDnd, isCanShowBadge: $isCanShowBadge, isShouldVibrate: $isShouldVibrate, isShouldShowLights: $isShouldShowLights)';
   }
 
   @override
@@ -66,7 +66,7 @@ class ChannelSettings {
     return other is ChannelSettings &&
         other.channelId == channelId &&
         other.importance == importance &&
-        other.isCanBypassDns == isCanBypassDns &&
+        other.isCanBypassDnd == isCanBypassDnd &&
         other.isCanShowBadge == isCanShowBadge &&
         other.isShouldVibrate == isShouldVibrate &&
         other.isShouldShowLights == isShouldShowLights;
@@ -76,7 +76,7 @@ class ChannelSettings {
   int get hashCode {
     return channelId.hashCode ^
         importance.hashCode ^
-        isCanBypassDns.hashCode ^
+        isCanBypassDnd.hashCode ^
         isCanShowBadge.hashCode ^
         isShouldVibrate.hashCode ^
         isShouldShowLights.hashCode;

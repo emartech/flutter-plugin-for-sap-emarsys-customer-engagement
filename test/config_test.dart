@@ -179,7 +179,7 @@ void main() {
             {
               "channelId": "testChannelId",
               "importance": 1000,
-              "isCanBypassDns": false,
+              "isCanBypassDnd": false,
               "isCanShowBadge": false,
               "isShouldVibrate": false,
               "isShouldShowLights": false
@@ -218,7 +218,7 @@ void main() {
                     ChannelSettings(
                         channelId: "testChannelId",
                         importance: 1000,
-                        isCanBypassDns: false,
+                        isCanBypassDnd: false,
                         isCanShowBadge: false,
                         isShouldVibrate: false,
                         isShouldShowLights: false)
