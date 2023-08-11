@@ -33,6 +33,9 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
+    if (project.android.hasProperty("namespace")) {
+        namespace 'com.emarsys.emarsys_sdk'
+    }
     compileSdkVersion 33
 
     sourceSets {
@@ -48,13 +51,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-}
-
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-    kotlinOptions {
-        jvmTarget = "1.8"
+    kotlin {
+        jvmToolchain(8)
     }
 }
+
 
 dependencies {
     ext.emarsys_sdk_version = '3.5.3'
@@ -62,7 +63,7 @@ dependencies {
     ext.kotlintest_version = '3.4.2'
     ext.mockk_version = '1.12.0'
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     api "com.emarsys:emarsys-sdk:$emarsys_sdk_version"
     api "com.emarsys:emarsys-firebase:$emarsys_sdk_version"
     api "com.emarsys:emarsys-huawei:$emarsys_sdk_version"

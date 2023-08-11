@@ -1,3 +1,11 @@
+# 1.6.3
+## What's new
+### [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
+* Updated underlying [Emarsys SDK](https://github.com/emartech/ios-emarsys-sdk/releases/tag/3.4.0) for iOS to 3.4.0
+## What's fixed
+ ### [Push](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#3-push) 
+* Fixed a issue that caused the isCanBypassDnd to be a null value in the notification settings on Android
+
 # 1.6.2
 ## What's new
 ### [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
