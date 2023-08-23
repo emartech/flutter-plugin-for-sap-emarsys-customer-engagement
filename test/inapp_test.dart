@@ -16,6 +16,7 @@ void main() {
     MethodCall? actualMethodCall;
     channel.setMockMethodCallHandler((MethodCall methodCall) {
       actualMethodCall = methodCall;
+      return null;
     });
 
     await Emarsys.inApp.pause();
@@ -30,6 +31,7 @@ void main() {
     MethodCall? actualMethodCall;
     channel.setMockMethodCallHandler((MethodCall methodCall) {
       actualMethodCall = methodCall;
+      return null;
     });
 
     await Emarsys.inApp.resume();

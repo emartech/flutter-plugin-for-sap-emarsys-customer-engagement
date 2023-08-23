@@ -1,10 +1,6 @@
 import 'package:emarsys_sdk/emarsys_sdk.dart';
-import 'package:emarsys_sdk/model/predict/cart_item.dart';
-import 'package:emarsys_sdk/model/predict/logic.dart';
-import 'package:emarsys_sdk/model/predict/recommendation_logic.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:emarsys_sdk/api/emarsys.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('com.emarsys.methods');
@@ -22,6 +18,7 @@ void main() {
     MethodCall? actualMethodCall;
     channel.setMockMethodCallHandler((MethodCall methodCall) {
       actualMethodCall = methodCall;
+      return null;
     });
 
     await Emarsys.predict.trackItemView(itemId);
@@ -54,6 +51,7 @@ void main() {
     MethodCall? actualMethodCall;
     channel.setMockMethodCallHandler((MethodCall methodCall) {
       actualMethodCall = methodCall;
+      return null;
     });
     await Emarsys.predict.trackSearchTerm(searchTerm);
 
@@ -71,6 +69,7 @@ void main() {
     MethodCall? actualMethodCall;
     channel.setMockMethodCallHandler((MethodCall methodCall) {
       actualMethodCall = methodCall;
+      return null;
     });
     await Emarsys.predict.trackCategoryView(categoryPath);
 
@@ -87,6 +86,7 @@ void main() {
     MethodCall? actualMethodCall;
     channel.setMockMethodCallHandler((MethodCall methodCall) {
       actualMethodCall = methodCall;
+      return null;
     });
     await Emarsys.predict.trackTag(eventName, attributes);
 
@@ -107,6 +107,7 @@ void main() {
     MethodCall? actualMethodCall;
     channel.setMockMethodCallHandler((MethodCall methodCall) {
       actualMethodCall = methodCall;
+      return null;
     });
     await Emarsys.predict.trackCart(cartItems);
 
@@ -132,6 +133,7 @@ void main() {
     MethodCall? actualMethodCall;
     channel.setMockMethodCallHandler((MethodCall methodCall) {
       actualMethodCall = methodCall;
+      return null;
     });
     await Emarsys.predict.trackPurchase(orderId, items);
 

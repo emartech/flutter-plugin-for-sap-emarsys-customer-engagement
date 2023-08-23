@@ -1,4 +1,3 @@
-  import 'dart:ffi';
 
 import 'package:emarsys_sdk/mappers/geofence_mapper.dart';
   import 'package:emarsys_sdk/model/geofence_model.dart';

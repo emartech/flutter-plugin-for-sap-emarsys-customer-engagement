@@ -17,6 +17,7 @@ void main() {
     MethodCall? actualMethodCall;
     channel.setMockMethodCallHandler((MethodCall methodCall) {
       actualMethodCall = methodCall;
+      return null;
     });
     await Emarsys.push.pushSendingEnabled(enable);
 
@@ -32,6 +33,7 @@ void main() {
     MethodCall? actualMethodCall;
     channel.setMockMethodCallHandler((MethodCall methodCall) {
       actualMethodCall = methodCall;
+      return null;
     });
     await Emarsys.push.setPushToken(testPushToken);
 

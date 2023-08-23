@@ -1,4 +1,3 @@
-import 'package:emarsys_sdk/api/emarsys.dart';
 import 'package:emarsys_sdk/emarsys_sdk.dart';
 import 'package:flutter/material.dart';
 

@@ -1,5 +1,10 @@
+# 1.6.4
+## What's changed
+### [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
+* Updated underlying [Emarsys SDK](https://github.com/emartech/ios-emarsys-sdk/releases/tag/3.4.1) for iOS to 3.4.1
+
 # 1.6.3
-## What's new
+## What's changed
 ### [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
 * Updated underlying [Emarsys SDK](https://github.com/emartech/ios-emarsys-sdk/releases/tag/3.4.0) for iOS to 3.4.0
 ## What's fixed
@@ -15,7 +20,7 @@
 * Fixed an issue that caused App Events being missed in case the App start was triggered by a push message.
 
 # 1.6.1
-## What's new
+## What's changed
 ### [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
 * Updated underlying [Emarsys SDK](https://github.com/emartech/android-emarsys-sdk/releases/tag/3.5.1) for Android to 3.5.1
 * Updated underlying [Emarsys SDK](https://github.com/emartech/ios-emarsys-sdk/releases/tag/3.3.1) for iOS to 3.3.1
