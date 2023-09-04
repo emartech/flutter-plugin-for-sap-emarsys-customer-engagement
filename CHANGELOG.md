@@ -1,3 +1,8 @@
+# 1.6.5
+## What's fixed
+### [Geofence](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#6-geofence)
+* initialEnterTriggerEnabled command creation has been fixed for iOS platform
+
 # 1.6.4
 ## What's changed
 ### [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
