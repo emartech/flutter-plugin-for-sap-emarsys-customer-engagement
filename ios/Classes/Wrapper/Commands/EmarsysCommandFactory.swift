@@ -87,7 +87,7 @@ class EmarsysCommandFactory {
             result = GeofenceEnableCommand()
         case "geofence.disable":
             result = GeofenceDisableCommand()
-        case "geofence.setInitialEnterTriggerEnabled":
+        case "geofence.initialEnterTriggerEnabled":
             result = GeofenceSetInitialEnterTriggerEnabledCommand()
         case "geofence.ios.requestAlwaysAuthorization":
             result = GeofenceiOSRequestAlwaysAuthorizationCommand()
