@@ -14,7 +14,7 @@
 		0D2D1902272014F300D2035A /* TrackItemViewCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2D1901272014F300D2035A /* TrackItemViewCommandTests.swift */; };
 		0D2D19042720151B00D2035A /* TrackSearchTermCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2D19032720151B00D2035A /* TrackSearchTermCommandTests.swift */; };
 		0D3EFB2D2728357F001B538E /* MapToProductMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3EFB2C2728357F001B538E /* MapToProductMapperTests.swift */; };
-		0D3EFB2E27283914001B538E /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		0D3EFB2E27283914001B538E /* (null) in Sources */ = {isa = PBXBuildFile; };
 		0D70661E27294FB8007F236E /* TrackRecommendationClickCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D70661D27294FB8007F236E /* TrackRecommendationClickCommandTests.swift */; };
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
@@ -367,8 +367,8 @@
 			buildConfigurationList = 97C147051CF9000F007C117D /* Build configuration list for PBXNativeTarget "Runner" */;
 			buildPhases = (
 				DAC2E358A0C778E37129FD13 /* [CP] Check Pods Manifest.lock */,
-				9740EEB61CF901F6004384FC /* Run Script */,
 				97C146EA1CF9000F007C117D /* Sources */,
+				9740EEB61CF901F6004384FC /* Run Script */,
 				97C146EB1CF9000F007C117D /* Frameworks */,
 				97C146EC1CF9000F007C117D /* Resources */,
 				9705A1C41CF9048500538489 /* Embed Frameworks */,
@@ -615,7 +615,7 @@
 				8AC3B27326316D070092C7B8 /* EmarsysCommandFactoryTests.swift in Sources */,
 				0D2D18FA2720123F00D2035A /* TrackTagCommandTests.swift in Sources */,
 				D42681A12726EABA0073915E /* LogicMapperTests.swift in Sources */,
-				0D3EFB2E27283914001B538E /* BuildFile in Sources */,
+				0D3EFB2E27283914001B538E /* (null) in Sources */,
 				0D70661E27294FB8007F236E /* TrackRecommendationClickCommandTests.swift in Sources */,
 				0D3EFB2D2728357F001B538E /* MapToProductMapperTests.swift in Sources */,
 				8A1084102631B48800A18E54 /* SetContactCommandTests.swift in Sources */,

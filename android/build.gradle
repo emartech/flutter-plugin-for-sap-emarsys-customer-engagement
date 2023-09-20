@@ -2,9 +2,9 @@ group 'com.emarsys.emarsys_sdk'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.gradle_version = '7.3.1'
-    ext.kotlin_version = '1.7.21'
-    ext.agconnect_version = '1.7.2.300'
+    ext.gradle_version = '8.1.1'
+    ext.kotlin_version = '1.9.0'
+    ext.agconnect_version = '1.9.1.300'
     repositories {
         mavenCentral()
         google()
@@ -48,17 +48,17 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlin {
-        jvmToolchain(8)
+        jvmToolchain(17)
     }
 }
 
 
 dependencies {
-    ext.emarsys_sdk_version = '3.5.3'
+    ext.emarsys_sdk_version = '3.6.1'
     ext.junit_version = '4.13.2'
     ext.kotlintest_version = '3.4.2'
     ext.mockk_version = '1.12.0'
