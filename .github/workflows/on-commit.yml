@@ -17,18 +17,18 @@ jobs:
     runs-on: macos-12
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: set up JDK 1.11
+      - name: set up JDK 17
         uses: actions/setup-java@v2
         with:
           distribution: 'zulu'
-          java-version: 11
+          java-version: 17
           
       - name: Setup flutter env
         uses: subosito/flutter-action@v2.4.0
         with:
-          flutter-version: "3.3.2"
+          flutter-version: "3.13.4"
           architecture: x64
           channel: "stable"
           
@@ -50,12 +50,12 @@ jobs:
     needs: [Lint]
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup flutter env
         uses: subosito/flutter-action@v2.4.0
         with:
-          flutter-version: "3.3.2"
+          flutter-version: "3.13.4"
           architecture: x64
           channel: "stable"
         
@@ -84,7 +84,7 @@ jobs:
       - name: Setup flutter env
         uses: subosito/flutter-action@v2.4.0
         with:
-          flutter-version: "3.3.2"
+          flutter-version: "3.13.4"
           architecture: x64
           channel: "stable"
 

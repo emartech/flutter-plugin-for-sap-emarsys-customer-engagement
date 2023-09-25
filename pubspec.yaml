@@ -1,6 +1,6 @@
 name: emarsys_sdk
 description: The Flutter plug-in for SAP Emarsys Customer Engagement is the official plug-in to help integrate Emarsys into your Flutter application.
-version: 1.6.5
+version: 2.0.0
 homepage: https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement
 
 environment:
@@ -29,8 +29,8 @@ flutter:
 
 scripts:
   release:
-    - flutter pub get
-    - flutter pub run build_runner build --delete-conflicting-outputs
+    - dart pub get
+    - dart pub run build_runner build --delete-conflicting-outputs
     - rm example/lib/version.dart
     - $pana-test
   test-flutter:
@@ -53,6 +53,6 @@ scripts:
     - sleep 10s
     - $test-ios
   pana-test:
-    - flutter pub global activate pana
-    - flutter pub global run pana  ./
+    - dart pub global activate pana
+    - dart pub global run pana  ./
     

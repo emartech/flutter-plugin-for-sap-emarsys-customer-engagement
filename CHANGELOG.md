@@ -1,3 +1,11 @@
+# 2.0.0
+## What's changed
+### [Emarsys](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#12-setup-the-emarsys-sdk)
+* The underlying AGP plugin has been updated to 8.1.1 therefore breaking changes in that plugin are now surfacing for existing integrations. Please check the linked documentations on how to migrate.
+### [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
+* Updated underlying [Emarsys SDK](https://github.com/emartech/android-emarsys-sdk/releases/tag/3.4.1) for Android to 3.6.2
+* Updated underlying [Emarsys SDK](https://github.com/emartech/ios-emarsys-sdk/releases/tag/3.4.1) for iOS to 3.4.2
+
 # 1.6.5
 ## What's fixed
 ### [Geofence](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#6-geofence)

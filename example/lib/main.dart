@@ -111,6 +111,7 @@ class _MyAppState extends State<MyApp> {
     String? languageCodeFromNative = await Emarsys.config.languageCode();
     String? merchantIdFromNative = await Emarsys.config.merchantId();
     int? contactFieldIdFromNative = await Emarsys.config.contactFieldId();
+
     NotificationSettings notificationSettingsFromNative =
         await Emarsys.config.notificationSettings();
 
