@@ -71,7 +71,7 @@ public class SetupCommand: EmarsysCommandProtocol {
                     }
                 }
             }
-            UNUserNotificationCenter.current().delegate = Emarsys.push
+            
             UserNotificationCenterDelegateCacher.instance.emptyCache(with: Emarsys.push)
             
             Emarsys.push.silentMessageEventHandler = self.silentPushEventHandler
