@@ -1,3 +1,8 @@
+# 2.1.0
+## What's new
+### [Push](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#3-push)
+* Introduced a new function in EmarsysAppDelegate where UNUserNotificationDelegates can be provided. For usage see the example app's AppDelegate.
+
 # 2.0.0
 ## What's changed
 ### [Emarsys](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#12-setup-the-emarsys-sdk)
