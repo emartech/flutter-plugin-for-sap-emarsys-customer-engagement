@@ -151,7 +151,7 @@ class EmarsysCommandFactoryTests: XCTestCase {
     }
     
     func testCreate_setInitialEnterTriggerEnabled() throws {
-        let command = factory?.create(name: "geofence.setInitialEnterTriggerEnabled")
+        let command = factory?.create(name: "geofence.initialEnterTriggerEnabled")
         
         XCTAssertTrue(command is GeofenceSetInitialEnterTriggerEnabledCommand)
     }

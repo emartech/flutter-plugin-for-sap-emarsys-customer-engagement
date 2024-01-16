@@ -1,9 +1,6 @@
-//
-//  Created by Emarsys
-//
-
 import Foundation
 import EmarsysSDK
+import Flutter
 
 class InlineInAppView: NSObject, FlutterPlatformView {
     let inlineInAppView : EMSInlineInAppView

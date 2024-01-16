@@ -1,7 +1,7 @@
 import Flutter
 import UIKit
 
-public class SwiftEmarsysSdkPlugin: NSObject, FlutterPlugin {
+public class EmarsysSdkPlugin: NSObject, FlutterPlugin {
     
     static var factory: EmarsysCommandFactory?
     
@@ -37,14 +37,14 @@ public class SwiftEmarsysSdkPlugin: NSObject, FlutterPlugin {
         geofenceEventChannel.setStreamHandler(geofenceHandler)
         inAppEventChannel.setStreamHandler(inAppHandler)
         
-        let instance = SwiftEmarsysSdkPlugin()
+        let instance = EmarsysSdkPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
         let inlineInappViewFactory = InlineInAppViewFactory(messenger: registrar.messenger())
         registrar.register(inlineInappViewFactory, withId: "inlineInAppView")
     }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        guard let command = SwiftEmarsysSdkPlugin.factory?.create(name: call.method) else {
+        guard let command = EmarsysSdkPlugin.factory?.create(name: call.method) else {
             let flutterError = FlutterError(code: "1501", message: "Command creation failed", details: nil)
             result(flutterError)
             return

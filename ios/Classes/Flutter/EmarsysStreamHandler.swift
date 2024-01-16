@@ -1,9 +1,6 @@
-//
-//  Created by Emarsys on 2021.
-//
-
 import Foundation
 import EmarsysSDK
+import Flutter
 
 class EmarsysStreamHandler: NSObject, FlutterStreamHandler {
     

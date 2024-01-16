@@ -1,7 +1,3 @@
-//
-//  Created by Emarsys
-//
-
 import Foundation
 import Flutter
 import UIKit

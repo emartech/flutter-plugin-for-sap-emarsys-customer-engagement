@@ -1,5 +1,5 @@
 # Uncomment this line to define a global platform for your project
-platform :ios, '11.0'
+platform :ios, '12.0'
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
@@ -41,7 +41,7 @@ target 'NotificationExtension' do
   pod 'EmarsysNotificationService'
 end
 
-target 'flutter-plugin-ios-tests' do
+target 'RunnerTests' do
   use_frameworks!
   use_modular_headers!
 
