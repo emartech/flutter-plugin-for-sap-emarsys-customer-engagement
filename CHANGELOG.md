@@ -5,6 +5,7 @@
 ### [iOS SDK](https://github.com/emartech/ios-emarsys-sdk/)
 * Minimum iOS version was increased to 12.0
 ### [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
+* Increased minimun Dart version from 2.14.0 to 2.15.0
 * Updated underlying [Emarsys SDK](https://github.com/emartech/android-emarsys-sdk/releases/tag/3.7.0) for Android to 3.7.0
 * Updated underlying [Emarsys SDK](https://github.com/emartech/ios-emarsys-sdk/releases/tag/3.5.0) for iOS to 3.5.0
 
