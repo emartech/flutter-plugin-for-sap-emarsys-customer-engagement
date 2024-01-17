@@ -24,20 +24,20 @@ void main() {
   });
 
   test('inValue should create RecommendationFilter', () async {
-    var result =
-        RecommendationFilter.include("testField").inValues(["testValue1","testValue2"]);
+    var result = RecommendationFilter.include("testField")
+        .inValues(["testValue1", "testValue2"]);
     expect(result.comparison, Comparison.IN);
     expect(result.field, "testField");
     expect(result.filterType, FilterType.INCLUDE);
-    expect(result.values, ["testValue1","testValue2"]);
-  }); 
+    expect(result.values, ["testValue1", "testValue2"]);
+  });
 
   test('overlapsValues should create RecommendationFilter', () async {
-    var result =
-        RecommendationFilter.include("testField").overlapsValues(["testValue1","testValue2"]);
+    var result = RecommendationFilter.include("testField")
+        .overlapsValues(["testValue1", "testValue2"]);
     expect(result.comparison, Comparison.OVERLAPS);
     expect(result.field, "testField");
     expect(result.filterType, FilterType.INCLUDE);
-    expect(result.values, ["testValue1","testValue2"]);
+    expect(result.values, ["testValue1", "testValue2"]);
   });
 }

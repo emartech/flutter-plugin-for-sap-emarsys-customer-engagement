@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 enum ConsoleLogLevels { BASIC, DEBUG, WARN, ERROR, INFO, TRACE }
 
 class EmarsysConfig {
@@ -25,9 +23,8 @@ class EmarsysConfig {
           androidVerboseConsoleLoggingEnabled,
       'androidSharedSecret': androidSharedSecret,
       'androidSharedPackageNames': androidSharedPackageNames,
-      'iOSEnabledConsoleLogLevels': iOSEnabledConsoleLogLevels
-          ?.map((logLevel) => describeEnum(logLevel))
-          .toList()
+      'iOSEnabledConsoleLogLevels':
+          iOSEnabledConsoleLogLevels?.map((logLevel) => logLevel.name).toList()
     };
   }
 }

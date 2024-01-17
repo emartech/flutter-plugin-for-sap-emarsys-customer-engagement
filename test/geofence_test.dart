@@ -87,9 +87,7 @@ void main() {
     }
   });
 
-
-  test('registeredGeofences should delegate to the Platform',
-      () async {
+  test('registeredGeofences should delegate to the Platform', () async {
     MethodCall? actualMethodCall;
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
       actualMethodCall = methodCall;
@@ -101,8 +99,7 @@ void main() {
 
     expect(actualMethodCall != null, true);
     if (actualMethodCall != null) {
-      expect(
-          actualMethodCall!.method, 'geofence.registeredGeofences');
+      expect(actualMethodCall!.method, 'geofence.registeredGeofences');
     }
   });
 }

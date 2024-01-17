@@ -156,15 +156,13 @@ void main() {
     final List<TestCartItem> items = [];
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
       throw PlatformException(
-          code: '42',
-          message: 'Items list should not be empty!'
-        );
+          code: '42', message: 'Items list should not be empty!');
     });
 
     expect(
         Emarsys.predict.trackPurchase(orderId, items),
-        throwsA(isA<PlatformException>().having(
-            (error) => error.message, 'message', 'Items list should not be empty!')));
+        throwsA(isA<PlatformException>().having((error) => error.message,
+            'message', 'Items list should not be empty!')));
   });
 
   test('recommendProducts with only Logic should delegate to the Platform',
