@@ -1,10 +1,3 @@
-//
-//  NotificationService.swift
-//  NotificationExtension
-//
-//  Created by Hunyady, Mihaly on 16/01/2024.
-//
-
 import UserNotifications
 import EmarsysNotificationService
 
