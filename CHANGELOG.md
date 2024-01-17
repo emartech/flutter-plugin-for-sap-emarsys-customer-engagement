@@ -1,3 +1,13 @@
+# 2.2.0
+## What's changed
+### [Android SDK](https://github.com/emartech/android-emarsys-sdk/)
+* Remove JVM Toolchain Specification for Better M1 Compatibility
+### [iOS SDK](https://github.com/emartech/ios-emarsys-sdk/)
+* Minimum iOS version was increased to 12.0
+### [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
+* Updated underlying [Emarsys SDK](https://github.com/emartech/android-emarsys-sdk/releases/tag/3.7.0) for Android to 3.7.0
+* Updated underlying [Emarsys SDK](https://github.com/emartech/ios-emarsys-sdk/releases/tag/3.5.0) for iOS to 3.5.0
+
 # 2.1.0
 ## What's new
 ### [Push](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#3-push)
