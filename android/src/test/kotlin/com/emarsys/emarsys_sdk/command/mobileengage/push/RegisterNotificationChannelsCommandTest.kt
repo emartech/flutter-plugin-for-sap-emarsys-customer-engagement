@@ -5,8 +5,16 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import com.emarsys.core.util.AndroidVersionUtils
+import com.emarsys.emarsys_sdk.command.ResultCallback
 import com.emarsys.emarsys_sdk.notification.NotificationChannelFactory
-import io.mockk.*
+import io.kotlintest.shouldBe
+import io.kotlintest.shouldNotBe
+import io.mockk.called
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.mockkObject
+import io.mockk.unmockkAll
+import io.mockk.verify
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -18,6 +26,7 @@ class RegisterNotificationChannelsCommandTest {
     private lateinit var mockNotificationChannelFactory: NotificationChannelFactory
     private lateinit var mockNotificationChannel: NotificationChannel
     private lateinit var mockNotificationChannel2: NotificationChannel
+    private lateinit var mockResultCallback: ResultCallback
 
     @Before
     fun setUp() {
@@ -28,8 +37,10 @@ class RegisterNotificationChannelsCommandTest {
         mockNotificationManager = mockk(relaxed = true)
         mockNotificationChannel = mockk(relaxed = true)
         mockNotificationChannel2 = mockk(relaxed = true)
+        mockResultCallback = mockk(relaxed = true)
         every { mockApplication.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager } returns mockNotificationManager
-        command = RegisterNotificationChannelsCommand(mockApplication, mockNotificationChannelFactory)
+        command =
+            RegisterNotificationChannelsCommand(mockApplication, mockNotificationChannelFactory)
     }
 
     @After
@@ -38,7 +49,7 @@ class RegisterNotificationChannelsCommandTest {
     }
 
     @Test
-    fun testExecute_ShouldRegisterChannelsFromParametersMap_toNotificationManager() {
+    fun testExecute_ShouldRegisterChannelsFromParametersMap_toNotificationManager_andCallResultCallback() {
         val parametersMap = mapOf(
             "notificationChannels" to listOf(
                 mapOf(
@@ -74,14 +85,15 @@ class RegisterNotificationChannelsCommandTest {
             )
         } returns mockNotificationChannel2
 
-        command.execute(parametersMap) { _, _ -> }
+        command.execute(parametersMap, mockResultCallback)
 
         verify { mockNotificationManager.createNotificationChannel(mockNotificationChannel) }
         verify { mockNotificationManager.createNotificationChannel(mockNotificationChannel2) }
+        verify { mockResultCallback.invoke(null, null) }
     }
 
-    @Test(expected = NullPointerException::class)
-    fun testExecute_shouldThrowExceptionOnInvalidArguments() {
+    @Test
+    fun testExecute_shouldCallResultCallbackWithError_whenNotificationChannelMapIsIncomplete() {
         val parametersMap = mapOf(
             "notificationChannels" to listOf(
                 mapOf(
@@ -101,12 +113,32 @@ class RegisterNotificationChannelsCommandTest {
             )
         } returns mockNotificationChannel
 
-        command.execute(parametersMap) { _, _ -> }
+        var returnedError: Throwable? = null
+
+        command.execute(parametersMap) { _, error ->
+            returnedError = error
+        }
+
+        returnedError shouldNotBe null
+        (returnedError is IllegalArgumentException) shouldBe true
     }
 
     @Test
-    fun testExecute_shouldDoNothingIfBelowOreo() {
+    fun testExecute_shouldDoNothingIfBelowOreo_andCallResultCallback() {
+        val parametersMap = mapOf(
+            "notificationChannels" to listOf(
+                mapOf(
+                    "id" to "testId",
+                    "description" to "testDescription",
+                    "importance" to 1
+                )
+            )
+        )
         every { AndroidVersionUtils.isOreoOrAbove } returns false
+
+        command.execute(parametersMap, mockResultCallback)
+
         verify { mockNotificationManager wasNot called }
+        verify { mockResultCallback.invoke(null, null) }
     }
 }

@@ -1,4 +1,5 @@
 import 'package:emarsys_sdk/api/emarsys.dart';
+import 'package:emarsys_sdk/emarsys_sdk.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -72,5 +73,29 @@ void main() {
         Emarsys.push.pushSendingEnabled(true),
         throwsA(isA<PlatformException>().having(
             (error) => error.message, 'message', 'Test error message')));
+  });
+
+  test('registerAndroidNotificationChannels should delegate to platform',
+      () async {
+    final notificationChannel = NotificationChannel(
+        id: "testId",
+        name: "tesetName",
+        description: "testDescription",
+        importance: 1);
+    MethodCall? actualMethodCall;
+    channel.setMockMethodCallHandler((MethodCall methodCall) {
+      actualMethodCall = methodCall;
+      return null;
+    });
+
+    await Emarsys.push
+        .registerAndroidNotificationChannels([notificationChannel]);
+
+    expect(actualMethodCall != null, true);
+    expect(
+        actualMethodCall!.method, 'push.android.registerNotificationChannels');
+    expect(actualMethodCall!.arguments, {
+      'notificationChannels': [notificationChannel.toMap()]
+    });
   });
 }
