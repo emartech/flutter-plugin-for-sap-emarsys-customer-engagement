@@ -6,7 +6,13 @@ import com.emarsys.config.ConfigApi
 import com.emarsys.core.api.result.CompletionListener
 import com.emarsys.emarsys_sdk.command.ResultCallback
 import com.emarsys.emarsys_sdk.config.ConfigStorageKeys
-import io.mockk.*
+import io.mockk.Runs
+import io.mockk.every
+import io.mockk.just
+import io.mockk.mockk
+import io.mockk.mockkStatic
+import io.mockk.unmockkStatic
+import io.mockk.verify
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -20,6 +26,7 @@ class ChangeApplicationCodeCommandTest {
     private lateinit var mockConfigApi: ConfigApi
     private lateinit var mockSharedPreferences: SharedPreferences
     private lateinit var mockEdit: SharedPreferences.Editor
+    private lateinit var mockResultCallback: ResultCallback
 
     @Before
     fun setUp() {
@@ -27,6 +34,7 @@ class ChangeApplicationCodeCommandTest {
         mockSharedPreferences = mockk(relaxed = true)
         mockConfigApi = mockk()
         mockEdit = mockk(relaxed = true)
+        mockResultCallback = mockk(relaxed = true)
 
         every { mockSharedPreferences.edit() } returns mockEdit
         every { Emarsys.config } returns mockConfigApi
@@ -40,18 +48,18 @@ class ChangeApplicationCodeCommandTest {
     }
 
 
-    @Test(expected = IllegalArgumentException::class)
-    fun testExecute_shouldThrowException_whenContactFieldValueIsNotPresentInParametersMap() {
+    @Test
+    fun testExecute_shouldCallResultCallbackWithError_whenApplicationCodeIsNotPresentInParametersMap() {
         every { mockConfigApi.changeApplicationCode(any()) } just Runs
 
-        command.execute(mapOf()) { _, _ -> }
+        command.execute(mapOf(), mockResultCallback)
 
         verify(exactly = 0) { mockConfigApi.changeApplicationCode(any(), any()) }
+        verify { mockResultCallback.invoke(null, any<IllegalArgumentException>()) }
     }
 
     @Test
     fun testExecute_shouldInvokeChangeAppCodeOnEmarsys() {
-        val mockResultCallback: ResultCallback = mockk(relaxed = true)
         every { mockConfigApi.changeApplicationCode(any(), any()) } answers {
             secondArg<CompletionListener>().onCompleted(null)
         }
@@ -72,7 +80,6 @@ class ChangeApplicationCodeCommandTest {
 
     @Test
     fun testExecute_shouldInvokeChangeAppCodeOnEmarsys_withError() {
-        val mockResultCallback: ResultCallback = mockk(relaxed = true)
         val testError = Throwable()
 
         every { mockConfigApi.changeApplicationCode(any(), any()) } answers {

@@ -5,26 +5,25 @@ import com.emarsys.Emarsys
 import com.emarsys.emarsys_sdk.command.EmarsysCommand
 import com.emarsys.emarsys_sdk.command.ResultCallback
 import com.emarsys.emarsys_sdk.config.ConfigStorageKeys
-import java.lang.IllegalArgumentException
 
 class ChangeApplicationCodeCommand(private val sharedPreferences: SharedPreferences) :
     EmarsysCommand {
     override fun execute(parameters: Map<String, Any?>?, resultCallback: ResultCallback) {
-        val applicationCode: String? = parameters?.get("applicationCode") as String?
-        applicationCode ?: throw IllegalArgumentException("applicationCode must not be null")
-
-        Emarsys.config.changeApplicationCode(applicationCode) {
-            if (it == null) {
-                sharedPreferences.edit()
-                    .putString(
-                        ConfigStorageKeys.MOBILE_ENGAGE_APPLICATION_CODE.name, applicationCode
-                    ).apply()
-            } else {
-                sharedPreferences.edit()
-                    .remove(ConfigStorageKeys.MOBILE_ENGAGE_APPLICATION_CODE.name)
-                    .apply()
+        val applicationCode = parameters?.get("applicationCode") as String?
+        if (applicationCode != null) {
+            Emarsys.config.changeApplicationCode(applicationCode) {
+                if (it == null) {
+                    sharedPreferences.edit().putString(
+                            ConfigStorageKeys.MOBILE_ENGAGE_APPLICATION_CODE.name, applicationCode
+                        ).apply()
+                } else {
+                    sharedPreferences.edit()
+                        .remove(ConfigStorageKeys.MOBILE_ENGAGE_APPLICATION_CODE.name).apply()
+                }
+                resultCallback.invoke(null, it)
             }
-            resultCallback.invoke(null, it)
+        } else {
+            resultCallback(null, IllegalArgumentException("applicationCode must not be null"))
         }
     }
 
