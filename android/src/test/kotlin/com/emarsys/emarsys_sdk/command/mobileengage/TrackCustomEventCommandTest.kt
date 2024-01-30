@@ -3,7 +3,13 @@ package com.emarsys.emarsys_sdk.command.mobileengage
 import com.emarsys.Emarsys
 import com.emarsys.core.api.result.CompletionListener
 import com.emarsys.emarsys_sdk.command.ResultCallback
-import io.mockk.*
+import io.mockk.Runs
+import io.mockk.every
+import io.mockk.just
+import io.mockk.mockk
+import io.mockk.mockkStatic
+import io.mockk.unmockkStatic
+import io.mockk.verify
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -21,10 +27,12 @@ class TrackCustomEventCommandTest {
 
     private lateinit var command: TrackCustomEventCommand
     private lateinit var parameters: Map<String, Any>
+    private lateinit var mockResultCallback: ResultCallback
 
     @Before
     fun setUp() {
         mockkStatic(Emarsys::class)
+        mockResultCallback = mockk(relaxed = true)
         command = TrackCustomEventCommand()
 
         parameters = mapOf(
@@ -48,14 +56,14 @@ class TrackCustomEventCommandTest {
         verify { Emarsys.trackCustomEvent(any(), null, any()) }
     }
 
-    @Test(expected = IllegalArgumentException::class)
+    @Test
     fun testExecute_shouldThrowException_whenEventNameIsMissing() {
         every { Emarsys.trackCustomEvent(any(), any(), any()) } just Runs
 
-        command.execute(mapOf()) { _, _ ->
-        }
+        command.execute(mapOf(), mockResultCallback)
 
         verify(exactly = 0) { Emarsys.trackCustomEvent(any(), any(), any()) }
+        verify { mockResultCallback.invoke(null, any<IllegalArgumentException>()) }
     }
 
     @Test
@@ -70,8 +78,6 @@ class TrackCustomEventCommandTest {
 
     @Test
     fun testExecute_shouldInvokeResultCallback() {
-        val mockResultCallback: ResultCallback = mockk(relaxed = true)
-
         every { Emarsys.trackCustomEvent(any(), any(), any()) } answers {
             thirdArg<CompletionListener>().onCompleted(null)
         }
