@@ -8,8 +8,18 @@ import com.emarsys.emarsys_sdk.storage.PushTokenStorage
 class PushSendingEnabledCommand(private val pushTokenStorage: PushTokenStorage) : EmarsysCommand {
 
     override fun execute(parameters: Map<String, Any?>?, resultCallback: ResultCallback) {
-        val enable: Boolean = (parameters?.get("pushSendingEnabled") as? Boolean)
-            ?: throw IllegalArgumentException("pushSendingEnabled must not be null")
+        val pushSendingEnabled = (parameters?.get("pushSendingEnabled") as? Boolean)
+        if (pushSendingEnabled != null) {
+            handlePushToken(pushSendingEnabled, resultCallback)
+        } else {
+            resultCallback(null, IllegalArgumentException("pushSendingEnabled must not be null"))
+        }
+    }
+
+    private fun handlePushToken(
+        enable: Boolean,
+        resultCallback: ResultCallback
+    ) {
         if (enable) {
             val pushToken = pushTokenStorage.pushToken
             if (pushToken != null) {
@@ -17,7 +27,7 @@ class PushSendingEnabledCommand(private val pushTokenStorage: PushTokenStorage) 
                     resultCallback.invoke(null, it)
                 }
             } else {
-                throw IllegalArgumentException("PushToken must not be null")
+                resultCallback.invoke(null, IllegalArgumentException("PushToken must not be null"))
             }
         } else {
             Emarsys.push.clearPushToken {
