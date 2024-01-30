@@ -14,7 +14,7 @@ class SetPushTokenCommand : EmarsysCommand {
                 resultCallback.invoke(null, it)
             }
         } else {
-            throw IllegalArgumentException("pushToken must not be null or empty!")
+            resultCallback(null, IllegalArgumentException("pushToken must not be null or empty!"))
         }
     }
 
