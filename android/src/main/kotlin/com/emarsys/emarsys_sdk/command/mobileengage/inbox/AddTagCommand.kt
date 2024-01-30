@@ -8,12 +8,14 @@ class AddTagCommand : EmarsysCommand {
     override fun execute(parameters: Map<String, Any?>?, resultCallback: ResultCallback) {
         val messageId = parameters?.get("messageId") as? String
         val tag = parameters?.get("tag") as? String
-        messageId ?: throw IllegalArgumentException("messageId must not be null")
-        tag ?: throw IllegalArgumentException("tag must not be null")
-
-        Emarsys.messageInbox.addTag(tag, messageId) {
-            resultCallback.invoke(null, it)
+        if (messageId != null && tag != null) {
+            Emarsys.messageInbox.addTag(tag, messageId) {
+                resultCallback.invoke(null, it)
+            }
+        } else {
+            resultCallback(null, IllegalArgumentException("tag and messageId must not be null"))
         }
+
     }
 
     override fun equals(other: Any?): Boolean {

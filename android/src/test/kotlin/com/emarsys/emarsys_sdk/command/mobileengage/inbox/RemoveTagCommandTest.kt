@@ -2,7 +2,13 @@ package com.emarsys.emarsys_sdk.command.mobileengage.inbox
 
 import com.emarsys.Emarsys
 import com.emarsys.emarsys_sdk.command.ResultCallback
-import io.mockk.*
+import io.mockk.Runs
+import io.mockk.every
+import io.mockk.just
+import io.mockk.mockk
+import io.mockk.mockkStatic
+import io.mockk.unmockkStatic
+import io.mockk.verify
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -15,6 +21,7 @@ class RemoveTagCommandTest {
 
     private lateinit var command: RemoveTagCommand
     private lateinit var parameters: Map<String, Any>
+    private lateinit var mockResultCallback: ResultCallback
 
     @Before
     fun setUp() {
@@ -24,6 +31,7 @@ class RemoveTagCommandTest {
             "messageId" to MESSAGE_ID,
             "tag" to TAG
         )
+        mockResultCallback = mockk(relaxed = true)
     }
 
     @After
@@ -42,15 +50,15 @@ class RemoveTagCommandTest {
         verify { Emarsys.messageInbox.removeTag(TAG, MESSAGE_ID, any<((Throwable?) -> Unit)>()) }
     }
 
-    @Test(expected = IllegalArgumentException::class)
-    fun testExecute_shouldThrowException_whenMessageIdIsNotPresentInParametersMap() {
+    @Test
+    fun testExecute_shouldCallResultCallbackWithException_whenMessageIdIsNotPresentInParametersMap() {
         every { Emarsys.messageInbox.removeTag(any(), any(), any<((Throwable?) -> Unit)>()) } just Runs
 
         parameters = mapOf(
             "messageId" to MESSAGE_ID
         )
 
-        command.execute(parameters) { _, _ -> }
+        command.execute(parameters, mockResultCallback)
 
         verify(exactly = 0) {
             Emarsys.messageInbox.removeTag(
@@ -59,17 +67,18 @@ class RemoveTagCommandTest {
                 any<((Throwable?) -> Unit)>()
             )
         }
+        verify { mockResultCallback.invoke(null, any<IllegalArgumentException>()) }
     }
 
-    @Test(expected = IllegalArgumentException::class)
-    fun testExecute_shouldThrowException_whenTagIsNotPresentInParametersMap() {
+    @Test
+    fun testExecute_shouldCallResultCallbackWithException_whenTagIsNotPresentInParametersMap() {
         every { Emarsys.messageInbox.removeTag(any(), any(), any<((Throwable?) -> Unit)>()) } just Runs
 
         parameters = mapOf(
             "tag" to TAG,
         )
 
-        command.execute(parameters) { _, _ -> }
+        command.execute(parameters, mockResultCallback)
 
         verify(exactly = 0) {
             Emarsys.messageInbox.removeTag(
@@ -78,6 +87,7 @@ class RemoveTagCommandTest {
                 any<((Throwable?) -> Unit)>()
             )
         }
+        verify { mockResultCallback.invoke(null, any<IllegalArgumentException>()) }
     }
 
     @Test
