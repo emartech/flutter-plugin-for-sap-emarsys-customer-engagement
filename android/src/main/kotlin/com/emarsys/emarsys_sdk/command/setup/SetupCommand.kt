@@ -17,7 +17,6 @@ import com.emarsys.emarsys_sdk.config.ConfigStorageKeys
 import com.emarsys.emarsys_sdk.di.DefaultDependencyContainer.Companion.EMARSYS_SETUP_CACHE_SHARED_PREFERENCES
 import com.emarsys.emarsys_sdk.di.dependencyContainer
 import com.emarsys.emarsys_sdk.storage.PushTokenStorage
-import com.emarsys.mobileengage.di.mobileEngage
 
 
 class SetupCommand(
@@ -28,6 +27,11 @@ class SetupCommand(
 ) : EmarsysCommand {
 
     override fun execute(parameters: Map<String, Any?>?, resultCallback: ResultCallback) {
+        if (parameters == null) {
+            resultCallback(null, IllegalArgumentException("parameterMap must not be null!"))
+            return
+        }
+
         WrapperInfoContainer.wrapperInfo = "flutter"
         val configBuilder = if (fromCache) {
             ConfigLoader().loadConfigFromSharedPref(
@@ -87,58 +91,56 @@ class SetupCommand(
         resultCallback(null, null)
     }
 
-    private fun configFromParameters(parameters: Map<String, Any?>?): EmarsysConfig.Builder {
+    private fun configFromParameters(parameters: Map<String, Any?>): EmarsysConfig.Builder {
         val configBuilder = EmarsysConfig.Builder()
         val sharedPreferencesEdit = sharedPreferences.edit()
-        if (parameters != null) {
-            val configBuild = configBuilder
-                .application(application)
 
-            (parameters["applicationCode"] as String?).let {
-                configBuild.applicationCode(it)
-                sharedPreferencesEdit.putString(
-                    ConfigStorageKeys.MOBILE_ENGAGE_APPLICATION_CODE.name,
-                    it
-                )
-            }
+        val configBuild = configBuilder
+            .application(application)
 
-            (parameters["merchantId"] as String?).let {
-                configBuild.merchantId(it)
-                sharedPreferencesEdit.putString(
-                    ConfigStorageKeys.PREDICT_MERCHANT_ID.name,
-                    it
-                )
-            }
-
-            (parameters["androidSharedPackageNames"] as List<String>?)?.let {
-                configBuild.sharedPackageNames(parameters["androidSharedPackageNames"] as List<String>)
-                sharedPreferencesEdit.putStringSet(
-                    ConfigStorageKeys.ANDROID_SHARED_PACKAGE_NAMES.name,
-                    it?.let { packageNames -> mutableSetOf(*packageNames.toTypedArray()) }
-                )
-            }
-
-            (parameters["androidSharedSecret"] as String?)?.let {
-                configBuild.sharedSecret(parameters["androidSharedSecret"] as String)
-                sharedPreferencesEdit.putString(
-                    ConfigStorageKeys.ANDROID_SHARED_SECRET.name,
-                    it
-                )
-            }
-
-            ((parameters["androidVerboseConsoleLoggingEnabled"] as Boolean?) ?: false).let {
-                if (it) {
-                    configBuild.enableVerboseConsoleLogging()
-                }
-                sharedPreferencesEdit.putBoolean(
-                    ConfigStorageKeys.ANDROID_VERBOSE_CONSOLE_LOGGING_ENABLED.name,
-                    it
-                )
-            }
-            sharedPreferencesEdit.apply()
-        } else {
-            throw IllegalArgumentException("parameterMap must not be null!")
+        (parameters["applicationCode"] as String?).let {
+            configBuild.applicationCode(it)
+            sharedPreferencesEdit.putString(
+                ConfigStorageKeys.MOBILE_ENGAGE_APPLICATION_CODE.name,
+                it
+            )
         }
+
+        (parameters["merchantId"] as String?).let {
+            configBuild.merchantId(it)
+            sharedPreferencesEdit.putString(
+                ConfigStorageKeys.PREDICT_MERCHANT_ID.name,
+                it
+            )
+        }
+
+        (parameters["androidSharedPackageNames"] as List<String>?)?.let {
+            configBuild.sharedPackageNames(parameters["androidSharedPackageNames"] as List<String>)
+            sharedPreferencesEdit.putStringSet(
+                ConfigStorageKeys.ANDROID_SHARED_PACKAGE_NAMES.name,
+                it?.let { packageNames -> mutableSetOf(*packageNames.toTypedArray()) }
+            )
+        }
+
+        (parameters["androidSharedSecret"] as String?)?.let {
+            configBuild.sharedSecret(parameters["androidSharedSecret"] as String)
+            sharedPreferencesEdit.putString(
+                ConfigStorageKeys.ANDROID_SHARED_SECRET.name,
+                it
+            )
+        }
+
+        ((parameters["androidVerboseConsoleLoggingEnabled"] as Boolean?) ?: false).let {
+            if (it) {
+                configBuild.enableVerboseConsoleLogging()
+            }
+            sharedPreferencesEdit.putBoolean(
+                ConfigStorageKeys.ANDROID_VERBOSE_CONSOLE_LOGGING_ENABLED.name,
+                it
+            )
+        }
+        sharedPreferencesEdit.apply()
+
         return configBuilder
     }
 

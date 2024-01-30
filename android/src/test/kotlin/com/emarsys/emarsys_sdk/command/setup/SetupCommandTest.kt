@@ -9,6 +9,7 @@ import com.emarsys.core.feature.FeatureRegistry
 import com.emarsys.core.provider.wrapper.WrapperInfoContainer
 import com.emarsys.di.emarsys
 import com.emarsys.di.isEmarsysComponentSetup
+import com.emarsys.emarsys_sdk.command.ResultCallback
 import com.emarsys.emarsys_sdk.config.ConfigStorageKeys
 import com.emarsys.emarsys_sdk.di.dependencyContainer
 import com.emarsys.emarsys_sdk.di.tearDownDependencyContainer
@@ -16,7 +17,14 @@ import com.emarsys.emarsys_sdk.storage.PushTokenStorage
 import com.emarsys.mobileengage.api.event.EventHandler
 import com.emarsys.push.PushApi
 import io.kotlintest.shouldBe
-import io.mockk.*
+import io.mockk.Runs
+import io.mockk.clearAllMocks
+import io.mockk.every
+import io.mockk.just
+import io.mockk.mockk
+import io.mockk.mockkStatic
+import io.mockk.spyk
+import io.mockk.verify
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -109,10 +117,12 @@ class SetupCommandTest {
     }
 
 
-    @Test(expected = IllegalArgumentException::class)
+    @Test
     fun testExecute_parametersMustNotBeNull() {
-        setupCommand.execute(null) { _, _ ->
-        }
+        val mockResultCallback: ResultCallback = mockk(relaxed = true)
+        setupCommand.execute(null, mockResultCallback)
+
+        verify { mockResultCallback.invoke(null, any<IllegalArgumentException>()) }
     }
 
     @Test
