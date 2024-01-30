@@ -9,12 +9,17 @@ class SetContactCommand : EmarsysCommand {
     override fun execute(parameters: Map<String, Any?>?, resultCallback: ResultCallback) {
         val contactFieldValue = parameters?.get("contactFieldValue") as? String
         val contactFieldId = parameters?.get("contactFieldId") as? Int
-        contactFieldId ?: throw IllegalArgumentException("contactFieldId must not be null")
-        contactFieldValue ?: throw IllegalArgumentException("contactFieldValue must not be null")
-
-        Emarsys.setContact(contactFieldId, contactFieldValue) {
-            resultCallback.invoke(null, it)
+        if (contactFieldId != null && contactFieldValue != null) {
+            Emarsys.setContact(contactFieldId, contactFieldValue) {
+                resultCallback.invoke(null, it)
+            }
+        } else {
+            resultCallback(
+                null,
+                IllegalArgumentException("contactFieldId and contactFieldValue must not be null")
+            )
         }
+
     }
 
     override fun equals(other: Any?): Boolean {
