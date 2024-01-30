@@ -1,10 +1,17 @@
 package com.emarsys.emarsys_sdk.command.geofence
 
 import com.emarsys.Emarsys
+import com.emarsys.emarsys_sdk.command.ResultCallback
 import com.emarsys.geofence.GeofenceApi
 import io.kotlintest.shouldBe
 import io.kotlintest.shouldNotBe
-import io.mockk.*
+import io.mockk.Runs
+import io.mockk.every
+import io.mockk.just
+import io.mockk.mockk
+import io.mockk.mockkStatic
+import io.mockk.unmockkStatic
+import io.mockk.verify
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -28,11 +35,13 @@ class GeofenceInitialEnterTriggerEnabledCommandTest {
 
     @Test
     fun testExecute_shouldDelegateCallToEmarsys() {
+        val mockResultCallback: ResultCallback = mockk(relaxed = true)
         every { mockGeofenceApi.setInitialEnterTriggerEnabled(any()) } just Runs
 
-        command.execute(mapOf("enabled" to true)) { _, _ ->  }
+        command.execute(mapOf("enabled" to true), mockResultCallback)
 
         verify { mockGeofenceApi.setInitialEnterTriggerEnabled(true) }
+        verify { mockResultCallback.invoke(null, null) }
     }
 
     @Test

@@ -1,9 +1,14 @@
 package com.emarsys.emarsys_sdk.command.geofence
 
 import com.emarsys.Emarsys
+import com.emarsys.emarsys_sdk.command.ResultCallback
 import com.emarsys.emarsys_sdk.mapper.GeofenceMapper
 import com.emarsys.geofence.GeofenceApi
-import io.mockk.*
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.mockkStatic
+import io.mockk.unmockkStatic
+import io.mockk.verify
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -31,10 +36,15 @@ internal class RegisteredGeofencesCommandTest {
 
     @Test
     fun testExecute_shouldDelegateCallToEmarsys() {
+        val mockResultCallback: ResultCallback = mockk(relaxed = true)
+        val resultMap = listOf<Map<String, Any>>()
+
+        every { mockGeofenceMapper.map(any()) } returns resultMap
         every { mockGeofenceApi.registeredGeofences } returns listOf()
 
-        command.execute(mapOf()) { _, _ -> }
+        command.execute(mapOf(), mockResultCallback)
 
         verify { mockGeofenceApi.registeredGeofences }
+        verify { mockResultCallback.invoke(resultMap, null) }
     }
 }

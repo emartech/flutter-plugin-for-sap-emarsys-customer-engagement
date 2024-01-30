@@ -1,11 +1,16 @@
 package com.emarsys.emarsys_sdk.command.geofence
 
 import com.emarsys.Emarsys
+import com.emarsys.emarsys_sdk.command.ResultCallback
 import com.emarsys.geofence.GeofenceApi
-import com.emarsys.mobileengage.geofence.GeofenceInternal
-import io.mockk.*
+import io.mockk.Runs
+import io.mockk.every
+import io.mockk.just
+import io.mockk.mockk
+import io.mockk.mockkStatic
+import io.mockk.unmockkStatic
+import io.mockk.verify
 import org.junit.After
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 
@@ -28,10 +33,12 @@ class GeofenceDisableCommandTest {
 
     @Test
     fun testExecute_shouldCallMethodOnEmarsys() {
+        val mockResultCallback: ResultCallback = mockk(relaxed = true)
         every { mockGeofenceApi.disable() } just Runs
 
-        command.execute(mapOf()) { _, _ ->  }
+        command.execute(mapOf(), mockResultCallback)
 
         verify { mockGeofenceApi.disable() }
+        verify { mockResultCallback.invoke(null, null) }
     }
 }
