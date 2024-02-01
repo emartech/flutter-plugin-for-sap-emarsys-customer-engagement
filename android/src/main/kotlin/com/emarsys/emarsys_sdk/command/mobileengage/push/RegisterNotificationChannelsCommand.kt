@@ -13,6 +13,7 @@ class RegisterNotificationChannelsCommand(
     private val notificationChannelFactory: NotificationChannelFactory
 ) : EmarsysCommand {
     override fun execute(parameters: Map<String, Any?>?, resultCallback: ResultCallback) {
+        var exception: Exception? = null
         if (AndroidVersionUtils.isOreoOrAbove) {
             val manager =
                 application.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -26,13 +27,12 @@ class RegisterNotificationChannelsCommand(
                             channelMap["description"] as String
                         )
                     )
-                    resultCallback(null, null)
-                } catch (exception: Exception) {
-                    resultCallback(null, IllegalArgumentException("Some parameters are missing!"))
+                } catch (e: Exception) {
+                    exception = IllegalArgumentException("Some parameters are missing!")
                 }
             }
-        } else {
-            resultCallback(null, null)
         }
+
+        resultCallback(null, exception)
     }
 }
