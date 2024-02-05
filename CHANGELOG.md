@@ -1,3 +1,14 @@
+# 2.3.0
+## What's changed
+### [Android SDK](https://github.com/emartech/android-emarsys-sdk/)
+* Fixed an issue that caused push notifications not to be shown.
+### [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
+* On Android we increased CompileSDKVersion to 34.
+* Updated underlying [Emarsys SDK](https://github.com/emartech/android-emarsys-sdk/releases/tag/3.7.2) for Android to 3.7.2
+## What's fixed
+### [Android SDK](https://github.com/emartech/android-emarsys-sdk/)
+* Fixed an issue that could cause a crash because of some unhandled exceptions.
+
 # 2.2.0
 ## What's changed
 ### [Android SDK](https://github.com/emartech/android-emarsys-sdk/)

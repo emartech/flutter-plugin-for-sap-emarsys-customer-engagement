@@ -36,7 +36,7 @@ android {
     if (project.android.hasProperty("namespace")) {
         namespace 'com.emarsys.emarsys_sdk'
     }
-    compileSdkVersion 33
+    compileSdkVersion 34
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -56,7 +56,7 @@ android {
 
 
 dependencies {
-    ext.emarsys_sdk_version = '3.7.0'
+    ext.emarsys_sdk_version = '3.7.2'
     ext.junit_version = '4.13.2'
     ext.kotlintest_version = '3.4.2'
     ext.mockk_version = '1.12.0'
