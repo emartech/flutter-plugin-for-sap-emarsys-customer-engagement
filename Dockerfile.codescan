@@ -4,8 +4,7 @@ WORKDIR /workspace/source
 
 # install Flutter
 RUN git clone --depth 1 --branch 3.16.9 https://github.com/flutter/flutter.git
-ENV PATH "$PATH:/workspace/source/flutter/bin"
 
-CMD flutter pub get && cat pubspec.lock
+CMD /workspace/source/flutter/bin/flutter pub get && cat pubspec.lock
 
 
