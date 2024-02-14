@@ -2,9 +2,18 @@ FROM dart:3.2.6-sdk
 
 WORKDIR /workspace/source
 
-# install Flutter
-RUN git clone --depth 1 --branch 3.16.9 https://github.com/flutter/flutter.git
+RUN apt-get update
+RUN apt-get install -y xz-utils
 
-CMD /workspace/source/flutter/bin/flutter pub get && cat pubspec.lock
+ENV FLUTTER_URL="https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.16.9-stable.tar.xz"
+
+RUN git config --global --add safe.directory /workspace/source/flutter
+
+RUN curl -o flutter.tar.xz $FLUTTER_URL
+RUN tar xf flutter.tar.xz
+RUN ls -l flutter/bin
+RUN rm flutter.tar.xz
+
+CMD flutter/bin/flutter pub get && cat pubspec.lock
 
 
