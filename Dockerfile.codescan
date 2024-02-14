@@ -12,7 +12,6 @@ RUN curl -o flutter.tar.xz $FLUTTER_URL
 RUN tar xf flutter.tar.xz
 RUN ls -l flutter/bin
 RUN rm flutter.tar.xz
-
-CMD /workspace/source/flutter/bin/flutter pub get && cat pubspec.lock
+RUN flutter/bin/flutter pub get && cat pubspec.lock
 
 
