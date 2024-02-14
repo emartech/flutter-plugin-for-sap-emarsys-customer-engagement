@@ -24,6 +24,6 @@ RUN cd /workspace/source
 RUN flutter doctor
 
 # remove unnecessary files
-CMD flutter pub get && cat pubspec.lock && find . -type f -name 'build.gradle' -delete && rm -rf example
+CMD flutter pub get && cat pubspec.lock && rm -rf example
 
 
