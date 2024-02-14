@@ -3,6 +3,7 @@ FROM debian:12.5
 ARG FLUTTER_SDK=/usr/local/flutter
 ARG FLUTTER_VERSION=3.16.9
 
+COPY . /workspace/source
 WORKDIR /workspace/source
 
 # install all needed stuff
