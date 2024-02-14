@@ -3,6 +3,7 @@ FROM debian:12.5
 ARG FLUTTER_SDK=/usr/local/flutter
 ARG FLUTTER_VERSION=3.16.9
 
+COPY . /workspace/source
 WORKDIR /workspace/source
 
 # install all needed stuff
@@ -21,6 +22,7 @@ ENV PATH="$FLUTTER_SDK/bin:$FLUTTER_SDK/bin/cache/dart-sdk/bin:${PATH}"
 RUN cd /workspace/source
 
 RUN flutter doctor
-RUN flutter pub get && cat pubspec.lock
+RUN flutter pub get
+RUN cat pubspec.lock
 
 
