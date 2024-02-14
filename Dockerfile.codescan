@@ -21,6 +21,6 @@ ENV PATH="$FLUTTER_SDK/bin:$FLUTTER_SDK/bin/cache/dart-sdk/bin:${PATH}"
 RUN cd /workspace/source
 
 RUN flutter doctor
-RUN flutter/bin/flutter pub get && cat pubspec.lock
+RUN flutter pub get && cat pubspec.lock
 
 
