@@ -22,9 +22,8 @@ ENV PATH="$FLUTTER_SDK/bin:$FLUTTER_SDK/bin/cache/dart-sdk/bin:${PATH}"
 RUN cd /workspace/source
 
 RUN flutter doctor
-RUN flutter pub get
 
 # remove unnecessary files
-CMD cat pubspec.lock && find . -type f -name 'build.gradle' -delete && rm -rf example
+CMD flutter pub get && cat pubspec.lock && find . -type f -name 'build.gradle' -delete && rm -rf example
 
 
