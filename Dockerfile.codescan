@@ -1,11 +1,10 @@
 FROM dart:3.2.6-sdk
+ENV FLUTTER_URL="https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.16.9-stable.tar.xz"
 
 WORKDIR /workspace/source
 
 RUN apt-get update
 RUN apt-get install -y xz-utils
-
-ENV FLUTTER_URL="https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.16.9-stable.tar.xz"
 
 RUN git config --global --add safe.directory /workspace/source/flutter
 
@@ -14,6 +13,6 @@ RUN tar xf flutter.tar.xz
 RUN ls -l flutter/bin
 RUN rm flutter.tar.xz
 
-CMD flutter/bin/flutter pub get && cat pubspec.lock
+CMD /workspace/source/flutter/bin/flutter pub get && cat pubspec.lock
 
 
