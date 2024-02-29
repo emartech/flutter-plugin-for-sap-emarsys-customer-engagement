@@ -1,3 +1,8 @@
+# 2.3.1
+## What's changed
+### [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
+* Updated underlying [Emarsys SDK](https://github.com/emartech/android-emarsys-sdk/releases/tag/3.7.3) for Android to 3.7.3
+
 # 2.3.0
 ## What's changed
 ### [Android SDK](https://github.com/emartech/android-emarsys-sdk/)

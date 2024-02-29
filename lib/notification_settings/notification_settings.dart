@@ -20,8 +20,8 @@ class NotificationSettings {
   }
 
   factory NotificationSettings.fromMap(Map<dynamic, dynamic> map) {
-    var androidNotificationSettings;
-    var iosNotificationSettings;
+    AndroidNotificationSettings? androidNotificationSettings;
+    IOSNotificationSettings? iosNotificationSettings;
     try {
       androidNotificationSettings =
           AndroidNotificationSettings.fromMap(map['android']);
