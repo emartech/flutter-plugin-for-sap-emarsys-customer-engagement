@@ -13,35 +13,26 @@ class InAppIsPausedCommandTests: XCTestCase {
         command = InAppIsPausedCommand()
     }
     
-    func testExecute_returnSuccessTrue_WhenPaused() throws {
+    func testExecute_returnCorrectValue_ForIsPaused() throws {
         Emarsys.setup(config: EMSConfig.make(builder: { builder in
             builder.setMobileEngageApplicationCode("EMS11-C3FD3")
         }))
+        var result = [String: Any]()
+        
+        Emarsys.inApp.resume()
+        
+        command?.execute(arguments: [:]) { response in
+            result = response
+        }
+        
+        XCTAssertEqual(result as? [String: Bool], ["success": false])
         
         Emarsys.inApp.pause()
         
-        let expectedResponse = ["success": true]
-        var result = [String: Any]()
-        
         command?.execute(arguments: [:]) { response in
             result = response
         }
         
-        XCTAssertEqual(result as? [String: Bool], expectedResponse)
-    }
-    
-    func testExecute_returnSuccessFalse_WhenNotPaused() throws {
-        Emarsys.setup(config: EMSConfig.make(builder: { builder in
-            builder.setMobileEngageApplicationCode("EMS11-C3FD3")
-        }))
-        
-        let expectedResponse = ["success": false]
-        var result = [String: Any]()
-        
-        command?.execute(arguments: [:]) { response in
-            result = response
-        }
-        
-        XCTAssertEqual(result as? [String: Bool], expectedResponse)
+        XCTAssertEqual(result as? [String: Bool], ["success": true])
     }
 }
