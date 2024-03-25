@@ -3,6 +3,10 @@ FROM debian:12.5
 ARG FLUTTER_SDK=/usr/local/flutter
 ARG FLUTTER_VERSION=3.16.9
 
+RUN groupadd -r nonroot && useradd -r -s /bin/false -g nonroot nonroot
+RUN chown -R nonroot:nonroot /workspace/source
+USER nonroot
+
 COPY . /workspace/source
 WORKDIR /workspace/source
 
