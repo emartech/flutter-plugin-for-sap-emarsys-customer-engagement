@@ -25,6 +25,7 @@ RUN flutter doctor
 
 RUN groupadd -r nonroot && useradd -r -s /bin/false -g nonroot nonroot
 RUN chown -R nonroot:nonroot /workspace/source
+RUN chown nonroot:nonroot /usr/local/flutter
 USER nonroot
 
 # remove unnecessary files
