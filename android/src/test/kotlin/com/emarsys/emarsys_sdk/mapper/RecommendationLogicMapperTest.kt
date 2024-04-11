@@ -114,12 +114,12 @@ class RecommendationLogicMapperTest {
                     "cartItems" to listOf(
                         mapOf(
                             "itemId" to "testItemId1",
-                            "price" to 123,
-                            "quantity" to 234
+                            "price" to 123.0,
+                            "quantity" to 234.0
                         ), mapOf(
                             "itemId" to "testItemId2",
-                            "price" to 456,
-                            "quantity" to 567
+                            "price" to 456.0,
+                            "quantity" to 567.0
                         )
                     )
                 ),

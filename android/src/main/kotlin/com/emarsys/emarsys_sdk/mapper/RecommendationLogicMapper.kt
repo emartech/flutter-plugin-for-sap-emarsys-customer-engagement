@@ -73,8 +73,8 @@ class RecommendationLogicMapper : Mapper<Map<String, Any?>, Logic> {
         return cartItems.map {
             PredictCartItem(
                 it["itemId"] as String,
-                (it["price"] as Int).toDouble(),
-                (it["quantity"] as Int).toDouble()
+                it["price"] as Double,
+                it["quantity"] as Double
             )
         }.toList()
     }
