@@ -1,3 +1,12 @@
+# 2.3.2
+## What's changed
+### [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
+* Updated underlying [Emarsys SDK](https://github.com/emartech/android-emarsys-sdk/releases/tag/3.7.4) for Android to 3.7.4
+## What's fixed
+### [Predict](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#7-predict)
+* Fixed the mapping of the predict recommendation filters on iOS
+* Fixed the mapping of the predict cart items on both platforms
+
 # 2.3.1
 ## What's changed
 ### [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
