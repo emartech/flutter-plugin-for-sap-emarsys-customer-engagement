@@ -8,13 +8,16 @@ class RecommendProductsCommand: EmarsysCommandProtocol {
     var productsMapper: ProductsMapper
     var logicMapper: LogicMapper
     var recommendationFilterMapper: RecommendationFilterMapper
+    var predict: EMSPredictProtocol
     
     init(productsMapper: ProductsMapper,
          logicMapper: LogicMapper,
-         recommendationFilterMapper: RecommendationFilterMapper) {
+         recommendationFilterMapper: RecommendationFilterMapper,
+         predict: EMSPredictProtocol) {
         self.productsMapper = productsMapper
         self.logicMapper = logicMapper
         self.recommendationFilterMapper = recommendationFilterMapper
+        self.predict = predict
     }
     
     func execute(arguments: [String: Any]?, resultCallback: @escaping ResultCallback) {
@@ -38,13 +41,13 @@ class RecommendProductsCommand: EmarsysCommandProtocol {
             return
         }
         var filters: [EMSRecommendationFilterProtocol]? = nil
-        if let filtersMap = arguments?["filters"] {
+        if let filtersMap = arguments?["recommendationFilter"] {
             filters = recommendationFilterMapper.map(filtersMap as! [[String : Any]])
         }
         let limit: Int? = arguments?["limit"] != nil ? arguments?["limit"] as? Int : nil
         let availabilityZone: String? = arguments?["availabilityZone"] != nil ? arguments?["availabilityZone"] as? String : nil
         
-        Emarsys.predict.recommendProducts(logic: logic, filters: filters, limit: limit as NSNumber?, availabilityZone: availabilityZone, productsBlock: { result, error in
+        predict.recommendProducts(logic: logic, filters: filters, limit: limit as NSNumber?, availabilityZone: availabilityZone, productsBlock: { result, error in
             if let res = result {
                 let products: [EMSProductProtocol] = res
                 let productsDict: [[String: Any?]] = self.productsMapper.map(products)

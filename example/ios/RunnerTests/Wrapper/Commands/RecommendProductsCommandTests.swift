@@ -3,6 +3,7 @@
 //
 
 import XCTest
+import EmarsysSDK
 @testable import emarsys_sdk
 
 
@@ -12,14 +13,19 @@ class RecommendProductsCommandTests: XCTestCase {
     var logicMapper: LogicMapper!
     var recommendationFilterMapper: RecommendationFilterMapper!
     
+    var predict: FakeEMSPredict!
+    
     override func setUpWithError() throws {
         productsMapper = ProductsMapper()
         logicMapper = LogicMapper()
         recommendationFilterMapper = RecommendationFilterMapper()
+        predict = FakeEMSPredict()
         
         command = RecommendProductsCommand(productsMapper: productsMapper,
                                            logicMapper: logicMapper,
-                                           recommendationFilterMapper: recommendationFilterMapper)
+                                           recommendationFilterMapper: recommendationFilterMapper,
+                                           predict: predict
+        )
     }
     
     func testExecute_returnError_whenLogicIsMissing() throws {

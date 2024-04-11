@@ -111,7 +111,7 @@ class RecommendationLogicMapperTest {
             mapOf(
                 "name" to RecommendationLogic.CART,
                 "data" to mapOf<String, Any>(
-                    "items" to listOf(
+                    "cartItems" to listOf(
                         mapOf(
                             "itemId" to "testItemId1",
                             "price" to 123,

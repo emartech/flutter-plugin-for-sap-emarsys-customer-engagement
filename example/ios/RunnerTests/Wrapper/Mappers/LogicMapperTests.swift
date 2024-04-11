@@ -66,7 +66,7 @@ class LogicMapperTests: XCTestCase {
         let expectation = EMSLogic.cart(cartItems: [EMSCartItem(itemId: "testId", price: 12.2, quantity: 23.4),
                                                     EMSCartItem(itemId: "testId2", price: 12.22, quantity: 23.42)])
         let logic = ["name": "CART",
-                     "data": ["items": [
+                     "data": ["cartItems": [
                         ["itemId" : "testId",
                          "price": 12.2,
                          "quantity" : 23.4],

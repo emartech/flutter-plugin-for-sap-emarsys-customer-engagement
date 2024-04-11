@@ -114,7 +114,7 @@ class EmarsysCommandFactory {
         case "predict.trackItemView":
             result = TrackItemViewCommand()
         case "predict.recommendProducts":
-            result = RecommendProductsCommand(productsMapper: productsMapper, logicMapper: logicMapper, recommendationFilterMapper: recommendationFilterMapper)
+            result = RecommendProductsCommand(productsMapper: productsMapper, logicMapper: logicMapper, recommendationFilterMapper: recommendationFilterMapper, predict: Emarsys.predict)
         case "predict.trackRecommendationClick":
             result = TrackRecommendationClickCommand(mapToProductMapper: mapToProductMapper)
         default:

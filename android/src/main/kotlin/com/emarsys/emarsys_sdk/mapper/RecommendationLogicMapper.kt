@@ -24,8 +24,8 @@ class RecommendationLogicMapper : Mapper<Map<String, Any?>, Logic> {
                     RecommendationLogic.search()
                 }
             RecommendationLogic.CART ->
-                if (data["items"] != null) {
-                    RecommendationLogic.cart(mapCartItems(data["items"] as List<Map<String, Any>>))
+                if (data["cartItems"] != null) {
+                    RecommendationLogic.cart(mapCartItems(data["cartItems"] as List<Map<String, Any>>))
                 } else {
                     RecommendationLogic.cart()
                 }
