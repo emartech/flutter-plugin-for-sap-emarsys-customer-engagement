@@ -23,11 +23,6 @@ RUN cd /workspace/source
 
 RUN flutter doctor
 
-RUN groupadd -r nonroot && useradd -r -s /bin/false -g nonroot nonroot
-RUN chown -R nonroot:nonroot /workspace/source
-RUN chown -R nonroot:nonroot /usr/local/flutter
-USER nonroot
-
 # remove unnecessary files
 CMD flutter pub get && cat pubspec.lock && rm -rf example
 
