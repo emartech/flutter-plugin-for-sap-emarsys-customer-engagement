@@ -67,10 +67,10 @@ class SetupCommandTest {
         mockkStatic(FeatureRegistry::class)
 
         setupCommand = SetupCommand(
-                mockApplication,
-                mockPushTokenStorage,
-                mockSharedPreferences,
-                false
+            mockApplication,
+            mockPushTokenStorage,
+            mockSharedPreferences,
+            false
         )
 
         every { mockPushTokenStorage.pushToken } returns PUSH_TOKEN
@@ -92,8 +92,8 @@ class SetupCommandTest {
         every { FeatureRegistry.enableFeature(any()) } just Runs
         every {
             mockApplication.getSharedPreferences(
-                    "emarsys_setup_cache",
-                    0
+                "emarsys_setup_cache",
+                0
             )
         } returns mockSharedPreferences
 
@@ -116,32 +116,58 @@ class SetupCommandTest {
         WrapperInfoContainer.wrapperInfo = null
     }
 
+    @Test
+    fun testExecute_parametersMustNotBeNull_ifSetupCalled_notFromCache() {
+        var calls = 0
+        var exception: Throwable? = null
+        val resultCallback: ResultCallback = { _, error ->
+            exception = error
+            calls++
+        }
+        setupCommand.execute(null, resultCallback)
+
+        calls shouldBe 1
+        exception!!::class shouldBe IllegalArgumentException::class
+    }
 
     @Test
-    fun testExecute_parametersMustNotBeNull() {
-        val mockResultCallback: ResultCallback = mockk(relaxed = true)
-        setupCommand.execute(null, mockResultCallback)
+    fun testExecute_ifSetupCalled_fromCache_shouldCallResultCallback_withoutException() {
+        var calls = 0
+        var exception: Throwable? = null
+        val resultCallback: ResultCallback = { _, error ->
+            exception = error
+            calls++
+        }
+        val testCommand = SetupCommand(
+            mockApplication,
+            mockPushTokenStorage,
+            mockSharedPreferences,
+            true
+        )
 
-        verify { mockResultCallback.invoke(null, any<IllegalArgumentException>()) }
+        testCommand.execute(null, resultCallback)
+
+        exception shouldBe null
+        calls shouldBe 1
     }
 
     @Test
     fun testExecute_shouldCallEmarsysSetupWithAllConfigValuesFromParametersMap() {
         val parameters = mapOf(
-                "applicationCode" to APP_CODE,
-                "merchantId" to MERCHANT_ID,
-                "androidSharedPackageNames" to SHARED_PACKAGE_NAMES,
-                "androidSharedSecret" to SECRET,
-                "androidVerboseConsoleLoggingEnabled" to true
+            "applicationCode" to APP_CODE,
+            "merchantId" to MERCHANT_ID,
+            "androidSharedPackageNames" to SHARED_PACKAGE_NAMES,
+            "androidSharedSecret" to SECRET,
+            "androidVerboseConsoleLoggingEnabled" to true
         )
 
         val expectedConfig = EmarsysConfig(
-                application = mockApplication,
-                applicationCode = APP_CODE,
-                merchantId = MERCHANT_ID,
-                sharedPackageNames = SHARED_PACKAGE_NAMES,
-                sharedSecret = SECRET,
-                verboseConsoleLoggingEnabled = true
+            application = mockApplication,
+            applicationCode = APP_CODE,
+            merchantId = MERCHANT_ID,
+            sharedPackageNames = SHARED_PACKAGE_NAMES,
+            sharedSecret = SECRET,
+            verboseConsoleLoggingEnabled = true
         )
 
         setupCommand.execute(parameters) { _, _ ->
@@ -151,22 +177,22 @@ class SetupCommandTest {
 
         verify {
             mockEdit.putString(
-                    ConfigStorageKeys.MOBILE_ENGAGE_APPLICATION_CODE.name,
-                    APP_CODE
+                ConfigStorageKeys.MOBILE_ENGAGE_APPLICATION_CODE.name,
+                APP_CODE
             )
         }
         verify { mockEdit.putString(ConfigStorageKeys.PREDICT_MERCHANT_ID.name, MERCHANT_ID) }
         verify {
             mockEdit.putStringSet(
-                    ConfigStorageKeys.ANDROID_SHARED_PACKAGE_NAMES.name,
-                    mutableSetOf(*SHARED_PACKAGE_NAMES.toTypedArray())
+                ConfigStorageKeys.ANDROID_SHARED_PACKAGE_NAMES.name,
+                mutableSetOf(*SHARED_PACKAGE_NAMES.toTypedArray())
             )
         }
         verify { mockEdit.putString(ConfigStorageKeys.ANDROID_SHARED_SECRET.name, SECRET) }
         verify {
             mockEdit.putBoolean(
-                    ConfigStorageKeys.ANDROID_VERBOSE_CONSOLE_LOGGING_ENABLED.name,
-                    true
+                ConfigStorageKeys.ANDROID_VERBOSE_CONSOLE_LOGGING_ENABLED.name,
+                true
             )
         }
 
@@ -186,15 +212,15 @@ class SetupCommandTest {
         every { mockSharedPreferences.getBoolean("push_sending_enabled", any()) } returns true
         val pushTokenStorage = spyk(PushTokenStorage(mockSharedPreferences))
         val setupCommand = SetupCommand(
-                mockApplication,
-                pushTokenStorage,
-                mockSharedPreferences,
-                false
+            mockApplication,
+            pushTokenStorage,
+            mockSharedPreferences,
+            false
         )
 
 
         val expectedConfig = EmarsysConfig(
-                application = mockApplication,
+            application = mockApplication,
         )
         setupCommand.execute(mapOf()) { _, _ ->
 
@@ -213,16 +239,16 @@ class SetupCommandTest {
         every { Emarsys.push } returns mockPushApi
 
         val setupCommand = SetupCommand(
-                mockApplication,
-                PushTokenStorage(mockSharedPreferences),
-                mockSharedPreferences,
-                false
+            mockApplication,
+            PushTokenStorage(mockSharedPreferences),
+            mockSharedPreferences,
+            false
         )
         every { mockPushTokenStorage.pushToken } returns null
         every { mockPushTokenStorage.enabled } returns false
 
         val expectedConfig = EmarsysConfig(
-                application = mockApplication
+            application = mockApplication
         )
         setupCommand.execute(mapOf()) { _, _ ->
 
@@ -236,55 +262,55 @@ class SetupCommandTest {
     @Test
     fun testOnMethodCall_callSetupWithStoredConfig() {
         setupCommand = SetupCommand(
-                mockApplication,
-                mockPushTokenStorage,
-                mockSharedPreferences,
-                true
+            mockApplication,
+            mockPushTokenStorage,
+            mockSharedPreferences,
+            true
         )
 
         every {
             mockSharedPreferences.getString(
-                    ConfigStorageKeys.MOBILE_ENGAGE_APPLICATION_CODE.name,
-                    any()
+                ConfigStorageKeys.MOBILE_ENGAGE_APPLICATION_CODE.name,
+                any()
             )
         } returns APP_CODE
         every {
             mockSharedPreferences.getString(
-                    ConfigStorageKeys.PREDICT_MERCHANT_ID.name,
-                    any()
+                ConfigStorageKeys.PREDICT_MERCHANT_ID.name,
+                any()
             )
         } returns MERCHANT_ID
         every {
             mockSharedPreferences.getString(
-                    ConfigStorageKeys.ANDROID_SHARED_SECRET.name,
-                    any()
+                ConfigStorageKeys.ANDROID_SHARED_SECRET.name,
+                any()
             )
         } returns SECRET
         every {
             mockSharedPreferences.getStringSet(
-                    ConfigStorageKeys.ANDROID_SHARED_PACKAGE_NAMES.name,
-                    any()
+                ConfigStorageKeys.ANDROID_SHARED_PACKAGE_NAMES.name,
+                any()
             )
         } returns mutableSetOf(*SHARED_PACKAGE_NAMES.toTypedArray())
         every {
             mockSharedPreferences.getBoolean(
-                    ConfigStorageKeys.ANDROID_VERBOSE_CONSOLE_LOGGING_ENABLED.name,
-                    any()
+                ConfigStorageKeys.ANDROID_VERBOSE_CONSOLE_LOGGING_ENABLED.name,
+                any()
             )
         } returns false
         every {
             mockSharedPreferences.getBoolean(
-                    ConfigStorageKeys.ANDROID_DISABLE_AUTOMATIC_PUSH_TOKEN_SENDING.name,
-                    any()
+                ConfigStorageKeys.ANDROID_DISABLE_AUTOMATIC_PUSH_TOKEN_SENDING.name,
+                any()
             )
         } returns false
 
         val expectedConfig = EmarsysConfig(
-                application = mockApplication,
-                applicationCode = APP_CODE,
-                merchantId = MERCHANT_ID,
-                sharedPackageNames = SHARED_PACKAGE_NAMES,
-                sharedSecret = SECRET
+            application = mockApplication,
+            applicationCode = APP_CODE,
+            merchantId = MERCHANT_ID,
+            sharedPackageNames = SHARED_PACKAGE_NAMES,
+            sharedSecret = SECRET
         )
 
         setupCommand.execute(mapOf()) { _, _ ->

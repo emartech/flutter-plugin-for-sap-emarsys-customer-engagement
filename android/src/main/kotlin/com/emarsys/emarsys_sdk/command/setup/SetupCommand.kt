@@ -27,18 +27,18 @@ class SetupCommand(
 ) : EmarsysCommand {
 
     override fun execute(parameters: Map<String, Any?>?, resultCallback: ResultCallback) {
-        if (parameters == null) {
-            resultCallback(null, IllegalArgumentException("parameterMap must not be null!"))
-            return
-        }
-
         WrapperInfoContainer.wrapperInfo = "flutter"
+
         val configBuilder = if (fromCache) {
             ConfigLoader().loadConfigFromSharedPref(
                 application,
                 EMARSYS_SETUP_CACHE_SHARED_PREFERENCES
             )
         } else {
+            if (parameters == null) {
+                resultCallback(null, IllegalArgumentException("parameterMap must not be null!"))
+                return
+            }
             configFromParameters(parameters)
         }
 
