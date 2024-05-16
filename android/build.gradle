@@ -9,7 +9,6 @@ buildscript {
         mavenCentral()
         google()
         maven { url 'https://developer.huawei.com/repo/' }
-        jcenter()
     }
 
     dependencies {
@@ -25,7 +24,6 @@ rootProject.allprojects {
         mavenCentral()
         google()
         maven { url 'https://developer.huawei.com/repo/' }
-        jcenter()
     }
 }
 
@@ -56,7 +54,7 @@ android {
 
 
 dependencies {
-    ext.emarsys_sdk_version = '3.7.4'
+    ext.emarsys_sdk_version = '3.7.5'
     ext.junit_version = '4.13.2'
     ext.kotlintest_version = '3.4.2'
     ext.mockk_version = '1.12.0'
