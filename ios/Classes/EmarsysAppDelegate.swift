@@ -2,7 +2,6 @@ import UIKit
 import Flutter
 import EmarsysSDK
 
-@UIApplicationMain
 @objc open class EmarsysAppDelegate: FlutterAppDelegate {
   
     open override func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
