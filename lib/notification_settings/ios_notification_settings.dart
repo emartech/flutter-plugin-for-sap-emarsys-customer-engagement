@@ -6,7 +6,7 @@ class IOSNotificationSettings {
   String lockScreenSetting;
   String carPlaySetting;
   String alertStyle;
-  String showPreviewSetting;
+  String showPreviewsSetting;
   String? criticalAlertSetting;
   bool? providesAppNotificationSettings;
   String? scheduledDeliverySetting;
@@ -19,7 +19,7 @@ class IOSNotificationSettings {
       required this.lockScreenSetting,
       required this.carPlaySetting,
       required this.alertStyle,
-      required this.showPreviewSetting,
+      required this.showPreviewsSetting,
       this.criticalAlertSetting,
       this.providesAppNotificationSettings,
       this.scheduledDeliverySetting,
@@ -33,7 +33,7 @@ class IOSNotificationSettings {
       String? lockScreenSetting,
       String? carPlaySetting,
       String? alertStyle,
-      String? showPreviewSetting,
+      String? showPreviewsSetting,
       String? criticalAlertSetting,
       bool? providesAppNotificationSettings,
       String? scheduledDeliverySetting,
@@ -47,7 +47,7 @@ class IOSNotificationSettings {
         lockScreenSetting: lockScreenSetting ?? this.lockScreenSetting,
         carPlaySetting: carPlaySetting ?? this.carPlaySetting,
         alertStyle: alertStyle ?? this.alertStyle,
-        showPreviewSetting: showPreviewSetting ?? this.showPreviewSetting,
+        showPreviewsSetting: showPreviewsSetting ?? this.showPreviewsSetting,
         criticalAlertSetting: criticalAlertSetting ?? this.criticalAlertSetting,
         providesAppNotificationSettings: providesAppNotificationSettings ??
             this.providesAppNotificationSettings,
@@ -66,7 +66,7 @@ class IOSNotificationSettings {
       lockScreenSetting: map['lockScreenSetting'],
       carPlaySetting: map['carPlaySetting'],
       alertStyle: map['alertStyle'],
-      showPreviewSetting: map['showPreviewSetting'],
+      showPreviewsSetting: map['showPreviewsSetting'],
       criticalAlertSetting: map['criticalAlertSetting'],
       providesAppNotificationSettings: map['providesAppNotificationSettings'],
       scheduledDeliverySetting: map['scheduledDeliverySetting'],
@@ -76,7 +76,7 @@ class IOSNotificationSettings {
 
   @override
   String toString() {
-    return 'IOSNotificationSettings(authorizationStatus: $authorizationStatus, soundSetting: $soundSetting, badgeSetting: $badgeSetting, notificationCenterSetting: $notificationCenterSetting, lockScreenSetting: $lockScreenSetting, carPlaySetting: $carPlaySetting, alertStyle: $alertStyle, showPreviewSetting: $showPreviewSetting, criticalAlertSetting: $criticalAlertSetting, providesAppNotificationSettings: $providesAppNotificationSettings, timeSensitiveSetting: $timeSensitiveSetting, scheduledDeliverySetting: $scheduledDeliverySetting)';
+    return 'IOSNotificationSettings(authorizationStatus: $authorizationStatus, soundSetting: $soundSetting, badgeSetting: $badgeSetting, notificationCenterSetting: $notificationCenterSetting, lockScreenSetting: $lockScreenSetting, carPlaySetting: $carPlaySetting, alertStyle: $alertStyle, showPreviewsSetting: $showPreviewsSetting, criticalAlertSetting: $criticalAlertSetting, providesAppNotificationSettings: $providesAppNotificationSettings, timeSensitiveSetting: $timeSensitiveSetting, scheduledDeliverySetting: $scheduledDeliverySetting)';
   }
 
   @override
@@ -91,7 +91,7 @@ class IOSNotificationSettings {
         other.lockScreenSetting == lockScreenSetting &&
         other.carPlaySetting == carPlaySetting &&
         other.alertStyle == alertStyle &&
-        other.showPreviewSetting == showPreviewSetting &&
+        other.showPreviewsSetting == showPreviewsSetting &&
         other.criticalAlertSetting == criticalAlertSetting &&
         other.providesAppNotificationSettings ==
             providesAppNotificationSettings &&
@@ -108,7 +108,7 @@ class IOSNotificationSettings {
         lockScreenSetting.hashCode ^
         carPlaySetting.hashCode ^
         alertStyle.hashCode ^
-        showPreviewSetting.hashCode ^
+        showPreviewsSetting.hashCode ^
         criticalAlertSetting.hashCode ^
         providesAppNotificationSettings.hashCode ^
         timeSensitiveSetting.hashCode ^
