@@ -11,6 +11,7 @@ void main() {
   });
 
   testWidgets("call pushSendingEnabled with true", (WidgetTester tester) async {
+    await Future.delayed(Duration(seconds: 3));
     await Emarsys.push
         .pushSendingEnabled(true)
         .catchError((error) => expect(error, null));

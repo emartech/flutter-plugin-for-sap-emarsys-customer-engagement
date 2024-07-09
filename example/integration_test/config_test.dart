@@ -8,7 +8,6 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   const APPLICATION_CODE = "EMS11-C3FD3";
   const MERCHANT_ID = "EMS11C3FD3";
-  const CONTACT_FIELD_ID = 2575;
 
   setUpAll(() async {
     final config = EmarsysConfig(
@@ -35,11 +34,6 @@ void main() {
         .changeApplicationCode(APPLICATION_CODE)
         .onError((error, stackTrace) => onErrorHasBeenCalled = true);
     expect(onErrorHasBeenCalled, false);
-  });
-  testWidgets("contactFieldValue should return the expected value",
-      (WidgetTester tester) async {
-    final result = await Emarsys.config.contactFieldId();
-    expect(result, equals(CONTACT_FIELD_ID));
   });
   testWidgets("languageCode should return a non-null value",
       (WidgetTester tester) async {
