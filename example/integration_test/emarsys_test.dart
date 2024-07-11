@@ -12,11 +12,12 @@ void main() {
     await Emarsys.setup(config);
   });
 
-  testWidgets("call setContact and check contactFieldId", (WidgetTester tester) async {
+  testWidgets("call setContact and check contactFieldId",
+      (WidgetTester tester) async {
     await Emarsys.setContact(2575, "test@test.com")
         .then((value) => print("SET CONTACT"))
         .catchError((error) => expect(error, null));
-    
+
     final result = await Emarsys.config.contactFieldId();
     expect(result, equals(CONTACT_FIELD_ID));
   });

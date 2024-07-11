@@ -22,8 +22,7 @@ typedef _GetCallbackHandle = CallbackHandle? Function(Function callback);
 const MethodChannel _channel = MethodChannel('com.emarsys.methods');
 const EventChannel _silentPushEventChannel =
     EventChannel('com.emarsys.events.silentPush');
-const EventChannel _pushEventChannel =
-    EventChannel('com.emarsys.events.push');
+const EventChannel _pushEventChannel = EventChannel('com.emarsys.events.push');
 const EventChannel _geofenceEventChannel =
     EventChannel('com.emarsys.events.geofence');
 const EventChannel _inAppEventChannel =

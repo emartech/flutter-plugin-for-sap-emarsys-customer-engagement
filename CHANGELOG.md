@@ -1,3 +1,14 @@
+# 2.4.0
+## What's changed
+### [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
+* Updated underlying [Emarsys SDK](https://github.com/emartech/android-emarsys-sdk/releases/tag/3.7.6) for Android to 3.7.6
+### [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
+* Updated underlying [Emarsys SDK](https://github.com/emartech/ios-emarsys-sdk/releases/tag/3.6.0) for iOS to 3.6.0
+* We bumped our minimum supported iOS version to 14 to be able to use newer network change detection solution.
+## What's fixed
+### [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
+* @UIApplicationMain annotation was removed from the EmarsysAppDelegate because the inheriting AppDelegate has to use it.
+
 # 2.3.3
 ## What's changed
 ### [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)

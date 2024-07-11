@@ -36,8 +36,10 @@ void main() {
   test(
       'cart should create RecommendationLogic with cartItem data when cartItems are provided',
       () async {
-    CartItem cartItem1 = PredictCartItem(itemId: "item1", price: 12, quantity: 24);
-    CartItem cartItem2 = PredictCartItem(itemId: "item2", price: 23, quantity: 33);
+    CartItem cartItem1 =
+        PredictCartItem(itemId: "item1", price: 12, quantity: 24);
+    CartItem cartItem2 =
+        PredictCartItem(itemId: "item2", price: 23, quantity: 33);
     List<CartItem> items = [cartItem1, cartItem2];
     RecommendationLogic result = RecommendationLogic.cart(cartItems: items);
 
