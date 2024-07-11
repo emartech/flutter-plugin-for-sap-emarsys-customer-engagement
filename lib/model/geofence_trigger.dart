@@ -6,7 +6,7 @@ class GeofenceTrigger extends Equatable {
   final int loiteringDelay;
   final Map<String, dynamic>? action;
 
-  GeofenceTrigger(
+  const GeofenceTrigger(
       {required this.id,
       required this.type,
       required this.loiteringDelay,

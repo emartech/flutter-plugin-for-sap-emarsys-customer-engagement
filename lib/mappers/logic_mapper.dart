@@ -10,7 +10,7 @@ class LogicMapper extends Mapper<Logic, Map<String, dynamic>> {
 
   @override
   Map<String, dynamic> map(Logic input) {
-    var mapFromLogic = Map<String, dynamic>();
+    var mapFromLogic = <String, dynamic>{};
     mapFromLogic["name"] = input.name;
     if (mapFromLogic["name"] == "CART") {
       mapFromLogic["data"] = {};

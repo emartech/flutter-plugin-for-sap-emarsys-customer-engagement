@@ -58,7 +58,7 @@ void main() {
       }
     ];
 
-    GeofenceTrigger trigger1 = GeofenceTrigger(
+    GeofenceTrigger trigger1 = const GeofenceTrigger(
         id: "trigger1",
         type: "Type1",
         loiteringDelay: 123,
@@ -68,7 +68,7 @@ void main() {
           "actionKey13": 123
         });
 
-    GeofenceTrigger trigger2 = GeofenceTrigger(
+    GeofenceTrigger trigger2 = const GeofenceTrigger(
         id: "trigger2",
         type: "Type2",
         loiteringDelay: 456,

@@ -14,7 +14,7 @@ void main() {
 
   test('trackItemView should delegate to the Platform with correct parameters',
       () async {
-    final itemId = "testItemId";
+    const itemId = "testItemId";
     MethodCall? actualMethodCall;
     channel.setMockMethodCallHandler((MethodCall methodCall) {
       actualMethodCall = methodCall;
@@ -47,7 +47,7 @@ void main() {
   test(
       'trackSearchTerm should delegate to the Platform with correct parameters',
       () async {
-    final searchTerm = "testSearchTerm";
+    const searchTerm = "testSearchTerm";
     MethodCall? actualMethodCall;
     channel.setMockMethodCallHandler((MethodCall methodCall) {
       actualMethodCall = methodCall;
@@ -65,7 +65,7 @@ void main() {
   test(
       'trackCategoryView should delegate to the Platform with correct parameters',
       () async {
-    final categoryPath = "testCategoryPath";
+    const categoryPath = "testCategoryPath";
     MethodCall? actualMethodCall;
     channel.setMockMethodCallHandler((MethodCall methodCall) {
       actualMethodCall = methodCall;
@@ -81,7 +81,7 @@ void main() {
   });
   test('trackTag should delegate to the Platform with correct parameters',
       () async {
-    final eventName = "eventName";
+    const eventName = "eventName";
     Map<String, String> attributes = {"testKey": "testValue"};
     MethodCall? actualMethodCall;
     channel.setMockMethodCallHandler((MethodCall methodCall) {
@@ -125,7 +125,7 @@ void main() {
 
   test('trackPurchase should delegate to the Platform with correct parameters',
       () async {
-    final orderId = 'testOrderId';
+    const orderId = 'testOrderId';
     final items = [
       TestCartItem("item1", 0.0, 0.0),
       TestCartItem("item2", 0.5, 1.0)
@@ -152,7 +152,7 @@ void main() {
 
   test('trackPurchase should throw exception when items is an empty list',
       () async {
-    final orderId = 'testOrderId';
+    const orderId = 'testOrderId';
     final List<TestCartItem> items = [];
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
       throw PlatformException(
@@ -234,7 +234,7 @@ class TestCartItem implements CartItem {
   @override
   double quantity;
   TestCartItem(String itemId2, double price2, double quantity2)
-      : this.itemId = itemId2,
-        this.price = price2,
-        this.quantity = quantity2;
+      : itemId = itemId2,
+        price = price2,
+        quantity = quantity2;
 }

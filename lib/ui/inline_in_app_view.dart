@@ -68,7 +68,7 @@ class InlineInAppView extends StatelessWidget {
             viewType: viewType,
             layoutDirection: TextDirection.ltr,
             creationParams: creationParams,
-            creationParamsCodec: StandardMessageCodec(),
+            creationParamsCodec: const StandardMessageCodec(),
           )
             ..addOnPlatformViewCreatedListener((id) {
               _onPlatformViewCreated(id);

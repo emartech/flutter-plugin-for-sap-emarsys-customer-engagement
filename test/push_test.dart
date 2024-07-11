@@ -1,4 +1,3 @@
-import 'package:emarsys_sdk/api/emarsys.dart';
 import 'package:emarsys_sdk/emarsys_sdk.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -14,7 +13,7 @@ void main() {
   });
 
   test('pushSendingEnabled should delegate to the Platform', () async {
-    final enable = true;
+    const enable = true;
     MethodCall? actualMethodCall;
     channel.setMockMethodCallHandler((MethodCall methodCall) {
       actualMethodCall = methodCall;
@@ -30,7 +29,7 @@ void main() {
   });
 
   test('setPushToken should delegate to the Platform', () async {
-    final testPushToken = "testPushToken";
+    const testPushToken = "testPushToken";
     MethodCall? actualMethodCall;
     channel.setMockMethodCallHandler((MethodCall methodCall) {
       actualMethodCall = methodCall;

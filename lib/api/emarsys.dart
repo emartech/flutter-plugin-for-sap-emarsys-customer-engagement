@@ -19,15 +19,15 @@ import 'message_inbox.dart';
 import 'predict.dart';
 
 typedef _GetCallbackHandle = CallbackHandle? Function(Function callback);
-const MethodChannel _channel = const MethodChannel('com.emarsys.methods');
+const MethodChannel _channel = MethodChannel('com.emarsys.methods');
 const EventChannel _silentPushEventChannel =
-    const EventChannel('com.emarsys.events.silentPush');
+    EventChannel('com.emarsys.events.silentPush');
 const EventChannel _pushEventChannel =
-    const EventChannel('com.emarsys.events.push');
+    EventChannel('com.emarsys.events.push');
 const EventChannel _geofenceEventChannel =
-    const EventChannel('com.emarsys.events.geofence');
+    EventChannel('com.emarsys.events.geofence');
 const EventChannel _inAppEventChannel =
-    const EventChannel('com.emarsys.events.inApp');
+    EventChannel('com.emarsys.events.inApp');
 
 class Emarsys {
   static Push push = Push(_channel, _pushEventChannel, _silentPushEventChannel);
@@ -66,7 +66,7 @@ class Emarsys {
 
   static Future<void> trackCustomEvent(
       String eventName, Map<String, String>? eventAttributes) {
-    Map<String, Object> attributes = Map<String, Object>();
+    Map<String, Object> attributes = <String, Object>{};
     attributes["eventName"] = eventName;
     if (eventAttributes != null) {
       attributes["eventAttributes"] = eventAttributes;
@@ -74,7 +74,7 @@ class Emarsys {
     return _channel.invokeMethod('trackCustomEvent', attributes);
   }
 
-  static _GetCallbackHandle _getCallbackHandle =
+  static final _GetCallbackHandle _getCallbackHandle =
       (Function callback) => PluginUtilities.getCallbackHandle(callback);
 
   static _initialize() async {
@@ -94,13 +94,13 @@ class Emarsys {
 @pragma('vm:entry-point')
 Future<void> _callbackDispatcher() async {
   WidgetsFlutterBinding.ensureInitialized();
-  const MethodChannel _backgroundChannel =
+  const MethodChannel backgroundChannel =
       MethodChannel('com.emarsys.background');
-  _backgroundChannel.setMethodCallHandler((MethodCall call) async {
+  backgroundChannel.setMethodCallHandler((MethodCall call) async {
     final List<dynamic> args = call.arguments;
     final handle = CallbackHandle.fromRawHandle(args[0]);
     final Function closure = PluginUtilities.getCallbackFromHandle(handle)!;
     closure();
   });
-  _backgroundChannel.invokeMethod('android.setupFromCache');
+  backgroundChannel.invokeMethod('android.setupFromCache');
 }

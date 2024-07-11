@@ -95,8 +95,8 @@ void main() {
         receivedAt: 1234,
         updatedAt: 4321,
         expiresAt: 5678,
-        tags: ["TAG1", "TAG2", "TAG3"],
-        properties: {"key1": "value1", "key2": "value2"},
+        tags: const ["TAG1", "TAG2", "TAG3"],
+        properties: const {"key1": "value1", "key2": "value2"},
         actions: [appEventAction, customEventAction, openExternalUrlAction]);
 
     List<Message> result = mapper.map([fullMessageMap]);

@@ -9,7 +9,7 @@ class GeofenceModel extends Equatable {
   final double? waitInterval;
   final List<GeofenceTrigger> triggers;
 
-  GeofenceModel(
+  const GeofenceModel(
       {required this.id,
       required this.lat,
       required this.lon,

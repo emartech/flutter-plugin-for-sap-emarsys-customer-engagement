@@ -15,7 +15,7 @@ class Message extends Equatable {
   final Map<String, String>? properties;
   final List<ActionModel>? actions;
 
-  Message({
+  const Message({
     required this.id,
     required this.campaignId,
     this.collapseId,

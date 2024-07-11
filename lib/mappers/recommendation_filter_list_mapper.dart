@@ -23,6 +23,6 @@ class RecommendationFilterListMapper
 
 extension ParseToString on Enum {
   String toShortString() {
-    return this.toString().split('.').last;
+    return toString().split('.').last;
   }
 }

@@ -4,8 +4,8 @@ import 'package:emarsys_sdk/api/emarsys.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('com.emarsys.methods');
-  const String _messageId = "testMessageId";
-  const String _tag = "testTag";
+  const String messageId = "testMessageId";
+  const String tag = "testTag";
 
   TestWidgetsFlutterBinding.ensureInitialized();
   setUp(() {
@@ -37,7 +37,7 @@ void main() {
       return;
     });
 
-    await Emarsys.messageInbox.addTag(_messageId, _tag);
+    await Emarsys.messageInbox.addTag(messageId, tag);
 
     expect(actualMethodCall != null, true);
     if (actualMethodCall != null) {
@@ -54,7 +54,7 @@ void main() {
       return;
     });
 
-    await Emarsys.messageInbox.removeTag(_messageId, _tag);
+    await Emarsys.messageInbox.removeTag(messageId, tag);
 
     expect(actualMethodCall != null, true);
     if (actualMethodCall != null) {

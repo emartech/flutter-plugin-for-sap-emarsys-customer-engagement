@@ -34,7 +34,7 @@ void main() {
         linkUrlString: "test_link",
         feature: "test_feature",
         cohort: "test_cohort",
-        customFields: {"field1": "value1", "field2": "value2"},
+        customFields: const {"field1": "value1", "field2": "value2"},
         imageUrlString: "test_imageUrl",
         zoomImageUrlString: "test_zoomImageUrl",
         categoryPath: "test_categoryPath",
