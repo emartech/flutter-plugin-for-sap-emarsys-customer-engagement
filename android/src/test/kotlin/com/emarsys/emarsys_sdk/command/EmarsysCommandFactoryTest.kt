@@ -17,7 +17,7 @@ import com.emarsys.emarsys_sdk.command.mobileengage.push.SetPushTokenCommand
 import com.emarsys.emarsys_sdk.command.predict.*
 import com.emarsys.emarsys_sdk.command.setup.InitializeCommand
 import com.emarsys.emarsys_sdk.command.setup.SetupCommand
-import io.kotlintest.shouldBe
+import io.kotest.matchers.shouldBe
 import io.mockk.mockk
 import org.junit.Before
 import org.junit.Test

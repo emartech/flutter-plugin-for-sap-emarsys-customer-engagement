@@ -5,7 +5,7 @@ import com.emarsys.core.api.result.Try
 import com.emarsys.emarsys_sdk.mapper.InboxResultMapper
 import com.emarsys.mobileengage.api.inbox.InboxResult
 import com.emarsys.mobileengage.api.inbox.Message
-import io.kotlintest.shouldBe
+import io.kotest.matchers.shouldBe
 import io.mockk.*
 import org.junit.After
 import org.junit.Before

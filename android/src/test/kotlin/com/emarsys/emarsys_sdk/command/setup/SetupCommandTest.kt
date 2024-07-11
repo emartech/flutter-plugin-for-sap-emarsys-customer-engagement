@@ -16,7 +16,7 @@ import com.emarsys.emarsys_sdk.di.tearDownDependencyContainer
 import com.emarsys.emarsys_sdk.storage.PushTokenStorage
 import com.emarsys.mobileengage.api.event.EventHandler
 import com.emarsys.push.PushApi
-import io.kotlintest.shouldBe
+import io.kotest.matchers.shouldBe
 import io.mockk.Runs
 import io.mockk.clearAllMocks
 import io.mockk.every

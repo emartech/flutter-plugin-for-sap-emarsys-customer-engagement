@@ -9,7 +9,7 @@ import com.emarsys.emarsys_sdk.mapper.RecommendationFilterListMapper
 import com.emarsys.emarsys_sdk.mapper.RecommendationLogicMapper
 import com.emarsys.predict.Predict
 import com.emarsys.predict.api.model.*
-import io.kotlintest.shouldBe
+import io.kotest.matchers.shouldBe
 import io.mockk.*
 import org.junit.After
 

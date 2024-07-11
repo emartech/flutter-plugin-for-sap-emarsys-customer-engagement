@@ -3,7 +3,7 @@ package com.emarsys.emarsys_sdk.mapper
 import com.emarsys.mobileengage.api.geofence.Geofence
 import com.emarsys.mobileengage.api.geofence.Trigger
 import com.emarsys.mobileengage.api.geofence.TriggerType
-import io.kotlintest.shouldBe
+import io.kotest.matchers.shouldBe
 import org.json.JSONObject
 import org.junit.Before
 import org.junit.Test

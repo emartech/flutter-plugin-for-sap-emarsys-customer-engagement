@@ -56,7 +56,7 @@ android {
 dependencies {
     ext.emarsys_sdk_version = '3.7.5'
     ext.junit_version = '4.13.2'
-    ext.kotlintest_version = '3.4.2'
+    ext.kotest_version = '5.9.1'
     ext.mockk_version = '1.13.9'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -65,7 +65,7 @@ dependencies {
     api "com.emarsys:emarsys-huawei:$emarsys_sdk_version"
 
     testImplementation "junit:junit:$junit_version"
-    testImplementation "io.kotlintest:kotlintest-runner-junit4:$kotlintest_version"
+    testImplementation "io.kotest:kotest-runner-junit4:$kotest_version"
     testImplementation "io.mockk:mockk:$mockk_version"
     testImplementation 'org.json:json:20240303'
 }

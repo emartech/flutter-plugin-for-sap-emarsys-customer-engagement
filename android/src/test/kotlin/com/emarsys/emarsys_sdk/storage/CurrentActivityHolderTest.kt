@@ -1,11 +1,10 @@
 package com.emarsys.emarsys_sdk.storage
 
 import android.app.Activity
-import io.kotlintest.shouldBe
+import io.kotest.matchers.shouldBe
 import io.mockk.mockk
 import org.junit.Before
 import org.junit.Test
-import org.junit.jupiter.api.Assertions.*
 import java.lang.ref.WeakReference
 
 internal class CurrentActivityHolderTest {

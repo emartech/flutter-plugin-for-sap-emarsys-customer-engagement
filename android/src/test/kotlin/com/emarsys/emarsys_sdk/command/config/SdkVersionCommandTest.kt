@@ -1,7 +1,7 @@
 package com.emarsys.emarsys_sdk.command.config
 
 import com.emarsys.Emarsys
-import io.kotlintest.shouldBe
+import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockkStatic
 import io.mockk.unmockkStatic

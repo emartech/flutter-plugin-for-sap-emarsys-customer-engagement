@@ -3,7 +3,7 @@ package com.emarsys.emarsys_sdk.command.config
 import com.emarsys.Emarsys
 import com.emarsys.core.api.notification.ChannelSettings
 import com.emarsys.core.api.notification.NotificationSettings
-import io.kotlintest.shouldBe
+import io.kotest.matchers.shouldBe
 import io.mockk.*
 import org.junit.After
 import org.junit.Before

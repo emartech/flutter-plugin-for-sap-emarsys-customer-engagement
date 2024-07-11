@@ -2,16 +2,14 @@ package com.emarsys.emarsys_sdk.command.mobileengage.push
 
 import com.emarsys.Emarsys
 import com.emarsys.push.Push
-import io.kotlintest.shouldBe
+import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkStatic
 import io.mockk.unmockkStatic
-import io.mockk.verify
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import org.junit.jupiter.api.Assertions.*
 
 internal class GetPushTokenCommandTest {
     private companion object {

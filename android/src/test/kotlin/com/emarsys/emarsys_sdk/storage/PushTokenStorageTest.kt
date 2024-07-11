@@ -1,7 +1,7 @@
 package com.emarsys.emarsys_sdk.storage
 
 import android.content.SharedPreferences
-import io.kotlintest.shouldBe
+import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify

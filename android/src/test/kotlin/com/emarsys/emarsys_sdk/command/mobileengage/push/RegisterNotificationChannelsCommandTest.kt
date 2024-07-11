@@ -7,8 +7,8 @@ import android.content.Context
 import com.emarsys.core.util.AndroidVersionUtils
 import com.emarsys.emarsys_sdk.command.ResultCallback
 import com.emarsys.emarsys_sdk.notification.NotificationChannelFactory
-import io.kotlintest.shouldBe
-import io.kotlintest.shouldNotBe
+import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 import io.mockk.called
 import io.mockk.every
 import io.mockk.mockk

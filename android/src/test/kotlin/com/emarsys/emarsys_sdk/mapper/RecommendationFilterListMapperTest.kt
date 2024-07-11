@@ -1,7 +1,7 @@
 package com.emarsys.emarsys_sdk.mapper
 
 import com.emarsys.Emarsys
-import io.kotlintest.shouldBe
+import io.kotest.matchers.shouldBe
 import org.junit.Assert.*
 
 import org.junit.Before

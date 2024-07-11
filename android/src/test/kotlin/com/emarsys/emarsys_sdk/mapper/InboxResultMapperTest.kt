@@ -3,7 +3,7 @@ package com.emarsys.emarsys_sdk.mapper
 import com.emarsys.mobileengage.api.action.*
 import com.emarsys.mobileengage.api.inbox.InboxResult
 import com.emarsys.mobileengage.api.inbox.Message
-import io.kotlintest.shouldBe
+import io.kotest.matchers.shouldBe
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test

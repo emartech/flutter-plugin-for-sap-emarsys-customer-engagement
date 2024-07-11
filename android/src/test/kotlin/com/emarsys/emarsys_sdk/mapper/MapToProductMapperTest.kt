@@ -1,7 +1,7 @@
 package com.emarsys.emarsys_sdk.mapper
 
 import com.emarsys.predict.api.model.Product
-import io.kotlintest.shouldBe
+import io.kotest.matchers.shouldBe
 import org.junit.Before
 import org.junit.Test
 

@@ -1,14 +1,12 @@
 package com.emarsys.emarsys_sdk.mapper
 
-import arrow.core.mapOf
-import com.emarsys.predict.api.model.CartItem
 import com.emarsys.predict.api.model.Logic
-import com.emarsys.predict.api.model.PredictCartItem
 import com.emarsys.predict.api.model.RecommendationLogic
-import io.kotlintest.shouldBe
-import io.mockk.*
+import io.kotest.matchers.shouldBe
+import io.mockk.mockk
+import io.mockk.mockkStatic
+import io.mockk.unmockkStatic
 import org.junit.After
-
 import org.junit.Before
 import org.junit.Test
 

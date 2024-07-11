@@ -2,7 +2,7 @@ package com.emarsys.emarsys_sdk.command.geofence
 
 import com.emarsys.Emarsys
 import com.emarsys.geofence.GeofenceApi
-import io.kotlintest.shouldBe
+import io.kotest.matchers.shouldBe
 import io.mockk.*
 import org.junit.After
 import org.junit.Before
