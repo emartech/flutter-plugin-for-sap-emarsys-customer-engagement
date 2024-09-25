@@ -18,7 +18,7 @@ class CustomDelegate: NSObject, UNUserNotificationCenterDelegate {
     
 }
 
-@UIApplicationMain
+@main
 @objc class AppDelegate: EmarsysAppDelegate {
     
     override func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {

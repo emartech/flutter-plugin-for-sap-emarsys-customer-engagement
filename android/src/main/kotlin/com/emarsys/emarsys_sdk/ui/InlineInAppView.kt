@@ -11,6 +11,9 @@ import io.flutter.plugin.common.EventChannel
 import com.emarsys.inapp.ui.InlineInAppView as NativeInlineInAppView
 import io.flutter.plugin.platform.PlatformView
 import org.json.JSONObject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class InlineInAppView(
     context: Context,
@@ -83,10 +86,12 @@ class InlineInAppView(
             }
 
             override fun onCompleted(errorCause: Throwable?) {
-                if (errorCause != null) {
-                    events?.error("500", errorCause.message, errorCause)
-                } else {
-                    events?.success(mapOf<String, Any>())
+                CoroutineScope(Dispatchers.Main).launch{
+                    if (errorCause != null) {
+                        events?.error("500", errorCause.message, errorCause)
+                    } else {
+                        events?.success(mapOf<String, Any>())
+                    }
                 }
             }
         }
