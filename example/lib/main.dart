@@ -85,6 +85,11 @@ final messengerKey = GlobalKey<ScaffoldMessengerState>();
 
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
+  @override
+  void initState() {
+    super.initState();
+    _initEventStreams();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -136,6 +141,29 @@ class _MainScreenState extends State<MainScreen> {
       default:
         return HomeScreen();
     }
+  }
+
+  void _initEventStreams() {
+    Emarsys.push.pushEventStream.listen((event) {
+      messengerKey.currentState!.showSnackBar(
+          SnackBar(content: Text("${event.name} - ${event.payload}")));
+      print(event.name);
+    });
+    Emarsys.push.silentPushEventStream.listen((event) {
+      messengerKey.currentState!.showSnackBar(
+          SnackBar(content: Text("${event.name} - ${event.payload}")));
+      print(event.name);
+    });
+    Emarsys.geofence.geofenceEventStream.listen((event) {
+      messengerKey.currentState!.showSnackBar(
+          SnackBar(content: Text("${event.name} - ${event.payload}")));
+      print(event.name);
+    });
+    Emarsys.inApp.inAppEventStream.listen((event) {
+      messengerKey.currentState!.showSnackBar(
+          SnackBar(content: Text("${event.name} - ${event.payload}")));
+      print(event.name);
+    });
   }
 }
 
