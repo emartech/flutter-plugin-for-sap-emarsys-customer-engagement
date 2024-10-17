@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -135,6 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
       prefs.setInt("contactFieldId", contactFieldId);
       prefs.setString("loggedInUser", contactValue);
       Emarsys.setContact(contactFieldId, contactValue);
+
       setState(() {
         contactFieldValue = contactValue;
       });

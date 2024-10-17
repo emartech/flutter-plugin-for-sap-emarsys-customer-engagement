@@ -26,7 +26,10 @@ void main() async {
       ConsoleLogLevels.ERROR,
     ],
   ));
-
+  if (prefs.getString("loggedInUser") != null) {
+    Emarsys.setContact(await Emarsys.config.contactFieldId() ?? 2575,
+        prefs.getString("loggedInUser") ?? "");
+  }
   Emarsys.push.registerAndroidNotificationChannels([
     NotificationChannel(
       id: "ems_sample_news",
@@ -45,12 +48,12 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  bool _isDarkTheme = false;
-
   @override
   Widget build(BuildContext context) {
+    bool isDarkTheme =
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
     return MaterialApp(
-      themeMode: _isDarkTheme ? ThemeMode.dark : ThemeMode.light,
+      themeMode: isDarkTheme ? ThemeMode.dark : ThemeMode.light,
       theme: ThemeData(
         primarySwatch: Colors.blue,
         brightness: Brightness.light,
@@ -71,12 +74,14 @@ class MyApp extends StatelessWidget {
           unselectedItemColor: Colors.grey,
         ),
       ),
-      home: MainScreen(),
+      home: const MainScreen(),
     );
   }
 }
 
 class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
   @override
   _MainScreenState createState() => _MainScreenState();
 }
@@ -131,7 +136,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget _buildBody(int index) {
     switch (index) {
       case 0:
-        return HomeScreen();
+        return const HomeScreen();
       case 1:
         return const MobileEngageScreen();
       case 2:
@@ -139,30 +144,30 @@ class _MainScreenState extends State<MainScreen> {
       case 3:
         return const PredictView();
       default:
-        return HomeScreen();
+        return const HomeScreen();
     }
   }
 
   void _initEventStreams() {
     Emarsys.push.pushEventStream.listen((event) {
-      messengerKey.currentState!.showSnackBar(
+      messengerKey.currentState?.showSnackBar(
           SnackBar(content: Text("${event.name} - ${event.payload}")));
-      print(event.name);
+      debugPrint(event.name);
     });
     Emarsys.push.silentPushEventStream.listen((event) {
-      messengerKey.currentState!.showSnackBar(
+      messengerKey.currentState?.showSnackBar(
           SnackBar(content: Text("${event.name} - ${event.payload}")));
-      print(event.name);
+      debugPrint(event.name);
     });
     Emarsys.geofence.geofenceEventStream.listen((event) {
-      messengerKey.currentState!.showSnackBar(
+      messengerKey.currentState?.showSnackBar(
           SnackBar(content: Text("${event.name} - ${event.payload}")));
-      print(event.name);
+      debugPrint(event.name);
     });
     Emarsys.inApp.inAppEventStream.listen((event) {
-      messengerKey.currentState!.showSnackBar(
+      messengerKey.currentState?.showSnackBar(
           SnackBar(content: Text("${event.name} - ${event.payload}")));
-      print(event.name);
+      debugPrint(event.name);
     });
   }
 }
