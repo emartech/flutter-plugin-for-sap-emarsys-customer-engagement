@@ -6,12 +6,12 @@ import 'package:integration_test/integration_test.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  const APPLICATION_CODE = "EMS11-C3FD3";
-  const MERCHANT_ID = "EMS11C3FD3";
+  const applicationCode = "EMS11-C3FD3";
+  const merchantId = "EMS11C3FD3";
 
   setUpAll(() async {
     final config = EmarsysConfig(
-        applicationCode: APPLICATION_CODE, merchantId: MERCHANT_ID);
+        applicationCode: applicationCode, merchantId: merchantId);
     await Emarsys.setup(config);
   });
 
@@ -25,13 +25,13 @@ void main() {
   testWidgets("applicationCode should return the expected value",
       (WidgetTester tester) async {
     final result = await Emarsys.config.applicationCode();
-    expect(result, equals(APPLICATION_CODE));
+    expect(result, equals(applicationCode));
   });
 
   testWidgets("changeAppCode should be ok", (WidgetTester tester) async {
     bool onErrorHasBeenCalled = false;
     await Emarsys.config
-        .changeApplicationCode(APPLICATION_CODE)
+        .changeApplicationCode(applicationCode)
         .onError((error, stackTrace) => onErrorHasBeenCalled = true);
     expect(onErrorHasBeenCalled, false);
   });
@@ -44,13 +44,13 @@ void main() {
   testWidgets("merchantId should return the expected value",
       (WidgetTester tester) async {
     final result = await Emarsys.config.merchantId();
-    expect(result, equals(MERCHANT_ID));
+    expect(result, equals(merchantId));
   });
 
   testWidgets("changeMerchantId should be ok", (WidgetTester tester) async {
     bool onErrorHasBeenCalled = false;
     await Emarsys.config
-        .changeMerchantId(MERCHANT_ID)
+        .changeMerchantId(merchantId)
         .onError((error, stackTrace) => onErrorHasBeenCalled = true);
     expect(onErrorHasBeenCalled, false);
   });
