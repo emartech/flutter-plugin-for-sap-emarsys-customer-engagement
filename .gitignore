@@ -14,7 +14,8 @@ build/
 coverage/
 lib/generated_plugin_registrant.dart
 pubspec.lock
-
+example/android/app/.cxx/
+example/android/.kotlin/
 # Android related
 **/android/**/gradle-wrapper.jar
 **/android/.gradle

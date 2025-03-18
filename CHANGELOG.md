@@ -1,3 +1,12 @@
+# 2.6.0
+## What's changed
+### [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
+* Updated underlying [Emarsys SDK](https://github.com/emartech/android-emarsys-sdk/releases/tag/3.9.0) for Android to 3.9.0
+  * Updated to Kotlin 2.1.10
+  * Updated to AGP 8.9.0 so the desugar library now must be enabled in the Android project
+### [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
+* Updated underlying [Emarsys SDK](https://github.com/emartech/ios-emarsys-sdk/releases/tag/3.8.0) for iOS to 3.8.0
+
 # 2.5.2
 ## What's changed
 ### [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)

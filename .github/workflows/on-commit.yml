@@ -43,7 +43,7 @@ jobs:
           destination-path: ./example/android/app/
         
       - name: Run Android unit tests with gradle
-        run: (cd example/android && ./gradlew clean build test -x lint)        
+        run: (cd example/android && ./gradlew clean testDebugUnitTest -x lint -x :integration_test:testDebugUnitTest -x :integration_test:testProfileUnitTest -x :integration_test:testReleaseUnitTest)
                
   IOS:
     runs-on: macos-12

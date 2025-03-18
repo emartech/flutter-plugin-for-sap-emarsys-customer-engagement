@@ -15,7 +15,7 @@ This is the iOS native part of the Flutter plug-in for SAP Emarsys Customer Enga
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'EmarsysSDK','~> 3.7.3'
+  s.dependency 'EmarsysSDK','~> 3.8.0'
   s.platform = :ios, '14.0'
 
   # Flutter.framework does not contain a i386 slice.

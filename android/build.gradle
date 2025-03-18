@@ -2,9 +2,9 @@ group 'com.emarsys.emarsys_sdk'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.gradle_version = '8.1.1'
-    ext.kotlin_version = '1.9.25'
-    ext.agconnect_version = '1.9.1.300'
+    ext.gradle_version = '8.9.0'
+    ext.kotlin_version = '2.1.10'
+    ext.agconnect_version = '1.9.1.304'
     repositories {
         mavenCentral()
         google()
@@ -34,8 +34,10 @@ android {
     if (project.android.hasProperty("namespace")) {
         namespace 'com.emarsys.emarsys_sdk'
     }
-    compileSdkVersion 34
-
+    compileSdkVersion 35
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+    }
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
 
@@ -45,30 +47,26 @@ android {
         minSdkVersion 24
     }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
-    }
     kotlin {
         jvmToolchain(17)
     }
-
 }
 
 
 dependencies {
-    ext.emarsys_sdk_version = '3.7.11'
+    ext.emarsys_sdk_version = '3.9.0'
     ext.junit_version = '4.13.2'
     ext.kotest_version = '5.9.1'
-    ext.mockk_version = '1.13.10'
+    ext.mockk_version = '1.13.17'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     api "com.emarsys:emarsys-sdk:$emarsys_sdk_version"
     api "com.emarsys:emarsys-firebase:$emarsys_sdk_version"
     api "com.emarsys:emarsys-huawei:$emarsys_sdk_version"
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs_nio:2.1.5")
 
     testImplementation "junit:junit:$junit_version"
     testImplementation "io.kotest:kotest-runner-junit4:$kotest_version"
     testImplementation "io.mockk:mockk:$mockk_version"
-    testImplementation 'org.json:json:20240303'
+    testImplementation 'org.json:json:20250107'
 }

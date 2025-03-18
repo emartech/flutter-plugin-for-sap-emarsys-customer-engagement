@@ -3,9 +3,9 @@ import 'package:equatable/equatable.dart';
 import '../action_model.dart';
 
 class CustomEventActionModel extends ActionModel with EquatableMixin {
-  String name;
+  final String name;
 
-  Map<String, Object>? payload;
+  final Map<String, Object>? payload;
 
   CustomEventActionModel(
       {required String id,

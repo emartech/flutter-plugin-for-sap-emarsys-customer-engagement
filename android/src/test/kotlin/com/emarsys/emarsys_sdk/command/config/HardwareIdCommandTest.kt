@@ -26,14 +26,14 @@ class HardwareIdCommandTest {
 
     @Test
     fun testExecute_shouldReturnHardwareIdFromEmarsysInSuccess() {
-        every { Emarsys.config.hardwareId } returns "testHardwareId"
+        every { Emarsys.config.clientId } returns "testHardwareId"
 
         var result : Any? = null
         command.execute(null) { success, _ ->
             result = success
         }
 
-        verify { Emarsys.config.hardwareId }
+        verify { Emarsys.config.clientId }
         result shouldBe "testHardwareId"
     }
 }
