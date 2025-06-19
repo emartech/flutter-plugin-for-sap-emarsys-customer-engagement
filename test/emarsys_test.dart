@@ -9,19 +9,21 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   setUp(() {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return null;
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+      return;
     });
   });
 
   tearDown(() {
-    channel.setMockMethodCallHandler(null);
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, null);
   });
 
   test('setup should work', () async {
     EmarsysConfig config = EmarsysConfig(applicationCode: '');
-
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
       expect(methodCall.method, 'setup');
       expect(methodCall.arguments, config.toMap());
     });
@@ -30,7 +32,8 @@ void main() {
   });
 
   test('setContact should throw error', () async {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
       throw PlatformException(
           code: '42',
           message: 'Test error message',
@@ -49,7 +52,8 @@ void main() {
   });
 
   test('clearContact should throw error', () async {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
       throw PlatformException(
           code: '42',
           message: 'Test error message',
@@ -68,7 +72,8 @@ void main() {
   });
 
   test('trackCustomEvent should throw error', () async {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
       throw PlatformException(
           code: '42',
           message: 'Test error message',
@@ -87,22 +92,17 @@ void main() {
   });
 
   test('trackCustomEvent should delegate to the Platform', () async {
-    MethodCall? actualMethodCall;
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      actualMethodCall = methodCall;
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+      expect(methodCall.method, 'trackCustomEvent');
+      expect(methodCall.arguments, {
+        "eventName": "testEventName",
+        "eventAttributes": {"key1": "value1", "key2": "value2"}
+      });
       return;
     });
 
     await Emarsys.trackCustomEvent(
         "testEventName", {"key1": "value1", "key2": "value2"});
-
-    expect(actualMethodCall != null, true);
-    if (actualMethodCall != null) {
-      expect(actualMethodCall!.method, 'trackCustomEvent');
-      expect(actualMethodCall!.arguments, {
-        "eventName": "testEventName",
-        "eventAttributes": {"key1": "value1", "key2": "value2"}
-      });
-    }
   });
 }

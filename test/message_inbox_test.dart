@@ -9,56 +9,36 @@ void main() {
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
-
   test('fetchMessages should delegate to the Platform', () async {
-    MethodCall? actualMethodCall;
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(
-        channel, (MethodCall methodCall) async {
-      actualMethodCall = methodCall;
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+      expect(methodCall.method, 'inbox.fetchMessages');
       return [<String, dynamic>{}];
     });
 
     await Emarsys.messageInbox.fetchMessages();
-
-    expect(actualMethodCall != null, true);
-    if (actualMethodCall != null) {
-      expect(actualMethodCall!.method, 'inbox.fetchMessages');
-    }
   });
 
   test('addTag should delegate to the Platform', () async {
-    MethodCall? actualMethodCall;
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(
-        channel, (MethodCall methodCall) async {
-      actualMethodCall = methodCall;
-      return;
-    });
-    
-    await Emarsys.messageInbox.addTag(messageId, tag);
-
-    expect(actualMethodCall != null, true);
-    if (actualMethodCall != null) {
-      expect(actualMethodCall!.method, 'inbox.addTag');
-      expect(actualMethodCall!.arguments,
+     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+      expect(methodCall.method, 'inbox.addTag');
+      expect(methodCall.arguments,
           {"messageId": "testMessageId", "tag": "testTag"});
-    }
+    });
+
+    await Emarsys.messageInbox.addTag(messageId, tag);
   });
 
   test('removeTag should delegate to the Platform', () async {
-    MethodCall? actualMethodCall;
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(
-        channel, (MethodCall methodCall) async {
-      actualMethodCall = methodCall;
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+      expect(methodCall.method, 'inbox.removeTag');
+      expect(methodCall.arguments,
+          {"messageId": "testMessageId", "tag": "testTag"});
       return;
     });
 
     await Emarsys.messageInbox.removeTag(messageId, tag);
-
-    expect(actualMethodCall != null, true);
-    if (actualMethodCall != null) {
-      expect(actualMethodCall!.method, 'inbox.removeTag');
-      expect(actualMethodCall!.arguments,
-          {"messageId": "testMessageId", "tag": "testTag"});
-    }
   });
 }

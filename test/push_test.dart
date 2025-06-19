@@ -6,46 +6,34 @@ void main() {
   const MethodChannel channel = MethodChannel('com.emarsys.methods');
 
   TestWidgetsFlutterBinding.ensureInitialized();
-  setUp(() {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return null;
-    });
-  });
 
   test('pushSendingEnabled should delegate to the Platform', () async {
     const enable = true;
-    MethodCall? actualMethodCall;
-    channel.setMockMethodCallHandler((MethodCall methodCall) {
-      actualMethodCall = methodCall;
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+      expect(methodCall.method, 'push.pushSendingEnabled');
+      expect(methodCall.arguments, {"pushSendingEnabled": enable});
       return null;
     });
-    await Emarsys.push.pushSendingEnabled(enable);
 
-    expect(actualMethodCall != null, true);
-    if (actualMethodCall != null) {
-      expect(actualMethodCall!.method, 'push.pushSendingEnabled');
-      expect(actualMethodCall!.arguments, {"pushSendingEnabled": enable});
-    }
+    await Emarsys.push.pushSendingEnabled(enable);
   });
 
   test('setPushToken should delegate to the Platform', () async {
     const testPushToken = "testPushToken";
-    MethodCall? actualMethodCall;
-    channel.setMockMethodCallHandler((MethodCall methodCall) {
-      actualMethodCall = methodCall;
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+      expect(methodCall.method, 'push.setPushToken');
+      expect(methodCall.arguments, {"pushToken": testPushToken});
       return null;
     });
-    await Emarsys.push.setPushToken(testPushToken);
 
-    expect(actualMethodCall != null, true);
-    if (actualMethodCall != null) {
-      expect(actualMethodCall!.method, 'push.setPushToken');
-      expect(actualMethodCall!.arguments, {"pushToken": testPushToken});
-    }
+    await Emarsys.push.setPushToken(testPushToken);
   });
 
   test('setPushToken should throw error', () async {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
       throw PlatformException(
           code: '42',
           message: 'Test error message',
@@ -60,7 +48,8 @@ void main() {
   });
 
   test('pushSendingEnabled should throw error', () async {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
       throw PlatformException(
           code: '42',
           message: 'Test error message',
@@ -81,20 +70,16 @@ void main() {
         name: "tesetName",
         description: "testDescription",
         importance: 1);
-    MethodCall? actualMethodCall;
-    channel.setMockMethodCallHandler((MethodCall methodCall) {
-      actualMethodCall = methodCall;
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+      expect(methodCall.method, 'push.android.registerNotificationChannels');
+      expect(methodCall.arguments, {
+        'notificationChannels': [notificationChannel.toMap()]
+      });
       return null;
     });
 
     await Emarsys.push
         .registerAndroidNotificationChannels([notificationChannel]);
-
-    expect(actualMethodCall != null, true);
-    expect(
-        actualMethodCall!.method, 'push.android.registerNotificationChannels');
-    expect(actualMethodCall!.arguments, {
-      'notificationChannels': [notificationChannel.toMap()]
-    });
   });
 }

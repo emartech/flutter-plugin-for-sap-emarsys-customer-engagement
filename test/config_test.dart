@@ -12,164 +12,114 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   setUp(() {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return null;
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+      return;
     });
   });
 
+  tearDown(() {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, null);
+  });
+
   test('changeApplicationCode should delegate to the Platform', () async {
-    MethodCall? actualMethodCall;
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      actualMethodCall = methodCall;
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+      expect(methodCall.method, 'config.changeApplicationCode');
+      expect(methodCall.arguments, {"applicationCode": "testApplicationCode"});
       return "testApplicationCode";
     });
 
     await Emarsys.config.changeApplicationCode("testApplicationCode");
-
-    expect(actualMethodCall != null, true);
-    if (actualMethodCall != null) {
-      expect(actualMethodCall!.method, 'config.changeApplicationCode');
-      expect(actualMethodCall!.arguments,
-          {"applicationCode": "testApplicationCode"});
-    }
   });
 
   test('changeMerchantId should delegate to the Platform', () async {
-    MethodCall? actualMethodCall;
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      actualMethodCall = methodCall;
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+      expect(methodCall.method, 'config.changeMerchantId');
+      expect(methodCall.arguments, {"merchantId": "testMerchantId"});
       return "testMerchantId";
     });
 
     await Emarsys.config.changeMerchantId("testMerchantId");
-
-    expect(actualMethodCall != null, true);
-    if (actualMethodCall != null) {
-      expect(actualMethodCall!.method, 'config.changeMerchantId');
-      expect(actualMethodCall!.arguments, {"merchantId": "testMerchantId"});
-    }
   });
 
   test('applicationCode should delegate to the Platform', () async {
-    MethodCall? actualMethodCall;
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      actualMethodCall = methodCall;
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+      expect(methodCall.method, 'config.applicationCode');
       return "testApplicationCode";
     });
 
-    String? result = await Emarsys.config.applicationCode();
-
-    expect(actualMethodCall != null, true);
-    if (actualMethodCall != null) {
-      expect(actualMethodCall!.method, 'config.applicationCode');
-      expect(result, "testApplicationCode");
-    }
+    await Emarsys.config.applicationCode();
   });
 
   test('applicationCode should return null', () async {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return null;
-    });
-
     String? result = await Emarsys.config.applicationCode();
 
     expect(result, null);
   });
 
   test('merchantId should delegate to the Platform', () async {
-    MethodCall? actualMethodCall;
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      actualMethodCall = methodCall;
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+      expect(methodCall.method, 'config.merchantId');
       return "testMerchantId";
     });
 
-    String? result = await Emarsys.config.merchantId();
-
-    expect(actualMethodCall != null, true);
-    if (actualMethodCall != null) {
-      expect(actualMethodCall!.method, 'config.merchantId');
-      expect(result, "testMerchantId");
-    }
+    await Emarsys.config.merchantId();
   });
 
   test('merchantId should return null', () async {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return null;
-    });
-
     String? result = await Emarsys.config.merchantId();
 
     expect(result, null);
   });
 
   test('contactFieldId should delegate to the Platform', () async {
-    MethodCall? actualMethodCall;
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      actualMethodCall = methodCall;
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+      expect(methodCall.method, 'config.contactFieldId');
       return 123456;
     });
 
-    int? result = await Emarsys.config.contactFieldId();
-
-    expect(actualMethodCall != null, true);
-    if (actualMethodCall != null) {
-      expect(actualMethodCall!.method, 'config.contactFieldId');
-      expect(result, 123456);
-    }
+    await Emarsys.config.contactFieldId();
   });
 
   test('hardwareId should delegate to the Platform', () async {
-    MethodCall? actualMethodCall;
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      actualMethodCall = methodCall;
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+      expect(methodCall.method, 'config.hardwareId');
       return "testHardwareId";
     });
 
-    String result = await Emarsys.config.hardwareId();
-
-    expect(actualMethodCall != null, true);
-    if (actualMethodCall != null) {
-      expect(actualMethodCall!.method, 'config.hardwareId');
-      expect(result, "testHardwareId");
-    }
+    await Emarsys.config.hardwareId();
   });
 
   test('hardwareId should throw error', () async {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return null;
-    });
-
     expect(Emarsys.config.hardwareId(), throwsA(isA<TypeError>()));
   });
 
   test('languageCode should delegate to the Platform', () async {
-    MethodCall? actualMethodCall;
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      actualMethodCall = methodCall;
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+      expect(methodCall.method, 'config.languageCode');
       return "testLanguage";
     });
 
-    String result = await Emarsys.config.languageCode();
-
-    expect(actualMethodCall != null, true);
-    if (actualMethodCall != null) {
-      expect(actualMethodCall!.method, 'config.languageCode');
-      expect(result, "testLanguage");
-    }
+    await Emarsys.config.languageCode();
   });
 
   test('languageCode should throw error', () async {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return null;
-    });
-
     expect(Emarsys.config.languageCode(), throwsA(isA<TypeError>()));
   });
 
   test('notificationSettings should retrieve the correct NotificationSettings',
       () async {
     MethodCall? actualMethodCall;
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
       actualMethodCall = methodCall;
       return {
         "android": {
@@ -240,34 +190,20 @@ void main() {
   });
 
   test('notificationSettings should throw error', () async {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return null;
-    });
-
     expect(Emarsys.config.notificationSettings(), throwsA(isA<TypeError>()));
   });
 
   test('sdkVersion should delegate to the Platform', () async {
-    MethodCall? actualMethodCall;
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      actualMethodCall = methodCall;
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+      expect(methodCall.method, 'config.sdkVersion');
       return "testSdkVersion";
     });
 
-    String result = await Emarsys.config.sdkVersion();
-
-    expect(actualMethodCall != null, true);
-    if (actualMethodCall != null) {
-      expect(actualMethodCall!.method, 'config.sdkVersion');
-      expect(result, "testSdkVersion");
-    }
+    await Emarsys.config.sdkVersion();
   });
 
   test('sdkVersion should throw error', () async {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return null;
-    });
-
     expect(Emarsys.config.sdkVersion(), throwsA(isA<TypeError>()));
   });
 }

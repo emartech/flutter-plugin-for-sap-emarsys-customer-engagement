@@ -6,31 +6,23 @@ void main() {
   const MethodChannel channel = MethodChannel('com.emarsys.methods');
 
   TestWidgetsFlutterBinding.ensureInitialized();
-  setUp(() {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return null;
-    });
-  });
 
   test('trackItemView should delegate to the Platform with correct parameters',
       () async {
     const itemId = "testItemId";
-    MethodCall? actualMethodCall;
-    channel.setMockMethodCallHandler((MethodCall methodCall) {
-      actualMethodCall = methodCall;
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+      expect(methodCall.method, 'predict.trackItemView');
+      expect(methodCall.arguments, {"itemId": itemId});
       return null;
     });
 
     await Emarsys.predict.trackItemView(itemId);
-    expect(actualMethodCall != null, true);
-    if (actualMethodCall != null) {
-      expect(actualMethodCall!.method, 'predict.trackItemView');
-      expect(actualMethodCall!.arguments, {"itemId": itemId});
-    }
   });
 
   test('trackItemView should throw error', () async {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
       throw PlatformException(
           code: '42',
           message: 'Test error message',
@@ -48,54 +40,43 @@ void main() {
       'trackSearchTerm should delegate to the Platform with correct parameters',
       () async {
     const searchTerm = "testSearchTerm";
-    MethodCall? actualMethodCall;
-    channel.setMockMethodCallHandler((MethodCall methodCall) {
-      actualMethodCall = methodCall;
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+      expect(methodCall.method, 'predict.trackSearchTerm');
+      expect(methodCall.arguments, {"searchTerm": searchTerm});
       return null;
     });
-    await Emarsys.predict.trackSearchTerm(searchTerm);
 
-    expect(actualMethodCall != null, true);
-    if (actualMethodCall != null) {
-      expect(actualMethodCall!.method, 'predict.trackSearchTerm');
-      expect(actualMethodCall!.arguments, {"searchTerm": searchTerm});
-    }
+    await Emarsys.predict.trackSearchTerm(searchTerm);
   });
 
   test(
       'trackCategoryView should delegate to the Platform with correct parameters',
       () async {
     const categoryPath = "testCategoryPath";
-    MethodCall? actualMethodCall;
-    channel.setMockMethodCallHandler((MethodCall methodCall) {
-      actualMethodCall = methodCall;
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+      expect(methodCall.method, 'predict.trackCategoryView');
+      expect(methodCall.arguments, {"categoryPath": categoryPath});
       return null;
     });
-    await Emarsys.predict.trackCategoryView(categoryPath);
 
-    expect(actualMethodCall != null, true);
-    if (actualMethodCall != null) {
-      expect(actualMethodCall!.method, 'predict.trackCategoryView');
-      expect(actualMethodCall!.arguments, {"categoryPath": categoryPath});
-    }
+    await Emarsys.predict.trackCategoryView(categoryPath);
   });
+
   test('trackTag should delegate to the Platform with correct parameters',
       () async {
     const eventName = "eventName";
     Map<String, String> attributes = {"testKey": "testValue"};
-    MethodCall? actualMethodCall;
-    channel.setMockMethodCallHandler((MethodCall methodCall) {
-      actualMethodCall = methodCall;
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+      expect(methodCall.method, 'predict.trackTag');
+      expect(methodCall.arguments,
+          {"eventName": eventName, "attributes": attributes});
       return null;
     });
-    await Emarsys.predict.trackTag(eventName, attributes);
 
-    expect(actualMethodCall != null, true);
-    if (actualMethodCall != null) {
-      expect(actualMethodCall!.method, 'predict.trackTag');
-      expect(actualMethodCall!.arguments,
-          {"eventName": eventName, "attributes": attributes});
-    }
+    await Emarsys.predict.trackTag(eventName, attributes);
   });
 
   test('trackCartItem should delegate to the Platform with correct parameters',
@@ -104,23 +85,19 @@ void main() {
       TestCartItem("item1", 0.0, 0.0),
       TestCartItem("item2", 0.5, 1.0)
     ];
-    MethodCall? actualMethodCall;
-    channel.setMockMethodCallHandler((MethodCall methodCall) {
-      actualMethodCall = methodCall;
-      return null;
-    });
-    await Emarsys.predict.trackCart(cartItems);
-
-    expect(actualMethodCall != null, true);
-    if (actualMethodCall != null) {
-      expect(actualMethodCall!.method, 'predict.trackCart');
-      expect(actualMethodCall!.arguments, {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+      expect(methodCall.method, 'predict.trackCart');
+      expect(methodCall.arguments, {
         "items": [
           {"itemId": "item1", "price": 0.0, "quantity": 0.0},
           {"itemId": "item2", "price": 0.5, "quantity": 1.0}
         ]
       });
-    }
+      return null;
+    });
+
+    await Emarsys.predict.trackCart(cartItems);
   });
 
   test('trackPurchase should delegate to the Platform with correct parameters',
@@ -130,31 +107,28 @@ void main() {
       TestCartItem("item1", 0.0, 0.0),
       TestCartItem("item2", 0.5, 1.0)
     ];
-    MethodCall? actualMethodCall;
-    channel.setMockMethodCallHandler((MethodCall methodCall) {
-      actualMethodCall = methodCall;
-      return null;
-    });
-    await Emarsys.predict.trackPurchase(orderId, items);
-
-    expect(actualMethodCall != null, true);
-    if (actualMethodCall != null) {
-      expect(actualMethodCall!.method, 'predict.trackPurchase');
-      expect(actualMethodCall!.arguments, {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+      expect(methodCall.method, 'predict.trackPurchase');
+      expect(methodCall.arguments, {
         "orderId": "testOrderId",
         "items": [
           {"itemId": "item1", "price": 0.0, "quantity": 0.0},
           {"itemId": "item2", "price": 0.5, "quantity": 1.0}
         ]
       });
-    }
+      return null;
+    });
+
+    await Emarsys.predict.trackPurchase(orderId, items);
   });
 
   test('trackPurchase should throw exception when items is an empty list',
       () async {
     const orderId = 'testOrderId';
     final List<TestCartItem> items = [];
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
       throw PlatformException(
           code: '42', message: 'Items list should not be empty!');
     });
@@ -167,34 +141,40 @@ void main() {
 
   test('recommendProducts with only Logic should delegate to the Platform',
       () async {
-    MethodCall? actualMethodCall;
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      actualMethodCall = methodCall;
-      final map = <String, dynamic>{};
-      return [map];
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+      expect(methodCall.arguments["logic"],
+          {"name": "SEARCH", "data": {}, "variants": []});
+      expect(methodCall.arguments["limit"], null);
+      expect(methodCall.arguments["recommendationFilter"], null);
+      expect(methodCall.arguments["availabilityZone"], null);
+      expect(methodCall.method, 'predict.recommendProducts');
+      return [<String, dynamic>{}];
     });
 
     Logic recommendationLogic = RecommendationLogic.search();
     await Emarsys.predict.recommendProducts(logic: recommendationLogic);
-
-    expect(actualMethodCall != null, true);
-    if (actualMethodCall != null) {
-      expect(actualMethodCall!.arguments["logic"],
-          {"name": "SEARCH", "data": {}, "variants": []});
-      expect(actualMethodCall!.arguments["recommendationFilter"], null);
-      expect(actualMethodCall!.arguments["limit"], null);
-      expect(actualMethodCall!.arguments["availabilityZone"], null);
-      expect(actualMethodCall!.method, 'predict.recommendProducts');
-    }
   });
 
   test('recommendProducts with all properties should delegate to the Platform',
       () async {
-    MethodCall? actualMethodCall;
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      actualMethodCall = methodCall;
-      final map = <String, dynamic>{};
-      return [map];
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+      expect(methodCall.arguments["logic"],
+          {"name": "SEARCH", "data": {}, "variants": []});
+
+      expect(methodCall.arguments["recommendationFilter"], [
+        {
+          "filterType": "EXCLUDE",
+          "field": "testField",
+          "comparison": "IS",
+          "values": ["testValue"]
+        }
+      ]);
+      expect(methodCall.arguments["limit"], 5);
+      expect(methodCall.arguments["availabilityZone"], "HU");
+      expect(methodCall.method, 'predict.recommendProducts');
+      return [<String, dynamic>{}];
     });
 
     Logic recommendationLogic = RecommendationLogic.search();
@@ -205,24 +185,6 @@ void main() {
         filters: [recommendationFilter],
         limit: 5,
         availabilityZone: "HU");
-
-    expect(actualMethodCall != null, true);
-    if (actualMethodCall != null) {
-      expect(actualMethodCall!.arguments["logic"],
-          {"name": "SEARCH", "data": {}, "variants": []});
-
-      expect(actualMethodCall!.arguments["recommendationFilter"], [
-        {
-          "filterType": "EXCLUDE",
-          "field": "testField",
-          "comparison": "IS",
-          "values": ["testValue"]
-        }
-      ]);
-      expect(actualMethodCall!.arguments["limit"], 5);
-      expect(actualMethodCall!.arguments["availabilityZone"], "HU");
-      expect(actualMethodCall!.method, 'predict.recommendProducts');
-    }
   });
 }
 
