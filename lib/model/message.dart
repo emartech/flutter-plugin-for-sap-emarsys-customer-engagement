@@ -8,6 +8,7 @@ class Message extends Equatable {
   final String title;
   final String body;
   final String? imageUrl;
+  final String? imageAltText;
   final int receivedAt;
   final int? updatedAt;
   final int? expiresAt;
@@ -22,6 +23,7 @@ class Message extends Equatable {
     required this.title,
     required this.body,
     this.imageUrl,
+    this.imageAltText,
     required this.receivedAt,
     this.updatedAt,
     this.expiresAt,
@@ -41,6 +43,7 @@ class Message extends Equatable {
         title,
         body,
         imageUrl,
+        imageAltText,
         receivedAt,
         updatedAt,
         expiresAt,

@@ -17,6 +17,7 @@ class MessageMapper extends Mapper<List<dynamic>, List<Message>> {
             title: messageMap["title"] as String,
             body: messageMap["body"] as String,
             imageUrl: messageMap["imageUrl"] as String?,
+            imageAltText: messageMap["imageAltText"] as String?,
             receivedAt: messageMap["receivedAt"] as int,
             updatedAt: messageMap["updatedAt"] as int?,
             expiresAt: messageMap["expiresAt"] as int?,

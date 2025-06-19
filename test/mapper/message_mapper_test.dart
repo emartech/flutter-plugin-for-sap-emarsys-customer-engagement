@@ -36,6 +36,7 @@ void main() {
       "title": "testTitle",
       "body": "testBody",
       "imageUrl": "testImageUrl",
+      "imageAltText": "testImageAltText",
       "receivedAt": 1234,
       "updatedAt": 4321,
       "expiresAt": 5678
@@ -92,6 +93,7 @@ void main() {
         title: "testTitle",
         body: "testBody",
         imageUrl: "testImageUrl",
+        imageAltText: "testImageAltText",
         receivedAt: 1234,
         updatedAt: 4321,
         expiresAt: 5678,
@@ -101,7 +103,6 @@ void main() {
 
     List<Message> result = mapper.map([fullMessageMap]);
 
-    // expect(listEquals(result, [expectedMessage]), true);
     expect(result[0], expectedMessage);
   });
 }

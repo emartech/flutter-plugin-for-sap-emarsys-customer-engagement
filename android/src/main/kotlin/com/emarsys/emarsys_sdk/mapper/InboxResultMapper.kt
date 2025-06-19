@@ -26,6 +26,9 @@ class InboxResultMapper: Mapper<InboxResult,List<Map<String, Any>>> {
             message.imageUrl?.let {
                 resultMap["imageUrl"] = it
             }
+            message.imageAltText?.let {
+                resultMap["imageAltText"] = it
+            }
             message.updatedAt?.let {
                 resultMap["updatedAt"] = it
             }

@@ -54,7 +54,7 @@ android {
 
 
 dependencies {
-    ext.emarsys_sdk_version = '3.9.0'
+    ext.emarsys_sdk_version = '3.10.0'
     ext.junit_version = '4.13.2'
     ext.kotest_version = '5.9.1'
     ext.mockk_version = '1.13.17'

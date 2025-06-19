@@ -8,18 +8,14 @@ void main() {
   const String tag = "testTag";
 
   TestWidgetsFlutterBinding.ensureInitialized();
-  setUp(() {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return null;
-    });
-  });
+
 
   test('fetchMessages should delegate to the Platform', () async {
     MethodCall? actualMethodCall;
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(
+        channel, (MethodCall methodCall) async {
       actualMethodCall = methodCall;
-      final map = <String, dynamic>{};
-      return [map];
+      return [<String, dynamic>{}];
     });
 
     await Emarsys.messageInbox.fetchMessages();
@@ -32,11 +28,12 @@ void main() {
 
   test('addTag should delegate to the Platform', () async {
     MethodCall? actualMethodCall;
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(
+        channel, (MethodCall methodCall) async {
       actualMethodCall = methodCall;
       return;
     });
-
+    
     await Emarsys.messageInbox.addTag(messageId, tag);
 
     expect(actualMethodCall != null, true);
@@ -49,7 +46,8 @@ void main() {
 
   test('removeTag should delegate to the Platform', () async {
     MethodCall? actualMethodCall;
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(
+        channel, (MethodCall methodCall) async {
       actualMethodCall = methodCall;
       return;
     });

@@ -19,6 +19,7 @@ class InboxMapper: Mappable {
             messageDict["title"] = message.title
             messageDict["body"] = message.body
             messageDict["imageUrl"] = message.imageUrl
+            messageDict["imageAltText"] = message.imageAltText
             messageDict["receivedAt"] = message.receivedAt
             messageDict["updatedAt"] = message.updatedAt
             messageDict["expiresAt"] = message.expiresAt
