@@ -116,7 +116,7 @@ public class UserNotificationCenterDelegateCacher: NSObject, UNUserNotificationC
     }
     
     private func isEmarsysNotification(notification: UNNotification?) -> Bool {
-        return ((notification?.request.content.userInfo.contains(where: { $0.key as! String == "ems"})) != nil)
+        return notification?.request.content.userInfo.contains(where: { ($0.key as? String) == "ems" }) ?? false
     }
     
 }
