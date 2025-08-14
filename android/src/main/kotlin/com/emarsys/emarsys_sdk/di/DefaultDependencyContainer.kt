@@ -79,10 +79,10 @@ class DefaultDependencyContainer(
                 prefs.getString(ConfigStorageKeys.PREDICT_MERCHANT_ID.name, null) == null &&
                 prefs.getString(ConfigStorageKeys.ANDROID_SHARED_PACKAGE_NAMES.name, null) == null &&
                 prefs.getString(ConfigStorageKeys.ANDROID_SHARED_SECRET.name, null) == null &&
-                prefs.getString(
+                prefs.getBoolean(
                         ConfigStorageKeys.ANDROID_VERBOSE_CONSOLE_LOGGING_ENABLED.name,
-                        null
-                ) == null
+                        false
+                )
         ) {
             flutterWrapperSharedPreferences.copyTo(prefs)
         }
