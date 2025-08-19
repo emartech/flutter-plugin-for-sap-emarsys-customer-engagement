@@ -28,7 +28,7 @@ jobs:
       - name: Setup flutter env
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.16.7"
+          flutter-version: "3.35.1"
           architecture: x64
           channel: "stable"
           
@@ -55,7 +55,7 @@ jobs:
       - name: Setup flutter env
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.16.7"
+          flutter-version: "3.35.1"
           architecture: x64
           channel: "stable"
         
@@ -84,7 +84,7 @@ jobs:
       - name: Setup flutter env
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.16.7"
+          flutter-version: "3.35.1"
           architecture: x64
           channel: "stable"
 
