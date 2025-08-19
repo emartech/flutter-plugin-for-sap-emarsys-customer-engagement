@@ -1,3 +1,9 @@
+# 2.7.1
+## What's fixed
+### [Setup](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#12-setup-the-emarsys-sdk)
+* Prevented a possible crash caused by initializing the SDK with an empty EmarsysConfig.
+### [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
+* Updated underlying [Emarsys SDK](https://github.com/emartech/android-emarsys-sdk/releases/tag/3.10.2) for Android to 3.10.2
 # 2.7.0
 ## What's new
 ### [Inbox](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
