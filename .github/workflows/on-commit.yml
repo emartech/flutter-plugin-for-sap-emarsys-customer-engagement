@@ -77,7 +77,7 @@ jobs:
         run: flutter test
 
       - name: Run iOS unit tests
-        run: xcodebuild -workspace ~/work/flutter-plugin-for-sap-emarsys-customer-engagement/flutter-plugin-for-sap-emarsys-customer-engagement/example/ios/Runner.xcworkspace -scheme RunnerTests -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 13 Pro Max,OS=16.2' test CODE_SIGNING_ALLOWED=NO
+        run: xcodebuild -workspace ~/work/flutter-plugin-for-sap-emarsys-customer-engagement/flutter-plugin-for-sap-emarsys-customer-engagement/example/ios/Runner.xcworkspace -scheme RunnerTests -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.4' test CODE_SIGNING_ALLOWED=NO
   Lint:
     runs-on: macos-latest
     steps:
