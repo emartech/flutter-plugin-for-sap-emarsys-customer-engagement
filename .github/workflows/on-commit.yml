@@ -65,6 +65,9 @@ jobs:
 
       - name: Update dependencies
         run: flutter pub get
+
+      - name: Use Xcode 16.4
+        run: sudo xcode-select -switch /Applications/Xcode_16.4.app
         
       - name: Open simulator
         run: open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/
