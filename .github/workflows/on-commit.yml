@@ -60,6 +60,9 @@ jobs:
           flutter-version: "3.35.1"
           architecture: x64
           channel: "stable"
+
+      - name: Update dependencies
+        run: flutter pub get
         
       - name: Open simulator
         run: open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/
