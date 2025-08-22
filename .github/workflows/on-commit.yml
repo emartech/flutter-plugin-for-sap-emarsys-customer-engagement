@@ -5,6 +5,8 @@ on:
     branches: [ master ]
   workflow_dispatch:
 env:
+  DISTRIBUTION_CERT_BASE64: ${{ secrets.DISTRIBUTION_CERT_BASE64 }}
+  DISTRIBUTION_CERT_PASS: ${{ secrets.DISTRIBUTION_CERT_PASS }}
   EXAMPLE_PROV_PROF_BASE64: ${{ secrets.EXAMPLE_PROV_PROF_BASE64 }}
   EXAMPLE_NOTIFICATION_SERVICE_PROV_PROF_BASE64: ${{ secrets.EXAMPLE_NOTIFICATION_SERVICE_PROV_PROF_BASE64 }}
   SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL }}
@@ -70,6 +72,12 @@ jobs:
       - name: Remove old directories
         run: rm -rf ~/tmp | rm -rf ~/Library/MobileDevice
         shell: bash
+
+      - name: Import Distribution Certificate
+        uses: apple-actions/import-codesign-certs@v5
+        with:
+          p12-file-base64: ${{ secrets.DISTRIBUTION_CERT_BASE64 }}
+          p12-password: ${{ secrets.DISTRIBUTION_CERT_PASS }}
 
       - name: Setup Example Provisioning Profile
         uses: davidSchuppa/base64Secret-toFile-action@v1
