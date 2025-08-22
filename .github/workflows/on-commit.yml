@@ -5,6 +5,8 @@ on:
     branches: [ master ]
   workflow_dispatch:
 env:
+  EXAMPLE_PROV_PROF_BASE64: ${{ secrets.EXAMPLE_PROV_PROF_BASE64 }}
+  EXAMPLE_NOTIFICATION_SERVICE_PROV_PROF_BASE64: ${{ secrets.EXAMPLE_NOTIFICATION_SERVICE_PROV_PROF_BASE64 }}
   SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL }}
   SLACK_ICON: https://icons.iconarchive.com/icons/martz90/circle/256/android-icon.png
   SLACK_TITLE: Commit status
@@ -14,7 +16,7 @@ env:
 jobs:
   Android:
     needs: [Lint]
-    runs-on: macos-14
+    runs-on: macos-latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -46,7 +48,7 @@ jobs:
         run: (cd example/android && ./gradlew clean testDebugUnitTest -x lint -x :integration_test:testDebugUnitTest -x :integration_test:testProfileUnitTest -x :integration_test:testReleaseUnitTest)
                
   IOS:
-    runs-on: macos-14
+    runs-on: macos-latest
     needs: [Lint]
     steps:
       - name: Checkout repo
@@ -61,13 +63,48 @@ jobs:
         
       - name: Open simulator
         run: open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/
-          
-      - name: Update dependencies
-        run: flutter pub get
 
       - name: Remove old directories
         run: rm -rf ~/tmp | rm -rf ~/Library/MobileDevice
         shell: bash
+
+      - name: Setup Example Provisioning Profile
+        uses: davidSchuppa/base64Secret-toFile-action@v1
+        with:
+          destination-path: ~/Library/MobileDevice/Provisioning\ Profiles/
+          filename: FlutterExampleProvProf.mobileprovision
+          secret: ${{ secrets.EXAMPLE_PROV_PROF_BASE64 }}
+
+      - name: Setup ExampleNotificationService Provisioning Profile
+        uses: davidSchuppa/base64Secret-toFile-action@v1
+        with:
+          destination-path: ~/Library/MobileDevice/Provisioning\ Profiles/
+          filename: FlutterExampleNotificationServiceProvProf.mobileprovision
+          secret: ${{ secrets.EXAMPLE_NOTIFICATION_SERVICE_PROV_PROF_BASE64 }}
+
+      - name: Install Dependencies
+        run: (cd example/ios && pod install --no-repo-update)
+        shell: bash
+
+      - name: Run iOS unit tests
+        run: xcodebuild -workspace ~/work/flutter-plugin-for-sap-emarsys-customer-engagement/flutter-plugin-for-sap-emarsys-customer-engagement/example/ios/Runner.xcworkspace -scheme RunnerTests -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.4' test
+
+  Flutter:
+    runs-on: macos-latest
+    needs: [ Lint ]
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup flutter env
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.35.1"
+          architecture: x64
+          channel: "stable"
+
+      - name: Update dependencies
+        run: flutter pub get
 
       - name: Install Dependencies
         run: (cd example/ios && pod install --no-repo-update --verbose)
@@ -76,10 +113,8 @@ jobs:
       - name: Run Flutter Tests
         run: flutter test
 
-      - name: Run iOS unit tests
-        run: xcodebuild -workspace ~/work/flutter-plugin-for-sap-emarsys-customer-engagement/flutter-plugin-for-sap-emarsys-customer-engagement/example/ios/Runner.xcworkspace -scheme RunnerTests -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.4' test CODE_SIGN_STYLE=Automatic
   Lint:
-    runs-on: macos-14
+    runs-on: macos-latest
     steps:
       - name: Setup flutter env
         uses: subosito/flutter-action@v2
@@ -90,4 +125,4 @@ jobs:
 
       - name: Flutter lint
         run: dart analyze
-        shell: bash   
+        shell: bash
