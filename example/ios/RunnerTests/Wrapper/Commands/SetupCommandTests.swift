@@ -7,7 +7,7 @@ import XCTest
 import EmarsysSDK
 
 class SetupCommandTests: XCTestCase {
-
+    
     var command: SetupCommand?
     
     override func setUpWithError() throws {
@@ -18,11 +18,11 @@ class SetupCommandTests: XCTestCase {
         let arguments = ["contactFieldId": 3]
         let expectedResponse = ["success": true]
         var result = [String: Any]()
-
+        
         command?.execute(arguments: arguments) { response in
             result = response
         }
-
+        
         XCTAssertEqual(result as? [String: Bool], expectedResponse)
     }
     
@@ -33,11 +33,11 @@ class SetupCommandTests: XCTestCase {
         ] as [String : Any]
         let expectedResponse = ["error": "Invalid logLevel: NotALogLevel"]
         var result = [String: Any]()
-
+        
         command?.execute(arguments: arguments) { response in
             result = response
         }
-
+        
         XCTAssertEqual(result as? [String: String], expectedResponse)
     }
 }

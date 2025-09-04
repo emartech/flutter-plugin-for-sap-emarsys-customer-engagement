@@ -72,7 +72,10 @@ class EmarsysCommandFactory {
         case "config.sdkVersion":
             result = SdkVersionCommand()
         case "config.changeApplicationCode":
-            result = ChangeApplicationCodeCommand()
+            result = ChangeApplicationCodeCommand(pushEventHandler: self.pushEventHandler,
+                                                  silentPushEventHandler: self.silentPushEventHandler,
+                                                  geofenceEventHandler: self.geofenceEventHandler,
+                                                  inAppEventHandler: self.inAppEventHandler)
         case "config.changeMerchantId":
             result = ChangeMerchantIdCommand()
         case "trackCustomEvent":

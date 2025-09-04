@@ -7,11 +7,15 @@ import XCTest
 
 class ChangeApplicationCodeTests: XCTestCase {
 
-
     var command: ChangeApplicationCodeCommand!
     
     override func setUpWithError() throws {
-        command = ChangeApplicationCodeCommand()
+        command = ChangeApplicationCodeCommand(
+            pushEventHandler: {name, payload in },
+            silentPushEventHandler: {name, payload in },
+            geofenceEventHandler: {name, payload in },
+            inAppEventHandler: {name, payload in }
+        )
     }
     
     func testExecute_returnError_whenApplicationCodeIsInvalid() throws {
