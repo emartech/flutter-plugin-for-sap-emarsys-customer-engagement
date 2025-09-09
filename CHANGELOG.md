@@ -1,3 +1,7 @@
+# 2.7.2
+## What's fixed
+### [Push](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#32-pusheventstream)
+* Fixed issue where pushEventStreams were not receiving events, when the SDK was setup with a null applicationCode and the applicationCode was changed later.
 # 2.7.1
 ## What's fixed
 ### [Setup](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#12-setup-the-emarsys-sdk)
