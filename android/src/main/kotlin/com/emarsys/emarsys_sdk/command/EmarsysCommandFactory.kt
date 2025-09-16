@@ -62,7 +62,7 @@ class EmarsysCommandFactory(
                     application,
                     notificationChannelFactory
             )
-            "push.setPushToken" -> SetPushTokenCommand()
+            "push.setPushToken" -> SetPushTokenCommand(pushTokenStorage)
             "push.getPushToken" -> GetPushTokenCommand()
             "config.changeApplicationCode" -> ChangeApplicationCodeCommand(
                     setupCacheSharedPreferences

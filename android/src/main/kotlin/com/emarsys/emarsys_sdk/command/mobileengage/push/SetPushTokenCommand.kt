@@ -3,14 +3,16 @@ package com.emarsys.emarsys_sdk.command.mobileengage.push
 import com.emarsys.Emarsys
 import com.emarsys.emarsys_sdk.command.EmarsysCommand
 import com.emarsys.emarsys_sdk.command.ResultCallback
+import com.emarsys.emarsys_sdk.storage.PushTokenStorage
 
-class SetPushTokenCommand : EmarsysCommand {
+class SetPushTokenCommand(private val pushTokenStorage: PushTokenStorage) : EmarsysCommand {
 
     override fun execute(parameters: Map<String, Any?>?, resultCallback: ResultCallback) {
         val pushToken: String? = (parameters?.get("pushToken") as? String)
 
         if (!pushToken.isNullOrEmpty()) {
             Emarsys.push.setPushToken(pushToken) {
+                pushTokenStorage.pushToken = pushToken
                 resultCallback.invoke(null, it)
             }
         } else {

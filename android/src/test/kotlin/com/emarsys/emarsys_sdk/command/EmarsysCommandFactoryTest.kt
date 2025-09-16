@@ -17,6 +17,7 @@ import com.emarsys.emarsys_sdk.command.mobileengage.push.SetPushTokenCommand
 import com.emarsys.emarsys_sdk.command.predict.*
 import com.emarsys.emarsys_sdk.command.setup.InitializeCommand
 import com.emarsys.emarsys_sdk.command.setup.SetupCommand
+import com.emarsys.emarsys_sdk.storage.PushTokenStorage
 import io.kotest.matchers.shouldBe
 import io.mockk.mockk
 import org.junit.Before
@@ -24,13 +25,15 @@ import org.junit.Test
 
 class EmarsysCommandFactoryTest {
     private lateinit var factory: EmarsysCommandFactory
+    private lateinit var mockPushTokenStorage: PushTokenStorage
 
     @Before
     fun setUp() {
+        mockPushTokenStorage = mockk(relaxed = true)
         factory =
             EmarsysCommandFactory(
                 mockk(),
-                mockk(),
+                mockPushTokenStorage,
                 mockk(),
                 mockk(),
                 mockk(),
@@ -90,7 +93,7 @@ class EmarsysCommandFactoryTest {
     fun testCreate_shouldCreateSetPushTokenCommandFromMethodCall() {
         val result = factory.create("push.setPushToken")
 
-        result shouldBe SetPushTokenCommand()
+        result shouldBe SetPushTokenCommand(mockPushTokenStorage)
     }
 
     @Test
