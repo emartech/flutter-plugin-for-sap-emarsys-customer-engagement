@@ -10,6 +10,8 @@ public class UserNotificationCenterDelegateCacher: NSObject, UNUserNotificationC
     private var emarsysNotificationCenterDelegate: UNUserNotificationCenterDelegate?
     private var caching = true
     
+    public var manualPushEventHandler: ((String, [String: Any]?) -> Void)?
+    
     public static let instance = UserNotificationCenterDelegateCacher()
     
     public func userNotificationCenter(
@@ -22,10 +24,14 @@ public class UserNotificationCenterDelegateCacher: NSObject, UNUserNotificationC
                 "response": response,
                 "completionHandler": completionHandler,
             ])
-        }
+        }     
         if isEmarsysNotification(notification: response.notification) {
             emarsysNotificationCenterDelegate?.userNotificationCenter?(
                 center, didReceive: response, withCompletionHandler: completionHandler)
+            // Manual fallback for Flutter event
+            if let manualHandler = manualPushEventHandler {
+                manualHandler("push", response.notification.request.content.userInfo as? [String: Any])
+            }
         } else {
             customDelegates.forEach { delegate in
                 delegate.userNotificationCenter?(
@@ -48,6 +54,10 @@ public class UserNotificationCenterDelegateCacher: NSObject, UNUserNotificationC
         if isEmarsysNotification(notification: notification) {
             emarsysNotificationCenterDelegate?.userNotificationCenter?(
                 center, willPresent: notification, withCompletionHandler: completionHandler)
+            // Manual fallback for Flutter event
+            if let manualHandler = manualPushEventHandler {
+                manualHandler("push", notification.request.content.userInfo as? [String: Any])
+            }
         } else {
             customDelegates.forEach { delegate in
                 delegate.userNotificationCenter?(
@@ -85,14 +95,14 @@ public class UserNotificationCenterDelegateCacher: NSObject, UNUserNotificationC
     }
     
     func emptyCache(with notificationCenterDelegate: UNUserNotificationCenterDelegate) {
-        self.emarsysNotificationCenterDelegate = notificationCenterDelegate
+        self.emarsysNotificationCenterDelegate = notificationCenterDelegate        
         willPresentCache.forEach { cachedDict in
             notificationCenterDelegate.userNotificationCenter?(
                 cachedDict["center"] as! UNUserNotificationCenter,
                 willPresent: cachedDict["notification"] as! UNNotification,
                 withCompletionHandler: cachedDict["completionHandler"]
                 as! (UNNotificationPresentationOptions) -> Void)
-        }
+        }        
         didReceiveCache.forEach { cachedDict in
             notificationCenterDelegate.userNotificationCenter?(
                 cachedDict["center"] as! UNUserNotificationCenter,

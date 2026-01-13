@@ -11,9 +11,11 @@ import com.emarsys.emarsys_sdk.di.dependencyContainerIsSetup
 import com.emarsys.emarsys_sdk.di.setupDependencyContainer
 import com.emarsys.emarsys_sdk.flutter.FlutterBackgroundExecutor
 import com.emarsys.emarsys_sdk.provider.MainHandlerProvider
+import com.emarsys.emarsys_sdk.util.JsonUtils
 import com.emarsys.service.EmarsysFirebaseMessagingServiceUtils
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import org.json.JSONObject
 import java.util.*
 
 class EmarsysFirebaseMessagingService : FirebaseMessagingService() {
@@ -41,6 +43,20 @@ class EmarsysFirebaseMessagingService : FirebaseMessagingService() {
             synchronized(messageQueue) {
                 messageQueue.forEach {
                     EmarsysFirebaseMessagingServiceUtils.handleMessage(context, it)
+                    
+                    if (dependencyContainerIsSetup()) {
+                        try {
+                            val payload = JSONObject()
+                            it.data.forEach { (key, value) ->
+                                payload.put(key, value)
+                            }
+                            dependencyContainer().uiHandler.post {
+                                dependencyContainer().pushEventHandler.handleEvent(context, "push", payload)
+                            }
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    }
                 }
                 messageQueue.clear()
             }

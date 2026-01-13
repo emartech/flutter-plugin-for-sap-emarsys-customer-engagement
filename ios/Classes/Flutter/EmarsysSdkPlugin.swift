@@ -17,6 +17,9 @@ public class EmarsysSdkPlugin: NSObject, FlutterPlugin {
         let geofenceHandler = EmarsysStreamHandler()
         let inAppHandler = EmarsysStreamHandler()
         
+        // Manual fallback for push events
+        UserNotificationCenterDelegateCacher.instance.manualPushEventHandler = pushHandler.eventHandler
+        
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "EmarsysSDKWrapperCheckerNotification"), object: nil, queue: nil) { (notification) in
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "EmarsysSDKWrapperExist"), object: "flutter")
         }
@@ -43,7 +46,7 @@ public class EmarsysSdkPlugin: NSObject, FlutterPlugin {
         registrar.register(inlineInappViewFactory, withId: "inlineInAppView")
     }
     
-    public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {     
         guard let command = EmarsysSdkPlugin.factory?.create(name: call.method) else {
             let flutterError = FlutterError(code: "1501", message: "Command creation failed", details: nil)
             result(flutterError)
