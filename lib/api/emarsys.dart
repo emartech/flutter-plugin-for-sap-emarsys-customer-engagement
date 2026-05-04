@@ -76,7 +76,7 @@ class Emarsys {
   static final _GetCallbackHandle _getCallbackHandle =
       (Function callback) => PluginUtilities.getCallbackHandle(callback);
 
-  static _initialize() async {
+  static Future<bool> _initialize() async {
     bool? result = false;
     if (Platform.isAndroid) {
       final handle = _getCallbackHandle(_callbackDispatcher);

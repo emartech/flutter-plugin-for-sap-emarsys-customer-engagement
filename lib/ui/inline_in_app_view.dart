@@ -94,14 +94,14 @@ class InlineInAppView extends StatelessWidget {
     _registerOnAppEventListener(id);
   }
 
-  void _registerOnCloseListener(id) {
+  void _registerOnCloseListener(int id) {
     EventChannel? eventChannel = EventChannel("inlineInAppViewOnClose$id");
     eventChannel.receiveBroadcastStream().listen((event) {
       onClose?.call();
     });
   }
 
-  void _registerOnCompletedListener(id) {
+  void _registerOnCompletedListener(int id) {
     EventChannel? eventChannel = EventChannel("inlineInAppViewOnCompleted$id");
     eventChannel.receiveBroadcastStream().listen((event) {
       onCompleted?.call();
@@ -110,7 +110,7 @@ class InlineInAppView extends StatelessWidget {
     });
   }
 
-  void _registerOnAppEventListener(id) {
+  void _registerOnAppEventListener(int id) {
     EventChannel? eventChannel = EventChannel("inlineInAppViewOnAppEvent$id");
     eventChannel.receiveBroadcastStream().listen((event) {
       onAppEvent?.call(Event(
