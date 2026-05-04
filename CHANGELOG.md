@@ -1,3 +1,10 @@
+# 2.7.3
+## What's fixed
+### [Push](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#3-push)
+* Fixed an issue where iOS push tokens were not being stored during setup
+### [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
+* Updated underlying [Android SDK](https://github.com/emartech/android-emarsys-sdk/releases/tag/3.11.0) to 3.11.0
+* Updated underlying [IOS SDK](https://github.com/emartech/ios-emarsys-sdk/releases/tag/3.10.0) to 3.10.0
 # 2.7.2
 ## What's fixed
 ### [Push](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#32-pusheventstream)
