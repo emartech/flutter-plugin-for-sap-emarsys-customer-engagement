@@ -34,7 +34,7 @@ android {
     if (project.android.hasProperty("namespace")) {
         namespace 'com.emarsys.emarsys_sdk'
     }
-    compileSdkVersion 35
+    compileSdkVersion 36
     compileOptions {
         coreLibraryDesugaringEnabled true
     }
@@ -54,7 +54,7 @@ android {
 
 
 dependencies {
-    ext.emarsys_sdk_version = '3.10.2'
+    ext.emarsys_sdk_version = '3.11.0'
     ext.junit_version = '4.13.2' 
     ext.kotest_version = '5.9.1'
     ext.mockk_version = '1.13.17'

@@ -8,7 +8,8 @@ plugins {
 
 android {
     namespace = "com.emarsys.emarsys_sdk"
-    compileSdk = 35
+    compileSdk = 36
+    ndkVersion = "28.2.13676358"
     defaultConfig {
         applicationId = "com.emarsys.emarsys_sdk_example"
         targetSdk = flutter.targetSdkVersion

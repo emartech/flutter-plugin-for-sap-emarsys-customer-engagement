@@ -13,7 +13,6 @@ void main() async {
 
   await Emarsys.setup(EmarsysConfig(
     applicationCode: prefs.getString("appcode") ?? 'EMS74-EFB68',
-    merchantId: "1428C8EE286EC34B",
     androidVerboseConsoleLoggingEnabled: true,
     androidSharedPackageNames: ["com.emarsys.sample"],
     androidSharedSecret: "secret",
