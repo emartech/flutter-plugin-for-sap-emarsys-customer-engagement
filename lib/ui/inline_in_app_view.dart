@@ -89,19 +89,23 @@ class InlineInAppView extends StatelessWidget {
   }
 
   void _onPlatformViewCreated(int id) {
-    _registerOnCloseListener(id);
-    _registerOnCompletedListener(id);
-    _registerOnAppEventListener(id);
+    registerOnCloseListener(id);
+    registerOnCompletedListener(id);
+    registerOnAppEventListener(id);
   }
 
-  void _registerOnCloseListener(int id) {
+  @visibleForTesting
+  void registerOnCloseListener(int id) {
     EventChannel? eventChannel = EventChannel("inlineInAppViewOnClose$id");
     eventChannel.receiveBroadcastStream().listen((event) {
       onClose?.call();
+    }).onError((error) {
+      print(error);
     });
   }
 
-  void _registerOnCompletedListener(int id) {
+  @visibleForTesting
+  void registerOnCompletedListener(int id) {
     EventChannel? eventChannel = EventChannel("inlineInAppViewOnCompleted$id");
     eventChannel.receiveBroadcastStream().listen((event) {
       onCompleted?.call();
@@ -110,12 +114,15 @@ class InlineInAppView extends StatelessWidget {
     });
   }
 
-  void _registerOnAppEventListener(int id) {
+  @visibleForTesting
+  void registerOnAppEventListener(int id) {
     EventChannel? eventChannel = EventChannel("inlineInAppViewOnAppEvent$id");
     eventChannel.receiveBroadcastStream().listen((event) {
       onAppEvent?.call(Event(
           name: event["name"],
           payload: Map<String, dynamic>.from(event["payload"])));
+    }).onError((error) {
+      print(error);
     });
   }
 }
