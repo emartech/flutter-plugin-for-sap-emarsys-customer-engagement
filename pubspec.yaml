@@ -11,12 +11,12 @@ dependencies:
   flutter:
     sdk: flutter
   shared_preferences: ^2.2.0
-  equatable: ^2.0.5
+  equatable: ^2.1.0
   
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
   build_runner: ^2.1.5
   build_version: ^2.1.0
 
@@ -47,7 +47,7 @@ scripts:
     - echo running iOS unit tests
     - rm -rf ~/Library/Developer/Xcode/DerivedData
     - cd example/ios && pod deintegrate && pod install --no-repo-update --verbose
-    - cd example/ios && xcodebuild -workspace Runner.xcworkspace -scheme RunnerTests -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 16' test
+    - cd example/ios && xcodebuild -workspace Runner.xcworkspace -scheme RunnerTests -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 17' test
   test:
     - $test-flutter
     - sleep 10s
