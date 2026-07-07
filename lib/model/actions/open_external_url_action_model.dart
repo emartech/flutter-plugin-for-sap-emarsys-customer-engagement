@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 import 'package:emarsys_sdk/model/action_model.dart';
 
-class OpenExternalUrlActionModel extends ActionModel with EquatableMixin {
+class OpenExternalUrlActionModel extends ActionModel with Equatable {
   final String url;
 
   OpenExternalUrlActionModel(

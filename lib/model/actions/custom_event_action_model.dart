@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 import '../action_model.dart';
 
-class CustomEventActionModel extends ActionModel with EquatableMixin {
+class CustomEventActionModel extends ActionModel with Equatable {
   final String name;
 
   final Map<String, Object>? payload;

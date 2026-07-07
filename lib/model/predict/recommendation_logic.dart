@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import './logic.dart';
 import 'cart_item.dart';
 
-class RecommendationLogic extends Logic with EquatableMixin {
+class RecommendationLogic extends Logic with Equatable {
   static const String _SEARCH = "SEARCH";
   static const String _CART = "CART";
   static const String _RELATED = "RELATED";
