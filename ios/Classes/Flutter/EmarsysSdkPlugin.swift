@@ -1,5 +1,6 @@
 import Flutter
 import UIKit
+import EmarsysSDK
 
 public class EmarsysSdkPlugin: NSObject, FlutterPlugin {
     
@@ -39,8 +40,15 @@ public class EmarsysSdkPlugin: NSObject, FlutterPlugin {
         
         let instance = EmarsysSdkPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
+        registrar.addApplicationDelegate(instance)
         let inlineInappViewFactory = InlineInAppViewFactory(messenger: registrar.messenger())
         registrar.register(inlineInappViewFactory, withId: "inlineInAppView")
+    }
+    
+    @objc public func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) -> Bool {
+        Emarsys.push.handleMessage(userInfo: userInfo)
+        completionHandler(.newData)
+        return true
     }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
