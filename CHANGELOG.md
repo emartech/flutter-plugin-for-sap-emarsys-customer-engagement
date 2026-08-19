@@ -1,3 +1,11 @@
+# 2.7.5
+## What's fixed
+### [Push](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki#3-push)
+* Fixed an isssue where silent push notification events were not triggered in the wrapper on the iOS platform. Silent messages now work properly if the application is in the foreground or in the background.
+## What's changed
+### [Emarsys SDK](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/)
+* Updated underlying [Android SDK](https://github.com/emartech/android-emarsys-sdk/releases/tag/3.11.2) to 3.11.2
+* Updated underlying [IOS SDK](https://github.com/emartech/ios-emarsys-sdk/releases/tag/3.10.2) to 3.10.2
 # 2.7.4
 ## What's changed
 ### [Flutter](https://github.com/emartech/flutter-plugin-for-sap-emarsys-customer-engagement/wiki)
