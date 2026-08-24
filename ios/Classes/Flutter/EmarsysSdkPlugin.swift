@@ -46,7 +46,8 @@ public class EmarsysSdkPlugin: NSObject, FlutterPlugin {
     }
     
     @objc public func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) -> Bool {
-        Emarsys.push.handleMessage(userInfo: userInfo)
+        NSLog("[EmarsysWrapper] didReceiveRemoteNotification fired. setupCompleted=\(RemoteMessageHolder.instance.setupCompleted)")
+        RemoteMessageHolder.instance.handleMessage(userInfo: userInfo)
         completionHandler(.newData)
         return true
     }

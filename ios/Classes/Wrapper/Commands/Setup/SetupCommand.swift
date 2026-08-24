@@ -78,8 +78,9 @@ public class SetupCommand: EmarsysCommandProtocol {
             Emarsys.push.notificationEventHandler = self.pushEventHandler
             Emarsys.geofence.eventHandler = self.geofenceEventHandler
             Emarsys.inApp.eventHandler = self.inAppEventHandler
-            
+
             Emarsys.trackCustomEvent(eventName: "wrapper:init", eventAttributes: ["type" : "flutter"])
+            RemoteMessageHolder.instance.emptyCache()
             resultCallback(["success": true])
         }
     }
