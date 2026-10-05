@@ -3,7 +3,7 @@ version '1.0-SNAPSHOT'
 
 buildscript {
     ext.gradle_version = '8.9.1'
-    ext.kotlin_version = '2.4.0'
+    ext.kotlin_version = '2.4.20'
     ext.agconnect_version = '1.9.1.304'
     repositories {
         mavenCentral()
