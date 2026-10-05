@@ -2,13 +2,23 @@ group 'com.emarsys.emarsys_sdk'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.gradle_version = '8.9.1'
+    ext.gradle_version = '9.4.1'
     ext.kotlin_version = '2.4.20'
     ext.agconnect_version = '1.9.1.304'
     repositories {
         mavenCentral()
         google()
         maven { url 'https://developer.huawei.com/repo/' }
+    }
+
+    configurations.all {
+        resolutionStrategy {
+            force 'org.bouncycastle:bcprov-jdk18on:1.86'
+            force 'org.bouncycastle:bcpkix-jdk18on:1.86'
+            force 'org.bouncycastle:bcutil-jdk18on:1.86'
+            force 'org.bitbucket.b_c:jose4j:0.9.7'
+            force 'org.jdom:jdom2:2.0.6.1'
+        }
     }
 
     dependencies {
@@ -28,13 +38,10 @@ rootProject.allprojects {
 }
 
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
 
 android {
-    if (project.android.hasProperty("namespace")) {
-        namespace 'com.emarsys.emarsys_sdk'
-    }
-    compileSdkVersion 36
+    namespace 'com.emarsys.emarsys_sdk'
+    compileSdk 36
     compileOptions {
         coreLibraryDesugaringEnabled true
     }
