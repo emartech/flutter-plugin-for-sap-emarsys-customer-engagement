@@ -20,10 +20,6 @@ android {
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
     }
-
-    kotlin {
-        jvmToolchain(17)
-    }
 }
 
 dependencies {
@@ -34,4 +30,8 @@ dependencies {
 
 flutter {
     source = "../.."
+}
+
+kotlin {
+    jvmToolchain(17)
 }
