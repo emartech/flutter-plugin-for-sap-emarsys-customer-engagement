@@ -27,6 +27,7 @@ dependencies:
   cupertino_icons: ^1.0.8
 
   shared_preferences: any
+  shared_preferences_android: ^2.4.20
 dev_dependencies:
   flutter_test:
     sdk: flutter

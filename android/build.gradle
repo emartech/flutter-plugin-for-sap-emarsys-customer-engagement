@@ -38,11 +38,14 @@ rootProject.allprojects {
 }
 
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 android {
     namespace 'com.emarsys.emarsys_sdk'
     compileSdk 36
     compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
         coreLibraryDesugaringEnabled true
     }
     sourceSets {
@@ -54,11 +57,11 @@ android {
         minSdkVersion 24
     }
 
-    kotlin {
-        jvmToolchain(17)
-    }
 }
 
+kotlin {
+    jvmToolchain(17)
+}
 
 dependencies {
     ext.emarsys_sdk_version = '3.11.2'
