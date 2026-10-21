@@ -103,6 +103,32 @@ jobs:
       - name: Run iOS unit tests
         run: xcodebuild -workspace ~/work/flutter-plugin-for-sap-emarsys-customer-engagement/flutter-plugin-for-sap-emarsys-customer-engagement/example/ios/Runner.xcworkspace -scheme RunnerTests -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.6' test
 
+  IOS-SPM:
+    runs-on: macos-15
+    needs: [Lint]
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup flutter env
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.35.1"
+          architecture: x64
+          channel: "stable"
+
+      - name: Enable Swift Package Manager
+        run: flutter config --enable-swift-package-manager
+
+      - name: Update dependencies
+        run: flutter pub get
+
+      - name: Use Xcode 16.4
+        run: sudo xcode-select -switch /Applications/Xcode_16.4.app
+
+      - name: Build example app with Swift Package Manager
+        run: (cd example && flutter build ios --simulator --debug)
+
   Flutter:
     runs-on: macos-15
     needs: [ Lint ]
