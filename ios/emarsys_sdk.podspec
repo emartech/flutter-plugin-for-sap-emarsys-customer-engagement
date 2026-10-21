@@ -13,8 +13,9 @@ This is the iOS native part of the Flutter plug-in for SAP Emarsys Customer Enga
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Emarsys' => 'sdk-team@emarsys.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
+  s.source_files = 'emarsys_sdk/Sources/emarsys_sdk/**/*'
   s.dependency 'Flutter'
+  # Keep in sync with the ios-emarsys-sdk dependency in emarsys_sdk/Package.swift.
   s.dependency 'EmarsysSDK','~> 3.10.2'
   s.platform = :ios, '14.0'
 
